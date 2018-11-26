@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_023b0a39",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/OneWaySslAuthorization.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:48:10Z",
+      "side": 1,
+      "message": "Thats a good catch, I agree. I will make that change.",
+      "parentUuid": "9adffdf1_02cd4a5d",
+      "range": {
+        "startLine": 65,
+        "startChar": 30,
+        "endLine": 65,
+        "endChar": 50
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_a2db1e1a",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
         "patchSetId": 2
