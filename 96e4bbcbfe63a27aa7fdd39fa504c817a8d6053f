@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e2ca864e",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/HttpHeaderInterceptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:37:06Z",
+      "side": 1,
+      "message": "why is HTTP POST verb being converted into PATCH?\nthese two verbs typically have different semantics.",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_02cd4a5d",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/OneWaySslAuthorization.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:37:06Z",
+      "side": 1,
+      "message": "this could be changing too much of the string and doesn\u0027t need to invoke regex (under the covers of replaceAll). it could just be calling substring(6) to get the part after the space.",
+      "range": {
+        "startLine": 65,
+        "startChar": 30,
+        "endLine": 65,
+        "endChar": 50
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a2db1e1a",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:37:06Z",
+      "side": 1,
+      "message": "why does it have a hard-coded pattern for 11, 12, 13, ..., 19? what happens after 19? is it really valid for Dublin release to accept 16, 17 18, 19 right now?",
+      "range": {
+        "startLine": 38,
+        "startChar": 58,
+        "endLine": 38,
+        "endChar": 94
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
