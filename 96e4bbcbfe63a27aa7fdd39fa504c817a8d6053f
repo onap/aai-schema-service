@@ -92,6 +92,30 @@
       "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22364e53",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:45:46Z",
+      "side": 1,
+      "message": "No, please recheck the regex.\nThe regex is v[1-9][0-9]* meaning\nit is\nv1\nand \nbeyond.\n\nit includes\nv1\nv2\n...\nv10\nv11\n...\nv20\n...\nand beyond",
+      "parentUuid": "9adffdf1_a2db1e1a",
+      "range": {
+        "startLine": 38,
+        "startChar": 58,
+        "endLine": 38,
+        "endChar": 94
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
