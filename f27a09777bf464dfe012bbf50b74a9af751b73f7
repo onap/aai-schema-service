@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_02c6aa49",
+        "filename": "aai-schema-service/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:28:20Z",
+      "side": 1,
+      "message": "Currently, it doesn\u0027t have the aai-schema, its a initial commit.",
+      "parentUuid": "9adffdf1_6289b625",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_22ac0ea0",
         "filename": "aai-schema-service/pom.xml",
         "patchSetId": 1
@@ -212,6 +236,30 @@
       "writtenOn": "2018-11-26T06:20:45Z",
       "side": 1,
       "message": "so aai-schema-service starts as a client of aai-core to get aai-schema, but what is the transition plan to make it the owner of aai-schema?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 33
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a2c47e40",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:28:20Z",
+      "side": 1,
+      "message": "This comment seems to be a duplicate and doesn\u0027t make sense here.",
+      "parentUuid": "9adffdf1_a29f9e5e",
       "range": {
         "startLine": 22,
         "startChar": 0,
