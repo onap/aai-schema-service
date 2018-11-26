@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "9adffdf1_e254c655",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:05:03Z",
+      "side": 1,
+      "message": "how often can the AAIConfig values change?\nwhy do all the string manipulation and Boolean parsing for every logging call?",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0269ca24",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:05:03Z",
+      "side": 1,
+      "message": "all of these strings are evaluated even if there is eventually no logging done",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 99
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c272e210",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:05:03Z",
+      "side": 1,
+      "message": "all of these strings are also evaluated even if there is eventually no logging done",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_425ef277",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:05:03Z",
+      "side": 1,
+      "message": "it seems weird that some logging can be selectively turned off by some HTTP verbs but not others. Also seems weird to put in empty bodies and Boolean negations, rather than the other way around.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_02f46a85",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestModification.java",
         "patchSetId": 3
