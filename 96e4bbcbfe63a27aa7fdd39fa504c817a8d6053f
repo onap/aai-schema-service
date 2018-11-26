@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_c2ed02b9",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/HttpHeaderInterceptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:43:44Z",
+      "side": 1,
+      "message": "Some of the clients are using a very old library where they are only supporting GET / POST. In order to support PATCH, we are doing an override. Please check out X-HTTP-METHOD-OVERRIDE",
+      "parentUuid": "9adffdf1_e2ca864e",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 58
+      },
+      "revId": "96e4bbcbfe63a27aa7fdd39fa504c817a8d6053f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_02cd4a5d",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/OneWaySslAuthorization.java",
         "patchSetId": 2
