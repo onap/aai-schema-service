@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_c2e0a298",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "Would it be better for AAIConfig to internally cache the Boolean values of these params and then update them if/when a reload is necessary? Might save having to redo the parseBoolean calls many times over.",
+      "parentUuid": "9adffdf1_e2db66eb",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_0269ca24",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
         "patchSetId": 3
@@ -135,6 +159,29 @@
         "startLine": 78,
         "startChar": 0,
         "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_62ef7688",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "inconsistent methods used to match HTTP verbs. is it case-sensitive or not?",
+      "range": {
+        "startLine": 84,
+        "startChar": 54,
+        "endLine": 84,
         "endChar": 66
       },
       "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
@@ -324,6 +371,52 @@
         "startChar": 0,
         "endLine": 96,
         "endChar": 8
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_82cb7a1d",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "inconsistent methods used to match HTTP verbs, is it case-sensitive or not?",
+      "range": {
+        "startLine": 110,
+        "startChar": 78,
+        "endLine": 110,
+        "endChar": 102
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a2fc7e3f",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/web/JerseyConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "inconsistent method for enabling logging. the other file used parseBoolean. Should this param be coming from AAIConfig?",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 81
       },
       "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
