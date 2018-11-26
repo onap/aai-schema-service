@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_a2e55ea9",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "same comment as in OneWay Ssl file, use substring(6)",
+      "range": {
+        "startLine": 136,
+        "startChar": 45,
+        "endLine": 136,
+        "endChar": 65
+      },
+      "revId": "60680ae996119f636817e56d1760cc3bfa27e0d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
