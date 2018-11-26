@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_22840ed3",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestModification.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:06:36Z",
+      "side": 1,
+      "message": "This is mainly for the micro services where it registers itself to DME2. This micro service wouldn\u0027t so I will remove it.",
+      "parentUuid": "9adffdf1_02f46a85",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 69
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_a2f23e98",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestTransactionLogging.java",
         "patchSetId": 3
@@ -151,6 +175,30 @@
       "writtenOn": "2018-11-26T06:55:56Z",
       "side": 1,
       "message": "if there\u0027s a problem with the way that UUID is generated, why isn\u0027t this wrapped in a aai/utils function for generating better UUID?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 8
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_8264da49",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:06:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this makes sense anymore. So let me remove this.",
+      "parentUuid": "9adffdf1_a249ded1",
       "range": {
         "startLine": 90,
         "startChar": 0,
