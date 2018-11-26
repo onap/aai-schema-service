@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_e2db66eb",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:13:55Z",
+      "side": 1,
+      "message": "Whenever a file changes the aaiconfig gets refreshed with the new values so the idea is we can change it at runtime without a restart. Thats why this was done that way.",
+      "parentUuid": "9adffdf1_e254c655",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_0269ca24",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
         "patchSetId": 3
@@ -82,6 +106,30 @@
       "writtenOn": "2018-11-26T07:05:03Z",
       "side": 1,
       "message": "it seems weird that some logging can be selectively turned off by some HTTP verbs but not others. Also seems weird to put in empty bodies and Boolean negations, rather than the other way around.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22d2ced2",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:13:55Z",
+      "side": 1,
+      "message": "For the first part, we don\u0027t want to log GET requests as those can be very expensive to log depending on certain scenarios and if there is for some reason, we can enable it and that was the point of that. For the POST, I wasn\u0027t sure why it wasn\u0027t enabled by default. For the second part, I think it only makes sense to log GETs when explicitly enabled and everything else such as PUT/PATCH/DELETE/POST should be logged properly.",
+      "parentUuid": "9adffdf1_425ef277",
       "range": {
         "startLine": 83,
         "startChar": 0,
