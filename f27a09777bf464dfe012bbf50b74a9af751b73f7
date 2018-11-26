@@ -295,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_22e88eb3",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/SchemaServiceApp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_2283ae05",
+      "range": {
+        "startLine": 135,
+        "startChar": 21,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_4286f214",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/SchemaServiceApp.java",
         "patchSetId": 1
@@ -306,6 +330,30 @@
       "writtenOn": "2018-11-26T06:20:45Z",
       "side": 1,
       "message": "inconsistent with the startup message, makes it more difficult than necessary to grep for relevant messages in the logs",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_42eb52b0",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/SchemaServiceApp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_4286f214",
       "range": {
         "startLine": 151,
         "startChar": 21,
@@ -352,6 +400,30 @@
       "writtenOn": "2018-11-26T06:20:45Z",
       "side": 1,
       "message": "why is this interceptor blindly copying the Accept type from the request as the Content-Type of the response?\nShouldn\u0027t the response already be built with a header appropriate to the body content?",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 83
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c2d662f1",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseHeaderManipulation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T06:35:01Z",
+      "side": 1,
+      "message": "The content type is the response header. It will return the type that you gave as the Accept type in the request header. So it is taking the accept header and checking if its null and if so sets the response content type as xml. If the user specified an Accept, then use that as the response content type",
+      "parentUuid": "9adffdf1_c2a8a279",
       "range": {
         "startLine": 58,
         "startChar": 16,
