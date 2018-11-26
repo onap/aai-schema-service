@@ -131,6 +131,29 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_6289b625",
+        "filename": "aai-schema-service/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "so aai-schema-service starts off as a client of aai-core to get aai-schema, but what is the transition plan to make it the owner of aai-schema?",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 59
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_22ac0ea0",
         "filename": "aai-schema-service/pom.xml",
         "patchSetId": 1
@@ -171,6 +194,167 @@
         "startChar": 8,
         "endLine": 40,
         "endChar": 44
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_a29f9e5e",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "so aai-schema-service starts as a client of aai-core to get aai-schema, but what is the transition plan to make it the owner of aai-schema?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 33
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_2283ae05",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/SchemaServiceApp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "should this log comment be more specific to schema-service? when the logs are aggregated it might be difficult to separate the similar messages from each other",
+      "range": {
+        "startLine": 135,
+        "startChar": 21,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4286f214",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/SchemaServiceApp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "inconsistent with the startup message, makes it more difficult than necessary to grep for relevant messages in the logs",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0278ea29",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/InvalidResponseStatus.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "why is this response code translated from 405 Method Not Allowed to 400 Bad Request?",
+      "range": {
+        "startLine": 42,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c2a8a279",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseHeaderManipulation.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "why is this interceptor blindly copying the Accept type from the request as the Content-Type of the response?\nShouldn\u0027t the response already be built with a header appropriate to the body content?",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 83
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_82ba9abe",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "where are the other options for HTTP verbs PUT, PATCH, DELETE?",
+      "range": {
+        "startLine": 64,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22b16ee1",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T06:20:45Z",
+      "side": 1,
+      "message": "where are the other options for HTTP verbs PUT, PATCH, DELETE?",
+      "range": {
+        "startLine": 84,
+        "startChar": 19,
+        "endLine": 85,
+        "endChar": 79
       },
       "revId": "f27a09777bf464dfe012bbf50b74a9af751b73f7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
