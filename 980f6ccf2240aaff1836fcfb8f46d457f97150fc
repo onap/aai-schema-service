@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_e202863d",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_0269ca24",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 99
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_c272e210",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
         "patchSetId": 3
@@ -83,6 +107,30 @@
       "writtenOn": "2018-11-26T07:05:03Z",
       "side": 1,
       "message": "all of these strings are also evaluated even if there is eventually no logging done",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_42ecb28f",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:20:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_c272e210",
       "range": {
         "startLine": 78,
         "startChar": 0,
@@ -129,6 +177,30 @@
       "writtenOn": "2018-11-26T07:13:55Z",
       "side": 1,
       "message": "For the first part, we don\u0027t want to log GET requests as those can be very expensive to log depending on certain scenarios and if there is for some reason, we can enable it and that was the point of that. For the POST, I wasn\u0027t sure why it wasn\u0027t enabled by default. For the second part, I think it only makes sense to log GETs when explicitly enabled and everything else such as PUT/PATCH/DELETE/POST should be logged properly.",
+      "parentUuid": "9adffdf1_425ef277",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22e96e80",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:20:38Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9adffdf1_425ef277",
       "range": {
         "startLine": 83,
