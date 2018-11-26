@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_22a08e42",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:41:09Z",
+      "side": 1,
+      "message": "I don\u0027t think calling parseBoolean multiple times we will benefit much as that is just more of an over optimization.",
+      "parentUuid": "9adffdf1_c2e0a298",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 70
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_0269ca24",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
         "patchSetId": 3
@@ -401,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_a2931ef9",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:41:09Z",
+      "side": 1,
+      "message": "httpMethod returns an upper case PATCH and we are comparing against the lower case and ignoring case. So not sure what the problem is.",
+      "parentUuid": "9adffdf1_82cb7a1d",
+      "range": {
+        "startLine": 110,
+        "startChar": 78,
+        "endLine": 110,
+        "endChar": 102
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_a2fc7e3f",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/web/JerseyConfiguration.java",
         "patchSetId": 3
@@ -412,6 +460,30 @@
       "writtenOn": "2018-11-26T07:26:59Z",
       "side": 1,
       "message": "inconsistent method for enabling logging. the other file used parseBoolean. Should this param be coming from AAIConfig?",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 81
+      },
+      "revId": "980f6ccf2240aaff1836fcfb8f46d457f97150fc",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c28e62d0",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/web/JerseyConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-26T07:41:09Z",
+      "side": 1,
+      "message": "This is more or less a duplicate of the transaction logging so removing it. It was never enabled.",
+      "parentUuid": "9adffdf1_a2fc7e3f",
       "range": {
         "startLine": 57,
         "startChar": 12,
