@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_629696f2",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-26T07:26:59Z",
+      "side": 1,
+      "message": "You\u0027re right, I did misread this regex. It is a very wide range of numbers.\nWondering why it isn\u0027t tied to the schema.version.list in application.properties instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 74,
+        "endLine": 38,
+        "endChar": 95
+      },
+      "revId": "3d26e7c80b14981cecfca8b69596109a159e2487",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
