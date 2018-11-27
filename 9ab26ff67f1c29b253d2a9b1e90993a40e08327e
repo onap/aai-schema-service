@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_e28e01d0",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "not needed any more, since config option code was removed",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_42b7cd86",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/post/ResponseTransactionLogging.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "should use HttpMethod.GET instead of string literal, as per HttpHeaderInterceptor",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 74,
+        "endChar": 55
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_62ba1170",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestTransactionLogging.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "unused parameter?",
+      "range": {
+        "startLine": 85,
+        "startChar": 38,
+        "endLine": 85,
+        "endChar": 61
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22ac0935",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "should use javax.ws.rs.HttpMethod.POST instead of string literal, as per HttpHeaderInterceptor, also to highlight the distinction from org.onap.aai.restcore.HttpMethod",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c2aadd18",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "same as for POST above",
+      "range": {
+        "startLine": 107,
+        "startChar": 15,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_e2a5a147",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T06:00:18Z",
+      "side": 1,
+      "message": "same as for PATCH above",
+      "range": {
+        "startLine": 110,
+        "startChar": 78,
+        "endLine": 110,
+        "endChar": 85
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
