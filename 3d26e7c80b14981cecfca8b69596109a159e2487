@@ -46,6 +46,30 @@
       "revId": "3d26e7c80b14981cecfca8b69596109a159e2487",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_22fe4939",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2018-11-27T05:28:04Z",
+      "side": 1,
+      "message": "does schema-service start with v1 API serving up v15 schema?\nis that a behaviour change in the API?\ncurrently for resources and traversal, the API version and the schema version are one-and-the-same, right?",
+      "parentUuid": "9adffdf1_02854aac",
+      "range": {
+        "startLine": 38,
+        "startChar": 74,
+        "endLine": 38,
+        "endChar": 95
+      },
+      "revId": "3d26e7c80b14981cecfca8b69596109a159e2487",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
