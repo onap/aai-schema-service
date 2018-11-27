@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_98ed2228",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-27T12:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_22ac0935",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_c2aadd18",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
         "patchSetId": 9
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_78eabe10",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-27T12:04:27Z",
+      "side": 1,
+      "message": "There is no PATCH method in HttpMethod in javax.rs.core so creating a static variable",
+      "parentUuid": "9adffdf1_c2aadd18",
+      "range": {
+        "startLine": 107,
+        "startChar": 15,
+        "endLine": 107,
+        "endChar": 22
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_e2a5a147",
         "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
         "patchSetId": 9
@@ -128,6 +176,30 @@
       "writtenOn": "2018-11-27T06:00:18Z",
       "side": 1,
       "message": "same as for PATCH above",
+      "range": {
+        "startLine": 110,
+        "startChar": 78,
+        "endLine": 110,
+        "endChar": 85
+      },
+      "revId": "9ab26ff67f1c29b253d2a9b1e90993a40e08327e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_38f436f1",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/TwoWaySslAuthorization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-27T12:04:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_e2a5a147",
       "range": {
         "startLine": 110,
         "startChar": 78,
