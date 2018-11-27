@@ -70,6 +70,30 @@
       "revId": "3d26e7c80b14981cecfca8b69596109a159e2487",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_38a67611",
+        "filename": "aai-schema-service/src/main/java/org/onap/aai/schemaservice/interceptors/pre/RequestHeaderManipulation.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2018-11-27T11:56:16Z",
+      "side": 1,
+      "message": "This is a new microservice, so we have to start the API versioning with v1. When the user makes a request to retrieve the schema or edges, they will send that as version query parameter. For resources and traversal, they are the same but for this microservice they won\u0027t be the same.",
+      "parentUuid": "9adffdf1_22fe4939",
+      "range": {
+        "startLine": 38,
+        "startChar": 74,
+        "endLine": 38,
+        "endChar": 95
+      },
+      "revId": "3d26e7c80b14981cecfca8b69596109a159e2487",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
