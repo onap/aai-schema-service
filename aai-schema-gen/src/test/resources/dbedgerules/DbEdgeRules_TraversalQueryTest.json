@@ -1,0 +1,156 @@
+{
+	"rules": [
+		{
+			"from": "generic-vnf",
+			"to": "vnfc",
+			"label": "uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "vnfc",
+			"to": "generic-vnf",
+			"label": "re-uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "vce",
+			"to": "vnfc",
+			"label": "vce-vnfc",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "pserver",
+			"to": "vce",
+			"label": "pserver-vce",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "generic-vnf",
+			"to": "pserver",
+			"label": "generic-vnf-pserver-A",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "generic-vnf",
+			"to": "pserver",
+			"label": "generic-vnf-pserver-B",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "complex",
+			"to": "generic-vnf",
+			"label": "complex-generic-vnf-A",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "complex",
+			"to": "generic-vnf",
+			"label": "complex-generic-vnf-B",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "l-interface",
+			"to": "logical-link",
+			"label": "usesLogicalLink",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "l-interface",
+			"to": "logical-link",
+			"label": "sourceLInterface",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "l-interface",
+			"to": "logical-link",
+			"label": "targetLInterface",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description": "Hard to describe"
+		},	
+		{
+			"from": "pserver",
+			"to": "vnfc",
+			"label": "uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "Hard to describe"
+		},
+		{
+			"from": "l-interface",
+			"to": "p-interface",
+			"label": "tosca.relationships.network.BindsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true"
+		}
+	]
+}
