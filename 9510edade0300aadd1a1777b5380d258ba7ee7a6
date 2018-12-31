@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_2424d1ad",
+        "filename": "aai-schema-gen/src/test/resources/oxm/business_oxm_v11.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-12-31T16:35:46Z",
+      "side": 1,
+      "message": "Does this file need a license comment?",
+      "revId": "9510edade0300aadd1a1777b5380d258ba7ee7a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_c43ce5ca",
+        "filename": "aai-schema-gen/src/test/resources/oxm/business_v11.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-12-31T16:35:46Z",
+      "side": 1,
+      "message": "Does this file need a license comment?",
+      "revId": "9510edade0300aadd1a1777b5380d258ba7ee7a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
