@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_7fe340a4",
+        "filename": "aai-schema-gen/src/test/resources/oxm/business_oxm_v11.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2019-01-03T02:21:31Z",
+      "side": 1,
+      "message": "You are correct. Adding the license",
+      "parentUuid": "9adffdf1_2424d1ad",
+      "revId": "9510edade0300aadd1a1777b5380d258ba7ee7a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_c43ce5ca",
         "filename": "aai-schema-gen/src/test/resources/oxm/business_v11.xml",
         "patchSetId": 3
