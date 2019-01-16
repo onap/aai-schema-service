@@ -20,6 +20,8 @@
 package org.onap.aai.schemaservice.web;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.onap.aai.schemaservice.healthcheck.EchoResource;
+import org.onap.aai.schemaservice.versions.VersionResource;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -45,6 +47,9 @@ public class JerseyConfiguration extends ResourceConfig {
     public JerseyConfiguration(Environment env) {
 
         this.env = env;
+
+        register(VersionResource.class);
+        register(EchoResource.class);
 
         //Request Filters
         registerFiltersForRequests();
