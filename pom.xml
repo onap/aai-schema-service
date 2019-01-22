@@ -37,6 +37,7 @@
         <module>aai-annotations</module>
         <module>aai-schema-gen</module>
         <module>aai-schema</module>
+        <module>aai-queries</module>
         <module>aai-schema-service</module>
     </modules>
     <properties>

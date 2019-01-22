@@ -1377,7 +1377,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Represents a HPA capability",indexedProps="hpa-feature,architecture,hpa-capability-id",dependentOn="flavor,cloud-region",container="hpa-capabilities",requiredProps="hpa-capability-id,hpa-feature")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Represents a HPA capability",indexedProps="hpa-feature,architecture,hpa-capability-id",dependentOn="flavor,cloud-region",container="hpa-capabilities",requiredProps="hpa-capability-id,hpa-feature",uriTemplate="/hpa-capabilities/hpa-capability/{hpa-capability-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -1986,7 +1986,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist common address information of external systems.",indexedProps="esr-system-info-id,system-name,system-type",searchable="esr-system-info-id,system-name,system-type",container="esr-system-info-list",dependentOn="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc",requiredProps="esr-system-info-id,user-name,password,system-type")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist common address information of external systems.",indexedProps="esr-system-info-id,system-name,system-type",searchable="esr-system-info-id,system-name,system-type",container="esr-system-info-list",dependentOn="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc",requiredProps="esr-system-info-id,user-name,password,system-type",uriTemplate="/esr-system-info-list/esr-system-info/{esr-system-info-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -2915,7 +2915,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist EMS address information used by EMS driver.",indexedProps="ems-id",searchable="ems-id",container="esr-ems-list",namespace="external-system",requiredProps="ems-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist EMS address information used by EMS driver.",indexedProps="ems-id",searchable="ems-id",container="esr-ems-list",namespace="external-system",requiredProps="ems-id",uriTemplate="/external-system/esr-ems-list/esr-ems/{ems-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -2954,7 +2954,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist VNFM address information used by VF-C.",indexedProps="vnfm-id",searchable="vnfm-id",container="esr-vnfm-list",namespace="external-system",requiredProps="vnfm-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist VNFM address information used by VF-C.",indexedProps="vnfm-id",searchable="vnfm-id",container="esr-vnfm-list",namespace="external-system",requiredProps="vnfm-id",uriTemplate="/external-system/esr-vnfm-list/esr-vnfm/{vnfm-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -3007,7 +3007,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist SDNC address information used by ONAP SDNC.",indexedProps="sdnc-id",searchable="sdnc-id",container="esr-thirdparty-sdnc-list",namespace="external-system",requiredProps="thirdparty-sdnc-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist SDNC address information used by ONAP SDNC.",indexedProps="sdnc-id",searchable="sdnc-id",container="esr-thirdparty-sdnc-list",namespace="external-system",requiredProps="thirdparty-sdnc-id",uriTemplate="/external-system/esr-thirdparty-sdnc-list/esr-thirdparty-sdnc/{thirdparty-sdnc-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
