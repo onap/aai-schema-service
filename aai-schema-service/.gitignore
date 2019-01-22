@@ -14,4 +14,4 @@ bundleconfig-local/etc/logback.xml
 *.iml
 **/dbedgerules/**
 **/oxm/**
-**/query/**
+**/query/*.json
