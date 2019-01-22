@@ -23,6 +23,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaResource;
+import org.onap.aai.schemaservice.query.QueryResource;
 import org.onap.aai.schemaservice.versions.VersionResource;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class JerseyConfiguration extends ResourceConfig {
         register(VersionResource.class);
         register(EchoResource.class);
         register(NodeSchemaResource.class);
+        register(QueryResource.class);
         register(EdgeResource.class);
 
         //Request Filters
