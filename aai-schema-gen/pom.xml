@@ -36,7 +36,7 @@
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
         <!-- Start of Default ONAP Schema Properties -->
 	<aai.wiki.link>https://wiki.onap.org/</aai.wiki.link>
-        <gendoc.version>v15</gendoc.version>
+        <gendoc.version>v16</gendoc.version>
         <aai.release>onap</aai.release>
         <schema.uri.base.path>/aai</schema.uri.base.path>
         <schema.xsd.maxoccurs>5000</schema.xsd.maxoccurs>
@@ -48,8 +48,8 @@
         <schema.version.app.root.start>v11</schema.version.app.root.start>
         <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
         <schema.version.edge.label.start>v12</schema.version.edge.label.start>
-        <schema.version.api.default>v15</schema.version.api.default>
-        <schema.version.list>v10,v11,v12,v13,v14,v15</schema.version.list>
+        <schema.version.api.default>v16</schema.version.api.default>
+        <schema.version.list>v10,v11,v12,v13,v14,v15,v16</schema.version.list>
         <!-- End of Default ONAP Schema Properties -->
     </properties>
     <profiles>
@@ -68,8 +68,8 @@
                 <schema.version.edge.label.start>v12</schema.version.edge.label.start>
                 <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
                 <schema.version.api.default>v15</schema.version.api.default>
-                <schema.version.list>v10,v11,v12,v13,v14,v15</schema.version.list>
-                <gendoc.version>v15</gendoc.version>
+                <schema.version.list>v10,v11,v12,v13,v14,v15,v16</schema.version.list>
+                <gendoc.version>v16</gendoc.version>
             </properties>
         </profile>
         <!-- End of ONAP profile -->
