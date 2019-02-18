@@ -52,7 +52,6 @@
         <!-- GMaven plugin uses this property to figure out the name of the docker tag -->
         <aai.project.version>${project.version}</aai.project.version>
         <checkstyle.skip>false</checkstyle.skip>
-        <license.goal.type>check</license.goal.type>
     </properties>
     <build>
         <pluginManagement>
@@ -100,15 +99,6 @@
                             <header>LICENSE_ALT1.txt</header>
                         </validHeaders>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <!-- Set goal to "format" to auto update license headers -->
-                                <goal>${license.goal.type}</goal>
-                            </goals>
-                            <phase>process-sources</phase>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
