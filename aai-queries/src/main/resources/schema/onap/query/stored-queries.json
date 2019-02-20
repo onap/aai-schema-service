@@ -544,6 +544,11 @@
 	"vnf-summary-fromPserver": {
         "stored-query": "builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'pserver', 'generic-vnf').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'pserver', 'vserver').store('x').createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'generic-vnf').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'platform').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'line-of-business').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'service-instance').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'service-instance', 'owning-entity').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'service-instance', 'project').store('x')))).cap('x').unfold().dedup()"
       }
+	},
+	{
+	"closed-loop":{
+		"stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'generic-vnf').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'service-instance').store('x').createEdgeTraversal(EdgeType.COUSIN, 'service-instance', 'generic-vnf').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'generic-vnf', 'vf-module').store('x')),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').store('x').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x')).cap('x').unfold().dedup()"
+		}
 	}
   ]
 }
