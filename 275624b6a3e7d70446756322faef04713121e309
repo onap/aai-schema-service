@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da4e797_e0ce7804",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v15/DbEdgeRules_v15.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-05T06:25:07Z",
+      "side": 1,
+      "message": "should be in the DbEdgeRules_esr_v15.json file instead.\nsee also EdgeRule for \"esr-thirdparty-sdnc\" to \"pnf\" for comparison",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 3
+      },
+      "revId": "275624b6a3e7d70446756322faef04713121e309",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d9721d4_65f086c0",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v16/DbEdgeRules_v16.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-05T06:25:07Z",
+      "side": 1,
+      "message": "should be in the DbEdgeRules_esr_v16.json file instead.\nsee also EdgeRule for \"esr-thirdparty-sdnc\" to \"pnf\" for comparison",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 3
+      },
+      "revId": "275624b6a3e7d70446756322faef04713121e309",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
