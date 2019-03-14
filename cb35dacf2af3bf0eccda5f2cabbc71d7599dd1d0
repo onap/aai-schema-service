@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13476fa8_7fbc9263",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXM.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "Looks like the code has been re-formatted! Was it using using the new maven plugins?",
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662176f5_821b3697",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXM.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "Similar to https://gerrit.onap.org/r/#/c/71681/\ncould these be changed to platform-portable version as per:\n\npublic abstract class OxmFileProcessor {\n\tpublic static final String LINE_SEPARATOR \u003d System.getProperty(\"line.separator\");",
+      "range": {
+        "startLine": 83,
+        "startChar": 42,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b208c990_ee3c55a2",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXM.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "this is the key change, might need better commenting of the true/false param passed in.",
+      "range": {
+        "startLine": 598,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 44
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed922722_4b5b010d",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/OxmFileProcessor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "Could these be updated to use the platform-portable LINE_SEPARATOR as well?",
+      "range": {
+        "startLine": 86,
+        "startChar": 43,
+        "endLine": 86,
+        "endChar": 45
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83a21e21_57b7687d",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/OxmFileProcessor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "this is the key change! so no longer filtering on specific namespaces, but allowing the schema file to define any new top-level namespaces?",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 24
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e385341c_db679f1d",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/YAMLfromOXM.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "could these be updated to use platform-portable LINE_SEPARATOR as well?",
+      "range": {
+        "startLine": 83,
+        "startChar": 42,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "538356e8_21ae9b94",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/YAMLfromOXM.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-03-14T01:01:40Z",
+      "side": 1,
+      "message": "This makes NodesYAMLfromOXM.java and YAMLFromOXM.java more consistent, but why did they differ in the first place?",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 56
+      },
+      "revId": "cb35dacf2af3bf0eccda5f2cabbc71d7599dd1d0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
