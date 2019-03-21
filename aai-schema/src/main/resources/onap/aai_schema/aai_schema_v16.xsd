@@ -3220,6 +3220,52 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="esr-nfvo">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist NFVO address information used by VF-C.",indexedProps="nfvo-id",searchable="nfvo-id",container="esr-nfvo-list",namespace="external-system",requiredProps="nfvo-id",uriTemplate="/external-system/esr-nfvo-list/esr-nfvo/{nfvo-id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="nfvo-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of nfvo.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="api-root" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indecate the api-root.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:esr-system-info-list" minOccurs="0"/>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="esr-nfvo-list">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:esr-nfvo" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="esr-thirdparty-sdnc">
     <xs:complexType>
       <xs:annotation>
@@ -3283,6 +3329,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       <xs:sequence>
         <xs:element ref="tns:esr-ems-list" minOccurs="0"/>
         <xs:element ref="tns:esr-vnfm-list" minOccurs="0"/>
+        <xs:element ref="tns:esr-nfvo-list" minOccurs="0"/>
         <xs:element ref="tns:esr-thirdparty-sdnc-list" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
