@@ -234,6 +234,7 @@
                        <java-attributes>
                                <xml-element java-attribute="esrEmsList" name="esr-ems-list" type="inventory.aai.onap.org.v16.EsrEmsList"/>
                                <xml-element java-attribute="esrVnfmList" name="esr-vnfm-list" type="inventory.aai.onap.org.v16.EsrVnfmList"/>
+                               <xml-element java-attribute="esrNfvoList" name="esr-nfvo-list" type="inventory.aai.onap.org.v16.EsrNfvoList"/>
                                <xml-element java-attribute="esrThirdpartySdncList" name="esr-thirdparty-sdnc-list" type="inventory.aai.onap.org.v16.EsrThirdpartySdncList"/>
                        </java-attributes>
                </java-type>
@@ -321,6 +322,49 @@
             <xml-property name="uriTemplate" value="/external-system/esr-vnfm-list/esr-vnfm/{vnfm-id}"/>
             </xml-properties>
                </java-type>
+
+               <java-type name="EsrNfvoList">
+                       <xml-root-element name="esr-nfvo-list"/>
+                       <java-attributes>
+                               <xml-element container-type="java.util.ArrayList" java-attribute="esrNfvo" name="esr-nfvo" type="inventory.aai.onap.org.v16.EsrNfvo"/>
+                       </java-attributes>
+            <xml-properties>
+                               <xml-property name="maximumDepth" value="0"/>
+                       </xml-properties>
+               </java-type>
+
+               <java-type name="EsrNfvo">
+                       <xml-root-element name="esr-nfvo"/>
+                       <java-attributes>
+                               <xml-element java-attribute="nfvoId" name="nfvo-id" required="true" type="java.lang.String" xml-key="true">
+                                       <xml-properties>
+                                               <xml-property name="description" value="Unique ID of nfvo."/>
+                                       </xml-properties>
+                               </xml-element>
+                               <xml-element java-attribute="apiRoot" name="api-root" type="java.lang.String">
+                                       <xml-properties>
+                                               <xml-property name="description" value="indecate the api-root."/>
+                                       </xml-properties>
+                               </xml-element>
+                               <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                                       <xml-properties>
+                                               <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                                       </xml-properties>
+                               </xml-element>
+                               <xml-element java-attribute="esrSystemInfoList" name="esr-system-info-list" type="inventory.aai.onap.org.v16.EsrSystemInfoList"/>
+                               <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>
+                       </java-attributes>
+                       <xml-properties>
+                               <xml-property name="description" value="Persist NFVO address information used by VF-C."/>
+                               <xml-property name="indexedProps" value="nfvo-id"/>
+                               <xml-property name="searchable" value="nfvo-id"/>
+                               <xml-property name="container" value="esr-nfvo-list"/>
+                               <xml-property name="namespace" value="external-system"/>
+                       <xml-property name="requiredProps" value="nfvo-id"/>
+            <xml-property name="uriTemplate" value="/external-system/esr-nfvo-list/esr-nfvo/{nfvo-id}"/>
+            </xml-properties>
+               </java-type>
+
 
                <java-type name="EsrThirdpartySdncList">
                        <xml-root-element name="esr-thirdparty-sdnc-list"/>
