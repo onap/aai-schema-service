@@ -26,6 +26,18 @@
     },
     {
       "from": "esr-system-info",
+      "to": "esr-nfvo",
+      "label": "org.onap.relationships.inventory.BelongsTo",
+      "direction": "OUT",
+      "multiplicity": "ONE2ONE",
+      "contains-other-v": "!${direction}",
+      "delete-other-v": "!${direction}",
+      "SVC-INFRA": "NONE",
+      "prevent-delete": "NONE",
+      "default": "true"
+    },
+    {
+      "from": "esr-system-info",
       "to": "esr-thirdparty-sdnc",
       "label": "org.onap.relationships.inventory.BelongsTo",
       "direction": "OUT",
