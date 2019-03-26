@@ -1,0 +1,11 @@
+Code-Review+1: Bharath Thiruveedula <bharath.thiruveedula@verizon.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Keong Lim <keong.lim@huawei.com>
+Code-Review+1: Venkata Harish Kajur <vk250x@att.com>
+Code-Review+1: Chandra Cinthala <chandra.cinthala@att.com>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Tue, 26 Mar 2019 18:24:56 +0000
+Reviewed-on: https://gerrit.onap.org/r/82892
+Project: aai/schema-service
+Branch: refs/heads/master
