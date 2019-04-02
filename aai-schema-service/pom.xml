@@ -37,7 +37,7 @@
 
         <aai.core.version>1.4.0</aai.core.version>
 
-        <spring.boot.version>1.5.15.RELEASE</spring.boot.version>
+        <spring.boot.version>1.5.19.RELEASE</spring.boot.version>
 
         <!-- Start of the jacoco plugin properties -->
         <sonar.language>java</sonar.language>
