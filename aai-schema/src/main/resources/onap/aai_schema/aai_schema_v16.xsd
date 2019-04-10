@@ -608,7 +608,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="vnf-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -2081,7 +2081,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist common address information of external systems.",indexedProps="esr-system-info-id,system-name,system-type",searchable="esr-system-info-id,system-name,system-type",container="esr-system-info-list",dependentOn="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc,ext-aai-network",requiredProps="esr-system-info-id,user-name,password,system-type",uriTemplate="/esr-system-info-list/esr-system-info/{esr-system-info-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist common address information of external systems.",indexedProps="esr-system-info-id,system-name,system-type",searchable="esr-system-info-id,system-name,system-type",container="esr-system-info-list",dependentOn="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc,ext-aai-network,esr-nfvo",requiredProps="esr-system-info-id,user-name,password,system-type",uriTemplate="/esr-system-info-list/esr-system-info/{esr-system-info-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -2663,7 +2663,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="interface-role" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Role assigned to this Interface, should use values as defined in ECOMP Yang models.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Role assigned to this Interface, should use values as defined in ONAP Yang models.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -3774,7 +3774,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="service-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Value defined by orchestration to identify this service across ECOMP.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Value defined by orchestration to identify this service across ONAP.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -3820,7 +3820,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="global-customer-id" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Global customer id used across ECOMP to uniquely identify customer.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Global customer id used across ONAP to uniquely identify customer.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -4262,7 +4262,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="vnf-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -5646,7 +5646,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="vnf-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures.")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -6779,7 +6779,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="management-option" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="identifier of managed by ATT or customer")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="identifier of managed customer")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -7411,7 +7411,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="management-option" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="identifier of managed by ATT or customer")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="identifier of managed customer")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -7776,7 +7776,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="requested-dmz-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="ATT can offer a shared DMZ or a DMZ specific to a customer")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Shared DMZ or a DMZ specific to a customer")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -8341,6 +8341,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="tagMode for network side of EVC")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="product-entry-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Product ID")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
