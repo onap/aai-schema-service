@@ -7418,6 +7418,11 @@
                         <xml-property name="description" value="tagMode for network side of EVC"/>
                     </xml-properties>
                 </xml-element>
+                 <xml-element java-attribute="productEntryId" name="product-entry-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="ATT Product ID"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>

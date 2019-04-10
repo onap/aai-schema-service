@@ -25,11 +25,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>aai-schema-service</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
     <properties>
         <java.version>1.8</java.version>
