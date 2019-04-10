@@ -8054,7 +8054,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="A zone is a grouping of assets in a location homing to the same connections into the CBB",nameProps="zone-name",indexedProps="zone-id,design-type,zone-context",uniqueProps="zone-id",container="zones",namespace="network",uriTemplate="/network/zones/zone/{zone-id}",requiredProps="zone-id,zone-name,design-type,zone-context")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="A zone is a grouping of assets in a location homing to the same connections into the CBB",nameProps="zone-name",indexedProps="zone-id,design-type,zone-context",uniqueProps="zone-id",container="zones",namespace="network",uriTemplate="/network/zones/zone/{zone-id}",requiredProps="zone-id,zone-name,design-type,zone-context,in-maint")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8097,6 +8097,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Concurrency value")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not zone object is in maintenance mode.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
