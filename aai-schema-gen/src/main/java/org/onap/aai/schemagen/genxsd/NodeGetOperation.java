@@ -111,19 +111,6 @@ public class NodeGetOperation {
 				return "";
 			}
 			StringBuffer pathSb = new StringBuffer();
-			//Drop out the operations with multiple path parameters
-			if(CRUDpath.lastIndexOf('{') > CRUDpath.indexOf('{') && StringUtils.isNotEmpty(pathParams)) {
-				return "";
-			}
-			if(path.lastIndexOf('{') > path.indexOf('{') ) {
-				return "";
-			}
-			//trim leading path elements before the current node type
-//			int loc = path.indexOf(xmlRootElementName);
-//			if(loc > 0) {
-//				path = "/nodes/"+path.substring(loc);
-//			}
-			//append generic parameter syntax to all plural queries
 			if(path.indexOf('{') == -1) {
 				path += "?parameter=value[&parameter2=value2]";
 			}
