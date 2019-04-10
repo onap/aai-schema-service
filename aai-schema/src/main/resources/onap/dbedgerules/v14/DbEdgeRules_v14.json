@@ -2609,7 +2609,7 @@
 			"to": "l3-network",
 			"label": "org.onap.relationships.inventory.PartOf",
 			"direction": "OUT",
-			"multiplicity": "ONE2ONE",
+			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
