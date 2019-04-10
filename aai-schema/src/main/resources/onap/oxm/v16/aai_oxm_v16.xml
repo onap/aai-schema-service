@@ -786,7 +786,7 @@
                 </xml-element>
                 <xml-element java-attribute="vnfType" name="vnf-type" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures."/>
+                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="orchestrationStatus" name="orchestration-status" type="java.lang.String">
@@ -2404,7 +2404,7 @@
                 </xml-element>
                 <xml-element java-attribute="interfaceRole" name="interface-role" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Role assigned to this Interface, should use values as defined in ECOMP Yang models."/>
+                        <xml-property name="description" value="Role assigned to this Interface, should use values as defined in ONAP Yang models."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="provStatus" name="prov-status" type="java.lang.String">
@@ -2768,7 +2768,7 @@
             <java-attributes>
                 <xml-element java-attribute="globalCustomerId" name="global-customer-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="Global customer id used across ECOMP to uniquely identify customer."/>
+                        <xml-property name="description" value="Global customer id used across ONAP to uniquely identify customer."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="subscriberName" name="subscriber-name" required="true" type="java.lang.String">
@@ -2932,7 +2932,7 @@
             <java-attributes>
                 <xml-element java-attribute="serviceType" name="service-type" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="Value defined by orchestration to identify this service across ECOMP."/>
+                        <xml-property name="description" value="Value defined by orchestration to identify this service across ONAP."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="tempUbSubAccountId" name="temp-ub-sub-account-id" type="java.lang.String">
@@ -3245,7 +3245,7 @@
                 </xml-element>
                 <xml-element java-attribute="vnfType" name="vnf-type" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures."/>
+                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
@@ -3982,7 +3982,7 @@
                 </xml-element>
                 <xml-element java-attribute="vnfType" name="vnf-type" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures."/>
+                        <xml-property name="description" value="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="serviceId" name="service-id" type="java.lang.String">
@@ -4746,7 +4746,7 @@
                 </xml-element>
                 <xml-element java-attribute="managementOption" name="management-option" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="identifier of managed by ATT or customer"/>
+                        <xml-property name="description" value="identifier of managed customer"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ipv4OamAddress" name="ipv4-oam-address" type="java.lang.String">
@@ -5290,7 +5290,7 @@
                 </xml-element>
                 <xml-element java-attribute="managementOption" name="management-option" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="identifier of managed by ATT or customer"/>
+                        <xml-property name="description" value="identifier of managed customer"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="orchestrationStatus" name="orchestration-status" type="java.lang.String">
@@ -5622,7 +5622,7 @@
                 </xml-element>
                 <xml-element java-attribute="requestedDmzType" name="requested-dmz-type" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="ATT can offer a shared DMZ or a DMZ specific to a customer"/>
+                        <xml-property name="description" value="Shared DMZ or a DMZ specific to a customer"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="sharedDmzNetworkAddress" name="shared-dmz-network-address" type="java.lang.String">
@@ -7416,6 +7416,11 @@
                 <xml-element java-attribute="tagmodeAccessEgress" name="tagmode-access-egress" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="tagMode for network side of EVC"/>
+                    </xml-properties>
+                </xml-element>
+                 <xml-element java-attribute="productEntryId" name="product-entry-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Product ID"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>
