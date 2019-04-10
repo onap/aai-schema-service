@@ -148,6 +148,15 @@ public class SchemaServiceApp {
 
     @PreDestroy
     public void cleanup() {
+
+        LoggingContext.save();
+        LoggingContext.component("Stopped");
+        LoggingContext.partnerName("NA");
+        LoggingContext.targetEntity(APP_NAME);
+        LoggingContext.requestId(UUID.randomUUID().toString());
+        LoggingContext.serviceName(APP_NAME);
+        LoggingContext.targetServiceName("Stopped");
+        LoggingContext.statusCode(StatusCode.COMPLETE);
         logger.info("SchemaService shutting down");
     }
 }

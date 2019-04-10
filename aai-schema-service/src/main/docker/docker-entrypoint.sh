@@ -67,6 +67,12 @@ if [ -f ${APP_HOME}/aai.sh ]; then
         exit 0;
     fi;
 
+    if [ ! -f "${APP_HOME}/scripts/updatePem.sh" ]; then
+        echo "Unable to find the updatePem script";
+        exit 1;
+    else
+        gosu aaiadmin ${APP_HOME}/scripts/updatePem.sh
+    fi;
 fi;
 
 mkdir -p /opt/app/aai-schema-service/logs/gc
@@ -83,8 +89,7 @@ fi;
 
 MIN_HEAP_SIZE=${MIN_HEAP_SIZE:-512m};
 MAX_HEAP_SIZE=${MAX_HEAP_SIZE:-1024m};
-MAX_PERM_SIZE=${MAX_PERM_SIZE:-512m};
-PERM_SIZE=${PERM_SIZE:-512m};
+MAX_METASPACE_SIZE=${MAX_METASPACE_SIZE:-512m};
 
 JAVA_CMD="exec gosu aaiadmin java";
 
@@ -95,8 +100,7 @@ JVM_OPTS="${JVM_OPTS} -Xmx${MAX_HEAP_SIZE}";
 
 JVM_OPTS="${JVM_OPTS} -XX:+PrintGCDetails";
 JVM_OPTS="${JVM_OPTS} -XX:+PrintGCTimeStamps";
-JVM_OPTS="${JVM_OPTS} -XX:MaxPermSize=${MAX_PERM_SIZE}";
-JVM_OPTS="${JVM_OPTS} -XX:PermSize=${PERM_SIZE}";
+JVM_OPTS="${JVM_OPTS} -XX:MaxMetaspaceSize=${MAX_METASPACE_SIZE}";
 
 JVM_OPTS="${JVM_OPTS} -server";
 JVM_OPTS="${JVM_OPTS} -XX:NewSize=512m";
@@ -118,7 +122,7 @@ JVM_OPTS="${JVM_OPTS} -XX:+HeapDumpOnOutOfMemoryError";
 JVM_OPTS="${JVM_OPTS} ${POST_JVM_ARGS}";
 JAVA_OPTS="${PRE_JAVA_OPTS} -DAJSC_HOME=$APP_HOME";
 if [ -f ${INTROSCOPE_LIB}/Agent.jar ] && [ -f ${INTROSCOPE_AGENTPROFILE} ]; then
-        JAVA_OPTS="${JAVA_OPTS} -javaagent:${INTROSCOPE_LIB}/Agent.jar -noverify -Dcom.wily.introscope.agentProfile=${INTROSCOPE_AGENTPROFILE} -Dintroscope.agent.agentName=resources"
+        JAVA_OPTS="${JAVA_OPTS} -javaagent:${INTROSCOPE_LIB}/Agent.jar -noverify -Dcom.wily.introscope.agentProfile=${INTROSCOPE_AGENTPROFILE} -Dintroscope.agent.agentName=schema-service"
 fi
 JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT}";
 JAVA_OPTS="${JAVA_OPTS} -DBUNDLECONFIG_DIR=./resources";
@@ -131,6 +135,7 @@ JAVA_OPTS="${JAVA_OPTS} -DAAI_BUILD_VERSION=${AAI_BUILD_VERSION}";
 JAVA_OPTS="${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom";
 JAVA_OPTS="${JAVA_OPTS} -Dlogback.configurationFile=./resources/logback.xml";
 JAVA_OPTS="${JAVA_OPTS} -Dloader.path=$APP_HOME/resources";
+JAVA_OPTS="${JAVA_OPTS} -Dgroovy.use.classvalue=true";
 JAVA_OPTS="${JAVA_OPTS} ${POST_JAVA_OPTS}";
 
 JAVA_MAIN_JAR=$(ls lib/aai-schema-service*.jar);

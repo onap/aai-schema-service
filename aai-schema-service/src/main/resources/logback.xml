@@ -191,7 +191,6 @@
         <appender-ref ref="asyncERROR"/>
         <appender-ref ref="asyncMETRIC"/>
         <appender-ref ref="asyncSANE"/>
-        <appender-ref ref="STDOUT"/>
     </logger>
 
     <!-- Spring related loggers -->
@@ -264,6 +263,5 @@
 
     <root level="DEBUG">
         <appender-ref ref="external"/>
-        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
