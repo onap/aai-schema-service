@@ -44,7 +44,7 @@ find /opt/app/ -name "*.sh" -exec chmod +x {} +
 if [ -f ${APP_HOME}/aai.sh ]; then
 
     gosu aaiadmin ln -s bin scripts
-    gosu aaiadmin ln -s /opt/aai/logroot/AAI-SCHEMA-SERVICE logs
+    gosu aaiadmin ln -s /opt/aai/logroot/AAI-SS logs
 
     mv ${APP_HOME}/aai.sh /etc/profile.d/aai.sh
     chmod 755 /etc/profile.d/aai.sh
