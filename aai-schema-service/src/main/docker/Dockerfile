@@ -15,7 +15,7 @@ ENTRYPOINT ["/bin/bash", "/opt/app/aai-schema-service/docker-entrypoint.sh"]
 
 RUN  mkdir -p /opt/aaihome/aaiadmin /opt/aai/logroot/AAI-SCHEMA-SERVICE
 
-VOLUME /opt/aai/logroot/AAI-SCHEMA-SERVICE
+VOLUME /opt/aai/logroot/AAI-SS
 VOLUME /tmp
 VOLUME /opt/tools
 
