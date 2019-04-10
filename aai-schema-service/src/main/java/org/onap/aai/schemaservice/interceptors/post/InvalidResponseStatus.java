@@ -24,10 +24,12 @@ import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
 
 import javax.annotation.Priority;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +41,18 @@ public class InvalidResponseStatus extends AAIContainerFilter implements Contain
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
         throws IOException {
 
+        String contentType = responseContext.getHeaderString("Content-Type");
+        ArrayList<String> templateVars = new ArrayList<>();
+        List<MediaType> mediaTypeList = new ArrayList<>();
+        AAIException e;
+        String message = "";
+
         if (responseContext.getStatus() == 405) {
 
+            // add the accept type error msg here as well.
+
             responseContext.setStatus(400);
-            AAIException e = new AAIException("AAI_3012");
-            ArrayList<String> templateVars = new ArrayList<>();
-
-            List<MediaType> mediaTypeList = new ArrayList<>();
-
-            String contentType = responseContext.getHeaderString("Content-Type");
+            e = new AAIException("AAI_3012");
 
             if (contentType == null) {
                 mediaTypeList.add(MediaType.APPLICATION_XML_TYPE);
@@ -55,11 +60,29 @@ public class InvalidResponseStatus extends AAIContainerFilter implements Contain
                 mediaTypeList.add(MediaType.valueOf(contentType));
             }
 
-            String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, e, templateVars);
+            message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, e, templateVars);
 
             responseContext.setEntity(message);
         }
 
+        else if (responseContext.getStatus() == 406) {
+            responseContext.setStatus(406);
+            mediaTypeList.add(MediaType.valueOf(contentType));
+            if (contentType.equals(MediaType.APPLICATION_XML)) {
+                e = new AAIException("AAI_3019", MediaType.APPLICATION_XML);
+            } else if (contentType.equals(MediaType.APPLICATION_JSON)) {
+                e = new AAIException("AAI_3019", MediaType.APPLICATION_JSON);
+            } else {
+                if (contentType == null) {
+                    mediaTypeList.add(MediaType.APPLICATION_XML_TYPE);
+                    e = new AAIException("AAI_3019", "null");
+                } else {
+                    mediaTypeList.add(MediaType.valueOf(contentType));
+                    e = new AAIException("AAI_3019", contentType);
+                }
+            }
+            message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, e, templateVars);
+            responseContext.setEntity(message);
+        }
     }
-
 }

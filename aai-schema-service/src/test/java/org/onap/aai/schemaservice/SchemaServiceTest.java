@@ -47,6 +47,7 @@ import static org.junit.Assert.assertThat;
 @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(initializers = PropertyPasswordConfiguration.class)
 @Import(SchemaServiceTestConfiguration.class)
+
 @RunWith(SpringRunner.class)
 public class SchemaServiceTest {
 
@@ -86,7 +87,7 @@ public class SchemaServiceTest {
         headers.add("X-TransactionId", "JUNIT");
         headers.add("Authorization", "Basic " + authorization);
         httpEntity = new HttpEntity(headers);
-        baseUrl = "https://localhost:" + randomPort;
+        baseUrl = "http://localhost:" + randomPort;
     }
 
     @Test
@@ -123,6 +124,59 @@ public class SchemaServiceTest {
         );
 
         assertThat(responseEntity.getStatusCodeValue(), is(200));
+    }
+
+    @Test
+    public void testInvalidSchemaAndEdges(){
+
+        headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+        headers.setContentType(MediaType.APPLICATION_XML);
+        headers.add("Real-Time", "true");
+        headers.add("X-FromAppId", "JUNIT");
+        headers.add("X-TransactionId", "JUNIT");
+        headers.add("Authorization", "Basic " + authorization);
+        httpEntity = new HttpEntity(headers);
+
+        ResponseEntity responseEntity;
+
+        responseEntity = restTemplate.exchange(
+            baseUrl + "/aai/schema-service/v1/nodes?version=blah",
+            HttpMethod.GET,
+            httpEntity,
+            String.class
+        );
+        System.out.println("  "+responseEntity.getBody());
+        assertThat(responseEntity.getStatusCodeValue(), is(400));
+
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        httpEntity = new HttpEntity(headers);
+
+        responseEntity = restTemplate.exchange(
+            baseUrl + "/aai/schema-service/v1/edgerules?version=blah",
+            HttpMethod.GET,
+            httpEntity,
+            String.class
+        );
+
+        assertThat(responseEntity.getStatusCodeValue(), is(400));
+    }
+
+    @Test
+    public void testVersions(){
+
+        ResponseEntity responseEntity;
+
+        responseEntity = restTemplate.exchange(
+            baseUrl + "/aai/schema-service/v1/versions",
+            HttpMethod.GET,
+            httpEntity,
+            String.class
+        );
+        assertThat(responseEntity.getStatusCodeValue(), is(200));
+
+
     }
 
     @Test

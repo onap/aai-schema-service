@@ -78,7 +78,7 @@
 
         <maven.skip.tests>true</maven.skip.tests>
 
-        <jacoco.line.coverage.limit>0.44</jacoco.line.coverage.limit>
+        <jacoco.line.coverage.limit>0.56</jacoco.line.coverage.limit>
 
         <!-- This will be used for the docker images as the default format of maven build has issues -->
         <maven.build.timestamp.format>yyyyMMdd'T'HHmmss'Z'</maven.build.timestamp.format>
