@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72571e26_08868ca5",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v16/aai_oxm_v16.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6852,
+      "author": {
+        "id": 4341
+      },
+      "writtenOn": "2019-04-11T06:01:12Z",
+      "side": 1,
+      "message": "Isn\u0027t this a breaking change that may require some socialisations?",
+      "range": {
+        "startLine": 6852,
+        "startChar": 77,
+        "endLine": 6852,
+        "endChar": 108
+      },
+      "revId": "ea1de0d6ca0aeecc1755ccfb40ebe1295a94b086",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
