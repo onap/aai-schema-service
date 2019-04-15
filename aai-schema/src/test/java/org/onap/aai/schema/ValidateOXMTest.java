@@ -20,10 +20,10 @@
 package org.onap.aai.schema;
 
 
-//import org.junit.Test;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.FileFileFilter;
+import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -39,14 +39,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ValidateOXMTest {
@@ -54,7 +52,7 @@ public class ValidateOXMTest {
 	@Test
 	public void testFindXmlPropContainingSpace() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
 		boolean foundIssue = false;
-		List<File> fileList = getFiles();
+		List<File> fileList = getLatestFiles();
 
 		StringBuilder msg = new StringBuilder();
 		for (File file : fileList) {
@@ -101,7 +99,13 @@ public class ValidateOXMTest {
 			msg.append("\n");
 			Document xmlDocument = getDocument(file);
 			XPath xPath = XPathFactory.newInstance().newXPath();
-			String expression = "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='container']) > 0 and count(xml-properties/xml-property[@name='uriTemplate']) = 0 ]";
+			String expression = "/xml-bindings/java-types/java-type[" +
+					"(" +
+						"count(xml-properties/xml-property[@name='container']) > 0 " +
+						"or count(xml-properties/xml-property[@name='dependentOn']) > 0" +
+					") " +
+					"and count(xml-properties/xml-property[@name='uriTemplate']) = 0 " +
+					"]";
 			NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
 			for (int i = 0; i < nodeList.getLength(); i++) {
@@ -122,15 +126,112 @@ public class ValidateOXMTest {
 
 	}
 
+
+    /**
+     * Verifies that all specified properties are indexed
+     * Currently set to check that "model-invariant-id","model-version-id" which are aliased are indexed
+     * @throws XPathExpressionException
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    @Test
+    public void aliasedIndexedPropsAreInIndexedListWithPropName() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+
+        final List<String> props = Arrays.asList("model-invariant-id","model-version-id");
+
+        boolean foundIssue = false;
+        List<File> fileList = getLatestFiles();
+        StringBuilder msg = new StringBuilder();
+
+        for (File file : fileList) {
+            msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+            msg.append("\n");
+            for (String prop : props) {
+                Document xmlDocument = getDocument(file);
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                String expression = "/xml-bindings/java-types/java-type[" +
+                    "(" +
+                    "count(xml-properties/xml-property[@name='container']) > 0 " +
+                    "or count(xml-properties/xml-property[@name='dependentOn']) > 0" +
+                    ") " +
+                    "and count(xml-properties/xml-property[@name='indexedProps' and not(contains(@value,'" + prop + "'))]) > 0 " + //prop is not in indexed props list
+                    "and count(java-attributes/xml-element[@name='" + prop + "']) > 0 " + // prop is a property on obj
+                    "]";
+
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+                if (nodeList.getLength() > 0) {
+                    msg.append("\t")
+                        .append(prop)
+                        .append("\n");
+                }
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                    if (name.equals("InstanceFilter") || name.equals("InventoryResponseItems") || name.equals("InventoryResponseItem")) {
+                        continue;
+                    }
+                    foundIssue = true;
+                    msg.append("\t\t")
+                        .append(name)
+                        .append("\n");
+                }
+            }
+        }
+
+        if (foundIssue) {
+            System.out.println(msg.toString());
+            fail("Missing index entry in oxm.");
+        }
+
+    }
+
 	private List<File> getFiles() {
 		Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
 		return FileUtils.listFiles(
 				currentRelativePath.toFile(),
 				new RegexFileFilter(".*\\.xml"),
 				DirectoryFileFilter.DIRECTORY)
-				.stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+				.stream()
+				.filter(file -> file.getAbsolutePath().contains("oxm"))
+				.filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
 				.collect(Collectors.toList());
 	}
+
+    /**
+     * Finds all of the oxm files for the latest version.
+     * @return list of the latest version of the oxm files.
+     */
+    private List<File> getLatestFiles() {
+        List<String> latest = new ArrayList<>();
+        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        List<File> subDirs = Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
+        for (File subDir : subDirs) {
+            String oxm = subDir.getAbsolutePath() + "/oxm";
+            File[] oxms = new File(oxm).listFiles(File::isDirectory);
+            Arrays.stream(oxms).map(File::getAbsolutePath).max(new Comparator<String>() {
+                public int compare(String o1, String o2) {
+                    return extractInt(o1) - extractInt(o2);
+                }
+                int extractInt(String s) {
+                    String num = s.replaceAll("\\D", "");
+                    return num.isEmpty() ? 0 : Integer.parseInt(num);
+                }
+            }).ifPresent(latest::add);
+        }
+
+        List<File> latestFiles = new ArrayList<>();
+        latest.forEach(s ->
+            FileUtils.listFiles(
+                new File(s),
+                new RegexFileFilter(".*\\.xml"),
+                DirectoryFileFilter.DIRECTORY)
+                .stream()
+                .filter(file -> file.getAbsolutePath().contains("oxm"))
+                .forEach(latestFiles::add));
+
+        return latestFiles;
+    }
 
 	//TODO test that all oxm xml are valid xml
 

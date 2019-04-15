@@ -3845,7 +3845,7 @@
             <xml-properties>
                 <xml-property name="description" value="VPN binding"/>
                 <xml-property name="nameProps" value="vpn-name,vpn-type"/>
-				<xml-property name="indexedProps" value="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status"/>
+				<xml-property name="indexedProps" value="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status,model-invariant-id,model-version-id"/>
                 <xml-property name="searchable" value="vpn-id,vpn-name"/>
                 <xml-property name="uniqueProps" value="vpn-id"/>
                 <xml-property name="container" value="vpn-bindings"/>
@@ -7718,7 +7718,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an sp-partner"/>
-                <xml-property name="indexedProps" value="sp-partner-id,url,callsource"/>
+                <xml-property name="indexedProps" value="sp-partner-id,url,callsource,model-invariant-id,model-version-id"/>
                 <xml-property name="nameProps" value="sp-partner-id"/>
                 <xml-property name="searchable" value="sp-partner-id"/>
                 <xml-property name="uniqueProps" value="sp-partner-id"/>
@@ -7863,7 +7863,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a connectivity"/>
-				<xml-property name="indexedProps" value="connectivity-id,etht-svc-name,bandwidth-profile-name,vpn-type,color-aware,coupling-flag,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,operational-status"/>
+				<xml-property name="indexedProps" value="connectivity-id,etht-svc-name,bandwidth-profile-name,vpn-type,color-aware,coupling-flag,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,operational-status,model-invariant-id,model-version-id"/>
 				<xml-property name="nameProps" value="etht-svc-name"/>
 				<xml-property name="searchable" value="connectivity-id"/>
 				<xml-property name="uniqueProps" value="connectivity-id"/>
@@ -8188,7 +8188,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a site-resource"/>
-				<xml-property name="indexedProps" value="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status"/>
+				<xml-property name="indexedProps" value="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status,model-invariant-id,model-version-id"/>
 				<xml-property name="nameProps" value="site-resource-name"/>
 				<xml-property name="searchable" value="site-resource-id"/>
 				<xml-property name="uniqueProps" value="site-resource-id"/>
@@ -8291,7 +8291,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of an sdwan-vpn"/>
-				<xml-property name="indexedProps" value="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status"/>
+				<xml-property name="indexedProps" value="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status,model-invariant-id,model-version-id"/>
 				<xml-property name="nameProps" value="sdwan-vpn-name"/>
 				<xml-property name="searchable" value="sdwan-vpn-id"/>
 				<xml-property name="uniqueProps" value="sdwan-vpn-id"/>
@@ -8410,7 +8410,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a device"/>
-				<xml-property name="indexedProps" value="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status"/>
+				<xml-property name="indexedProps" value="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status,model-invariant-id,model-version-id"/>
 				<xml-property name="nameProps" value="device-name"/>
 				<xml-property name="searchable" value="device-id"/>
 				<xml-property name="uniqueProps" value="device-id"/>
@@ -8555,7 +8555,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a wan-port-config"/>
-				<xml-property name="indexedProps" value="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status"/>
+				<xml-property name="indexedProps" value="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status,model-invariant-id,model-version-id"/>
 				<xml-property name="nameProps" value="wan-port-config-name"/>
 				<xml-property name="searchable" value="wan-port-config-id"/>
 				<xml-property name="uniqueProps" value="wan-port-config-id"/>
