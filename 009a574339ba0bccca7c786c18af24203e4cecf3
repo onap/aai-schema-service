@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: SoumyaNaik <sn207c@att.com>
+Code-Review+1: Keong Lim <keong.lim@huawei.com>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Mon, 15 Apr 2019 15:26:00 +0000
+Reviewed-on: https://gerrit.onap.org/r/85277
+Project: aai/schema-service
+Branch: refs/heads/master
