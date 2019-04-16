@@ -463,11 +463,6 @@
 		}
 	},
 	{
-	"closed-loop":{
-		"stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'generic-vnf').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'service-instance').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'generic-vnf', 'vf-module').store('x')),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').store('x').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x')).cap('x').unfold().dedup()"
-		}
-	},
-	{
 	"getVserverDetail":{
 		"stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').store('x').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'generic-vnf').store('x').union(builder.newInstance().createPrivateEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'model-ver').store('x').createEdgeTraversal(EdgeType.TREE, 'model-ver', 'model').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'generic-vnf', 'vf-module').store('x').createPrivateEdgeTraversal(EdgeType.COUSIN, 'vf-module', 'model-ver').store('x').createEdgeTraversal(EdgeType.TREE, 'model-ver', 'model').store('x'), builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'service-instance').store('x').createPrivateEdgeTraversal(EdgeType.COUSIN, 'service-instance', 'model-ver').store('x').createEdgeTraversal(EdgeType.TREE, 'model-ver', 'model').store('x'))).cap('x').unfold().dedup()"
 		}
