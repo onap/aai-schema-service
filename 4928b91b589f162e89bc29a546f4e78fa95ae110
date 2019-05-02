@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b28e0d1_b413c40a",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:52:59Z",
+      "side": 1,
+      "message": "Please find comment at https://gerrit.onap.org/r/#/c/85311/3/aai-resources/src/main/docker/Dockerfile@1",
+      "parentUuid": "67ce4c26_09760bbc",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 29
+      },
+      "revId": "4928b91b589f162e89bc29a546f4e78fa95ae110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9f4f7a2_44a8d6dc",
         "filename": "aai-schema-service/src/main/docker/Dockerfile",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-01T01:51:55Z",
       "side": 1,
       "message": "does this work portably between the alpine version and ubuntu version, so that side-by-side before-and-after comparison tests can be done?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 30
+      },
+      "revId": "4928b91b589f162e89bc29a546f4e78fa95ae110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e567cb20_a245a37f",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:52:59Z",
+      "side": 1,
+      "message": "Please find comment at https://gerrit.onap.org/r/#/c/85311/3/aai-resources/src/main/docker/Dockerfile@5",
+      "parentUuid": "d9f4f7a2_44a8d6dc",
       "range": {
         "startLine": 5,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4c647182_591e3f2c",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:52:59Z",
+      "side": 1,
+      "message": "I assumed that all paths, names mount points etc. are correct and I didn\u0027t change them, please address this question to author of original patch.",
+      "parentUuid": "4184b9af_cb97a1d9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "4928b91b589f162e89bc29a546f4e78fa95ae110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1132fedf_ed68fdbb",
         "filename": "aai-schema-service/src/main/docker/Dockerfile",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d81cf5f0_a8f2f3f5",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:52:59Z",
+      "side": 1,
+      "message": "Yes, will fix it.",
+      "parentUuid": "1132fedf_ed68fdbb",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "4928b91b589f162e89bc29a546f4e78fa95ae110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3faa18c_fce8292e",
         "filename": "aai-schema-service/src/main/docker/Dockerfile",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-05-01T01:51:55Z",
       "side": 1,
       "message": "port number clashes with aai-resources container. should it be a different port?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "4928b91b589f162e89bc29a546f4e78fa95ae110",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b158add4_e6c79a44",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5040
+      },
+      "writtenOn": "2019-05-02T14:52:59Z",
+      "side": 1,
+      "message": "Same as in comment for https://gerrit.onap.org/r/#/c/85313/3/aai-schema-service/src/main/docker/Dockerfile@7\nIf you provide me correct value I\u0027ll fix it of course.",
+      "parentUuid": "f3faa18c_fce8292e",
       "range": {
         "startLine": 19,
         "startChar": 0,
