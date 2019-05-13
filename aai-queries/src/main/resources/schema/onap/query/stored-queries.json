@@ -1,5 +1,12 @@
 {
   "stored-queries":[{
+    "with-cousin-retrieval":{
+      "query":{
+        "required-properties":["startClass","cousinClass"]
+      },
+      "stored-query":"builder.store('x').createEdgeTraversal(EdgeType.COUSIN, startClass, cousinClass).store('x').cap('x').unfold().dedup()"
+    }
+  },{
     "cloud-region-fromVnf":{
       "stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'vnfc').store('x').createEdgeTraversal(EdgeType.COUSIN, 'vnfc', 'vserver').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'pserver').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').store('x').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x')), builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'vserver').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vserver', 'pserver').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').store('x').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x'))).cap('x').unfold().dedup()"
     }
