@@ -1,0 +1,327 @@
+@startuml
+
+title v10 Active and Available Inventory Relationships Class Diagram
+class Inventory
+class business
+class connectors
+class connector
+class metadata
+class metadatum
+class customers
+class customer
+class service-subscriptions
+class service-subscription
+class service-instances
+class service-instance
+class allotted-resources
+class allotted-resource
+class tunnel-xconnects
+class tunnel-xconnect
+class cloud-infrastructure
+class cloud-regions
+class cloud-region
+class availability-zones
+class availability-zone
+class dvs-switches
+class dvs-switch
+class flavors
+class flavor
+class group-assignments
+class group-assignment
+class images
+class image
+class oam-networks
+class oam-network
+class snapshots
+class snapshot
+class tenants
+class tenant
+class vservers
+class vserver
+class l-interfaces
+class l-interface
+class l3-interface-ipv4-address-list
+class l3-interface-ipv6-address-list
+class sriov-vfs
+class sriov-vf
+class vlans
+class vlan
+class volumes
+class volume
+class volume-groups
+class volume-group
+class complexes
+class complex
+class ctag-pools
+class ctag-pool
+class network-profiles
+class network-profile
+class pservers
+class pserver
+class lag-interfaces
+class lag-interface
+class p-interfaces
+class p-interface
+class virtual-data-centers
+class virtual-data-center
+class network
+class generic-vnfs
+class generic-vnf
+class entitlements
+class entitlement
+class licenses
+class license
+class vf-modules
+class vf-module
+class instance-groups
+class instance-group
+class ipsec-configurations
+class ipsec-configuration
+class vig-servers
+class vig-server
+class l3-networks
+class l3-network
+class ctag-assignments
+class ctag-assignment
+class segmentation-assignments
+class segmentation-assignment
+class subnets
+class subnet
+class lag-links
+class lag-link
+class logical-links
+class logical-link
+class multicast-configurations
+class multicast-configuration
+class network-policies
+class network-policy
+class newvces
+class newvce
+class physical-links
+class physical-link
+class pnfs
+class pnf
+class route-table-references
+class route-table-reference
+class site-pair-sets
+class site-pair-set
+class routing-instances
+class routing-instance
+class site-pairs
+class site-pair
+class classes-of-service
+class class-of-service
+class vces
+class vce
+class port-groups
+class port-group
+class cvlan-tags
+class cvlan-tag-entry
+class vnfcs
+class vnfc
+class vpls-pes
+class vpls-pe
+class vpn-bindings
+class vpn-binding
+class route-targets
+class route-target
+class zones
+class zone
+class service-design-and-creation
+class models
+class model
+class model-vers
+class model-ver
+class model-elements
+class model-element
+class model-constraints
+class model-constraint
+class constrained-element-sets
+class constrained-element-set
+class element-choice-sets
+class element-choice-set
+class named-queries
+class named-query
+class named-query-elements
+class named-query-element
+class property-constraints
+class property-constraint
+class related-lookups
+class related-lookup
+class service-capabilities
+class service-capability
+class services
+class service
+class vnf-images
+class vnf-image
+"Inventory" *-- "business"
+"Inventory" *-- "cloud-infrastructure"
+"Inventory" *-- "common"
+"Inventory" *-- "external-system"
+"Inventory" *-- "network"
+"Inventory" *-- "service-design-and-creation"
+"business" *-- "connectors"
+"connectors" *-- "connector"
+"connector" *-- "metadata"
+"metadata" *-- "metadatum"
+"business" *-- "customers"
+"customers" *-- "customer"
+"customer" *-- "service-subscriptions"
+"service-subscriptions" *-- "service-subscription"
+"service-subscription" *-- "service-instances"
+"service-instances" *-- "service-instance"
+"service-instance" *-- "allotted-resources"
+"allotted-resources" *-- "allotted-resource"
+"allotted-resource" *-- "tunnel-xconnects"
+"tunnel-xconnects" *-- "tunnel-xconnect"
+"service-instance" *-- "metadata"
+"cloud-infrastructure" *-- "cloud-regions"
+"cloud-regions" *-- "cloud-region"
+"cloud-region" *-- "availability-zones"
+"availability-zones" *-- "availability-zone"
+"cloud-region" *-- "dvs-switches"
+"dvs-switches" *-- "dvs-switch"
+"cloud-region" *-- "flavors"
+"flavors" *-- "flavor"
+"cloud-region" *-- "group-assignments"
+"group-assignments" *-- "group-assignment"
+"cloud-region" *-- "images"
+"images" *-- "image"
+"image" *-- "metadata"
+"cloud-region" *-- "oam-networks"
+"oam-networks" *-- "oam-network"
+"cloud-region" *-- "snapshots"
+"snapshots" *-- "snapshot"
+"cloud-region" *-- "tenants"
+"tenants" *-- "tenant"
+"tenant" *-- "vservers"
+"vservers" *-- "vserver"
+"vserver" *-- "l-interfaces"
+"l-interfaces" *-- "l-interface"
+"l-interface" *-- "l3-interface-ipv4-address-list"
+"l-interface" *-- "l3-interface-ipv6-address-list"
+"l-interface" *-- "sriov-vfs"
+"sriov-vfs" *-- "sriov-vf"
+"l-interface" *-- "vlans"
+"vlans" *-- "vlan"
+"vlan" *-- "l3-interface-ipv4-address-list"
+"vlan" *-- "l3-interface-ipv6-address-list"
+"vserver" *-- "volumes"
+"volumes" *-- "volume"
+"cloud-region" *-- "volume-groups"
+"volume-groups" *-- "volume-group"
+"cloud-infrastructure" *-- "complexes"
+"complexes" *-- "complex"
+"complex" *-- "ctag-pools"
+"ctag-pools" *-- "ctag-pool"
+"cloud-infrastructure" *-- "network-profiles"
+"network-profiles" *-- "network-profile"
+"cloud-infrastructure" *-- "pservers"
+"pservers" *-- "pserver"
+"pserver" *-- "lag-interfaces"
+"lag-interfaces" *-- "lag-interface"
+"lag-interface" *-- "l-interfaces"
+"pserver" *-- "p-interfaces"
+"p-interfaces" *-- "p-interface"
+"p-interface" *-- "l-interfaces"
+"cloud-infrastructure" *-- "virtual-data-centers"
+"virtual-data-centers" *-- "virtual-data-center"
+"network" *-- "generic-vnfs"
+"generic-vnfs" *-- "generic-vnf"
+"generic-vnf" *-- "entitlements"
+"entitlements" *-- "entitlement"
+"generic-vnf" *-- "l-interfaces"
+"generic-vnf" *-- "lag-interfaces"
+"generic-vnf" *-- "licenses"
+"licenses" *-- "license"
+"generic-vnf" *-- "vf-modules"
+"vf-modules" *-- "vf-module"
+"network" *-- "instance-groups"
+"instance-groups" *-- "instance-group"
+"network" *-- "ipsec-configurations"
+"ipsec-configurations" *-- "ipsec-configuration"
+"ipsec-configuration" *-- "vig-servers"
+"vig-servers" *-- "vig-server"
+"network" *-- "l3-networks"
+"l3-networks" *-- "l3-network"
+"l3-network" *-- "ctag-assignments"
+"ctag-assignments" *-- "ctag-assignment"
+"l3-network" *-- "segmentation-assignments"
+"segmentation-assignments" *-- "segmentation-assignment"
+"l3-network" *-- "subnets"
+"subnets" *-- "subnet"
+"network" *-- "lag-links"
+"lag-links" *-- "lag-link"
+"network" *-- "logical-links"
+"logical-links" *-- "logical-link"
+"network" *-- "multicast-configurations"
+"multicast-configurations" *-- "multicast-configuration"
+"network" *-- "network-policies"
+"network-policies" *-- "network-policy"
+"network" *-- "newvces"
+"newvces" *-- "newvce"
+"newvce" *-- "l-interfaces"
+"network" *-- "physical-links"
+"physical-links" *-- "physical-link"
+"network" *-- "pnfs"
+"pnfs" *-- "pnf"
+"pnf" *-- "lag-interfaces"
+"pnf" *-- "p-interfaces"
+"network" *-- "route-table-references"
+"route-table-references" *-- "route-table-reference"
+"network" *-- "site-pair-sets"
+"site-pair-sets" *-- "site-pair-set"
+"site-pair-set" *-- "routing-instances"
+"routing-instances" *-- "routing-instance"
+"routing-instance" *-- "site-pairs"
+"site-pairs" *-- "site-pair"
+"site-pair" *-- "classes-of-service"
+"classes-of-service" *-- "class-of-service"
+"network" *-- "vces"
+"vces" *-- "vce"
+"vce" *-- "entitlements"
+"vce" *-- "licenses"
+"vce" *-- "port-groups"
+"port-groups" *-- "port-group"
+"port-group" *-- "cvlan-tags"
+"cvlan-tags" *-- "cvlan-tag-entry"
+"network" *-- "vnfcs"
+"vnfcs" *-- "vnfc"
+"network" *-- "vpls-pes"
+"vpls-pes" *-- "vpls-pe"
+"vpls-pe" *-- "lag-interfaces"
+"vpls-pe" *-- "p-interfaces"
+"network" *-- "vpn-bindings"
+"vpn-bindings" *-- "vpn-binding"
+"vpn-binding" *-- "route-targets"
+"route-targets" *-- "route-target"
+"network" *-- "zones"
+"zones" *-- "zone"
+"service-design-and-creation" *-- "models"
+"models" *-- "model"
+"model" *-- "model-vers"
+"model-vers" *-- "model-ver"
+"model-ver" *-- "metadata"
+"model-ver" *-- "model-elements"
+"model-elements" *-- "model-element"
+"model-element" *-- "model-constraints"
+"model-constraints" *-- "model-constraint"
+"model-constraint" *-- "constrained-element-sets"
+"constrained-element-sets" *-- "constrained-element-set"
+"constrained-element-set" *-- "element-choice-sets"
+"element-choice-sets" *-- "element-choice-set"
+"service-design-and-creation" *-- "named-queries"
+"named-queries" *-- "named-query"
+"named-query" *-- "named-query-elements"
+"named-query-elements" *-- "named-query-element"
+"named-query-element" *-- "property-constraints"
+"property-constraints" *-- "property-constraint"
+"named-query-element" *-- "related-lookups"
+"related-lookups" *-- "related-lookup"
+"service-design-and-creation" *-- "service-capabilities"
+"service-capabilities" *-- "service-capability"
+"service-design-and-creation" *-- "services"
+"services" *-- "service"
+"service-design-and-creation" *-- "vnf-images"
+"vnf-images" *-- "vnf-image"
+@enduml
