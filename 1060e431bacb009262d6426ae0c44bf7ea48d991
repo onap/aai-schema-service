@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e7d84ac_799444d9",
+        "filename": "aai-queries/src/main/resources/schema/onap/query/stored-queries.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1043
+      },
+      "writtenOn": "2019-05-20T14:05:43Z",
+      "side": 1,
+      "message": "I do not think the union step is necessary, I believe \n builder.store(\u0027x\u0027).createEdgeTraversal(EdgeType.COUSIN, startClass, cousinClass).store(\u0027x\u0027).cap(\u0027x\u0027).unfold().dedup()\nWill provide the desired result without the additional branch step.",
+      "revId": "1060e431bacb009262d6426ae0c44bf7ea48d991",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
