@@ -4025,7 +4025,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an sp-partner",indexedProps="sp-partner-id,url,callsource",nameProps="sp-partner-id",searchable="sp-partner-id",uniqueProps="sp-partner-id",container="sp-partners",namespace="business",uriTemplate="/business/sp-partners/sp-partner/{sp-partner-id}",requiredProps="sp-partner-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an sp-partner",indexedProps="sp-partner-id,url,callsource,model-invariant-id,model-version-id",nameProps="sp-partner-id",searchable="sp-partner-id",uniqueProps="sp-partner-id",container="sp-partners",namespace="business",uriTemplate="/business/sp-partners/sp-partner/{sp-partner-id}",requiredProps="sp-partner-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -5119,7 +5119,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="VPN binding",nameProps="vpn-name,vpn-type",indexedProps="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status",searchable="vpn-id,vpn-name",uniqueProps="vpn-id",container="vpn-bindings",namespace="network",uriTemplate="/network/vpn-bindings/vpn-binding/{vpn-id}",requiredProps="vpn-id,vpn-name")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="VPN binding",nameProps="vpn-name,vpn-type",indexedProps="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status,model-invariant-id,model-version-id",searchable="vpn-id,vpn-name",uniqueProps="vpn-id",container="vpn-bindings",namespace="network",uriTemplate="/network/vpn-bindings/vpn-binding/{vpn-id}",requiredProps="vpn-id,vpn-name")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8750,7 +8750,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a connectivity",indexedProps="connectivity-id,etht-svc-name,bandwidth-profile-name,vpn-type,color-aware,coupling-flag,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,operational-status",nameProps="etht-svc-name",searchable="connectivity-id",uniqueProps="connectivity-id",container="connectivities",namespace="network",requiredProps="connectivity-id",uriTemplate="/network/connectivities/connectivity/{connectivity-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a connectivity",indexedProps="connectivity-id,etht-svc-name,bandwidth-profile-name,vpn-type,color-aware,coupling-flag,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,operational-status,model-invariant-id,model-version-id",nameProps="etht-svc-name",searchable="connectivity-id",uniqueProps="connectivity-id",container="connectivities",namespace="network",requiredProps="connectivity-id",uriTemplate="/network/connectivities/connectivity/{connectivity-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -9204,7 +9204,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a site-resource",indexedProps="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status",nameProps="site-resource-name",searchable="site-resource-id",uniqueProps="site-resource-id",container="site-resources",namespace="network",requiredProps="site-resource-id",uriTemplate="/network/site-resources/site-resource/{site-resource-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a site-resource",indexedProps="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status,model-invariant-id,model-version-id",nameProps="site-resource-name",searchable="site-resource-id",uniqueProps="site-resource-id",container="site-resources",namespace="network",requiredProps="site-resource-id",uriTemplate="/network/site-resources/site-resource/{site-resource-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -9312,7 +9312,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an sdwan-vpn",indexedProps="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status",nameProps="sdwan-vpn-name",searchable="sdwan-vpn-id",uniqueProps="sdwan-vpn-id",container="sdwan-vpns",namespace="network",requiredProps="sdwan-vpn-id",uriTemplate="/network/sdwan-vpns/sdwan-vpn/{sdwan-vpn-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an sdwan-vpn",indexedProps="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status,model-invariant-id,model-version-id",nameProps="sdwan-vpn-name",searchable="sdwan-vpn-id",uniqueProps="sdwan-vpn-id",container="sdwan-vpns",namespace="network",requiredProps="sdwan-vpn-id",uriTemplate="/network/sdwan-vpns/sdwan-vpn/{sdwan-vpn-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -9420,7 +9420,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a device",indexedProps="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status",nameProps="device-name",searchable="device-id",uniqueProps="device-id",container="devices",namespace="network",requiredProps="device-id",uriTemplate="/network/devices/device/{device-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a device",indexedProps="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status,model-invariant-id,model-version-id",nameProps="device-name",searchable="device-id",uniqueProps="device-id",container="devices",namespace="network",requiredProps="device-id",uriTemplate="/network/devices/device/{device-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -9563,7 +9563,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a wan-port-config",indexedProps="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status",nameProps="wan-port-config-name",searchable="wan-port-config-id",uniqueProps="wan-port-config-id",container="wan-port-configs",namespace="network",requiredProps="wan-port-config-id",uriTemplate="/network/wan-port-configs/wan-port-config/{wan-port-config-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a wan-port-config",indexedProps="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status,model-invariant-id,model-version-id",nameProps="wan-port-config-name",searchable="wan-port-config-id",uniqueProps="wan-port-config-id",container="wan-port-configs",namespace="network",requiredProps="wan-port-config-id",uriTemplate="/network/wan-port-configs/wan-port-config/{wan-port-config-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
