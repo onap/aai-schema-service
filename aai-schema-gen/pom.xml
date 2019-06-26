@@ -27,11 +27,11 @@
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.5.0-SNAPSHOT</version>
+        <version>1.5.1-SNAPSHOT</version>
     </parent>
     <artifactId>aai-schema-gen</artifactId>
     <name>aai-schema-gen</name>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.1-SNAPSHOT</version>
     <properties>
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
         <!-- Start of Default ONAP Schema Properties -->
@@ -50,6 +50,7 @@
         <schema.version.edge.label.start>v12</schema.version.edge.label.start>
         <schema.version.api.default>v16</schema.version.api.default>
         <schema.version.list>v10,v11,v12,v13,v14,v15,v16</schema.version.list>
+	<springframework.version>4.3.18.RELEASE</springframework.version>
         <!-- End of Default ONAP Schema Properties -->
     </properties>
     <profiles>
@@ -70,6 +71,7 @@
                 <schema.version.api.default>v15</schema.version.api.default>
                 <schema.version.list>v10,v11,v12,v13,v14,v15,v16</schema.version.list>
                 <gendoc.version>v16</gendoc.version>
+		<springframework.version>4.3.18.RELEASE</springframework.version>
             </properties>
         </profile>
         <!-- End of ONAP profile -->
@@ -599,6 +601,43 @@
             </build>
         </profile>
     </profiles>
+
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
+            <scope>test</scope>
+        </dependency>	
+      </dependencies>
+    </dependencyManagement>
+	
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
