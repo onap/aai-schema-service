@@ -503,9 +503,9 @@ public class XSDElementTest {
 	@Test
 	public void testGetQueryParamYAML() {
 		ArrayList<String> target = new ArrayList<String>();
-		target.add("        - name: global-customer-id\n          in: query\n          description:\n          required: false\n          type: string\n");
-		target.add("        - name: subscriber-name\n          in: query\n          description:\n          required: false\n          type: string\n");
-		target.add("        - name: subscriber-type\n          in: query\n          description:\n          required: false\n          type: string\n");
+		target.add("        - name: global-customer-id\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
+		target.add("        - name: subscriber-name\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
+		target.add("        - name: subscriber-type\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
 		Vector<String> indexedProps = new Vector<String>();
 		for ( int i = 0; i < javaTypeNodes.getLength(); ++i ) {
 			XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
