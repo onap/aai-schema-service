@@ -134,7 +134,30 @@ git status
 
 if [ -f ${STARTDIR}/aai-schema-gen/src/main/resources/swagger.html.ftl -a -f ${STARTDIR}/aai-schema-gen/src/main/resources/swagger.plantuml.ftl ] ; then
   git checkout ${STARTDIR}/aai-schema-gen/src/main/resources/swagger.plantuml.ftl ${STARTDIR}/aai-schema-gen/src/main/resources/swagger.html.ftl
-  # mvn --offline -DskipTests process-classes
+  mvn --offline -DskipTests process-classes
+
+  # $ find aai-schema/src/main -name "aai_swagger_*.yaml"
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v10.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v10.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v11.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v11.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v12.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v12.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v13.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v13.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v14.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v14.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v15.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v15.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v16.nodes.yaml
+  # aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_v16.yaml
+
+  # convert yaml to json
+  for g in v16 v15 v14 v13 v12 v11 ; do
+    ${STARTDIR}/yaml2json.py < ${STARTDIR}/aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_${g}.yaml > ${STARTDIR}/plantuml/aai_swagger_${g}.json
+    ${STARTDIR}/yaml2json.py < ${STARTDIR}/aai-schema/src/main/resources/onap/aai_swagger_yaml/aai_swagger_${g}.nodes.yaml > ${STARTDIR}/plantuml/aai_swagger_${g}.nodes.json
+  done
+
   git status
 fi
 
