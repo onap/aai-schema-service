@@ -319,7 +319,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 + appliedPaths.containsKey(path));
             appliedPaths.put(path, xmlRootElementName);
         }
-
+        
         Vector<String> addTypeV = null;
         for (int i = 0; i < xmlElementNodes.getLength(); ++i) {
             XSDElement xmlElementElement = new XSDElement((Element) xmlElementNodes.item(i));
@@ -367,6 +367,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
 
             StringBuffer newPathParams = new StringBuffer(
                 (pathParams == null ? "" : pathParams.toString()) + sbParameters.toString());
+            String useName;
             for (int k = 0; addTypeV != null && k < addTypeV.size(); ++k) {
                 String addType = addTypeV.elementAt(k);
                 namespaceFilter.add(getXmlRootElementName(addType));
@@ -389,9 +390,18 @@ public class YAMLfromOXM extends OxmFileProcessor {
                     } else if (getItemName == null) {
                         ++propertyCnt;
                         sbProperties.append("      " + getXmlRootElementName(addType) + ":\n");
-                        sbProperties.append("        type: array\n        items:\n");
-                        sbProperties.append("          $ref: \"#/definitions/"
+                        if ( "RelationshipList".equals(addType)) {
+                            sbProperties.append("        type: object\n");
+                            sbProperties.append("        $ref: \"#/definitions/"
+                                + itemName + "\"\n");
+                        } else {
+                        	if ( "relationship".equals(itemName) ) {
+                        		System.out.println(v + "-relationship added as array for getItemName null");
+                        	}
+                        	sbProperties.append("        type: array\n        items:\n");
+                        	sbProperties.append("          $ref: \"#/definitions/"
                             + (itemName == "" ? "inventory-item-data" : itemName) + "\"\n");
+                        }
                         if (StringUtils.isNotEmpty(elementDescription)) {
                             sbProperties
                                 .append("        description: " + elementDescription + "\n");
@@ -408,13 +418,19 @@ public class YAMLfromOXM extends OxmFileProcessor {
                         processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType),
                             pathSb, definitionsSb, path, tag == null ? useTag : tag, useOpId, null,
                             newPathParams, validEdges);
-                        sbProperties.append("      " + getXmlRootElementName(addType) + ":\n");
-                        sbProperties.append("        type: array\n        items:          \n");
-                        sbProperties.append("          $ref: \"#/definitions/"
-                            + getXmlRootElementName(addType) + "\"\n");
-                        if (StringUtils.isNotEmpty(elementDescription)) {
-                            sbProperties
-                                .append("        description: " + elementDescription + "\n");
+                        useName = getXmlRootElementName(addType);
+                        sbProperties.append("      " + useName + ":\n");
+                        if ( "relationship".equals(useName)) {
+                            sbProperties.append("        type: object\n");
+                            sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
+                        } else {
+		                    sbProperties.append("        type: array\n        items:          \n");
+		                    sbProperties.append("          $ref: \"#/definitions/"
+		                        + getXmlRootElementName(addType) + "\"\n");
+		                    if (StringUtils.isNotEmpty(elementDescription)) {
+		                        sbProperties
+		                            .append("        description: " + elementDescription + "\n");
+		                    }
                         }
 
                     } else {

@@ -175,9 +175,37 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             if (namespaceFilter != null && (!namespaceFilter.contains(entry.getKey()))) {
                 continue;
             }
+            logger.debug(
+                "Key: " + entry.getKey() + "Test: " + (entry.getKey() == "relationship-dict"));
+            if (entry.getKey().matches("relationship-dict")) {
+                String jb = entry.getValue();
+                logger.debug("Value: " + jb);
+                int ndx = jb.indexOf("related-to-property:");
+                if (ndx > 0) {
+                    jb = jb.substring(0, ndx);
+                    jb = jb.replaceAll(" +$", "");
+                }
+                logger.debug("Value-after: " + jb);
+                sb.append(jb);
+                continue;
+            }
             sb.append(entry.getValue());
         }
         return sb.toString();
+    }
+    
+    private String getDictionary(String resource) {
+        StringBuffer dictSb = new StringBuffer();
+        dictSb.append("  " + resource + ":\n");
+        dictSb.append("    description: |\n");
+        dictSb.append("      dictionary of " + resource + "\n");
+        dictSb.append("    type: object\n");
+        dictSb.append("    properties:\n");
+        dictSb.append("      " + resource + ":\n");
+        dictSb.append("        type: array\n");
+        dictSb.append("        items:\n");
+        dictSb.append("          $ref: \"#/definitions/" + resource + "-dict\"\n");
+        return dictSb.toString();
     }
 
     private String processJavaTypeElementSwagger(String javaTypeName, Element javaTypeElement,
@@ -304,6 +332,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             // pathParams.toString())+sbParameters.toString()); //cp8128 don't append the pathParams
             // to sbParameters so that child nodes don't contain the parameters from parent
             StringBuffer newPathParams = new StringBuffer(sbParameters.toString());
+            String useName;
             for (int k = 0; addTypeV != null && k < addTypeV.size(); ++k) {
                 String addType = addTypeV.elementAt(k);
                 namespaceFilter.add(getXmlRootElementName(addType));
@@ -324,9 +353,15 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                     } else if (getItemName == null) {
                         ++propertyCnt;
                         sbProperties.append("      " + getXmlRootElementName(addType) + ":\n");
-                        sbProperties.append("        type: array\n        items:\n");
-                        sbProperties.append("          $ref: \"#/definitions/"
+                        if ( "RelationshipList".equals(addType)) {
+                            sbProperties.append("        type: object\n");
+                            sbProperties.append("        $ref: \"#/definitions/"
+                                + itemName + "\"\n");
+                        } else {
+                        	sbProperties.append("        type: array\n        items:\n");
+                        	sbProperties.append("          $ref: \"#/definitions/"
                             + (itemName == "" ? "aai-internal" : itemName) + "\"\n");
+                        }
                         if (StringUtils.isNotEmpty(elementDescription)) {
                             sbProperties
                                 .append("        description: " + elementDescription + "\n");
@@ -347,10 +382,16 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                         processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType),
                             pathSb, definitionsSb, path, tag == null ? useTag : tag, useOpId, null,
                             newPathParams, validEdges);
-                        sbProperties.append("      " + getXmlRootElementName(addType) + ":\n");
-                        sbProperties.append("        type: array\n        items:          \n");
-                        sbProperties.append("          $ref: \"#/definitions/"
-                            + getXmlRootElementName(addType) + "\"\n");
+                        useName = getXmlRootElementName(addType);
+                        sbProperties.append("      " + useName + ":\n");
+                        if ( "relationship".equals(useName)) {
+                            sbProperties.append("        type: object\n");
+                            sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
+                        } else {
+	                        sbProperties.append("        type: array\n        items:          \n");
+	                        sbProperties.append("          $ref: \"#/definitions/"
+	                            + getXmlRootElementName(addType) + "\"\n");
+                        }
                         if (StringUtils.isNotEmpty(elementDescription)) {
                             sbProperties
                                 .append("        description: " + elementDescription + "\n");
@@ -403,6 +444,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             return null;
         }
         boolean processingInventoryDef = false;
+        String dict = null;
         if (xmlRootElementName.equals("inventory")) {
             // inventory properties for each oxm to be concatenated
             processingInventoryDef = true;
@@ -412,7 +454,10 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                 definitionsLocalSb.append("  " + xmlRootElementName + ":\n");
                 definitionsLocalSb.append("    properties:\n");
             }
-
+        } else if (xmlRootElementName.equals("relationship")) {
+            definitionsSb.append("  " + "relationship-dict" + ":\n");
+            definitionsLocalSb.append("  " + "relationship-dict" + ":\n");
+            dict = getDictionary(xmlRootElementName);
         } else {
             definitionsSb.append("  " + xmlRootElementName + ":\n");
             definitionsLocalSb.append("  " + xmlRootElementName + ":\n");
@@ -539,6 +584,10 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             if (xmlRootElementName.equals("inventory")) {
                 // will add to javaTypeDefinitions at end
                 inventoryDefSb.append(definitionsLocalSb.toString());
+            } else if (xmlRootElementName.equals("relationship")) {
+                javaTypeDefinitions.put(xmlRootElementName, dict);
+                javaTypeDefinitions.put(xmlRootElementName + "-dict",
+                    definitionsLocalSb.toString());                
             } else {
                 javaTypeDefinitions.put(xmlRootElementName, definitionsLocalSb.toString());
             }
