@@ -3311,6 +3311,7 @@
                 <xml-element java-attribute="communicationServiceProfiles" name="communication-service-profiles" type="inventory.aai.onap.org.v20.CommunicationServiceProfiles"/>
                 <xml-element java-attribute="serviceProfiles" name="service-profiles" type="inventory.aai.onap.org.v20.ServiceProfiles"/>
                 <xml-element java-attribute="sliceProfiles" name="slice-profiles" type="inventory.aai.onap.org.v20.SliceProfiles"/>
+				<xml-element java-attribute="endpoints" name="endpoints" type="inventory.aai.onap.org.v20.Endpoints"/>
 		<xml-element java-attribute="serviceFunction" name="service-function" type="java.lang.String">
                   <xml-properties>
                     <xml-property name="description" value="String capturing function of the service."/>
@@ -4758,6 +4759,36 @@
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="name" name="name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of the policy"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="type" name="type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type of the policy"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the Transport slice connections and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="jitter"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxBandwidth" name="max-bandwidth" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum bandwidth (mb) of the connection links in a transport slice instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The reliability requirement for an network slice subnet instance, expressed as a percentage."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
@@ -6953,6 +6984,8 @@
 					</xml-properties>
 				</xml-element>
                 <xml-element java-attribute="tunnelXconnects" name="tunnel-xconnects" type="inventory.aai.onap.org.v20.TunnelXconnects"/>
+				<xml-element java-attribute="logicalLinks" name="logical-links" type="inventory.aai.onap.org.v20.LogicalLinks"/>
+				<xml-element java-attribute="networkPolicies" name="network-policies" type="inventory.aai.onap.org.v20.NetworkPolicies"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
             </java-attributes>
 
@@ -9414,7 +9447,7 @@
             <xml-root-element name="common"/>
             <java-attributes>
             	<xml-element java-attribute="contacts" name="contacts" type="inventory.aai.onap.org.v20.Contacts"/>
-                <xml-element java-attribute="profiles" name="profiles" type="inventory.aai.onap.org.v20.Profiles"/>
+              <xml-element java-attribute="profiles" name="profiles" type="inventory.aai.onap.org.v20.Profiles"/>
             </java-attributes>
 		</java-type>
 
@@ -9467,7 +9500,6 @@
             <xml-property name="requiredProps" value="contact-name"/>
             </xml-properties>
 		</java-type>
-
         <java-type name="Profiles">
             <xml-properties>
                 <xml-property name="description" value="Collection of profiles"/>
@@ -9523,6 +9555,7 @@
                 <xml-property name="requiredProps" value="profile-name"/>
             </xml-properties>
         </java-type>
+
 				<java-type name="AggregateRoutes">
             <xml-properties>
                 <xml-property name="description" value="Collection of aggregate routes."/>
@@ -9847,6 +9880,11 @@
                         <xml-property name="description" value="The availability requirement for an network slice subnet instance, expressed as a percentage."/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="maxBandwidth" name="max-bandwidth" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum bandwidth (mb) of the connection links in a transport slice instance."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
                     <xml-properties>
                         <xml-property name="description" value="The reliability requirement for an network slice subnet instance, expressed as a percentage."/>
@@ -9899,6 +9937,54 @@
                 <xml-property name="searcheable" value="profile-id"/>
             </xml-properties>
 		</java-type>
+        <java-type name="Endpoint">
+            <xml-root-element name="endpoint"/>
+            <java-attributes>
+                <xml-element java-attribute="endpointId" name="endpoint-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of an endpoint."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="endpointName" name="endpoint-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of an endpoint."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="endpointType" name="endpoint-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type of an endpoint."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="ipAddress" name="ip-address" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="IP address assigned to the endpoint."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="logicalInterfaceId" name="logical-interface-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identity of a logical interface, e.g., VLAN ID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Endpoint object."/>
+                <xml-property name="uniqueProps" value="endpoint-id"/>
+                <xml-property name="indexedProps" value="endpoint-id"/>
+                <xml-property name="container" value="endpoints"/>
+                <xml-property name="uriTemplate" value="/endpoints/endpoint/{endpoint-id}"/>
+                <xml-property name="searcheable" value="endpoint-id"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="Endpoints">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Endpoint objects."/>
+            </xml-properties>
+            <xml-root-element name="endpoints"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="endpoint" name="endpoint" type="inventory.aai.onap.org.v20.Endpoint"/>
+            </java-attributes>
+        </java-type>
 	</java-types>
 </xml-bindings>
 
