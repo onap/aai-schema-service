@@ -3674,6 +3674,78 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="tn-slice-policy">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+		      <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Transport Slice policy.",uniqueProps="id",indexedProps="id",container="tn-slice-policies",uriTemplate="/tn-slice-policies/tn-slice-policy/{id}",searcheable="id")</annox:annotate>
+    	</xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the policy.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="name" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the policy.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of the policy.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+		<xs:element name="latency" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The packet transmission latency (millisecond) through the Transport slice connections and is used to evaluate utilization performance of the end-to-end network slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+		<xs:element name="jitter" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="jitter")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum bandwidth (mb) of the connection links in a transport slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>       
+        <xs:element name="reliability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for a transport slice network, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tn-slice-policies">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of transport slice policies.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:tn-slice-policy" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="allotted-resource">
     <xs:complexType>
       <xs:annotation>
@@ -3809,6 +3881,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:tunnel-xconnects" minOccurs="0"/>
+		<xs:element ref="tns:logical-links" minOccurs="0"/>
+		<xs:element ref="tns:tn-slice-policies" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
@@ -4189,6 +4263,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+		<xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum bandwidth (mb) of the connection links in a transport slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -4251,6 +4332,79 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:annotation>
       <xs:sequence>
         <xs:element ref="tns:slice-profile" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="endpoint">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Endpoint object.",uniqueProps="endpoint-id",indexedProps="endpoint-id",container="endpoints",uriTemplate="/endpoints/endpoint/{endpoint-id}",searcheable="endpoint-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="endpoint-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of endpoint.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="endpoint-name" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of endpoint.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="endpoint-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of endpoint.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ip-address" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="IP address assigned to endpoint.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="logical-interface-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identity of a logical interface, e.g., VLAN ID.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="next-hop-info" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identity of an ingress transport node to which the endpoint is connected.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="qos-profile" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Reference of the QOS profile of the endpoint.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="endpoints">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of endpoints.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:endpoint" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4443,6 +4597,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:communication-service-profiles" minOccurs="0"/>
         <xs:element ref="tns:service-profiles" minOccurs="0"/>
         <xs:element ref="tns:slice-profiles" minOccurs="0"/>
+		<xs:element ref="tns:endpoints" minOccurs="0"/>
         <xs:element name="service-function" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
