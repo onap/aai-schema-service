@@ -445,7 +445,7 @@
 		"default": "true",
 		"description":"For CCVPN Usecase"
 	},
-        {
+	{
 		"from": "p-interface",
 		"to": "interlayer-attachment",
 		"label": "tosca.relationships.network.LinksTo",
@@ -458,7 +458,7 @@
 		"description":"For CCVPN Usecase"
 
 	},
-        {
+	{
 		"from": "tunnel-termination-point",
 		"to": "interlayer-attachment",
 		"label": "tosca.relationships.network.LinksTo",
@@ -483,7 +483,7 @@
 		"default": "true",
 		"description":"For CCVPN Usecase"
 	},
-        {
+	{
 		"from": "logical-link",
 		"to": "te-link-attribute",
 		"label": "tosca.relationships.network.LinksTo",
@@ -496,7 +496,7 @@
 		"description":"For CCVPN Usecase"
 
 	},
-        {
+	{
 		"from": "label-restriction",
 		"to": "te-link-attribute",
 		"label": "tosca.relationships.network.LinksTo",
@@ -544,6 +544,18 @@
                 "prevent-delete": "NONE",
                 "default": "true",
                 "description":"For MDONS usecase"
-        }
+        },
+        {
+                "from": "endpoint",
+                "to": "p-interface",
+                "label": "tosca.relationships.network.LinksTo",
+                "direction": "OUT",
+                "multiplicity": "ONE2ONE",
+                "contains-other-v": "NONE",
+                "delete-other-v": "NONE",
+                "prevent-delete": "NONE",
+                "default": "true",
+                "description":"For CCVPN Transport Slicing usecase"
+       }
   ]
 }
