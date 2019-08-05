@@ -57,6 +57,7 @@ import java.util.TreeSet;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -99,28 +100,40 @@ public class YAMLfromOXMTest {
 		 System.setProperty("AJSC_HOME", ".");
 	        System.setProperty("BUNDLECONFIG_DIR", "src/test/resources/bundleconfig-local");
 	        System.setProperty("aai.service.name", SERVICE_NAME);
-
-	        XSDElementTest x = new XSDElementTest();
-			x.setUp();
-			testXML = x.testXML;
-			logger.debug(testXML);
-			BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
-			bw.write(testXML);
-			bw.close();
-			BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
-			bw1.write(EdgeDefs());
-			bw1.close();
-
-
-
-
-
 	}
+	
+	
 
 	@Before
 	public void setUp() throws Exception {
-
+        XSDElementTest x = new XSDElementTest();
+		x.setUp();
+		testXML = x.testXML;
+		logger.debug(testXML);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
+		bw.write(testXML);
+		bw.close();
+		BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
+		bw1.write(EdgeDefs());
+		bw1.close();
     }
+	
+	public void setupRelationship() throws Exception{
+        XSDElementTest x = new XSDElementTest();
+
+		x.setUpRelationship();
+
+		testXML = x.testXML;
+		logger.debug(testXML);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
+
+		bw.write(testXML);
+
+		bw.close();
+		BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
+		bw1.write(EdgeDefs());
+		bw1.close();
+	}
 
 	@Test
 	public void AtestIngestors() throws EdgeRuleNotFoundException {
@@ -162,7 +175,6 @@ public class YAMLfromOXMTest {
 		assertThat("FileContent-TestProcess:\n"+fileContent,fileContent, is(YAMLresult()));
 	}
 
-
 	@Test
 	public void testYAMLfromOXMFileVersionFile() throws IOException {
 		String outfileName = "testXML.xml";
@@ -199,6 +211,27 @@ public class YAMLfromOXMTest {
 			e.printStackTrace();
 		}
 		assertThat("FileContent-OXMStringVersionFile:\n"+fileContent,fileContent, is(YAMLresult()));
+	}
+	
+	@Test
+	public void testRelationshipListYAMLfromOXMStringVersionFile() {
+		try {
+			setupRelationship();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		SchemaVersion v = schemaVersions.getAppRootVersion();
+		String apiVersion = v.toString();
+		String fileContent = null;
+		try {
+			yamlFromOxm.setXmlVersion(testXML, v);
+			fileContent = yamlFromOxm.process();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		boolean matchFound = fileContent.contains(( YAMLRelationshipList()));
+		assertTrue("RelationshipListFormat:\n", matchFound);
 	}
 
 	@Test
@@ -278,36 +311,33 @@ public class YAMLfromOXMTest {
 	public String YAMLheader() {
 		StringBuilder sb = new StringBuilder(1500);
 		sb.append("swagger: \"2.0\"\n");
-		sb.append("info:\n");
+		sb.append("info:" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  description: |\n");
 		sb.append("\n");
-		sb.append("    [Differences versus the previous schema version](apidocs/aai_swagger_v11.diff)\n");
-		sb.append("\n");
-		sb.append("    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved.\n");
-		sb.append("\n");
+		sb.append("    [Differences versus the previous schema version](apidocs/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
+		sb.append("    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License.\n");
 		sb.append("\n");
 		sb.append("    You may obtain a copy of the License at\n");
 		sb.append("\n");
 		sb.append("    (https://creativecommons.org/licenses/by/4.0/)\n");
 		sb.append("\n");
-		sb.append("    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n");
-		sb.append("\n");
-		sb.append("    This document is best viewed with Firefox or Chrome. Nodes can be found by appending /#/definitions/node-type-to-find to the path to this document. Edge definitions can be found with the node definitions.\n");
-		sb.append("  version: \"v11\"\n");
-		sb.append("  title: Active and Available Inventory REST API\n");
-		sb.append("  license:\n");
+		sb.append("    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
+		sb.append("    This document is best viewed with Firefox or Chrome. Nodes can be found by appending /#/definitions/node-type-to-find to the path to this document. Edge definitions can be found with the node definitions." + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("  version: \"v11\"" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("  title: Active and Available Inventory REST API" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("  license:" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("    name: Apache 2.0\n");
-		sb.append("    url: http://www.apache.org/licenses/LICENSE-2.0.html\n");
-		sb.append("  contact:\n");
-		sb.append("    name:\n");
-		sb.append("    url:\n");
-		sb.append("    email:\n");
-		sb.append("host:\n");
-		sb.append("basePath: /aai/v11\n");
-		sb.append("schemes:\n");
+		sb.append("    url: http://www.apache.org/licenses/LICENSE-2.0.html" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("  contact:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    name:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    url:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    email:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("host:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("basePath: /aai/v11" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("schemes:" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  - https\n");
-		sb.append("paths:\n");
+		sb.append("paths:" + OxmFileProcessor.LINE_SEPARATOR);
 		return sb.toString();
 	}
 
@@ -681,12 +711,12 @@ public class YAMLfromOXMTest {
 		sb.append("      business:\n");
 		sb.append("        type: object\n");
 		sb.append("        $ref: \"#/definitions/business\"\n");
-		sb.append("  nodes:\n");
-		sb.append("    properties:\n");
-		sb.append("      inventory-item-data:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/definitions/inventory-item-data\"\n");
+		sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("          $ref: \"#/definitions/inventory-item-data\"" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  service-subscription:\n");
 		sb.append("    description: |\n");
 		sb.append("      Object that group service instances.\n");
@@ -764,12 +794,12 @@ public class YAMLfromOXMTest {
 		sb.append("      business:\n");
 		sb.append("        type: object\n");
 		sb.append("        $ref: \"#/patchDefinitions/business\"\n");
-		sb.append("  nodes:\n");
-		sb.append("    properties:\n");
-		sb.append("      inventory-item-data:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/patchDefinitions/inventory-item-data\"\n");
+		sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("          $ref: \"#/patchDefinitions/inventory-item-data\"" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  service-subscription:\n");
 		sb.append("    description: |\n");
 		sb.append("      Object that group service instances.\n");
@@ -851,12 +881,12 @@ public class YAMLfromOXMTest {
 		sb.append("      business:\n");
 		sb.append("        type: object\n");
 		sb.append("        $ref: \"#/getDefinitions/business\"\n");
-		sb.append("  nodes:\n");
-		sb.append("    properties:\n");
-		sb.append("      inventory-item-data:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/getDefinitions/inventory-item-data\"\n");
+		sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR );
+		sb.append("          $ref: \"#/getDefinitions/inventory-item-data\"" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  service-subscription:\n");
 		sb.append("    description: |\n");
 		sb.append("      Object that group service instances.\n");
@@ -889,6 +919,17 @@ public class YAMLfromOXMTest {
 		sb.append("          $ref: \"#/getDefinitions/service-subscription\"\n");
 		return sb.toString();
 	}
+	
+	public String YAMLRelationshipList() {
+		StringBuilder sb = new StringBuilder(8092);
+		sb.append("  relationship-list:\n");
+		sb.append("    properties:\n");
+		sb.append("      relationship:\n");
+		sb.append("        type: object\n");
+		sb.append("        $ref: \"#/getDefinitions/relationship\"\n");
+		return sb.toString();
+	}
+	
 	public static String EdgeDefs() {
 		StringBuilder sb = new StringBuilder(8092);
 		sb.append("{\n" +
@@ -934,4 +975,3 @@ public class YAMLfromOXMTest {
 		return sb.toString();
 	}
 }
-

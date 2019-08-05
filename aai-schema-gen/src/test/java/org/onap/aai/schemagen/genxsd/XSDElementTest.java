@@ -81,7 +81,19 @@ public class XSDElementTest {
 		addEndOfXML(sb);
 		testXML = sb.toString();
 		init();
-}
+	}
+	
+	public void setUpRelationship(  ) throws Exception {
+		StringBuilder sb = new StringBuilder(maxSizeForXml);
+		addNamespaceNoInventory(sb);
+		addRelationship(sb);
+		addRelationshipList(sb);
+		addRelatedToProperty(sb);
+		addRelationshipData(sb);
+		addEndOfXML(sb);
+		testXML = sb.toString();
+		init();
+	}
 
 	private void addNamespace(StringBuilder sb){
 		sb.append("<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org.v11\" xml-mapping-metadata-complete=\"true\">\n");
@@ -95,6 +107,14 @@ public class XSDElementTest {
 		sb.append("<xml-element java-attribute=\"business\" name=\"business\" type=\"inventory.aai.onap.org.v11.Business\" />\n");
 		sb.append("</java-attributes>\n");
 		sb.append("</java-type>\n");
+	}
+	
+	private void addNamespaceNoInventory(StringBuilder sb){
+		sb.append("<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org.v11\" xml-mapping-metadata-complete=\"true\">\n");
+		sb.append("<xml-schema element-form-default=\"QUALIFIED\">\n");
+		sb.append("<xml-ns namespace-uri=\"http://org.onap.aai.inventory/v11\" />\n");
+		sb.append("</xml-schema>\n");
+		sb.append("<java-types>\n");
 	}
 
 	private void addBusiness(StringBuilder sb){
