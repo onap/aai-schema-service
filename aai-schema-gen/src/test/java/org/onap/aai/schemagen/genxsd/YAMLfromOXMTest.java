@@ -246,7 +246,7 @@ public class YAMLfromOXMTest {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		assertThat("Definitions:\n"+definitions,definitions, is(YAMLdefs()+YAMLpatchDefs()+YAMLgetDefs()));
+		assertThat("Definitions:\n"+definitions,definitions, is(YAMLdefs()+YAMLdefsAddPatch()));
 	}
 
 	@Test
@@ -304,8 +304,7 @@ public class YAMLfromOXMTest {
 		sb.append(YAMLheader());
 		sb.append(YAMLops());
 		sb.append(YAMLdefs());
-		sb.append(YAMLpatchDefs());
-		sb.append(YAMLgetDefs());
+		sb.append(YAMLdefsAddPatch());
 		return sb.toString();
 	}
 	public String YAMLheader() {
@@ -357,7 +356,7 @@ public class YAMLfromOXMTest {
 		sb.append("        \"200\":\n");
 		sb.append("          description: successful operation\n");
 		sb.append("          schema:\n");
-		sb.append("              $ref: \"#/getDefinitions/service-subscription\"\n");
+		sb.append("              $ref: \"#/definitions/service-subscription\"\n");
 		sb.append("        \"default\":\n");
 		sb.append("          null      parameters:\n");
 		sb.append("        - name: global-customer-id\n");
@@ -449,7 +448,7 @@ public class YAMLfromOXMTest {
 		sb.append("          description: service-subscription object that needs to be updated.\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
-		sb.append("            $ref: \"#/patchDefinitions/service-subscription\"\n");
+		sb.append("            $ref: \"#/definitions/zzzz-patch-service-subscription\"\n");
 		sb.append("    delete:\n");
 		sb.append("      tags:\n");
 		sb.append("        - Business\n");
@@ -496,7 +495,7 @@ public class YAMLfromOXMTest {
 		sb.append("        \"200\":\n");
 		sb.append("          description: successful operation\n");
 		sb.append("          schema:\n");
-		sb.append("              $ref: \"#/getDefinitions/service-subscriptions\"\n");
+		sb.append("              $ref: \"#/definitions/service-subscriptions\"\n");
 		sb.append("        \"default\":\n");
 		sb.append("          null      parameters:\n");
 		sb.append("        - name: global-customer-id\n");
@@ -524,7 +523,7 @@ public class YAMLfromOXMTest {
 		sb.append("        \"200\":\n");
 		sb.append("          description: successful operation\n");
 		sb.append("          schema:\n");
-		sb.append("              $ref: \"#/getDefinitions/customer\"\n");
+		sb.append("              $ref: \"#/definitions/customer\"\n");
 		sb.append("        \"default\":\n");
 		sb.append("          null      parameters:\n");
 		sb.append("        - name: global-customer-id\n");
@@ -598,7 +597,7 @@ public class YAMLfromOXMTest {
 		sb.append("          description: customer object that needs to be updated.\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
-		sb.append("            $ref: \"#/patchDefinitions/customer\"\n");
+		sb.append("            $ref: \"#/definitions/zzzz-patch-customer\"\n");
 		sb.append("    delete:\n");
 		sb.append("      tags:\n");
 		sb.append("        - Business\n");
@@ -639,7 +638,7 @@ public class YAMLfromOXMTest {
 		sb.append("        \"200\":\n");
 		sb.append("          description: successful operation\n");
 		sb.append("          schema:\n");
-		sb.append("              $ref: \"#/getDefinitions/customers\"\n");
+		sb.append("              $ref: \"#/definitions/customers\"\n");
 		sb.append("        \"default\":\n");
 		sb.append("          null      parameters:\n");
 		sb.append("        - name: global-customer-id\n");
@@ -749,28 +748,15 @@ public class YAMLfromOXMTest {
 		sb.append("          $ref: \"#/definitions/service-subscription\"\n");
 		return sb.toString();
 	}
-	public String YAMLpatchDefs() {
+	public String YAMLdefsAddPatch() {
 		StringBuilder sb = new StringBuilder(8092);
-		sb.append("patchDefinitions:\n");
-		sb.append("  business:\n");
-		sb.append("    description: |\n");
-		sb.append("      Namespace for business related constructs\n");
-		sb.append("    properties:\n");
-		sb.append("      customers:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/patchDefinitions/customer\"\n");
-		sb.append("  customer:\n");
+		sb.append("  zzzz-patch-customer:\n");
 		sb.append("    description: |\n");
 		sb.append("      customer identifiers to provide linkage back to BSS information.\n");
 		sb.append("      ###### Related Nodes\n");
 		sb.append("      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)\n");
 		sb.append("\n");
 		sb.append("      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also\n");
-		sb.append("    required:\n");
-		sb.append("    - global-customer-id\n");
-		sb.append("    - subscriber-name\n");
-		sb.append("    - subscriber-type\n");
 		sb.append("    properties:\n");
 		sb.append("      global-customer-id:\n");
 		sb.append("        type: string\n");
@@ -781,26 +767,7 @@ public class YAMLfromOXMTest {
 		sb.append("      subscriber-type:\n");
 		sb.append("        type: string\n");
 		sb.append("        description: Subscriber type, a way to provide VID with only the INFRA customers.\n");
-		sb.append("  customers:\n");
-		sb.append("    description: |\n");
-		sb.append("      Collection of customer identifiers to provide linkage back to BSS information.\n");
-		sb.append("    properties:\n");
-		sb.append("      customer:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:          \n");
-		sb.append("          $ref: \"#/patchDefinitions/customer\"\n");
-		sb.append("  inventory:\n");
-		sb.append("    properties:\n");
-		sb.append("      business:\n");
-		sb.append("        type: object\n");
-		sb.append("        $ref: \"#/patchDefinitions/business\"\n");
-		sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("          $ref: \"#/patchDefinitions/inventory-item-data\"" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("  service-subscription:\n");
+		sb.append("  zzzz-patch-service-subscription:\n");
 		sb.append("    description: |\n");
 		sb.append("      Object that group service instances.\n");
 		sb.append("      ###### Related Nodes\n");
@@ -810,8 +777,6 @@ public class YAMLfromOXMTest {
 		sb.append("\n");
 		sb.append("      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also\n");
 		sb.append("      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also\n");
-		sb.append("    required:\n");
-		sb.append("    - service-type\n");
 		sb.append("    properties:\n");
 		sb.append("      service-type:\n");
 		sb.append("        type: string\n");
@@ -819,104 +784,6 @@ public class YAMLfromOXMTest {
 		sb.append("      temp-ub-sub-account-id:\n");
 		sb.append("        type: string\n");
 		sb.append("        description: This property will be deleted from A&AI in the near future. Only stop gap solution.\n");
-		sb.append("  service-subscriptions:\n");
-		sb.append("    description: |\n");
-		sb.append("      Collection of objects that group service instances.\n");
-		sb.append("    properties:\n");
-		sb.append("      service-subscription:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:          \n");
-		sb.append("          $ref: \"#/patchDefinitions/service-subscription\"\n");
-		return sb.toString();
-	}
-	public String YAMLgetDefs() {
-		StringBuilder sb = new StringBuilder(8092);
-		sb.append("getDefinitions:\n");
-		sb.append("  business:\n");
-		sb.append("    description: |\n");
-		sb.append("      Namespace for business related constructs\n");
-		sb.append("    properties:\n");
-		sb.append("      customers:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/getDefinitions/customer\"\n");
-		sb.append("  customer:\n");
-		sb.append("    description: |\n");
-		sb.append("      customer identifiers to provide linkage back to BSS information.\n");
-		sb.append("      ###### Related Nodes\n");
-		sb.append("      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)\n");
-		sb.append("\n");
-		sb.append("      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also\n");
-		sb.append("    required:\n");
-		sb.append("    - global-customer-id\n");
-		sb.append("    - subscriber-name\n");
-		sb.append("    - subscriber-type\n");
-		sb.append("    properties:\n");
-		sb.append("      global-customer-id:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Global customer id used across to uniquely identify customer.\n");
-		sb.append("      subscriber-name:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Subscriber name, an alternate way to retrieve a customer.\n");
-		sb.append("      subscriber-type:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Subscriber type, a way to provide VID with only the INFRA customers.\n");
-		sb.append("      resource-version:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
-		sb.append("      service-subscriptions:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:\n");
-		sb.append("          $ref: \"#/getDefinitions/service-subscription\"\n");
-		sb.append("  customers:\n");
-		sb.append("    description: |\n");
-		sb.append("      Collection of customer identifiers to provide linkage back to BSS information.\n");
-		sb.append("    properties:\n");
-		sb.append("      customer:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:          \n");
-		sb.append("          $ref: \"#/getDefinitions/customer\"\n");
-		sb.append("  inventory:\n");
-		sb.append("    properties:\n");
-		sb.append("      business:\n");
-		sb.append("        type: object\n");
-		sb.append("        $ref: \"#/getDefinitions/business\"\n");
-		sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR );
-		sb.append("          $ref: \"#/getDefinitions/inventory-item-data\"" + OxmFileProcessor.LINE_SEPARATOR);
-		sb.append("  service-subscription:\n");
-		sb.append("    description: |\n");
-		sb.append("      Object that group service instances.\n");
-		sb.append("      ###### Related Nodes\n");
-		sb.append("      - TO customer (PARENT of service-subscription, service-subscription BelongsTo customer, MANY2ONE)(4)\n");
-		sb.append("      - TO tenant( service-subscription Uses tenant, MANY2MANY)\n");
-		sb.append("      - FROM service-instance (CHILD of service-subscription, service-instance BelongsTo service-subscription, MANY2ONE)(1)\n");
-		sb.append("\n");
-		sb.append("      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also\n");
-		sb.append("      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also\n");
-		sb.append("    required:\n");
-		sb.append("    - service-type\n");
-		sb.append("    properties:\n");
-		sb.append("      service-type:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Value defined by orchestration to identify this service.\n");
-		sb.append("      temp-ub-sub-account-id:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: This property will be deleted from A&AI in the near future. Only stop gap solution.\n");
-		sb.append("      resource-version:\n");
-		sb.append("        type: string\n");
-		sb.append("        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
-		sb.append("  service-subscriptions:\n");
-		sb.append("    description: |\n");
-		sb.append("      Collection of objects that group service instances.\n");
-		sb.append("    properties:\n");
-		sb.append("      service-subscription:\n");
-		sb.append("        type: array\n");
-		sb.append("        items:          \n");
-		sb.append("          $ref: \"#/getDefinitions/service-subscription\"\n");
 		return sb.toString();
 	}
 	
@@ -926,7 +793,7 @@ public class YAMLfromOXMTest {
 		sb.append("    properties:\n");
 		sb.append("      relationship:\n");
 		sb.append("        type: object\n");
-		sb.append("        $ref: \"#/getDefinitions/relationship\"\n");
+		sb.append("        $ref: \"#/definitions/relationship\"\n");
 		return sb.toString();
 	}
 	

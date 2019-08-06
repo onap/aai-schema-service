@@ -101,7 +101,7 @@ public class GetOperation {
 			pathSb.append("        \"200\":\n");
 			pathSb.append("          description: successful operation\n");
 			pathSb.append("          schema:\n");
-			pathSb.append("              $ref: \"#/getDefinitions/" + xmlRootElementName + "\"\n");
+			pathSb.append("              $ref: \"#/definitions/" + xmlRootElementName + "\"\n");
 			pathSb.append("        \"default\":\n");
 			pathSb.append("          " + GenerateXsd.getResponsesUrl());
 			if ( StringUtils.isNotEmpty(pathParams) || StringUtils.isNotEmpty(queryParams)) {

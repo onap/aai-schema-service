@@ -146,6 +146,11 @@ public class XSDElement implements Element {
 				}
 			}
 		}
+        if ( pathDescriptionProperty != null ) {
+        	//suppress non-printable characters in a description
+            String replaceDescription = pathDescriptionProperty.replaceAll("[^\\p{ASCII}]", "");
+            return replaceDescription;
+        }
 		return pathDescriptionProperty;
 	}
 	public Vector<String> getIndexedProps() {
@@ -249,10 +254,18 @@ public class XSDElement implements Element {
 		}
 		return sbParameter.toString();
 	}
-
+	
 	public String getPathParamYAML(String elementDescription) {
+		return getPathParamYAML(elementDescription, null);
+	}
+
+	public String getPathParamYAML(String elementDescription, String overrideName) {
+		// updated to allow caller to provide parameter name to use in API 
 		StringBuffer sbParameter = new StringBuffer();
-		sbParameter.append(("        - name: " + this.getAttribute("name") + "\n"));
+		if ( overrideName == null ) {
+			overrideName = this.getAttribute("name");
+		}
+		sbParameter.append(("        - name: " + overrideName + "\n"));
 		sbParameter.append(("          in: path\n"));
 		if ( elementDescription != null && elementDescription.length() > 0 )
 			sbParameter.append(("          description: " + elementDescription + "\n"));
@@ -723,3 +736,4 @@ public class XSDElement implements Element {
 
 
 }
+

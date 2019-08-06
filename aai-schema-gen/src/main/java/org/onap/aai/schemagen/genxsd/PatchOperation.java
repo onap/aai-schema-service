@@ -30,16 +30,21 @@ public class PatchOperation {
 	private String tag;
 	private String path;
 	private String pathParams;
+	private String prefixForPatch;
 
-		public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams) {
-			super();
-			this.useOpId = useOpId;
-			this.xmlRootElementName = xmlRootElementName;
-			this.tag = tag;
-			this.path = path;
-			this.pathParams = pathParams;
+	public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams) {
+		super();
+		this.useOpId = useOpId;
+		this.xmlRootElementName = xmlRootElementName;
+		this.tag = tag;
+		this.path = path;
+		this.pathParams = pathParams;
+		this.prefixForPatch = "";
+	}
+		public void setPrefixForPatchRef(String prefixForPatchRef) {
+			this.prefixForPatch = prefixForPatchRef;
 		}
-
+		
 		public String toString() {
 			StringTokenizer st;
 			st = new StringTokenizer(path, "/");
@@ -107,7 +112,7 @@ public class PatchOperation {
 			pathSb.append("          description: " + xmlRootElementName + " object that needs to be updated."+relationshipExamplesSb.toString()+"\n");
 			pathSb.append("          required: true\n");
 			pathSb.append("          schema:\n");
-			pathSb.append("            $ref: \"#/patchDefinitions/" + xmlRootElementName + "\"\n");
+			pathSb.append("            $ref: \"#/definitions/" + prefixForPatch + xmlRootElementName + "\"\n");
 			return pathSb.toString();
 		}
 	}

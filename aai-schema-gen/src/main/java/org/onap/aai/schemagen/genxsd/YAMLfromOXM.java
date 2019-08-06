@@ -55,6 +55,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
     private static final String yaml_dir = (((System.getProperty("user.dir") != null)
         && (!System.getProperty("user.dir").contains(normalStartDir))) ? autoGenRoot : root)
         + "/aai_swagger_yaml";
+    private final String patchDefinePrefix = "zzzz-patch-";
     private StringBuilder inventoryDefSb = null;
 
     private String basePath;
@@ -194,37 +195,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
             }
             sb.append(entry.getValue());
         }
-
-        sb.append("patchDefinitions:\n");
-        for (Map.Entry<String, String> entry : sortedJavaTypeDefinitions.entrySet()) {
-            if (namespaceFilter != null && (!namespaceFilter.contains(entry.getKey()))) {
-                continue;
-            }
-            String jb = entry.getValue().replaceAll("/definitions/", "/patchDefinitions/");
-            int ndx = jb.indexOf("relationship-list:");
-            if (ndx > 0) {
-                jb = jb.substring(0, ndx);
-                jb = jb.replaceAll(" +$", "");
-            }
-            int ndx1 = jb.indexOf("resource-version:");
-            logger.debug("Key: " + entry.getKey() + " index: " + ndx1);
-            logger.debug("Value: " + jb);
-            if (ndx1 > 0) {
-                jb = jb.substring(0, ndx1);
-                jb = jb.replaceAll(" +$", "");
-            }
-            logger.debug("Value-after: " + jb);
-            sb.append(jb);
-        }
-
-        sb.append("getDefinitions:\n");
-        for (Map.Entry<String, String> entry : sortedJavaTypeDefinitions.entrySet()) {
-            if (namespaceFilter != null && (!namespaceFilter.contains(entry.getKey()))) {
-                continue;
-            }
-            String jb = entry.getValue().replaceAll("/definitions/", "/getDefinitions/");
-            sb.append(jb);
-        }
         return sb.toString();
     }
 
@@ -248,6 +218,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
 
         String xmlRootElementName = getXMLRootElementName(javaTypeElement);
         StringBuilder definitionsLocalSb = new StringBuilder(256);
+        StringBuilder definitionsLocalPatchSb = new StringBuilder(256);
 
         String useTag = null;
         String useOpId = null;
@@ -303,10 +274,14 @@ public class YAMLfromOXM extends OxmFileProcessor {
         NodeList xmlElementNodes = parentElement.getElementsByTagName("xml-element");
 
         StringBuffer sbParameters = new StringBuffer();
+        StringBuffer sbPathParameters = new StringBuffer(); // separate naming path parameters from name of parameter in the schema
         StringBuffer sbRequired = new StringBuffer();
+        
         int requiredCnt = 0;
         int propertyCnt = 0;
         StringBuffer sbProperties = new StringBuffer();
+        int patchPropertyCnt = 0; // manage payload properties separately for patch
+        StringBuffer sbPropertiesPatch = new StringBuffer();
 
         if (appliedPaths.containsKey(path)) {
             return null;
@@ -321,6 +296,8 @@ public class YAMLfromOXM extends OxmFileProcessor {
         }
         
         Vector<String> addTypeV = null;
+        String modifiedName;
+        String replaceDescription;
         for (int i = 0; i < xmlElementNodes.getLength(); ++i) {
             XSDElement xmlElementElement = new XSDElement((Element) xmlElementNodes.item(i));
             if (!xmlElementElement.getParentNode().isSameNode(parentElement)) {
@@ -330,13 +307,24 @@ public class YAMLfromOXM extends OxmFileProcessor {
             if (getItemName == null) {
                 addTypeV = xmlElementElement.getAddTypes(v.toString());
             }
+            // use alternate name for parameter if already in the path string 
+            modifiedName = "/{" + xmlElementElement.getAttribute("name") + "}";
+            if ( path.contains(modifiedName)) {
+            	modifiedName = path.substring(path.lastIndexOf('/')+1) + "." + xmlElementElement.getAttribute("name");
+            } else {
+            	modifiedName = xmlElementElement.getAttribute("name");
+            }
             if ("true".equals(xmlElementElement.getAttribute("xml-key"))) {
-                path += "/{" + xmlElementElement.getAttribute("name") + "}";
+                path += "/{" + modifiedName + "}";
             }
             logger.debug("path: " + path);
             logger.debug("xmlElementElement.getAttribute(required):"
                 + xmlElementElement.getAttribute("required"));
 
+            if ("true".equals(xmlElementElement.getAttribute("xml-key"))) {
+                sbParameters.append(xmlElementElement.getPathParamYAML(elementDescription));
+                sbPathParameters.append(xmlElementElement.getPathParamYAML(elementDescription, modifiedName));
+            }
             if (("true").equals(xmlElementElement.getAttribute("required"))) {
                 if (requiredCnt == 0) {
                     sbRequired.append("    required:\n");
@@ -351,10 +339,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
                     }
                 }
             }
-
-            if ("true".equals(xmlElementElement.getAttribute("xml-key"))) {
-                sbParameters.append(xmlElementElement.getPathParamYAML(elementDescription));
-            }
             if (indexedProps != null
                 && indexedProps.contains(xmlElementElement.getAttribute("name"))) {
                 containerProps.add(xmlElementElement.getQueryParamYAML());
@@ -362,11 +346,15 @@ public class YAMLfromOXM extends OxmFileProcessor {
             }
             if (xmlElementElement.isStandardType()) {
                 sbProperties.append(xmlElementElement.getTypePropertyYAML());
+                if ( !"resource-version".equals(xmlElementElement.getAttribute("name"))) {
+                	sbPropertiesPatch.append(xmlElementElement.getTypePropertyYAML());
+                	++patchPropertyCnt;
+                }
                 ++propertyCnt;
             }
 
             StringBuffer newPathParams = new StringBuffer(
-                (pathParams == null ? "" : pathParams.toString()) + sbParameters.toString());
+                (pathParams == null ? "" : pathParams.toString()) + sbPathParameters.toString());
             String useName;
             for (int k = 0; addTypeV != null && k < addTypeV.size(); ++k) {
                 String addType = addTypeV.elementAt(k);
@@ -394,6 +382,11 @@ public class YAMLfromOXM extends OxmFileProcessor {
                             sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/"
                                 + itemName + "\"\n");
+                            sbPropertiesPatch.append("      " + getXmlRootElementName(addType) + ":\n");
+                            sbPropertiesPatch.append("        type: object\n");
+                            sbPropertiesPatch.append("        $ref: \"#/definitions/"
+                                + itemName + "\"\n");
+                            ++patchPropertyCnt;
                         } else {
                         	if ( "relationship".equals(itemName) ) {
                         		System.out.println(v + "-relationship added as array for getItemName null");
@@ -423,6 +416,9 @@ public class YAMLfromOXM extends OxmFileProcessor {
                         if ( "relationship".equals(useName)) {
                             sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
+                            sbPropertiesPatch.append("        type: object\n");
+                            sbPropertiesPatch.append("        $ref: \"#/definitions/relationship\"\n");
+                            ++patchPropertyCnt;
                         } else {
 		                    sbProperties.append("        type: array\n        items:          \n");
 		                    sbProperties.append("          $ref: \"#/definitions/"
@@ -456,7 +452,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
             if (pathParams == null) {
                 pathParams = new StringBuffer();
             }
-            pathParams.append(sbParameters);
+            pathParams.append(sbPathParameters);
         }
         GetOperation get = new GetOperation(useOpId, xmlRootElementName, tag, path,
             pathParams == null ? "" : pathParams.toString());
@@ -469,6 +465,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
         // add PATCH
         PatchOperation patch = new PatchOperation(useOpId, xmlRootElementName, tag, path,
             pathParams == null ? "" : pathParams.toString());
+        patch.setPrefixForPatchRef(patchDefinePrefix);
         pathSb.append(patch.toString());
         // add DELETE
         DeleteOperation del = new DeleteOperation(useOpId, xmlRootElementName, tag, path,
@@ -597,10 +594,25 @@ public class YAMLfromOXM extends OxmFileProcessor {
 
             if (pathDescriptionProperty != null) {
                 definitionsSb.append("      " + pathDescriptionProperty + "\n");
-                definitionsLocalSb.append("      " + pathDescriptionProperty + "\n");
+                definitionsLocalSb.append("      " + pathDescriptionProperty + "\n");    
             }
-            definitionsSb.append(validEdges);
-            definitionsLocalSb.append(validEdges);
+            if (StringUtils.isNotEmpty(validEdges) ) {
+	            definitionsSb.append(validEdges);
+	            definitionsLocalSb.append(validEdges);
+            }
+        }
+        if ( patchPropertyCnt > 0 ) {
+        	definitionsLocalPatchSb.append("  " + patchDefinePrefix + xmlRootElementName + ":\n");
+        	if (StringUtils.isNotEmpty(pathDescriptionProperty) || StringUtils.isNotEmpty(validEdges)) {
+        		definitionsLocalPatchSb.append("    description: |\n");
+        	}
+        	if (pathDescriptionProperty != null) {
+        		definitionsLocalPatchSb.append("      " + pathDescriptionProperty + "\n");
+        	}
+        	if (StringUtils.isNotEmpty(validEdges) ) {
+        		definitionsLocalPatchSb.append(validEdges);
+        	}
+            definitionsLocalPatchSb.append("    properties:\n");
         }
 
         if (requiredCnt > 0) {
@@ -615,6 +627,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 definitionsLocalSb.append("    properties:\n");
             }
             definitionsLocalSb.append(sbProperties);
+            definitionsLocalPatchSb.append(sbPropertiesPatch);
         }
         try {
             namespaceFilter.add(xmlRootElementName);
@@ -627,6 +640,9 @@ public class YAMLfromOXM extends OxmFileProcessor {
                     definitionsLocalSb.toString());
             } else {
                 javaTypeDefinitions.put(xmlRootElementName, definitionsLocalSb.toString());
+                if ( !"relationship-list".equals(xmlRootElementName)) {
+                	javaTypeDefinitions.put(patchDefinePrefix + xmlRootElementName, definitionsLocalPatchSb.toString());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -691,3 +707,4 @@ public class YAMLfromOXM extends OxmFileProcessor {
     }
 
 }
+
