@@ -237,7 +237,7 @@ public class XSDElement implements Element {
 		if ( this.getAttribute("description") != null && this.getAttribute("description").length() > 0 )
 			sbParameter.append(("          description: " + this.getAttribute("description") + "\n"));
 		else
-			sbParameter.append(("          description:\n"));
+			sbParameter.append(("          description: n/a\n"));
 		sbParameter.append(("          required: false\n"));
 		if ( ("java.lang.String").equals(this.getAttribute("type")))
 			sbParameter.append("          type: string\n");

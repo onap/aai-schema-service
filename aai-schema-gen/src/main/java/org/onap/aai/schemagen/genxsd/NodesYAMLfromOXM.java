@@ -92,8 +92,8 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         sb.append("  title: Active and Available Inventory REST API" + LINE_SEPARATOR);
         sb.append(
             "  license:" + LINE_SEPARATOR + "    name: Apache 2.0" + LINE_SEPARATOR + "    url: http://www.apache.org/licenses/LICENSE-2.0.html" + LINE_SEPARATOR);
-        sb.append("  contact:" + LINE_SEPARATOR + "    name:" + LINE_SEPARATOR + "    url:" + LINE_SEPARATOR + "    email:" + LINE_SEPARATOR);
-        sb.append("host:" + LINE_SEPARATOR + "basePath: " + basePath + "/" + v.toString() + LINE_SEPARATOR);
+        sb.append("  contact:" + LINE_SEPARATOR + "    name: n/a" + LINE_SEPARATOR + "    url: n/a" + LINE_SEPARATOR + "    email: n/a" + LINE_SEPARATOR);
+        sb.append("host: n/a" + LINE_SEPARATOR + "basePath: " + basePath + "/" + v.toString() + LINE_SEPARATOR);
         sb.append("schemes:" + LINE_SEPARATOR + "  - https\npaths:" + LINE_SEPARATOR);
         return sb.toString();
     }
