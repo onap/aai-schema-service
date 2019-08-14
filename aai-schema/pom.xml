@@ -27,11 +27,11 @@
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.5.2-SNAPSHOT</version>
     </parent>
     <artifactId>aai-schema</artifactId>
     <name>aai-schema</name>
-    <version>1.5.1-SNAPSHOT</version>
+    <version>1.5.2-SNAPSHOT</version>
     <properties>
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
         <!-- Start of Default ONAP Schema Properties -->
