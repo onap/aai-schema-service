@@ -90,8 +90,10 @@
         <!-- Start of Default ONAP Schema Properties -->
         <schema.source.name>onap</schema.source.name>
         <schema.configuration.location>N/A</schema.configuration.location>
-        <schema.nodes.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/oxm</schema.nodes.location>
-        <schema.edges.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/dbedgerules</schema.edges.location>
+        <schema.nodes.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/oxm
+        </schema.nodes.location>
+        <schema.edges.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/dbedgerules
+        </schema.edges.location>
         <schema.version.depth.start>v10</schema.version.depth.start>
         <schema.version.related.link.start>v10</schema.version.related.link.start>
         <schema.version.app.root.start>v11</schema.version.app.root.start>
@@ -113,10 +115,13 @@
                     <plugin>
                         <groupId>org.codehaus.groovy.maven</groupId>
                         <artifactId>gmaven-plugin</artifactId>
-                        <version>1.0</version>
                         <executions>
                             <execution>
-                                <phase>prepare-package</phase>
+                                <phase>pre-clean</phase>
+                            </execution>
+                            <execution>
+                                <id>parse-base</id>
+                                <phase>pre-clean</phase>
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>
