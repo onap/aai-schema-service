@@ -5,7 +5,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
     <jaxb:globalBindings>
-	    <xjc:serializable uid="16"/>
+	    <xjc:serializable uid="17"/>
     </jaxb:globalBindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.openecomp.aai.inventory/v8">
         <jaxb:schemaBindings>
@@ -49,7 +49,12 @@
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v16">
         <jaxb:schemaBindings>
-            <jaxb:package name="org.onap.aai.domain.yang"/>
+            <jaxb:package name="org.onap.aai.domain.yang.v16"/>
         </jaxb:schemaBindings>      
+    </jaxb:bindings>
+    <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v17">
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.onap.aai.domain.yang"/>
+        </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>
