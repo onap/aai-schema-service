@@ -5894,6 +5894,12 @@
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="orchestrationType" name="orchestration-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Orchestration type of this model."/>
+                    </xml-properties>
+                </xml-element>
+
                 <xml-element java-attribute="modelElements" name="model-elements" type="inventory.aai.onap.org.v18.ModelElements"/>
                 <xml-element java-attribute="metadata" name="metadata" type="inventory.aai.onap.org.v18.Metadata"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v18.RelationshipList"/>
