@@ -31,7 +31,6 @@
     </parent>
     <artifactId>aai-schema</artifactId>
     <name>aai-schema</name>
-    <version>1.6.1-SNAPSHOT</version>
     <properties>
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
         <!-- Start of Default ONAP Schema Properties -->
@@ -48,7 +47,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
