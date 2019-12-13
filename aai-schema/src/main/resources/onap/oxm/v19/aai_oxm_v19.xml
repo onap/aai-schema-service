@@ -8758,6 +8758,21 @@
                         <xml-property name="description" value="Indicate link access type e.g, point-to-point or multi-access."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="availableBandwidth" name="available-bandwidth" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Bandwidth available on link."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="oduType" name="odu-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="number" name="number" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The value of available bandwidth."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Store the link to get more information for this object."/>
