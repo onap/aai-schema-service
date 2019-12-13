@@ -9943,6 +9943,27 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+	<xs:element name="available-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bandwidth available on link.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="odu-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="number" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="selflink" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
