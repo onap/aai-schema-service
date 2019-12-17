@@ -61,6 +61,19 @@
       "default": "true"
     },
     {
+      "from": "esr-thirdparty-sdnc",
+      "to": "network-resource",
+      "label": "org.onap.relationships.inventory.AppliesTo",
+      "direction": "OUT",
+      "multiplicity": "ONE2MANY",
+      "contains-other-v": "NONE",
+      "delete-other-v": "NONE",
+      "SVC-INFRA": "NONE",
+      "prevent-delete": "NONE",
+      "default": "true",
+      "description":"For MDONS Usecase"
+    },
+    {
       "from": "esr-system-info",
       "to": "cloud-region",
       "label": "org.onap.relationships.inventory.BelongsTo",
