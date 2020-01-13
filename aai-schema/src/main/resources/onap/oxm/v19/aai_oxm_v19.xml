@@ -5378,6 +5378,11 @@
                     <xml-properties>
                         <xml-property name="description" value="Nf Role is the role performed by this instance in the network."/>
                     </xml-properties>
+                <xml-element java-attribute="isAbstract" name="is-abstract" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="true, indicate abstract node"/>
+                    </xml-properties>
+                </xml-element>
                 </xml-element>
 				<xml-element java-attribute="adminStatus" name="admin-status" type="java.lang.String">
 					<xml-properties>
