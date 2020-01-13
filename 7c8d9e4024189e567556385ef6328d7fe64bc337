@@ -1,0 +1,10 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Hesam Rahimi <hesam.rahimi@huawei.com>
+Code-Review+1: Henry Yu <hyu2010b@gmail.com>
+Code-Review+1: Chandra Cinthala <chandra.cinthala@att.com>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Mon, 13 Jan 2020 16:22:58 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/100246
+Project: aai/schema-service
+Branch: refs/heads/master
