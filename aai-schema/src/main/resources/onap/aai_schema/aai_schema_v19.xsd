@@ -2508,6 +2508,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+	<xs:element name="available-capacity" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the units corresponding to the speed")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="port-description" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -2530,6 +2537,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element name="interface-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the physical properties of the interface.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="network-interface-type" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the physical properties of the interface.")</annox:annotate>
@@ -3302,6 +3316,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+	<xs:element name="domain-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Domain type of the SDNC controllerr.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -3630,6 +3651,34 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing the service role.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="service-rate" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Rate of the service instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="service-layer" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Definition of the service layer.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="due-date" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Due date of the service creation.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="end-date" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="End date of the service creation.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -4756,6 +4805,20 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the units corresponding to the speed")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="available-capacity" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the units corresponding to the speed")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+	<xs:element name="admin-state" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the administrative state of the link")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>

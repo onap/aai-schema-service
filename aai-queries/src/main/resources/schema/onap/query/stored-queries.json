@@ -34,6 +34,34 @@
       "stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'pnf', 'p-interface').where(builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'p-interface', 'physical-link')).as('item').store('x').createEdgeTraversal(EdgeType.COUSIN, 'p-interface', 'physical-link').store('x').createEdgeTraversal(EdgeType.COUSIN, 'physical-link', 'p-interface').store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'p-interface', 'pserver').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'p-interface', 'pnf').store('x')),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'pnf', 'complex').store('x')).cap('x').unfold().dedup()"
     }
   },{
+    "getDomainController": {
+	    "query":{
+              "required-properties":["portid"]
+            },
+      "stored-query":"builder.createEdgeTraversal(EdgeType.TREE, 'pnf', 'p-interface').getVerticesByProperty('interface-name',portid).createEdgeTraversal(EdgeType.TREE, 'p-interface', 'pnf').createEdgeTraversal(EdgeType.COUSIN, 'pnf', 'network-resource').createEdgeTraversal(EdgeType.COUSIN, 'network-resource', 'esr-thirdparty-sdnc').store('x').cap('x').unfold().dedup()"
+  }
+  },{
+      "getInterfaceTypes": {
+            "query":{
+              "required-properties":["porttype"]
+     },
+     "stored-query":"builder.createEdgeTraversal(EdgeType.TREE, 'pnf', 'p-interface').getVerticesByProperty('network-interface-type',porttype).store('x').cap('x').unfold().dedup()"
+    }
+  },{
+    "getInterDomainLink": {
+           "query":{
+              "required-properties":["linktype","controller1","controller2"]
+            },
+      "stored-query":"builder.createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller1).createEdgeTraversal(EdgeType.COUSIN,'esr-thirdparty-sdnc','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','pnf').createEdgeTraversal(EdgeType.TREE,'pnf','p-interface').createEdgeTraversal(EdgeType.COUSIN,'p-interface','logical-link').store('x').getVerticesByProperty('link-type',linktype).where(builder.store('x').createEdgeTraversal(EdgeType.COUSIN,'logical-link','p-interface').createEdgeTraversal(EdgeType.TREE,'p-interface','pnf').createEdgeTraversal(EdgeType.COUSIN,'pnf','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller2)).cap('x').unfold().dedup()"
+      }  
+  },{
+    "getInterfaceDetails": {
+           "query":{
+              "required-properties":["portid"]
+            },
+            "stored-query": "builder.createEdgeTraversal(EdgeType.COUSIN, 'esr-thirdparty-sdnc','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','pnf').createEdgeTraversal(EdgeType.TREE,'pnf','p-interface').getVerticesByProperty('interface-name', portid).store('x').cap('x').unfold().dedup()"
+  }
+  },{
     "so-request-vfModule":{
       "stored-query":"builder.store('x').union(builder.newInstance().createEdgeTraversal(EdgeType.TREE, 'vf-module', 'generic-vnf').store('x').createEdgeTraversal(EdgeType.COUSIN, 'generic-vnf', 'service-instance').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vf-module', 'vserver').createEdgeTraversal(EdgeType.TREE, 'vserver', 'tenant').createEdgeTraversal(EdgeType.TREE, 'tenant', 'cloud-region').store('x'),builder.newInstance().createEdgeTraversal(EdgeType.COUSIN, 'vf-module', 'volume-group').store('x')).cap('x').unfold().dedup()"
     }
