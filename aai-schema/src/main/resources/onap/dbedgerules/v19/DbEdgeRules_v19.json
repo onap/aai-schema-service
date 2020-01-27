@@ -937,6 +937,18 @@
 			"description":""
 		},
 		{
+                        "from": "service-instance",
+                        "to": "p-interface",
+                        "label": "org.onap.relationships.inventory.ComposedOf",
+                        "direction": "OUT",
+                        "multiplicity": "ONE2MANY",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description":"For MDONS Use case"
+                },
+		{
 			"from": "subnet",
 			"to": "l3-network",
 			"label": "org.onap.relationships.inventory.BelongsTo",

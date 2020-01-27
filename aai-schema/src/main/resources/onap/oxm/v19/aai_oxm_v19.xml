@@ -394,6 +394,11 @@
                                                <xml-property name="description" value="password used to access SDNC server."/>
                                        </xml-properties>
                                </xml-element>
+			       <xml-element java-attribute="domainType" name="domain-type" type="java.lang.String">
+			               <xml-properties>
+			               		<xml-property name="description" value="Domain type of the SDNC controllerr."/>
+			               </xml-properties>
+			       </xml-element>
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -2288,6 +2293,11 @@
                         <xml-property name="description" value="Nature of the services and connectivity on this port."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="domainType" name="domain-type" type="java.lang.String">
+		    <xml-properties>
+			<xml-property name="description" value="Domain type of the SDNC controllerr."/>
+	            </xml-properties>
+		</xml-element>
                 <xml-element java-attribute="equipmentIdentifier" name="equipment-identifier" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="CLEI or other specification for p-interface hardware."/>
@@ -2299,6 +2309,11 @@
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="interfaceType" name="interface-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicates the physical properties of the interface."/>
+                    </xml-properties>
+                </xml-element>
+		<xml-element java-attribute="networkInterfaceType" name="network-interface-type" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Indicates the physical properties of the interface."/>
                     </xml-properties>
@@ -2998,6 +3013,26 @@
                         <xml-property name="description" value="String capturing the service role."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="serviceRate" name="service-rate" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Rate of the service instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceLayer" name="service-layer" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Definition of the service layer."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dueDate" name="due-date" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Due date of the service creation."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="endDate" name="end-date" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="End date of the service creation."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="environmentContext" name="environment-context" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="This field will store the environment context assigned to the service-instance."/>
@@ -3456,6 +3491,16 @@
                 <xml-element java-attribute="speedUnits" name="speed-units" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Captures the units corresponding to the speed"/>
+                    </xml-properties>
+                </xml-element>
+		<xml-element java-attribute="availableCapacity" name="available-capacity" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Captures the units corresponding to the speed"/>
+                    </xml-properties>
+                </xml-element>
+		<xml-element java-attribute="adminState" name="admin-state" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Captures the administrative state of the link"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ipVersion" name="ip-version" type="java.lang.String">
