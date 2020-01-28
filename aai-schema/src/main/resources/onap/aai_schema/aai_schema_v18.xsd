@@ -568,7 +568,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical locations that can house cloud-regions.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of physical locations that can house cloud-regions.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -1427,7 +1427,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of openstack tenants.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of openstack tenants.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -2240,7 +2240,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of persistent block-level external system auth info.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of persistent block-level external system auth info.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -2939,7 +2939,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of compute hosts.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of compute hosts.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -3057,7 +3057,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="a logical partition of the cloud which allows to have multiple environments in the production AIC.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="a logical partition of the cloud which allows to have multiple environments in the production AIC.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -3102,7 +3102,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description=" The network-technology object is used to capture the supported network technologies of a cloud-region.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description=" The network-technology object is used to capture the supported network technologies of a cloud-region.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -3854,7 +3854,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of customer identifiers to provide linkage back to BSS information.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of customer identifiers to provide linkage back to BSS information.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -4495,14 +4495,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-          <xs:element name="orchestration-type" type="xs:string" minOccurs="0">
-              <xs:annotation>
-                  <xs:appinfo>
-                      <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration type of this model.")</annox:annotate>
-                  </xs:appinfo>
-              </xs:annotation>
-          </xs:element>
-          <xs:element ref="tns:model-elements" minOccurs="0"/>
+        <xs:element name="orchestration-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration type of this model.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:model-elements" minOccurs="0"/>
         <xs:element ref="tns:metadata" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
       </xs:sequence>
@@ -7076,7 +7076,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of VNFs")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of VNFs")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -7588,7 +7588,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Physical Network Functions.")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of Physical Network Functions.")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -7696,7 +7696,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical connections, typically between p-interfaces")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(maximumDepth="0",description="Collection of physical connections, typically between p-interfaces")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>

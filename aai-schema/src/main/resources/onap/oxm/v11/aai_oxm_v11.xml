@@ -1,26 +1,24 @@
 <!--
-
     ============LICENSE_START=======================================================
     org.onap.aai
     ================================================================================
-    Copyright © 2017 AT&T Intellectual Property. All rights reserved.
+    Copyright (C) 2017 AT&T Intellectual Property. All rights reserved.
+    Copyright (C) 2018 Huawei Technologies (Australia) Pty Ltd. All rights reserved.
     ================================================================================
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
     ============LICENSE_END=========================================================
-
-    ECOMP is a trademark and service mark of AT&T Intellectual Property.
-
---><xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm" package-name="inventory.aai.onap.org.v11" xml-mapping-metadata-complete="true">
+-->
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm" package-name="inventory.aai.onap.org.v11" xml-mapping-metadata-complete="true">
     <xml-schema element-form-default="QUALIFIED">
 		<xml-ns namespace-uri="http://org.openecomp.aai.inventory/v11"/>
     </xml-schema>
@@ -373,14 +371,13 @@
 
 		<java-type name="EsrSystemInfoList">
 			<xml-root-element name="esr-system-info-list"/>
-			<xml-properties>
-				<xml-property name="description" value="Collection of persistent block-level external system auth info."/>
-			</xml-properties>
+			
 			<java-attributes>
 				<xml-element container-type="java.util.ArrayList" java-attribute="esrSystemInfo" name="esr-system-info" type="inventory.aai.onap.org.v11.EsrSystemInfo"/>
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="maximumDepth" value="0"/>
+				<xml-property name="description" value="Collection of persistent block-level external system auth info."/>
 			</xml-properties>
 		</java-type>
 
@@ -735,16 +732,15 @@
         </java-type>
 
         <java-type name="Complexes">
-            <xml-properties>
-                <xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
-            </xml-properties>
+            
             <xml-root-element name="complexes"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="complex" name="complex" type="inventory.aai.onap.org.v11.Complex"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Complex">
@@ -854,16 +850,15 @@
         </java-type>
 
         <java-type name="Tenants">
-            <xml-properties>
-                <xml-property name="description" value="Collection of openstack tenants."/>
-            </xml-properties>
+            
             <xml-root-element name="tenants"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="tenant" name="tenant" type="inventory.aai.onap.org.v11.Tenant"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of openstack tenants."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Tenant">
@@ -1820,16 +1815,15 @@
         </java-type>
 
         <java-type name="Pservers">
-            <xml-properties>
-                <xml-property name="description" value="Collection of compute hosts."/>
-            </xml-properties>
+            
             <xml-root-element name="pservers"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="pserver" name="pserver" type="inventory.aai.onap.org.v11.Pserver"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of compute hosts."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Pserver">
@@ -2413,16 +2407,15 @@
         </java-type>
 
         <java-type name="Customers">
-            <xml-properties>
-                <xml-property name="description" value="Collection of customer identifiers to provide linkage back to BSS information."/>
-            </xml-properties>
+            
             <xml-root-element name="customers"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="customer" name="customer" type="inventory.aai.onap.org.v11.Customer"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of customer identifiers to provide linkage back to BSS information."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Customer">
@@ -4235,16 +4228,15 @@
         </java-type>
 
         <java-type name="GenericVnfs">
-            <xml-properties>
-                <xml-property name="description" value="Collection of VNFs"/>
-            </xml-properties>
+            
             <xml-root-element name="generic-vnfs"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="genericVnf" name="generic-vnf" type="inventory.aai.onap.org.v11.GenericVnf"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of VNFs"/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="GenericVnf">
@@ -4820,16 +4812,15 @@
         </java-type>
 
         <java-type name="Pnfs">
-            <xml-properties>
-                <xml-property name="description" value="Collection of Physical Network Functions."/>
-            </xml-properties>
+            
             <xml-root-element name="pnfs"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="pnf" name="pnf" type="inventory.aai.onap.org.v11.Pnf"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of Physical Network Functions."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Pnf">
@@ -4963,16 +4954,15 @@
         </java-type>
 
         <java-type name="PhysicalLinks">
-            <xml-properties>
-                <xml-property name="description" value="Collection of physical connections, typically between p-interfaces"/>
-            </xml-properties>
+            
             <xml-root-element name="physical-links"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="physicalLink" name="physical-link" type="inventory.aai.onap.org.v11.PhysicalLink"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of physical connections, typically between p-interfaces"/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="PhysicalLink">

@@ -17,7 +17,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   ============LICENSE_END=========================================================
-  --><xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm" package-name="inventory.aai.onap.org.v18" xml-mapping-metadata-complete="true">
+-->
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm" package-name="inventory.aai.onap.org.v18" xml-mapping-metadata-complete="true">
 	<xml-schema element-form-default="QUALIFIED">
 		<xml-ns namespace-uri="http://org.onap.aai.inventory/v18"/>
 	</xml-schema>
@@ -415,15 +416,14 @@
 
                <java-type name="EsrSystemInfoList">
                        <xml-root-element name="esr-system-info-list"/>
-                       <xml-properties>
-                               <xml-property name="description" value="Collection of persistent block-level external system auth info."/>
-                       </xml-properties>
+                       
                        <java-attributes>
                                <xml-element container-type="java.util.ArrayList" java-attribute="esrSystemInfo" name="esr-system-info" type="inventory.aai.onap.org.v18.EsrSystemInfo"/>
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="maximumDepth" value="0"/>
-                       </xml-properties>
+			       <xml-property name="description" value="Collection of persistent block-level external system auth info."/>
+		       </xml-properties>
                </java-type>
 
                <java-type name="EsrSystemInfo">
@@ -884,16 +884,15 @@
             </java-attributes>
         </java-type>
         <java-type name="Complexes">
-            <xml-properties>
-                <xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
-            </xml-properties>
+            
             <xml-root-element name="complexes"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="complex" name="complex" type="inventory.aai.onap.org.v18.Complex"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Complex">
@@ -1003,16 +1002,15 @@
         </java-type>
 
         <java-type name="Tenants">
-            <xml-properties>
-                <xml-property name="description" value="Collection of openstack tenants."/>
-            </xml-properties>
+            
             <xml-root-element name="tenants"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="tenant" name="tenant" type="inventory.aai.onap.org.v18.Tenant"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of openstack tenants."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Tenant">
@@ -2053,16 +2051,15 @@
         </java-type>
 
         <java-type name="Pservers">
-            <xml-properties>
-                <xml-property name="description" value="Collection of compute hosts."/>
-            </xml-properties>
+            
             <xml-root-element name="pservers"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="pserver" name="pserver" type="inventory.aai.onap.org.v18.Pserver"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of compute hosts."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Pserver">
@@ -2751,16 +2748,15 @@
         </java-type>
 
         <java-type name="Customers">
-            <xml-properties>
-                <xml-property name="description" value="Collection of customer identifiers to provide linkage back to BSS information."/>
-            </xml-properties>
+            
             <xml-root-element name="customers"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="customer" name="customer" type="inventory.aai.onap.org.v18.Customer"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of customer identifiers to provide linkage back to BSS information."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Customer">
@@ -4641,16 +4637,15 @@
         </java-type>
 
         <java-type name="GenericVnfs">
-            <xml-properties>
-                <xml-property name="description" value="Collection of VNFs"/>
-            </xml-properties>
+            
             <xml-root-element name="generic-vnfs"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="genericVnf" name="generic-vnf" type="inventory.aai.onap.org.v18.GenericVnf"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of VNFs"/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="GenericVnf">
@@ -5233,16 +5228,15 @@
         </java-type>
 
         <java-type name="Pnfs">
-            <xml-properties>
-                <xml-property name="description" value="Collection of Physical Network Functions."/>
-            </xml-properties>
+            
             <xml-root-element name="pnfs"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="pnf" name="pnf" type="inventory.aai.onap.org.v18.Pnf"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of Physical Network Functions."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="Pnf">
@@ -5464,16 +5458,15 @@
         </java-type>
 
         <java-type name="PhysicalLinks">
-            <xml-properties>
-                <xml-property name="description" value="Collection of physical connections, typically between p-interfaces"/>
-            </xml-properties>
+            
             <xml-root-element name="physical-links"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="physicalLink" name="physical-link" type="inventory.aai.onap.org.v18.PhysicalLink"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="Collection of physical connections, typically between p-interfaces"/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="PhysicalLink">
@@ -5647,7 +5640,7 @@
                 </xml-element>
                 <xml-element java-attribute="ikev1Encryption" name="ikev1-encryption" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Encyption values like 3des-cbc, des-cbc, aes-128-cbc,Â aes-192-cbc, aes-265-cbc"/>
+                        <xml-property name="description" value="Encyption values like 3des-cbc, des-cbc, aes-128-cbc,&#xC2;&#xA0;aes-192-cbc, aes-265-cbc"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ikev1DhGroup" name="ikev1-dh-group" type="java.lang.String">
@@ -5677,7 +5670,7 @@
                 </xml-element>
                 <xml-element java-attribute="ipsecEncryption" name="ipsec-encryption" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="3des-cbc, des-cbc, aes-128-cbc,Â aes-192-cbc, aes-265-cbc"/>
+                        <xml-property name="description" value="3des-cbc, des-cbc, aes-128-cbc,&#xC2;&#xA0;aes-192-cbc, aes-265-cbc"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ipsecSaLifetime" name="ipsec-sa-lifetime" type="java.lang.String">
@@ -6837,7 +6830,7 @@
                 </xml-element>
                 <xml-element java-attribute="designType" name="design-type" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Design of zone [Medium/Large…]"/>
+                        <xml-property name="description" value="Design of zone [Medium/Large&#x2026;]"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="zoneContext" name="zone-context" required="true" type="java.lang.String">
@@ -7100,16 +7093,15 @@
         </java-type>
 
         <java-type name="OperationalEnvironments">
-            <xml-properties>
-                <xml-property name="description" value="a logical partition of the cloud which allows to have multiple environments in the production AIC."/>
-            </xml-properties>
+            
             <xml-root-element name="operational-environments"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="operationalEnvironment" name="operational-environment" type="inventory.aai.onap.org.v18.OperationalEnvironment"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value="a logical partition of the cloud which allows to have multiple environments in the production AIC."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="OperationalEnvironment">
@@ -7626,16 +7618,15 @@
         </java-type>
 
         <java-type name="NetworkTechnologies">
-            <xml-properties>
-                <xml-property name="description" value=" The network-technology object is used to capture the supported network technologies of a cloud-region."/>
-            </xml-properties>
+            
             <xml-root-element name="network-technologies"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="networkTechnology" name="network-technology" type="inventory.aai.onap.org.v18.NetworkTechnology"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="maximumDepth" value="0"/>
-            </xml-properties>
+		<xml-property name="description" value=" The network-technology object is used to capture the supported network technologies of a cloud-region."/>
+	    </xml-properties>
         </java-type>
 
         <java-type name="NetworkTechnology">
@@ -8733,7 +8724,7 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v18.RelationshipList"/>			
             </java-attributes>
             <xml-properties>
-                <xml-property name="description" value="Aggregate route configs are used on the D2 IPE’s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. "/>
+                <xml-property name="description" value="Aggregate route configs are used on the D2 IPE&#x2019;s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. "/>
                 <xml-property name="uniqueProps" value="route-id"/>
                 <xml-property name="container" value="aggregate-routes"/> 
                 <xml-property name="dependentOn" value="l3-network"/>
