@@ -3127,6 +3127,9 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
                 <xml-element java-attribute="metadata" name="metadata" type="inventory.aai.onap.org.v19.Metadata"/>
                 <xml-element java-attribute="allottedResources" name="allotted-resources" type="inventory.aai.onap.org.v19.AllottedResources"/>
+                <xml-element java-attribute="communicationServiceProfiles" name="communication-service-profiles" type="inventory.aai.onap.org.v19.CommunicationServiceProfiles"/>
+                <xml-element java-attribute="serviceProfiles" name="service-profiles" type="inventory.aai.onap.org.v19.ServiceProfiles"/>
+                <xml-element java-attribute="sliceProfiles" name="slice-profiles" type="inventory.aai.onap.org.v19.SliceProfiles"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
@@ -9188,6 +9191,333 @@
                 <xml-property name="dependentOn" value="l3-network"/>
                 <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{route-id}"/>
             <xml-property name="requiredProps" value="route-id,network-start-address,cidr-mask,ip-version"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="CommunicationServiceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of communication service profile."/>
+            </xml-properties>
+            <xml-root-element name="communication-service-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="communicationServiceProfile" name="communication-service-profile" type="inventory.aai.onap.org.v19.CommunicationServiceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="CommunicationServiceProfile">
+            <xml-root-element name="communication-service-profile"/>
+            <java-attributes>               
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the communication service"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="coverageAreaList" name="coverage-area-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSI can be selected."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of comunication service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="communication-service-profiles"/>  
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/communication-service-profiles/communication-service-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="ServiceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of E2E slice service profile."/>
+            </xml-properties>
+            <xml-root-element name="service-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="serviceProfile" name="service-profile" type="inventory.aai.onap.org.v19.ServiceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ServiceProfile">
+            <xml-root-element name="service-profile"/>
+            <java-attributes>               
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the E2E slice service"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="coverageAreaTAList" name="coverage-area-TA-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSI can be selected."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="areaTrafficCapUL" name="area-traffic-cap-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of upload."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="areaTrafficCapDL" name="area-traffic-cap-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of download."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The activity factor."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="jitter"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Survival Time"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The availability requirement for an network slice instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The reliability requirement for an network slice instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="traffic density"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="connection density"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of E2E Slice service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="service-profiles"/>  
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/service-profiles/service-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="SliceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of slice subnet service profile."/>
+            </xml-properties>
+            <xml-root-element name="slice-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="sliceProfile" name="slice-profile" type="inventory.aai.onap.org.v19.SliceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="SliceProfile">
+            <xml-root-element name="slice-profile"/>
+            <java-attributes>               
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN or CN or TN and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the slice subnet service"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="coverageAreaTAList" name="coverage-area-TA-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSSI can be selected."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the slice subnet instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="areaTrafficCapUL" name="area-traffic-cap-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of upload."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="areaTrafficCapDL" name="area-traffic-cap-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of download."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The activity factor."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="e2eLatency" name="e2e-latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="e2e latency"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="jitter"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Survival Time"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The availability requirement for an network slice subnet instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The reliability requirement for an network slice subnet instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate."/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="payloadSize" name="payload-size" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="payload size."/>
+                    </xml-properties>
+                </xml-element>                
+                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="traffic density"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="connection density"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="serviceAreaDimension" name="service-area-dimension" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="service area dimension"/>
+                    </xml-properties>
+                </xml-element>               
+                <xml-element java-attribute="S-NSSAI" name="s-nssai" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="S-NSSAI"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of network slice subnet service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="slice-profiles"/> 
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
             </xml-properties>
 		</java-type>
 			
