@@ -2315,6 +2315,11 @@
                         <xml-property name="description" value="Indicates the physical properties of the interface."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="interlayerLockID" name="inter-layer-lock-id" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="correlation between related objects in ETH and OTN topology."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="provStatus" name="prov-status" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Trigger for operational monitoring of this resource by Service Assurance systems."/>
