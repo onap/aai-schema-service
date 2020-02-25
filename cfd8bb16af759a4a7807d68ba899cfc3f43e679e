@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92db06e6_9766ea24",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v19/aai_oxm_v19.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2318,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-02-25T13:59:44Z",
+      "side": 1,
+      "message": "This looks like a \"foreign key\" style identifier - should it be an edge?",
+      "revId": "cfd8bb16af759a4a7807d68ba899cfc3f43e679e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
