@@ -3340,6 +3340,11 @@
 				<xml-element java-attribute="devices" name="devices" type="inventory.aai.onap.org.v19.Devices"/>
 				<xml-element java-attribute="wanPortConfigs" name="wan-port-configs" type="inventory.aai.onap.org.v19.WanPortConfigs"/>
 				<xml-element java-attribute="extAaiNetworks" name="ext-aai-networks" type="inventory.aai.onap.org.v19.ExtAaiNetworks"/>
+                <xml-element java-attribute="labelRestrictions" name="label-restrictions" type="inventory.aai.onap.org.v19.LabelRestrictions"/>
+                <xml-element java-attribute="unis" name="unis" type="inventory.aai.onap.org.v19.Unis"/>
+                <xml-element java-attribute="teLinkAttributes" name="te-link-attributes" type="inventory.aai.onap.org.v19.TELinkAttributes"/>
+    	        <xml-element java-attribute="interlayerAttachments" name="interlayer-attachments" type="inventory.aai.onap.org.v19.InterlayerAttachments"/>
+                <xml-element java-attribute="tunnelTerminationPoints" name="tunnel-termination-points" type="inventory.aai.onap.org.v19.TunnelTerminationPoints"/>
             </java-attributes>
         </java-type>
         <java-type name="Configurations">
@@ -8766,6 +8771,75 @@
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="requiredProps" value="id"/>
                 <xml-property name="uriTemplate" value="/network/unis/uni/{id}"/>
+
+            </xml-properties>
+        </java-type>
+
+        <java-type name="InterlayerAttachments">
+            <xml-properties>
+                <xml-property name="description" value="Collection of interlayer topology connectivities."/>
+            </xml-properties>
+            <xml-root-element name="interlayer-attachments"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="interlayerAttachment" name="interlayer-attachment" type="inventory.aai.onap.org.v19.InterlayerAttachment"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="InterlayerAttachment">
+            <xml-root-element name="interlayer-attachment"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the interlayer topology attachment"/>
+                    </xml-properties>
+                </xml-element>                
+                <xml-element java-attribute="interLayerLockId" name="inter-layer-lockId" required="true" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Inter layer lock id"/>
+                    </xml-properties>
+                </xml-element>                
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an inter layer topology attachment"/>
+                <xml-property name="indexedProps" value="id,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="uniqueProps" value="id"/>
+                <xml-property name="container" value="interlayer-attachments"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="id"/>
+                <xml-property name="uriTemplate" value="/network/interlayer-attachments/interlayer-attachment/{id}"/>
 
             </xml-properties>
         </java-type>
