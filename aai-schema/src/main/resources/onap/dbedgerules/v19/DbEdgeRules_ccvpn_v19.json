@@ -420,6 +420,30 @@
 		"default": "true",
 		"description":""
 	},
+        {
+		"from": "p-interface",
+		"to": "interlayer-attachment",
+		"label": "tosca.relationships.network.BindsTo",
+		"direction": "OUT",
+		"multiplicity": "MANY2ONE",
+		"contains-other-v": "${direction}",
+		"delete-other-v": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description":""
+	},
+        {
+		"from": "tunnel-termination-point",
+		"to": "interlayer-attachment",
+		"label": "tosca.relationships.network.BindsTo",
+		"direction": "OUT",
+		"multiplicity": "MANY2ONE",
+		"contains-other-v": "${direction}",
+		"delete-other-v": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description":""
+	},
 	{
 		"from": "p-interface",
 		"to": "uni",
