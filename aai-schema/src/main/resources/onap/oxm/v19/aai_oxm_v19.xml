@@ -3130,6 +3130,11 @@
                 <xml-element java-attribute="communicationServiceProfiles" name="communication-service-profiles" type="inventory.aai.onap.org.v19.CommunicationServiceProfiles"/>
                 <xml-element java-attribute="serviceProfiles" name="service-profiles" type="inventory.aai.onap.org.v19.ServiceProfiles"/>
                 <xml-element java-attribute="sliceProfiles" name="slice-profiles" type="inventory.aai.onap.org.v19.SliceProfiles"/>
+		<xml-element java-attribute="serviceFunction" name="service-function" type="java.lang.String">
+                  <xml-properties>
+                    <xml-property name="description" value="String capturing function of the service."/>
+                  </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
