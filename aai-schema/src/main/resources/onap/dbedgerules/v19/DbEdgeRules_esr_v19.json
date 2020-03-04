@@ -63,11 +63,11 @@
     {
       "from": "esr-thirdparty-sdnc",
       "to": "network-resource",
-      "label": "org.onap.relationships.inventory.AppliesTo",
+      "label": "org.onap.relationships.inventory.BelongsTo",
       "direction": "OUT",
       "multiplicity": "ONE2MANY",
       "contains-other-v": "NONE",
-      "delete-other-v": "NONE",
+      "delete-other-v": "${direction}",
       "SVC-INFRA": "NONE",
       "prevent-delete": "NONE",
       "default": "true",
