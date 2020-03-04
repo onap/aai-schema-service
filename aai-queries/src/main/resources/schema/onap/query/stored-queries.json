@@ -48,13 +48,20 @@
      "stored-query":"builder.createEdgeTraversal(EdgeType.TREE, 'pnf', 'p-interface').getVerticesByProperty('network-interface-type',porttype).store('x').cap('x').unfold().dedup()"
     }
   },{
-    "getInterDomainLink": {
+    "getInterControllerLink": {
            "query":{
               "required-properties":["linktype","controller1","controller2"]
             },
-      "stored-query":"builder.createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller1).createEdgeTraversal(EdgeType.COUSIN,'esr-thirdparty-sdnc','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','pnf').createEdgeTraversal(EdgeType.TREE,'pnf','p-interface').createEdgeTraversal(EdgeType.COUSIN,'p-interface','logical-link').store('x').getVerticesByProperty('link-type',linktype).where(builder.store('x').createEdgeTraversal(EdgeType.COUSIN,'logical-link','p-interface').createEdgeTraversal(EdgeType.TREE,'p-interface','pnf').createEdgeTraversal(EdgeType.COUSIN,'pnf','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller2)).cap('x').unfold().dedup()"
+	    "stored-query":"(builder.createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller1).createEdgeTraversal(EdgeType.COUSIN,'esr-thirdparty-sdnc','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','pnf').createEdgeTraversal(EdgeType.TREE,'pnf','p-interface').createEdgeTraversal(EdgeType.COUSIN,'p-interface','logical-link').getVerticesByProperty('link-type',linktype).store('x')).where(builder.createEdgeTraversal(EdgeType.COUSIN,'logical-link','p-interface').createEdgeTraversal(EdgeType.TREE,'p-interface','pnf').createEdgeTraversal(EdgeType.COUSIN,'pnf','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller2)).cap('x').unfold().dedup()"
       }  
   },{
+    "getInterDomainLink": {
+           "query":{
+              "required-properties":["linktype","controller"]
+            },
+      "stored-query":"builder.createEdgeTraversal(EdgeType.COUSIN,'network-resource','esr-thirdparty-sdnc').getVerticesByProperty('thirdparty-sdnc-id',controller).createEdgeTraversal(EdgeType.COUSIN,'esr-thirdparty-sdnc','network-resource').createEdgeTraversal(EdgeType.COUSIN,'network-resource','pnf').createEdgeTraversal(EdgeType.TREE,'pnf','p-interface').createEdgeTraversal(EdgeType.COUSIN,'p-interface','logical-link').getVerticesByProperty('link-type',linktype).store('x').cap('x').unfold().dedup()"
+      }
+   },{
     "getInterfaceDetails": {
            "query":{
               "required-properties":["portid"]

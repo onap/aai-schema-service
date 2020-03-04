@@ -2315,6 +2315,11 @@
                         <xml-property name="description" value="Indicates the physical properties of the interface."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="bandwidthAttributes" name="bandwidth-attributes" type="inventory.aai.onap.org.v19.BandwidthAttributes">
+                    <xml-properties>
+                        <xml-property name="description" value="The data structure to indicate value of available bandwidth. Applicable only for ENNI."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="provStatus" name="prov-status" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Trigger for operational monitoring of this resource by Service Assurance systems."/>
@@ -2376,6 +2381,149 @@
             </xml-properties>
         </java-type>
 
+       <java-type name="BandwidthAttributes">
+            <xml-properties>
+                <xml-property name="description" value="Collection of bandwidth attribute. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="bandwidth-attributes"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="bandwidthAttribute" name="bandwidth-attribute" type="inventory.aai.onap.org.v19.BandwidthAttribute"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="BandwidthAttribute">
+            <xml-root-element name="bandwidth-attribute"/>
+            <java-attributes>
+                <xml-element java-attribute="bwaId" name="bwa-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the bandwidth attribute"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+                <xml-element java-attribute="availableBandwidthMap" name="available-bandwidth-map" type="inventory.aai.onap.org.v19.AvailableBandwidthMap"/>
+                <xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v19.OTNLabelRestrictions"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of a bandwidth-attribute"/>
+                <xml-property name="indexedProps" value="bwa-id"/>
+                <xml-property name="searchable" value="bwa-id"/>
+                <xml-property name="uniqueProps" value="bwa-id"/>
+                <xml-property name="container" value="bandwidth-attributes"/>
+                <xml-property name="dependentOn" value="pnf,p-interface"/>
+                <xml-property name="requiredProps" value="bwa-id"/>
+                <xml-property name="uriTemplate" value="/bandwidth-attributes/bandwidth-attribute/{bwa-id}"/>
+            </xml-properties>
+        </java-type>
+
+       <java-type name="AvailableBandwidthMap">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Available Bandwidth. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="available-bandwidth-map"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="availableBandwidth" name="available-bandwidth" type="inventory.aai.onap.org.v19.AvailableBandwidth"/>
+            </java-attributes>
+       </java-type>
+        <java-type name="AvailableBandwidth">
+            <xml-root-element name="available-bandwidth"/>
+            <java-attributes>
+               <xml-element java-attribute="abId" name="ab-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the attribute"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="oduType" name="odu-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="ODU Type that identifies the ODU Eg. ODU0, ODU1, ODU2, ODU3, ODU4"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="number" name="number" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The value of available bandwidth. Applicable only for ENNI."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an available-bandwidth-map"/>
+                <xml-property name="indexedProps" value="ab-id"/>
+                <xml-property name="searchable" value="ab-id"/>
+                <xml-property name="uniqueProps" value="ab-id"/>
+                <xml-property name="container" value="available-bandwidth-map"/>
+                <xml-property name="dependentOn" value="bandwidth-attribute"/>
+                <xml-property name="requiredProps" value="ab-id"/>
+            </xml-properties>
+        </java-type>
+
+       <java-type name="OTNLabelRestrictions">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Label Restriction. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="otn-label-restrictions"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="OTNLabelRestriction" name="otn-label-restriction" type="inventory.aai.onap.org.v19.OTNLabelRestriction"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="OTNLabelRestriction">
+            <xml-root-element name="otn-label-restriction"/>
+            <java-attributes>
+                <xml-element java-attribute="lrId" name="lr-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the label restriction"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rangeBitmap" name="range-bitmap" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Bitmap of available labels starting from label-start to label-end."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="labelStep" name="label-step" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Step of labels in label range."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of a otn-label-restriction attribute"/>
+                <xml-property name="indexedProps" value="lr-id"/>
+                <xml-property name="searchable" value="lr-id"/>
+                <xml-property name="uniqueProps" value="lr-id"/>
+                <xml-property name="container" value="otn-label-restrictions"/>
+                <xml-property name="dependentOn" value="bandwidth-attribute"/>
+                <xml-property name="requiredProps" value="lr-id"/>
+            </xml-properties>
+        </java-type>
+	
         <java-type name="LagInterfaces">
             <xml-properties>
                 <xml-property name="description" value="Collection of link aggregate interfaces."/>
