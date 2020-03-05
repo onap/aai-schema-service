@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d750ef9c_4d05c4ba",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v19.xsd",
+        "patchSetId": 2
+      },
+      "lineNbr": 2496,
+      "author": {
+        "id": 3755
+      },
+      "writtenOn": "2020-03-05T19:23:51Z",
+      "side": 1,
+      "message": "Please take a look at the following submission:\nhttps://gerrit.onap.org/r/c/aai/schema-service/+/99179\n\nIt also defined the label-restriction attributes under: \n/network/te-link-attributes/te-link-attribute\n\nDo we still need to define the same?",
+      "revId": "8bced7102e5144aa974ee087ee6ad7a555fdacec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
