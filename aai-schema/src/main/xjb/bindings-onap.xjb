@@ -49,18 +49,18 @@
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v16">
         <jaxb:schemaBindings>
-            <jaxb:package name="org.onap.aai.domain.yang.v16"/>
+		<jaxb:package name="org.onap.aai.domain.yang.v16"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v17">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v17"/>
-        </jaxb:schemaBindings>
+        </jaxb:schemaBindings>      
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v18">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v18"/>
-        </jaxb:schemaBindings>
+        </jaxb:schemaBindings>      
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v19">
         <jaxb:schemaBindings>

@@ -272,9 +272,10 @@
                                <xml-property name="searchable" value="ems-id"/>
                                <xml-property name="container" value="esr-ems-list"/>
                                <xml-property name="namespace" value="external-system"/>
-                       <xml-property name="requiredProps" value="ems-id"/>
-            <xml-property name="uriTemplate" value="/external-system/esr-ems-list/esr-ems/{ems-id}"/>
-            </xml-properties>
+                               <xml-property name="requiredProps" value="ems-id"/>
+                               <xml-property name="uriTemplate" value="/external-system/esr-ems-list/esr-ems/{ems-id}"/>
+                               <xml-property name="dslStartNodeProps" value="ems-id"/>
+                       </xml-properties>
                </java-type>
 
                <java-type name="EsrVnfmList">
@@ -319,9 +320,10 @@
                                <xml-property name="searchable" value="vnfm-id"/>
                                <xml-property name="container" value="esr-vnfm-list"/>
                                <xml-property name="namespace" value="external-system"/>
-                       <xml-property name="requiredProps" value="vnfm-id"/>
-            <xml-property name="uriTemplate" value="/external-system/esr-vnfm-list/esr-vnfm/{vnfm-id}"/>
-            </xml-properties>
+                               <xml-property name="requiredProps" value="vnfm-id"/>
+                               <xml-property name="uriTemplate" value="/external-system/esr-vnfm-list/esr-vnfm/{vnfm-id}"/>
+                               <xml-property name="dslStartNodeProps" value="vnfm-id"/>
+                       </xml-properties>
                </java-type>
 
                <java-type name="EsrNfvoList">
@@ -361,9 +363,10 @@
                                <xml-property name="searchable" value="nfvo-id"/>
                                <xml-property name="container" value="esr-nfvo-list"/>
                                <xml-property name="namespace" value="external-system"/>
-                       <xml-property name="requiredProps" value="nfvo-id"/>
-            <xml-property name="uriTemplate" value="/external-system/esr-nfvo-list/esr-nfvo/{nfvo-id}"/>
-            </xml-properties>
+                               <xml-property name="requiredProps" value="nfvo-id"/>
+                               <xml-property name="uriTemplate" value="/external-system/esr-nfvo-list/esr-nfvo/{nfvo-id}"/>
+                               <xml-property name="dslStartNodeProps" value="nfvo-id"/>
+                       </xml-properties>
                </java-type>
 
 
@@ -414,8 +417,9 @@
                                <xml-property name="searchable" value="sdnc-id"/>
                                <xml-property name="container" value="esr-thirdparty-sdnc-list"/>
                                <xml-property name="namespace" value="external-system"/>
-                       <xml-property name="requiredProps" value="thirdparty-sdnc-id"/>
-            <xml-property name="uriTemplate" value="/external-system/esr-thirdparty-sdnc-list/esr-thirdparty-sdnc/{thirdparty-sdnc-id}"/>
+                               <xml-property name="requiredProps" value="thirdparty-sdnc-id"/>
+                               <xml-property name="uriTemplate" value="/external-system/esr-thirdparty-sdnc-list/esr-thirdparty-sdnc/{thirdparty-sdnc-id}"/>
+                               <xml-property name="dslStartNodeProps" value="sdnc-id"/>
             </xml-properties>
                </java-type>
 
@@ -547,9 +551,10 @@
                                <xml-property name="searchable" value="esr-system-info-id,system-name,system-type"/>
                                <xml-property name="container" value="esr-system-info-list"/>
                                <xml-property name="dependentOn" value="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc,ext-aai-network,esr-nfvo"/>
-                       <xml-property name="requiredProps" value="esr-system-info-id,user-name,password,system-type"/>
-            <xml-property name="uriTemplate" value="/esr-system-info-list/esr-system-info/{esr-system-info-id}"/>
-            </xml-properties>
+                               <xml-property name="requiredProps" value="esr-system-info-id,user-name,password,system-type"/>
+                               <xml-property name="uriTemplate" value="/esr-system-info-list/esr-system-info/{esr-system-info-id}"/>
+                               <xml-property name="dslStartNodeProps" value="esr-system-info-id,system-name,system-type"/>
+                       </xml-properties>
                </java-type>
 
 		<java-type name="HpaCapabilities">
@@ -598,8 +603,9 @@
 				<xml-property name="indexedProps" value="hpa-feature,architecture,hpa-capability-id"/>
 				<xml-property name="dependentOn" value="flavor,cloud-region"/>
 				<xml-property name="container" value="hpa-capabilities"/>
-			<xml-property name="requiredProps" value="hpa-capability-id,hpa-feature"/>
-            <xml-property name="uriTemplate" value="/hpa-capabilities/hpa-capability/{hpa-capability-id}"/>
+                <xml-property name="requiredProps" value="hpa-capability-id,hpa-feature"/>
+                <xml-property name="uriTemplate" value="/hpa-capabilities/hpa-capability/{hpa-capability-id}"/>
+                <xml-property name="dslStartNodeProps" value="hpa-feature,architecture,hpa-capability-id"/>
             </xml-properties>
 		</java-type>
 
@@ -627,7 +633,8 @@
 				<xml-property name="description" value="HPA Capability Feature attributes"/>
 				<xml-property name="indexedProps" value="hpa-attribute-key"/>
 				<xml-property name="dependentOn" value="hpa-capability"/>
-			<xml-property name="requiredProps" value="hpa-attribute-key"/>
+                <xml-property name="requiredProps" value="hpa-attribute-key"/>
+                <xml-property name="dslStartNodeProps" value="hpa-attribute-key"/>
             </xml-properties>
 		</java-type>
 
@@ -758,7 +765,8 @@
                 <xml-property name="container" value="cloud-regions"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
                 <xml-property name="uriTemplate" value="/cloud-infrastructure/cloud-regions/cloud-region/{cloud-owner}/{cloud-region-id}"/>
-            <xml-property name="requiredProps" value="cloud-owner,cloud-region-id,orchestration-disabled,in-maint"/>
+                <xml-property name="requiredProps" value="cloud-owner,cloud-region-id,orchestration-disabled,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="cloud-owner,cloud-region-id,cloud-type"/>
             </xml-properties>
         </java-type>
         <java-type name="VolumeGroups">
@@ -823,7 +831,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="volume-groups"/>
                 <xml-property name="uriTemplate" value="/volume-groups/volume-group/{volume-group-id}"/>
-            <xml-property name="requiredProps" value="volume-group-id,vnf-type"/>
+                <xml-property name="requiredProps" value="volume-group-id,vnf-type"/>
+                <xml-property name="dslStartNodeProps" value="volume-group-name,vnf-type,heat-stack-id,volume-group-id"/>
             </xml-properties>
         </java-type>
 
@@ -955,7 +964,8 @@
                 <xml-property name="container" value="complexes"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
                 <xml-property name="uriTemplate" value="/cloud-infrastructure/complexes/complex/{physical-location-id}"/>
-            <xml-property name="requiredProps" value="physical-location-id,physical-location-type,street1,city,postal-code,country,region"/>
+                <xml-property name="requiredProps" value="physical-location-id,physical-location-type,street1,city,postal-code,country,region"/>
+                <xml-property name="dslStartNodeProps" value="identity-url,data-center-code,complex-name,physical-location-id"/>
             </xml-properties>
         </java-type>
 
@@ -1002,7 +1012,8 @@
                 <xml-property name="dependentOn" value="complex"/>
                 <xml-property name="container" value="ctag-pools"/>
                 <xml-property name="uriTemplate" value="/ctag-pools/ctag-pool/{target-pe}/{availability-zone-name}"/>
-            <xml-property name="requiredProps" value="target-pe,availability-zone-name,ctag-pool-purpose"/>
+                <xml-property name="requiredProps" value="target-pe,availability-zone-name,ctag-pool-purpose"/>
+                <xml-property name="dslStartNodeProps" value="availability-zone-name"/>
             </xml-properties>
         </java-type>
 
@@ -1036,6 +1047,11 @@
                         <xml-property name="description" value="This field will store the tenant context."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="parentId" name="parent-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="tenant parent-id"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -1053,7 +1069,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="tenants"/>
                 <xml-property name="uriTemplate" value="/tenants/tenant/{tenant-id}"/>
-            <xml-property name="requiredProps" value="tenant-id,tenant-name"/>
+                <xml-property name="requiredProps" value="tenant-id,tenant-name"/>
+                <xml-property name="dslStartNodeProps" value="tenant-name,tenant-id,tenant-context"/>
             </xml-properties>
         </java-type>
 
@@ -1110,12 +1127,13 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="nos-server is the execution environment that will have images, certain versions of VNOS, running on it."/>
-                <xml-property name="indexedProps" value="nos-server-id"/>
+                <xml-property name="indexedProps" value="nos-server-id,prov-status"/>
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="nameProps" value="nos-server-name"/>
                 <xml-property name="container" value="nos-servers"/>
                 <xml-property name="uriTemplate" value="/nos-servers/nos-server/{nos-server-id}"/>
-            <xml-property name="requiredProps" value="nos-server-id,nos-server-name,vendor,nos-server-selflink,in-maint"/>
+                <xml-property name="requiredProps" value="nos-server-id,nos-server-name,vendor,nos-server-selflink,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="nos-server-id"/>
             </xml-properties>
         </java-type>
 
@@ -1186,7 +1204,8 @@
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="container" value="vservers"/>
                 <xml-property name="uriTemplate" value="/vservers/vserver/{vserver-id}"/>
-            <xml-property name="requiredProps" value="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled"/>
+                <xml-property name="requiredProps" value="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled"/>
+                <xml-property name="dslStartNodeProps" value="vserver-name,vserver-id,vserver-name2"/>
             </xml-properties>
         </java-type>
 
@@ -1300,11 +1319,13 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Logical interfaces, e.g., a vnic."/>
-                <xml-property name="indexedProps" value="macaddr,interface-id,interface-name,network-name"/>
+                <xml-property name="indexedProps" value="macaddr,interface-id,interface-name,network-name,interface-role,prov-status"/>
                 <xml-property name="dependentOn" value="generic-vnf,newvce,p-interface,vserver,lag-interface,l-interface"/>
                 <xml-property name="container" value="l-interfaces"/>
                 <xml-property name="uriTemplate" value="/l-interfaces/l-interface/{interface-name}"/>
-            <xml-property name="requiredProps" value="interface-name,is-port-mirrored,in-maint,is-ip-unnumbered"/>
+                <xml-property name="searchable" value="interface-name"/>
+                <xml-property name="requiredProps" value="interface-name,is-port-mirrored,in-maint,is-ip-unnumbered"/>
+                <xml-property name="dslStartNodeProps" value="macaddr,interface-id,interface-name,network-name"/>
             </xml-properties>
         </java-type>
 
@@ -1398,7 +1419,8 @@
                 <xml-property name="dependentOn" value="l-interface"/>
                 <xml-property name="container" value="sriov-vfs"/>
                 <xml-property name="uriTemplate" value="/sriov-vfs/sriov-vf/{pci-id}"/>
-            <xml-property name="requiredProps" value="pci-id"/>
+                <xml-property name="requiredProps" value="pci-id"/>
+                <xml-property name="dslStartNodeProps" value="pci-id,vf-vlan-filter,vf-mac-filter,vf-vlan-strip,neutron-network-id"/>
             </xml-properties>
         </java-type>
 
@@ -1451,8 +1473,9 @@
                 <xml-property name="description" value="IPv4 Address Range"/>
                 <xml-property name="indexedProps" value="l3-interface-ipv4-address,vlan-id-inner,neutron-network-id,neutron-subnet-id"/>
                 <xml-property name="dependentOn" value="vlan,l-interface,vnfc,cp"/>
-            <xml-property name="uriTemplate" value="/l3-interface-ipv4-address-list/{l3-interface-ipv4-address}"/>
-            <xml-property name="requiredProps" value="l3-interface-ipv4-address"/>
+                <xml-property name="uriTemplate" value="/l3-interface-ipv4-address-list/{l3-interface-ipv4-address}"/>
+                <xml-property name="requiredProps" value="l3-interface-ipv4-address"/>
+                <xml-property name="dslStartNodeProps" value="l3-interface-ipv4-address,vlan-id-inner,neutron-network-id,neutron-subnet-id"/>
             </xml-properties>
         </java-type>
 
@@ -1545,11 +1568,12 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Definition of vlan"/>
-                <xml-property name="indexedProps" value="vlan-interface,vlan-id-inner,vpn-key"/>
+                <xml-property name="indexedProps" value="vlan-interface,vlan-id-inner,vpn-key,orchestration-status,prov-status"/>
                 <xml-property name="dependentOn" value="l-interface"/>
                 <xml-property name="container" value="vlans"/>
                 <xml-property name="uriTemplate" value="/vlans/vlan/{vlan-interface}"/>
-            <xml-property name="requiredProps" value="vlan-interface,in-maint,is-ip-unnumbered"/>
+                <xml-property name="requiredProps" value="vlan-interface,in-maint,is-ip-unnumbered"/>
+                <xml-property name="dslStartNodeProps" value="vlan-interface,vlan-id-inner,vpn-key"/>
             </xml-properties>
         </java-type>
 
@@ -1602,8 +1626,9 @@
                 <xml-property name="description" value="IPv6 Address Range"/>
                 <xml-property name="indexedProps" value="l3-interface-ipv6-address,vlan-id-inner,neutron-network-id,neutron-subnet-id"/>
                 <xml-property name="dependentOn" value="vlan,l-interface,vnfc,cp"/>
-            <xml-property name="uriTemplate" value="/l3-interface-ipv6-address-list/{l3-interface-ipv6-address}"/>
-            <xml-property name="requiredProps" value="l3-interface-ipv6-address"/>
+                <xml-property name="uriTemplate" value="/l3-interface-ipv6-address-list/{l3-interface-ipv6-address}"/>
+                <xml-property name="requiredProps" value="l3-interface-ipv6-address"/>
+                <xml-property name="dslStartNodeProps" value="l3-interface-ipv6-address,vlan-id-inner,neutron-network-id,neutron-subnet-id"/>
             </xml-properties>
         </java-type>
 
@@ -1643,7 +1668,8 @@
                 <xml-property name="dependentOn" value="vserver"/>
                 <xml-property name="container" value="volumes"/>
                 <xml-property name="uriTemplate" value="/volumes/volume/{volume-id}"/>
-            <xml-property name="requiredProps" value="volume-id,volume-selflink"/>
+                <xml-property name="requiredProps" value="volume-id,volume-selflink"/>
+                <xml-property name="dslStartNodeProps" value="volume-id"/>
             </xml-properties>
         </java-type>
 
@@ -1729,7 +1755,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="flavors"/>
                 <xml-property name="uriTemplate" value="/flavors/flavor/{flavor-id}"/>
-            <xml-property name="requiredProps" value="flavor-id,flavor-name,flavor-selflink"/>
+                <xml-property name="requiredProps" value="flavor-id,flavor-name,flavor-selflink"/>
+                <xml-property name="dslStartNodeProps" value="flavor-name,flavor-id"/>
             </xml-properties>
         </java-type>
 
@@ -1811,7 +1838,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="snapshots"/>
                 <xml-property name="uriTemplate" value="/snapshots/snapshot/{snapshot-id}"/>
-            <xml-property name="requiredProps" value="snapshot-id"/>
+                <xml-property name="requiredProps" value="snapshot-id"/>
+                <xml-property name="dslStartNodeProps" value="application,snapshot-name,application-vendor,snapshot-id,application-version"/>
             </xml-properties>
         </java-type>
 
@@ -1863,7 +1891,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="group-assignments"/>
                 <xml-property name="uriTemplate" value="/group-assignments/group-assignment/{group-id}"/>
-            <xml-property name="requiredProps" value="group-id,group-type,group-name"/>
+                <xml-property name="requiredProps" value="group-id,group-type,group-name"/>
+                <xml-property name="dslStartNodeProps" value="group-id,group-type,group-name"/>
             </xml-properties>
         </java-type>
 
@@ -1940,7 +1969,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="images"/>
                 <xml-property name="uriTemplate" value="/images/image/{image-id}"/>
-            <xml-property name="requiredProps" value="image-id,image-name,image-os-distro,image-os-version,image-selflink"/>
+                <xml-property name="requiredProps" value="image-id,image-name,image-os-distro,image-os-version,image-selflink"/>
+                <xml-property name="dslStartNodeProps" value="application,image-name,application-vendor,image-id,application-version"/>
             </xml-properties>
         </java-type>
 
@@ -1968,10 +1998,11 @@
             <xml-properties>
                 <xml-property name="description" value="Key/value pairs"/>
                 <xml-property name="indexedProps" value="metaname"/>
-                <xml-property name="dependentOn" value="tenant,image,service-instance,connector,model"/>
+                <xml-property name="dependentOn" value="image,service-instance,connector,model-ver"/>
                 <xml-property name="container" value="metadata"/>
                 <xml-property name="uriTemplate" value="/metadata/metadatum/{metaname}"/>
-            <xml-property name="requiredProps" value="metaname,metaval"/>
+                <xml-property name="requiredProps" value="metaname,metaval"/>
+                <xml-property name="dslStartNodeProps" value="metaname"/>
             </xml-properties>
         </java-type>
 
@@ -2012,6 +2043,7 @@
                 <xml-property name="container" value="dvs-switches"/>
                 <xml-property name="uriTemplate" value="/dvs-switches/dvs-switch/{switch-name}"/>
             <xml-property name="requiredProps" value="switch-name,vcenter-url"/>
+                <xml-property name="dslStartNodeProps" value="vcenter-url,switch-name"/>
             </xml-properties>
         </java-type>
 
@@ -2051,7 +2083,8 @@
                 <xml-property name="container" value="network-profiles"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
                 <xml-property name="uriTemplate" value="/cloud-infrastructure/network-profiles/network-profile/{nm-profile-name}"/>
-            <xml-property name="requiredProps" value="nm-profile-name"/>
+                <xml-property name="requiredProps" value="nm-profile-name"/>
+                <xml-property name="dslStartNodeProps" value="nm-profile-name"/>
             </xml-properties>
         </java-type>
 
@@ -2214,13 +2247,14 @@
             <xml-properties>
                 <xml-property name="description" value="Compute host whose hostname must be unique and must exactly match what is sent as a relationship to a vserver."/>
                 <xml-property name="nameProps" value="pserver-name2"/>
-                <xml-property name="indexedProps" value="hostname,in-maint,pserver-id,pserver-name2,inv-status"/>
+                <xml-property name="indexedProps" value="hostname,in-maint,pserver-id,pserver-name2,inv-status,prov-status,ptnii-equip-name"/>
                 <xml-property name="searchable" value="hostname,pserver-name2,pserver-id,ipv4-oam-address"/>
                 <xml-property name="uniqueProps" value="hostname"/>
                 <xml-property name="container" value="pservers"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
                 <xml-property name="uriTemplate" value="/cloud-infrastructure/pservers/pserver/{hostname}"/>
-            <xml-property name="requiredProps" value="hostname,in-maint"/>
+                <xml-property name="requiredProps" value="hostname,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="hostname,pserver-id,pserver-name2"/>
             </xml-properties>
         </java-type>
 
@@ -2247,8 +2281,9 @@
             <xml-properties>
                 <xml-property name="description" value="HPA Capacity information for compute node"/>
                 <xml-property name="indexedProps" value="hpa-capacity-key"/>
-                <xml-property name="dependentOn" value="hpa-capacity"/>
-            <xml-property name="requiredProps" value="hpa-capacity-key"/>
+                <xml-property name="dependentOn" value="pserver"/>
+                <xml-property name="requiredProps" value="hpa-capacity-key"/>
+                <xml-property name="dslStartNodeProps" value="hpa-capacity-key"/>
             </xml-properties>
         </java-type>
 
@@ -2268,6 +2303,11 @@
                 <xml-element java-attribute="interfaceName" name="interface-name" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
                         <xml-property name="description" value="Name that identifies the physical interface"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="interfaceName2" name="interface-name2" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Alternate name that identifies the physical interface"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
@@ -2367,12 +2407,14 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Physical interface (e.g., nic)"/>
-				<xml-property name="indexedProps" value="interface-name,prov-status,networkRef,operational-status"/>
+				<xml-property name="indexedProps" value="interface-name,prov-status,networkRef,operational-status,interface-role,interface-name2"/>
                 <xml-property name="nameProps" value="prov-status"/>
                 <xml-property name="dependentOn" value="vpls-pe,pserver,pnf"/>
                 <xml-property name="container" value="p-interfaces"/>
                 <xml-property name="uriTemplate" value="/p-interfaces/p-interface/{interface-name}"/>
-            <xml-property name="requiredProps" value="interface-name,in-maint"/>
+                <xml-property name="searchable" value="interface-name"/>
+                <xml-property name="requiredProps" value="interface-name,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="interface-name,interface-type,interface-role,interface-function"/>
             </xml-properties>
         </java-type>
 
@@ -2440,11 +2482,12 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Link aggregate interface"/>
-                <xml-property name="indexedProps" value="interface-name,interface-id,interface-role"/>
+                <xml-property name="indexedProps" value="interface-name,interface-id,interface-role,prov-status"/>
                 <xml-property name="dependentOn" value="generic-vnf,pserver,vpls-pe,pnf"/>
                 <xml-property name="container" value="lag-interfaces"/>
                 <xml-property name="uriTemplate" value="/lag-interfaces/lag-interface/{interface-name}"/>
-            <xml-property name="requiredProps" value="interface-name,in-maint"/>
+                <xml-property name="requiredProps" value="interface-name,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="interface-name,interface-id,interface-role"/>
             </xml-properties>
         </java-type>
         
@@ -2505,7 +2548,8 @@
                 <xml-property name="dependentOn" value="pnf"/>
                 <xml-property name="container" value="vrfs"/>
                 <xml-property name="uriTemplate" value="/vrfs/vrf/{vrf-id}"/>
-            <xml-property name="requiredProps" value="vrf-id,vrf-name"/>
+                <xml-property name="requiredProps" value="vrf-id,vrf-name"/>
+                <xml-property name="dslStartNodeProps" value="vrf-id"/>
             </xml-properties>
         </java-type>
         
@@ -2561,7 +2605,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="oam-networks"/>
                 <xml-property name="uriTemplate" value="/oam-networks/oam-network/{network-uuid}"/>
-            <xml-property name="requiredProps" value="network-uuid,network-name,cvlan-tag"/>
+                <xml-property name="requiredProps" value="network-uuid,network-name,cvlan-tag"/>
+                <xml-property name="dslStartNodeProps" value="cvlan-tag,network-uuid,network-name"/>
             </xml-properties>
         </java-type>
 
@@ -2606,7 +2651,8 @@
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="availability-zones"/>
                 <xml-property name="uriTemplate" value="/availability-zones/availability-zone/{availability-zone-name}"/>
-            <xml-property name="requiredProps" value="availability-zone-name,hypervisor-type"/>
+                <xml-property name="requiredProps" value="availability-zone-name,hypervisor-type"/>
+                <xml-property name="dslStartNodeProps" value="availability-zone-name"/>
             </xml-properties>
         </java-type>
 
@@ -2647,7 +2693,8 @@
                 <xml-property name="container" value="virtual-data-centers"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
                 <xml-property name="uriTemplate" value="/cloud-infrastructure/virtual-data-centers/virtual-data-center/{vdc-id}"/>
-            <xml-property name="requiredProps" value="vdc-id,vdc-name"/>
+                <xml-property name="requiredProps" value="vdc-id,vdc-name"/>
+                <xml-property name="dslStartNodeProps" value="vdc-name,vdc-id"/>
             </xml-properties>
         </java-type>
 
@@ -2700,7 +2747,8 @@
                 <xml-property name="container" value="projects"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/projects/project/{project-name}"/>
-            <xml-property name="requiredProps" value="project-name"/>
+                <xml-property name="requiredProps" value="project-name"/>
+                <xml-property name="dslStartNodeProps" value="project-name"/>
             </xml-properties>
         </java-type>
 
@@ -2763,7 +2811,8 @@
                 <xml-property name="container" value="connectors"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/connectors/connector/{resource-instance-id}"/>
-            <xml-property name="requiredProps" value="resource-instance-id"/>
+                <xml-property name="requiredProps" value="resource-instance-id"/>
+                <xml-property name="dslStartNodeProps" value="resource-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version"/>
             </xml-properties>
         </java-type>
 
@@ -2815,7 +2864,8 @@
                 <xml-property name="container" value="customers"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/customers/customer/{global-customer-id}"/>
-            <xml-property name="requiredProps" value="global-customer-id,subscriber-name,subscriber-type"/>
+                <xml-property name="requiredProps" value="global-customer-id,subscriber-name,subscriber-type"/>
+                <xml-property name="dslStartNodeProps" value="subscriber-name,global-customer-id,subscriber-type"/>
             </xml-properties>
         </java-type>
 
@@ -2851,7 +2901,8 @@
                 <xml-property name="container" value="lines-of-business"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/lines-of-business/line-of-business/{line-of-business-name}"/>
-            <xml-property name="requiredProps" value="line-of-business-name"/>
+                <xml-property name="requiredProps" value="line-of-business-name"/>
+                <xml-property name="dslStartNodeProps" value="line-of-business-name"/>
             </xml-properties>
         </java-type>
 
@@ -2893,7 +2944,8 @@
                 <xml-property name="container" value="owning-entities"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/owning-entities/owning-entity/{owning-entity-id}"/>
-            <xml-property name="requiredProps" value="owning-entity-id,owning-entity-name"/>
+                <xml-property name="requiredProps" value="owning-entity-id,owning-entity-name"/>
+                <xml-property name="dslStartNodeProps" value="owning-entity-id,owning-entity-name"/>
             </xml-properties>
         </java-type>
 
@@ -2929,7 +2981,8 @@
                 <xml-property name="container" value="platforms"/>
                 <xml-property name="namespace" value="business"/>
                 <xml-property name="uriTemplate" value="/business/platforms/platform/{platform-name}"/>
-            <xml-property name="requiredProps" value="platform-name"/>
+                <xml-property name="requiredProps" value="platform-name"/>
+                <xml-property name="dslStartNodeProps" value="platform-name"/>
             </xml-properties>
         </java-type>
 
@@ -2972,7 +3025,8 @@
                 <xml-property name="container" value="service-subscriptions"/>
                 <xml-property name="crossEntityReference" value="service-instance,service-type"/>
                 <xml-property name="uriTemplate" value="/service-subscriptions/service-subscription/{service-type}"/>
-            <xml-property name="requiredProps" value="service-type"/>
+                <xml-property name="requiredProps" value="service-type"/>
+                <xml-property name="dslStartNodeProps" value="service-type"/>
             </xml-properties>
         </java-type>
 
@@ -3145,7 +3199,8 @@
                 <xml-property name="dependentOn" value="service-subscription"/>
                 <xml-property name="container" value="service-instances"/>
                 <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}"/>
-            <xml-property name="requiredProps" value="service-instance-id"/>
+                <xml-property name="requiredProps" value="service-instance-id"/>
+                <xml-property name="dslStartNodeProps" value="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id"/>
             </xml-properties>
         </java-type>
 
@@ -3215,7 +3270,8 @@
                 <xml-property name="container" value="vnf-images"/>
                 <xml-property name="namespace" value="service-design-and-creation"/>
                 <xml-property name="uriTemplate" value="/service-design-and-creation/vnf-images/vnf-image/{vnf-image-uuid}"/>
-            <xml-property name="requiredProps" value="vnf-image-uuid,application,application-vendor"/>
+                <xml-property name="requiredProps" value="vnf-image-uuid,application,application-vendor"/>
+                <xml-property name="dslStartNodeProps" value="application,vnf-image-uuid,application-vendor,application-version"/>
             </xml-properties>
         </java-type>
 
@@ -3265,7 +3321,8 @@
                 <xml-property name="container" value="services"/>
                 <xml-property name="namespace" value="service-design-and-creation"/>
                 <xml-property name="uriTemplate" value="/service-design-and-creation/services/service/{service-id}"/>
-            <xml-property name="requiredProps" value="service-id,service-description"/>
+                <xml-property name="requiredProps" value="service-id,service-description"/>
+                <xml-property name="dslStartNodeProps" value="service-description,service-id"/>
             </xml-properties>
         </java-type>
 
@@ -3305,7 +3362,8 @@
                 <xml-property name="container" value="service-capabilities"/>
                 <xml-property name="namespace" value="service-design-and-creation"/>
                 <xml-property name="uriTemplate" value="/service-design-and-creation/service-capabilities/service-capability/{service-type}/{vnf-type}"/>
-            <xml-property name="requiredProps" value="service-type,vnf-type"/>
+                <xml-property name="requiredProps" value="service-type,vnf-type"/>
+                <xml-property name="dslStartNodeProps" value="service-type,vnf-type"/>
             </xml-properties>
         </java-type>
 
@@ -3447,6 +3505,26 @@
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="configurationRole" name="configuration-role" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize the configuration."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="configurationFunction" name="configuration-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize the configuration."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="primaryRole" name="primary-role" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="Used by some configurations to identify if it's filling a primary role."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="orchestrationVersion" name="orchestration-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize the configuration."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
                 <xml-element java-attribute="metadata" name="metadata" type="inventory.aai.onap.org.v19.Metadata"/>
                 <xml-element java-attribute="forwarderEvcs" name="forwarder-evcs" type="inventory.aai.onap.org.v19.ForwarderEvcs"/>
@@ -3454,12 +3532,13 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Generic configuration object."/>
-                <xml-property name="indexedProps" value="configuration-id,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="configuration-id,configuration-name,configuration-type,model-invariant-id,model-version-id,orchestration-status,configuration-role,configuration-function,orchestration-version"/>
                 <xml-property name="uniqueProps" value="configuration-id"/>
                 <xml-property name="container" value="configurations"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/configurations/configuration/{configuration-id}"/>
-            <xml-property name="requiredProps" value="configuration-id,configuration-type"/>
+                <xml-property name="requiredProps" value="configuration-id,configuration-type"/>
+                <xml-property name="dslStartNodeProps" value="configuration-id,model-invariant-id,model-version-id"/>
             </xml-properties>
         </java-type>
 
@@ -3593,13 +3672,14 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Logical links generally connect l-interfaces but are used to express logical connectivity between two points"/>
-				<xml-property name="indexedProps" value="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,purpose,operational-status"/>
+				<xml-property name="indexedProps" value="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,link-type,purpose,operational-status"/>
                 <xml-property name="uniqueProps" value="link-id"/>
                 <xml-property name="container" value="logical-links"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="searchable" value="link-name"/>
                 <xml-property name="uriTemplate" value="/network/logical-links/logical-link/{link-name}"/>
-            <xml-property name="requiredProps" value="link-name,in-maint,link-type"/>
+                <xml-property name="requiredProps" value="link-name,in-maint,link-type"/>
+                <xml-property name="dslStartNodeProps" value="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,circuit-id"/>
             </xml-properties>
         </java-type>
 
@@ -3636,7 +3716,8 @@
                 <xml-property name="container" value="site-pair-sets"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/site-pair-sets/site-pair-set/{site-pair-set-id}"/>
-            <xml-property name="requiredProps" value="site-pair-set-id"/>
+                <xml-property name="requiredProps" value="site-pair-set-id"/>
+                <xml-property name="dslStartNodeProps" value="site-pair-set-id"/>
             </xml-properties>
         </java-type>
 
@@ -3676,6 +3757,7 @@
                 <xml-property name="dependentOn" value="site-pair-set"/>
                 <xml-property name="container" value="routing-instances"/>
                 <xml-property name="uriTemplate" value="/routing-instances/routing-instance/{routing-instance-id}"/>
+                <xml-property name="dslStartNodeProps" value="routing-instance-id"/>
             </xml-properties>
         </java-type>
 
@@ -3736,6 +3818,7 @@
                 <xml-property name="dependentOn" value="routing-instance"/>
                 <xml-property name="container" value="site-pairs"/>
                 <xml-property name="uriTemplate" value="/site-pairs/site-pair/{site-pair-id}"/>
+                <xml-property name="dslStartNodeProps" value="site-pair-id"/>
             </xml-properties>
         </java-type>
 
@@ -3779,6 +3862,7 @@
                 <xml-property name="dependentOn" value="site-pair"/>
                 <xml-property name="container" value="classes-of-service"/>
                 <xml-property name="uriTemplate" value="/classes-of-service/class-of-service/{cos}"/>
+                <xml-property name="dslStartNodeProps" value="cos"/>
             </xml-properties>
         </java-type>
 
@@ -3910,7 +3994,8 @@
                 <xml-property name="container" value="vpn-bindings"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/vpn-bindings/vpn-binding/{vpn-id}"/>
-            <xml-property name="requiredProps" value="vpn-id,vpn-name"/>
+                <xml-property name="requiredProps" value="vpn-id,vpn-name"/>
+                <xml-property name="dslStartNodeProps" value="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,model-invariant-id,model-version-id"/>
             </xml-properties>
         </java-type>
 
@@ -3963,7 +4048,8 @@
                 <xml-property name="container" value="vpls-pes"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/vpls-pes/vpls-pe/{equipment-name}"/>
-            <xml-property name="requiredProps" value="equipment-name"/>
+                <xml-property name="requiredProps" value="equipment-name"/>
+                <xml-property name="dslStartNodeProps" value="equipment-name"/>
             </xml-properties>
         </java-type>
 
@@ -4008,6 +4094,7 @@
                 <xml-property name="container" value="multicast-configurations"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/multicast-configurations/multicast-configuration/{multicast-configuration-id}"/>
+                <xml-property name="dslStartNodeProps" value="multicast-configuration-id"/>
             </xml-properties>
         </java-type>
 
@@ -4127,14 +4214,15 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated."/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,prov-status,service-id"/>
+                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,prov-status,service-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="vces"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="extends" value="vnf"/>
                 <xml-property name="uriTemplate" value="/network/vces/vce/{vnf-id}"/>
-            <xml-property name="requiredProps" value="vnf-id,vnf-name,vnf-type"/>
+                <xml-property name="requiredProps" value="vnf-id,vnf-name,vnf-type"/>
+                <xml-property name="dslStartNodeProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,service-id"/>
             </xml-properties>
         </java-type>
 
@@ -4209,11 +4297,12 @@
             <xml-properties>
                 <xml-property name="description" value="Used to capture the network interfaces of this VCE"/>
                 <xml-property name="nameProps" value="port-group-name"/>
-                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,interface-name,switch-name"/>
+                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,interface-name,switch-name,interface-role,orchestration-status"/>
                 <xml-property name="dependentOn" value="vce"/>
                 <xml-property name="container" value="port-groups"/>
                 <xml-property name="uriTemplate" value="/port-groups/port-group/{interface-id}"/>
-            <xml-property name="requiredProps" value="interface-id,orchestration-status"/>
+                <xml-property name="requiredProps" value="interface-id,orchestration-status"/>
+                <xml-property name="dslStartNodeProps" value="port-group-id,heat-stack-id,interface-id,interface-name,switch-name"/>
             </xml-properties>
         </java-type>
 
@@ -4244,6 +4333,7 @@
                 <xml-property name="indexedProps" value="cvlan-tag"/>
                 <xml-property name="container" value="cvlan-tags"/>
                 <xml-property name="uriTemplate" value="/cvlan-tags/cvlan-tag/{cvlan-tag}"/>
+                <xml-property name="dslStartNodeProps" value="cvlan-tag"/>
             </xml-properties>
         </java-type>
 
@@ -4340,11 +4430,12 @@
                 <xml-element container-type="java.util.ArrayList" java-attribute="l3InterfaceIpv6AddressList" name="l3-interface-ipv6-address-list" type="inventory.aai.onap.org.v19.L3InterfaceIpv6AddressList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,in-maint,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,in-maint,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnfc-name"/>
                 <xml-property name="container" value="vnfcs"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/vnfcs/vnfc/{vnfc-name}"/>
+                <xml-property name="dslStartNodeProps" value="vnfc-name,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,group-notation,model-invariant-id,model-version-id"/>
             </xml-properties>
         </java-type>
 
@@ -4520,13 +4611,14 @@
             <xml-properties>
                 <xml-property name="description" value="Generic network definition"/>
                 <xml-property name="nameProps" value="network-name"/>
-                <xml-property name="indexedProps" value="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role"/>
+                <xml-property name="indexedProps" value="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role,orchestration-status"/>
                 <xml-property name="searchable" value="network-id,network-name"/>
                 <xml-property name="uniqueProps" value="network-id"/>
                 <xml-property name="container" value="l3-networks"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/l3-networks/l3-network/{network-id}"/>
-            <xml-property name="requiredProps" value="network-id,is-bound-to-vpn,is-provider-network,is-shared-network,is-external-network"/>
+                <xml-property name="requiredProps" value="network-id,is-bound-to-vpn,is-provider-network,is-shared-network,is-external-network"/>
+                <xml-property name="dslStartNodeProps" value="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role"/>
             </xml-properties>
         </java-type>
         <java-type name="NetworkPolicies">
@@ -4568,6 +4660,7 @@
                 <xml-property name="container" value="network-policies"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/network-policies/network-policy/{network-policy-id}"/>
+                <xml-property name="dslStartNodeProps" value="network-policy-id,network-policy-fqdn"/>
             </xml-properties>
         </java-type>
         <java-type name="CtagAssignments">
@@ -4597,6 +4690,7 @@
                 <xml-property name="dependentOn" value="l3-network"/>
                 <xml-property name="container" value="ctag-assignments"/>
                 <xml-property name="uriTemplate" value="/ctag-assignments/ctag-assignment/{vlan-id-inner}"/>
+                <xml-property name="dslStartNodeProps" value="vlan-id-inner"/>
             </xml-properties>
         </java-type>
 
@@ -4690,12 +4784,13 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="indexedProps" value="subnet-id,subnet-name"/>
+                <xml-property name="indexedProps" value="subnet-id,subnet-name,orchestration-status"/>
                 <xml-property name="nameProps" value="subnet-name"/>
                 <xml-property name="uniqueProps" value="subnet-id"/>
                 <xml-property name="dependentOn" value="l3-network"/>
                 <xml-property name="container" value="subnets"/>
                 <xml-property name="uriTemplate" value="/subnets/subnet/{subnet-id}"/>
+                <xml-property name="dslStartNodeProps" value="subnet-id,subnet-name"/>
             </xml-properties>
         </java-type>
 
@@ -5015,6 +5110,11 @@
                         <xml-property name="description" value="Network Management profile of this VNF"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="softwareVersion" name="software-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="VNF instance specific software version"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="applicationId" name="application-id" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="vnf application-id"/>
@@ -5030,7 +5130,7 @@
             <xml-properties>
                 <xml-property name="description" value="General purpose VNF"/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,in-maint,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role"/>
+                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,in-maint,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2,operational-status"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="generic-vnfs"/>
@@ -5039,7 +5139,8 @@
                 <xml-property name="containsSuggestibleProps" value="true"/>
                 <xml-property name="suggestionAliases" value="VNFs"/>
                 <xml-property name="uriTemplate" value="/network/generic-vnfs/generic-vnf/{vnf-id}"/>
-            <xml-property name="requiredProps" value="vnf-id,vnf-type,in-maint,is-closed-loop-disabled"/>
+                <xml-property name="requiredProps" value="vnf-id,vnf-type,in-maint,is-closed-loop-disabled"/>
+                <xml-property name="dslStartNodeProps" value="vnf-name2,vnf-type,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role"/>
             </xml-properties>
         </java-type>
 
@@ -5151,12 +5252,13 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="a deployment unit of VNFCs"/>
-                <xml-property name="indexedProps" value="vf-module-id,vf-module-name,heat-stack-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn"/>
+                <xml-property name="indexedProps" value="vf-module-id,vf-module-name,heat-stack-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn,orchestration-status"/>
                 <xml-property name="searchable" value="vf-module-id,vf-module-name"/>
                 <xml-property name="dependentOn" value="generic-vnf"/>
                 <xml-property name="container" value="vf-modules"/>
                 <xml-property name="uriTemplate" value="/vf-modules/vf-module/{vf-module-id}"/>
-            <xml-property name="requiredProps" value="vf-module-id,is-base-vf-module,automated-assignment"/>
+                <xml-property name="requiredProps" value="vf-module-id,is-base-vf-module,automated-assignment"/>
+                <xml-property name="dslStartNodeProps" value="vf-module-id,vf-module-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn"/>
             </xml-properties>
         </java-type>
 
@@ -5192,7 +5294,8 @@
                 <xml-property name="container" value="lag-links"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/lag-links/lag-link/{link-name}"/>
-            <xml-property name="requiredProps" value="link-name"/>
+                <xml-property name="requiredProps" value="link-name"/>
+                <xml-property name="dslStartNodeProps" value="link-name"/>
             </xml-properties>
         </java-type>
 
@@ -5285,13 +5388,14 @@
             <xml-properties>
                 <xml-property name="description" value="This object fills in the gaps from vce that were incorporated into generic-vnf.  This object will be retired with vce."/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,prov-status,vnf-id2"/>
+                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,prov-status,vnf-id2,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id2,vnf-name,vnf-name2"/>
                 <xml-property name="uniqueProps" value="vnf-id2"/>
                 <xml-property name="container" value="newvces"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/newvces/newvce/{vnf-id2}"/>
-            <xml-property name="requiredProps" value="vnf-id2,vnf-name,vnf-type"/>
+                <xml-property name="requiredProps" value="vnf-id2,vnf-name,vnf-type"/>
+                <xml-property name="dslStartNodeProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id2"/>
             </xml-properties>
         </java-type>
 
@@ -5333,6 +5437,11 @@
                 <xml-element java-attribute="pnfId" name="pnf-id" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="id of pnf"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="nfNamingCode" name="nf-naming-code" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Naming code for network function"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="equipType" name="equip-type" type="java.lang.String">
@@ -5486,13 +5595,14 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="PNF represents a physical network function. typically equipment used in the D1 world. in 1607, this will be populated by SDN-C to represent a premises router that a uCPE connects to. But this can be used to represent any physical device that is not an AIC node or uCPE."/>
-                <xml-property name="indexedProps" value="pnf-name,orchestration-status,inv-status,model-invariant-id,model-version-id,operational-status,admin-status"/>
+                <xml-property name="indexedProps" value="pnf-name,orchestration-status,inv-status,model-invariant-id,model-version-id,operational-status,admin-status,nf-role,prov-status,nf-naming-code"/>
                 <xml-property name="searchable" value="pnf-name"/>
                 <xml-property name="uniqueProps" value="pnf-name"/>
                 <xml-property name="container" value="pnfs"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/pnfs/pnf/{pnf-name}"/>
-            <xml-property name="requiredProps" value="pnf-name,in-maint"/>
+                <xml-property name="requiredProps" value="pnf-name,in-maint"/>
+                <xml-property name="dslStartNodeProps" value="pnf-name,model-invariant-id,model-version-id"/>
             </xml-properties>
         </java-type>
         <java-type name="SoftwareVersions">
@@ -5525,8 +5635,9 @@
                 <xml-property name="indexedProps" value="softwareVersionId,isActiveSwVer"/>
                 <xml-property name="dependentOn" value="pnf"/>
                 <xml-property name="container" value="pnf"/>
-            <xml-property name="requiredProps" value="software-version-id,is-active-sw-ver"/>
-            <xml-property name="uriTemplate" value="/pnf/software-version/{software-version-id}"/>
+                <xml-property name="requiredProps" value="software-version-id,is-active-sw-ver"/>
+                <xml-property name="uriTemplate" value="/pnf/software-version/{software-version-id}"/>
+                <xml-property name="dslStartNodeProps" value="softwareVersionId,isActiveSwVer"/>
             </xml-properties>
         </java-type>
 
@@ -5791,7 +5902,7 @@
                 <xml-property name="container" value="ipsec-configurations"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/ipsec-configurations/ipsec-configuration/{ipsec-configuration-id}"/>
-			<xml-property name="requiredProps" value="ipsec-configuration-id"/>
+                <xml-property name="requiredProps" value="ipsec-configuration-id"/>
             </xml-properties>
 		</java-type>
 
@@ -5925,6 +6036,7 @@
                 <xml-property name="nameProps" value="model-name"/>
                 <xml-property name="indexedProps" value="model-version-id,model-name,model-version,distribution-status"/>
                 <xml-property name="uniqueProps" value="model-version-id"/>
+                <xml-property name="dependentOn" value="model"/>
                 <xml-property name="container" value="model-vers"/>
                 <xml-property name="uriTemplate" value="/model-vers/model-ver/{model-version-id}"/>
             <xml-property name="requiredProps" value="model-version-id,model-name,model-version"/>
@@ -5986,6 +6098,7 @@
                 <xml-property name="indexedProps" value="model-element-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
+                <xml-property name="dependentOn" value="model-element,element-choice-set,model-ver"/>
                 <xml-property name="container" value="model-elements"/>
                 <xml-property name="uriTemplate" value="/model-elements/model-element/{model-element-uuid}"/>
             <xml-property name="requiredProps" value="model-element-uuid,new-data-del-flag,cardinality"/>
@@ -6042,6 +6155,7 @@
                 <xml-property name="indexedProps" value="model-constraint-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
+                <xml-property name="dependentOn" value="model-element,"/>
                 <xml-property name="container" value="model-constraints"/>
                 <xml-property name="uriTemplate" value="/model-constraints/model-constraint/{model-constraint-uuid}"/>
             <xml-property name="requiredProps" value="model-constraint-uuid,constrained-element-set-uuid-to-replace"/>
@@ -6077,6 +6191,7 @@
                 <xml-property name="indexedProps" value="constrained-element-set-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
+                <xml-property name="dependentOn" value="model-element,model-constraint"/>
                 <xml-property name="container" value="constrained-element-sets"/>
                 <xml-property name="uriTemplate" value="/constrained-element-sets/constrained-element-set/{constrained-element-set-uuid}"/>
             <xml-property name="requiredProps" value="constrained-element-set-uuid,constraint-type,check-type"/>
@@ -6110,6 +6225,7 @@
                 <xml-property name="indexedProps" value="element-choice-set-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
+                <xml-property name="dependentOn" value="constrained-element-set"/>
                 <xml-property name="container" value="element-choice-sets"/>
                 <xml-property name="uriTemplate" value="/element-choice-sets/element-choice-set/{element-choice-set-uuid}"/>
             <xml-property name="requiredProps" value="element-choice-set-uuid,element-choice-set-name"/>
@@ -6176,6 +6292,7 @@
 				<xml-property name="indexedProps" value="named-query-element-uuid"/>
 				<xml-property name="allowDirectRead" value="true"/>
 				<xml-property name="allowDirectWrite" value="false"/>
+				<xml-property name="dependentOn" value="named-query,named-query-element"/>
 				<xml-property name="container" value="named-query-elements"/>
 			<xml-property name="requiredProps" value="named-query-element-uuid"/>
             <xml-property name="uriTemplate" value="/named-query-elements/named-query-element/{named-query-element-uuid}"/>
@@ -6212,6 +6329,7 @@
 				<xml-property name="indexedProps" value="related-lookup-uuid"/>
 				<xml-property name="allowDirectRead" value="true"/>
 				<xml-property name="allowDirectWrite" value="false"/>
+				<xml-property name="dependentOn" value="named-query-element"/>
 				<xml-property name="container" value="related-lookups"/>
 			<xml-property name="requiredProps" value="related-lookup-uuid,source-node-type,source-node-property,target-node-type,target-node-property"/>
             <xml-property name="uriTemplate" value="/related-lookups/related-lookup/{related-lookup-uuid}"/>
@@ -6731,7 +6849,7 @@
                 <xml-property name="description" value="Represents a slice or partial piece of a resource that gets separately allotted"/>
 				<xml-property name="nameProps" value="description,allotted-resource-name"/>
                 <xml-property name="uniqueProps" value="id"/>
-				<xml-property name="indexedProps" value="id,model-invariant-id,model-version-id,type,role,allotted-resource-name,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,vpn-name"/>
+				<xml-property name="indexedProps" value="id,model-invariant-id,model-version-id,type,role,allotted-resource-name,access-provider-id,access-client-id,access-topology-id,access-node-id,access-ltp-id,vpn-name,orchestration-status"/>
                 <xml-property name="dependentOn" value="service-instance"/>
                 <xml-property name="container" value="allotted-resources"/>
                 <!--  <xml-property name="namespace" value="network" /> -->
@@ -6842,6 +6960,21 @@
                         <xml-property name="description" value="Unique ID of a license resource. "/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="projectNumber" name="project-number" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to store CFAS or other project numbers."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="orderNumber" name="order-number" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Order number."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="receiptDate" name="receipt-date" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Date of receipt."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Concurrency value"/>
@@ -6851,7 +6984,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Metadata for license group."/>
-                <xml-property name="indexedProps" value="group-uuid,resource-uuid"/>
+                <xml-property name="indexedProps" value="group-uuid,resource-uuid,projectNumber,orderNumber,receiptDate"/>
                 <xml-property name="dependentOn" value="generic-vnf,vce"/>
                 <xml-property name="container" value="licenses"/>
                 <xml-property name="uriTemplate" value="/licenses/license/{group-uuid}/{resource-uuid}"/>
@@ -6972,7 +7105,7 @@
             <xml-properties>
                 <xml-property name="description" value="Route target information"/>
                 <xml-property name="container" value="route-targets"/>
-                <xml-property name="dependentOn" value="vpn-binding"/>
+                <xml-property name="dependentOn" value="vpn-binding,vrf"/>
                 <xml-property name="canBeLinked" value="true"/>
                 <xml-property name="uriTemplate" value="/route-targets/route-target/{global-route-target}/{route-target-role}"/>
             <xml-property name="requiredProps" value="global-route-target,route-target-role"/>
@@ -7360,7 +7493,8 @@
                 <xml-property name="uniqueProps" value="forwarder-evc-id"/>
                 <xml-property name="container" value="forwarder-evcs"/>
                 <xml-property name="uriTemplate" value="/forwarder-evcs/forwarder-evc/{forwarder-evc-id}"/>
-            <xml-property name="requiredProps" value="forwarder-evc-id"/>
+                <xml-property name="requiredProps" value="forwarder-evc-id"/>
+                <xml-property name="indexedProps" value="circuit-id"/>
             </xml-properties>
         </java-type>
 
@@ -7590,7 +7724,7 @@
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="description" value="represents the collection resource in the TOSCA model"/>
                 <xml-property name="uniqueProps" value="collection-id"/>
-                <xml-property name="indexedProps" value="collection-id,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="collection-id,model-invariant-id,model-version-id,orchestration-status"/>
                 <xml-property name="container" value="collections"/>
                 <xml-property name="uriTemplate" value="/network/collections/collection/{collection-id}"/>
             <xml-property name="requiredProps" value="collection-id"/>

@@ -2430,7 +2430,7 @@
 			"to": "l-interface",
 			"label": "org.onap.relationships.inventory.AppliesTo",
 			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
+			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
@@ -3166,7 +3166,28 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""		
+		},{
+			"from": "configuration",
+			"to": "lag-interface",
+			"label": "org.onap.relationships.inventory.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":""
+		},{
+			"from": "configuration",
+			"to": "instance-group",
+			"label": "org.onap.relationships.inventory.PartOf",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":""
 		}
-		
 	]
 }
