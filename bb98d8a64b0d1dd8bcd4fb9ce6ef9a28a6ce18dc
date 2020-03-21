@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: THIRILOSHINI KRISHNAKUMAR <thiriloshini.thoppekrishnakumar@us.fujitsu.com>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Sat, 21 Mar 2020 19:52:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/104081
+Project: aai/schema-service
+Branch: refs/heads/master
