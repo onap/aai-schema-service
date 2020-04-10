@@ -1796,7 +1796,7 @@
 			"direction": "OUT",
 			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
-			"delete-other-v": "${direction}",
+			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
