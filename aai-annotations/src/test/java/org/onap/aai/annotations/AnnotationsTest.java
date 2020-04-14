@@ -42,7 +42,9 @@ public class AnnotationsTest {
         isAbstract = "",
         alternateKeys1 = "",
         maximumDepth = "",
-        crossEntityReference = "")
+        crossEntityReference = "",
+        dslStartNodeProps = "")
+
     public void testAnnotation() {
     }
 }

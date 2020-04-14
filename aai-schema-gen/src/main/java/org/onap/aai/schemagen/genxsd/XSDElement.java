@@ -37,6 +37,7 @@ public class XSDElement implements Element {
 	private static final int VALUE_INDEXED_PROPS = 2;
 	private static final int VALUE_CONTAINER = 3;
 	private static final int VALUE_REQUIRES = 4;
+	private static final int VALUE_DSLSTARTNODE = 5;
 
 	public XSDElement(Element xmlElementElement, String maxOccurs) {
 		super();
@@ -153,8 +154,9 @@ public class XSDElement implements Element {
         }
 		return pathDescriptionProperty;
 	}
-	public Vector<String> getIndexedProps() {
-		Vector<String> indexedProps = new Vector<String>();
+	
+	public Vector<String> getProps(int needValue) {
+		Vector<String> props = new Vector<String>();
 		NodeList xmlPropNodes = this.getElementsByTagName("xml-properties");
 
 		for ( int i = 0; i < xmlPropNodes.getLength(); ++i ) {
@@ -173,19 +175,21 @@ public class XSDElement implements Element {
 					String attrValue = attr.getNodeValue();
 					if ( attrName == null || attrValue == null )
 						continue;
-					if ( attrValue.equals("indexedProps")) {
+					if ( needValue == VALUE_INDEXED_PROPS && attrValue.equals("indexedProps")) {
 						useValue = VALUE_INDEXED_PROPS;
+					} else if ( needValue == VALUE_DSLSTARTNODE && attrValue.equals("dslStartNodeProps")) {
+						useValue = VALUE_DSLSTARTNODE;
 					}
-					if ( useValue == VALUE_INDEXED_PROPS && attrName.equals("value")) {
-						indexedProps = getIndexedProps( attrValue );
+					if ( useValue != VALUE_NONE && attrName.equals("value")) {
+						props = getProps( attrValue );
 					}
 				}
 			}
 		}
-		return indexedProps;
+		return props;
 	}
-
-	private static Vector<String> getIndexedProps( String attrValue )
+	
+	private static Vector<String> getProps( String attrValue )
 	{
 		if ( attrValue == null )
 			return null;
@@ -197,6 +201,14 @@ public class XSDElement implements Element {
 			result.add(st.nextToken());
 		}
 		return result;
+	}
+	
+	public Vector<String> getIndexedProps() {
+		return getProps(VALUE_INDEXED_PROPS);
+	}
+
+	public Vector<String> getDslStartNodeProps() {
+		return getProps(VALUE_DSLSTARTNODE);
 	}
 
 	public String getContainerProperty() {
@@ -407,7 +419,7 @@ public class XSDElement implements Element {
 		return sb.toString();
 	}
 
-	public String getTypePropertyYAML() {
+	public String getTypePropertyYAML(boolean isDslStartNode) {
 		StringBuffer sbProperties = new StringBuffer();
 		sbProperties.append("      " + this.getAttribute("name") + ":\n");
 		sbProperties.append("        type: ");
@@ -425,8 +437,21 @@ public class XSDElement implements Element {
 		else if ( ("java.lang.Boolean").equals(this.getAttribute("type")))
 			sbProperties.append("boolean\n");
 		String attrDescription = this.getPathDescriptionProperty();
-		if ( attrDescription != null && attrDescription.length() > 0 )
-			sbProperties.append("        description: " + attrDescription + "\n");
+		if ( attrDescription != null && attrDescription.length() > 0 ) {
+			if ( !isDslStartNode ) {
+				sbProperties.append("        description: " + attrDescription + "\n");
+			} else {
+				sbProperties.append("        description: |\n");
+				sbProperties.append("          "  + attrDescription + "\n");
+				sbProperties.append("          *This property can be used as a filter to find the start node for a dsl query\n");
+			}
+		} else {
+			if ( isDslStartNode ) {
+				sbProperties.append("        description: |\n");
+				sbProperties.append("          \n");
+				sbProperties.append("          *This property can be used as a filter to find the start node for a dsl query\n");
+			}			
+		}
 		String elementAlsoRequiresProperty=this.getRequiresProperty();
 		if ( StringUtils.isNotEmpty(elementAlsoRequiresProperty) )
 			sbProperties.append("        also requires: " + elementAlsoRequiresProperty + "\n");
@@ -736,4 +761,3 @@ public class XSDElement implements Element {
 
 
 }
-

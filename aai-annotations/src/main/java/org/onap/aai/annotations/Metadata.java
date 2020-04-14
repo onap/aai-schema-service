@@ -52,5 +52,6 @@ public @interface Metadata {
 	String containsSuggestibleProps() default "";
 	String suggestionAliases() default "";
 	String sourceOfTruthType() default "";
+    String dslStartNodeProps() default "";
 
 }

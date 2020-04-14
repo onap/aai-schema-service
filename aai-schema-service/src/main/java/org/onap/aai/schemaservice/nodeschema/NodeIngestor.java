@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.nodeschema;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -54,7 +54,7 @@ import java.util.regex.Pattern;
 @Component
 public class NodeIngestor {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(NodeIngestor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NodeIngestor.class);
 
     private static final Pattern classNamePattern = Pattern.compile("\\.(v\\d+)\\.");
     private Map<SchemaVersion, DynamicJAXBContext> versionContextMap = new TreeMap<>();

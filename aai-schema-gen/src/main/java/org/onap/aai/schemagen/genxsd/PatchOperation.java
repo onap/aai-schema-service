@@ -20,6 +20,7 @@
 package org.onap.aai.schemagen.genxsd;
 
 import org.apache.commons.lang3.StringUtils;
+import org.onap.aai.setup.SchemaVersion;
 import org.onap.aai.schemagen.GenerateXsd;
 
 import java.util.StringTokenizer;
@@ -31,8 +32,9 @@ public class PatchOperation {
 	private String path;
 	private String pathParams;
 	private String prefixForPatch;
+	private SchemaVersion version;
 
-	public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams) {
+	public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, SchemaVersion v) {
 		super();
 		this.useOpId = useOpId;
 		this.xmlRootElementName = xmlRootElementName;
@@ -40,6 +42,7 @@ public class PatchOperation {
 		this.path = path;
 		this.pathParams = pathParams;
 		this.prefixForPatch = "";
+		this.version = v;
 	}
 		public void setPrefixForPatchRef(String prefixForPatchRef) {
 			this.prefixForPatch = prefixForPatchRef;
@@ -81,8 +84,8 @@ public class PatchOperation {
 
 			if ( path.endsWith("/relationship") ) {
 				pathSb.append("      summary: see node definition for valid relationships\n");
-				relationshipExamplesSb.append("[See Examples](apidocs/relations/"+GenerateXsd.getAPIVersion()+"/"+useOpId+".json)");
 			} else {
+				relationshipExamplesSb.append("[See Examples](apidocs/relations/"+version.toString()+"/"+useOpId+".json)");
 				pathSb.append("      summary: update an existing " + xmlRootElementName + "\n");
 				pathSb.append("      description: |\n");
 				pathSb.append("        Update an existing " + xmlRootElementName + "\n");
@@ -109,7 +112,7 @@ public class PatchOperation {
 			pathSb.append(pathParams); // for nesting
 			pathSb.append("        - name: body\n");
 			pathSb.append("          in: body\n");
-			pathSb.append("          description: " + xmlRootElementName + " object that needs to be updated."+relationshipExamplesSb.toString()+"\n");
+			pathSb.append("          description: " + xmlRootElementName + " object that needs to be updated."+relationshipExamplesSb.toString()+"\n");			
 			pathSb.append("          required: true\n");
 			pathSb.append("          schema:\n");
 			pathSb.append("            $ref: \"#/definitions/" + prefixForPatch + xmlRootElementName + "\"\n");

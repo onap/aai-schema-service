@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.nodeschema;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.onap.aai.logging.LogFormatTools;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ import java.util.Optional;
 @Service
 public class NodeSchemaService {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(NodeSchemaResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NodeSchemaResource.class);
 
     private SchemaVersions schemaVersions;
 
