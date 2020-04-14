@@ -17,23 +17,37 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.aai.schemaservice.config;
+package org.onap.aai.queries;
 
-import org.onap.aai.aaf.auth.AAIAuthCore;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import java.util.List;
 
-@Profile("two-way-ssl")
-@Configuration
-public class AuthorizationConfiguration {
+public class CustomQueryConfig {
+	public CustomQueryConfig() {
+		// used by GetCustomQueryConfig
+	}
 
-    @Value("${schema.uri.base.path}")
-    private String basePath;
 
-    @Bean
-    public AAIAuthCore aaiAuthCore(){
-        return new AAIAuthCore(basePath);
-    }
+	private String query;
+	private List<String> queryOptionalProperties;
+	private List<String> queryRequiredProperties;
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+	public String getQuery() {
+		return this.query;
+	}
+
+	public void setQueryOptionalProperties( List<String> queryOptionalProperties) {
+		this.queryOptionalProperties = queryOptionalProperties;
+	}
+	public List<String> getQueryOptionalProperties( ) {
+		return queryOptionalProperties;
+	}
+	public void setQueryRequiredProperties( List<String> queryRequiredProperties) {
+		this.queryRequiredProperties = queryRequiredProperties;
+	}
+	public List<String> getQueryRequiredProperties( ) {
+		return queryRequiredProperties;
+	}
 }

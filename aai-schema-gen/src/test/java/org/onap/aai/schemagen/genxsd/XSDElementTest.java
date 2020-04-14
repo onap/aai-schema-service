@@ -43,6 +43,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.collection.IsIn.in;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.core.Every.everyItem;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class XSDElementTest {
@@ -603,13 +604,23 @@ public class XSDElementTest {
 		target.add("      Customer:\n        type:         description: customer identifiers to provide linkage back to BSS information.\n");
 		target.add("      ServiceSubscriptions:\n        type:         description: Collection of objects that group service instances.\n");
 		target.add("      ServiceSubscription:\n        type:         description: Object that group service instances.\n");
+		StringBuilder sb = new StringBuilder("      Customer:\n        type:         description: |\n          customer identifiers to provide linkage back to BSS information.\n");
+		sb.append("          *This property can be used as a filter to find the start node for a dsl query\n");
+		String yamlDesc = sb.toString();
 		List<String> types = new ArrayList<String>();
+		String container;
+		String customerDesc = null;
 		for ( int i = 0; i < javaTypeNodes.getLength(); ++ i ) {
 			XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
-			if(javaTypeElement.getTypePropertyYAML() != null)
-				types.add(javaTypeElement.getTypePropertyYAML());
+			if(javaTypeElement.getTypePropertyYAML(false) != null)
+				types.add(javaTypeElement.getTypePropertyYAML(false));
+			container = javaTypeElement.getContainerProperty();
+			if ( "customers".equals(container)) {
+				customerDesc = javaTypeElement.getTypePropertyYAML(true);
+			}
 		}
 		assertThat(new ArrayList<>(types),both(everyItem(is(in(target.toArray())))).and(containsInAnyOrder(target.toArray())));
+		assertEquals(customerDesc, yamlDesc );
 	}
 
 	@Test
@@ -639,5 +650,6 @@ public class XSDElementTest {
 			assertThat(map.get(key),equalTo(target.get(key)));
 		}
 	}
+
 
 }

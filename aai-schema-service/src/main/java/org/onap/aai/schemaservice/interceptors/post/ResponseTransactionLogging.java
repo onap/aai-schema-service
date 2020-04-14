@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.interceptors.post;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.JsonObject;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
@@ -42,7 +42,7 @@ import java.util.Optional;
 @Priority(AAIResponseFilterPriority.RESPONSE_TRANS_LOGGING)
 public class ResponseTransactionLogging extends AAIContainerFilter implements ContainerResponseFilter {
 
-    private static final EELFLogger TRANSACTION_LOGGER = EELFManager.getInstance().getLogger(ResponseTransactionLogging.class);
+    private static final Logger TRANSACTION_LOGGER = LoggerFactory.getLogger(ResponseTransactionLogging.class);
 
     @Autowired
     private HttpServletResponse httpServletResponse;
@@ -57,23 +57,12 @@ public class ResponseTransactionLogging extends AAIContainerFilter implements Co
 
     private void transLogging(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
 
-        String logValue;
-        String getValue;
-
-        try {
-            logValue = AAIConfig.get("aai.transaction.logging");
-            getValue = AAIConfig.get("aai.transaction.logging.get");
-        } catch (AAIException e) {
-            return;
-        }
+        String logValue = AAIConfig.get("aai.transaction.logging", "true");
+        String isGetTransactionResponseLoggingEnabled = AAIConfig.get("aai.transaction.logging.get", "false");
 
         String httpMethod = requestContext.getMethod();
 
         if(Boolean.parseBoolean(logValue)){
-
-            if(!Boolean.parseBoolean(getValue) && HttpMethod.GET.equals(httpMethod)){
-                return;
-            }
 
             String transId = requestContext.getHeaderString(AAIHeaderProperties.TRANSACTION_ID);
             String fromAppId = requestContext.getHeaderString(AAIHeaderProperties.FROM_APP_ID);
@@ -96,7 +85,9 @@ public class ResponseTransactionLogging extends AAIContainerFilter implements Co
             logEntry.addProperty("resourceId", fullUri);
             logEntry.addProperty("resourceType", httpMethod);
             logEntry.addProperty("rqstBuf", Objects.toString(request, ""));
-            logEntry.addProperty("respBuf", Objects.toString(response, ""));
+            if(Boolean.parseBoolean(isGetTransactionResponseLoggingEnabled) || (!HttpMethod.GET.equals(httpMethod))) {
+                logEntry.addProperty("respBuf", Objects.toString(response, ""));
+            }
 
             try {
                 TRANSACTION_LOGGER.debug(logEntry.toString());

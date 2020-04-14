@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.edges;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,7 +45,7 @@ import java.util.stream.Stream;
 @Service
 public class EdgeService {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(EdgeService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EdgeService.class);
 
     private static final String FILESEP = System.getProperty("file.separator");
 
