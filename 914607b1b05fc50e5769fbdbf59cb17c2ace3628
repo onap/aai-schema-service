@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Thu, 16 Apr 2020 13:36:48 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/105485
+Project: aai/schema-service
+Branch: refs/heads/master
