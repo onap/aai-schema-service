@@ -3553,7 +3553,7 @@
 				<xml-element java-attribute="extAaiNetworks" name="ext-aai-networks" type="inventory.aai.onap.org.v19.ExtAaiNetworks"/>
                 <xml-element java-attribute="labelRestrictions" name="label-restrictions" type="inventory.aai.onap.org.v19.LabelRestrictions"/>
                 <xml-element java-attribute="unis" name="unis" type="inventory.aai.onap.org.v19.Unis"/>
-                <xml-element java-attribute="teLinkAttributes" name="te-link-attributes" type="inventory.aai.onap.org.v19.TELinkAttributes"/>
+                <xml-element java-attribute="teLinkAttributes" name="te-link-attributes" type="inventory.aai.onap.org.v19.TeLinkAttributes"/>
     	        <xml-element java-attribute="interlayerAttachments" name="interlayer-attachments" type="inventory.aai.onap.org.v19.InterlayerAttachments"/>
                 <xml-element java-attribute="tunnelTerminationPoints" name="tunnel-termination-points" type="inventory.aai.onap.org.v19.TunnelTerminationPoints"/>
             </java-attributes>
@@ -9131,16 +9131,16 @@
             </xml-properties>
         </java-type>
 
-	<java-type name="TELinkAttributes">
+	<java-type name="TeLinkAttributes">
             <xml-properties>
                 <xml-property name="description" value="Collection of TE link attributes."/>
             </xml-properties>
             <xml-root-element name="te-link-attributes"/>
             <java-attributes>
-                <xml-element container-type="java.util.ArrayList" java-attribute="teLinkAttribute" name="te-link-attribute" type="inventory.aai.onap.org.v19.TELinkAttribute"/>
+                <xml-element container-type="java.util.ArrayList" java-attribute="teLinkAttribute" name="te-link-attribute" type="inventory.aai.onap.org.v19.TeLinkAttribute"/>
             </java-attributes>
         </java-type>
-        <java-type name="TELinkAttribute">
+        <java-type name="TeLinkAttribute">
             <xml-root-element name="te-link-attribute"/>
             <java-attributes>
                 <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
