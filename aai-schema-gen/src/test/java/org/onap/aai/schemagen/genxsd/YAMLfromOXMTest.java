@@ -315,14 +315,12 @@ public class YAMLfromOXMTest {
 		sb.append("\n");
 		sb.append("    [Differences versus the previous schema version](apidocs/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-		sb.append("    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License.\n");
-		sb.append("\n");
+		sb.append("    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    You may obtain a copy of the License at\n");
 		sb.append("\n");
-		sb.append("    (https://creativecommons.org/licenses/by/4.0/)\n");
-		sb.append("\n");
+		sb.append("    (https://creativecommons.org/licenses/by/4.0/)"+ OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-		sb.append("    This document is best viewed with Firefox or Chrome. Nodes can be found by appending /#/definitions/node-type-to-find to the path to this document. Edge definitions can be found with the node definitions." + OxmFileProcessor.LINE_SEPARATOR);
+		sb.append("    This document is best viewed with Firefox or Chrome. Nodes can be found by opening the models link below and finding the node-type. Edge definitions can be found with the node definitions." + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  version: \"v11\"" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  title: Active and Available Inventory REST API" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  license:" + OxmFileProcessor.LINE_SEPARATOR);
@@ -445,7 +443,8 @@ public class YAMLfromOXMTest {
 		sb.append("          example: __SERVICE-TYPE__\n");
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
-		sb.append("          description: service-subscription object that needs to be updated.\n");
+		sb.append("          description: service-subscription object that needs to be updated.");
+		sb.append("[See Examples](apidocs/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/zzzz-patch-service-subscription\"\n");
@@ -594,7 +593,8 @@ public class YAMLfromOXMTest {
 		sb.append("          example: __GLOBAL-CUSTOMER-ID__\n");
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
-		sb.append("          description: customer object that needs to be updated.\n");
+		sb.append("          description: customer object that needs to be updated.");
+		sb.append("[See Examples](apidocs/relations/v11/BusinessCustomersCustomer.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/zzzz-patch-customer\"\n");

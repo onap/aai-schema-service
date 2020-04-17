@@ -19,11 +19,9 @@
  */
 package org.onap.aai.schemaservice;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.onap.aai.exceptions.AAIException;
-import org.onap.aai.logging.LoggingContext;
-import org.onap.aai.logging.LoggingContext.StatusCode;
 import org.onap.aai.schemaservice.config.PropertyPasswordConfiguration;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.onap.aai.aailog.logs.AaiDebugLog;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -50,12 +50,19 @@ import java.util.UUID;
     DataSourceTransactionManagerAutoConfiguration.class,
     HibernateJpaAutoConfiguration.class
 })
+@ComponentScan(basePackages = {
+    "org.onap.aai.schemaservice",
+    "org.onap.aai.aaf"
+})
 public class SchemaServiceApp {
 
-    private static final EELFLogger logger = EELFManager.getInstance().getLogger(SchemaServiceApp.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(SchemaServiceApp.class.getName());
 
     private static final String APP_NAME = "aai-schema-service";
-    private static Map<String, String> contextMap;
+    private static AaiDebugLog debugLog = new AaiDebugLog();
+    static {
+        debugLog.setupMDC();
+    }
 
     @Autowired
     private Environment env;
@@ -64,14 +71,6 @@ public class SchemaServiceApp {
 
         setDefaultProps();
 
-        LoggingContext.save();
-        LoggingContext.component("init");
-        LoggingContext.partnerName("NA");
-        LoggingContext.targetEntity(APP_NAME);
-        LoggingContext.requestId(UUID.randomUUID().toString());
-        LoggingContext.serviceName(APP_NAME);
-        LoggingContext.targetServiceName("contextInitialized");
-        LoggingContext.statusCode(StatusCode.COMPLETE);
 
 
         SpringApplication app = new SpringApplication(SchemaServiceApp.class);
@@ -79,19 +78,17 @@ public class SchemaServiceApp {
         app.setRegisterShutdownHook(true);
         app.addInitializers(new PropertyPasswordConfiguration());
         Environment env = app.run(args).getEnvironment();
-        MDC.setContextMap(contextMap);
 
-        logger.info(
+        logger.debug(
             "Application '{}' is running on {}!",
             env.getProperty("spring.application.name"),
             env.getProperty("server.port")
         );
 
-        logger.info("SchemaService MicroService Started");
+        logger.debug("SchemaService MicroService Started");
 
         System.out.println("SchemaService Microservice Started");
 
-        LoggingContext.restoreIfPossible();
     }
 
     public static void setDefaultProps() {
@@ -122,17 +119,7 @@ public class SchemaServiceApp {
         System.setProperty("org.onap.aai.serverStarted", "false");
         setDefaultProps();
 
-        LoggingContext.save();
-        LoggingContext.component("init");
-        LoggingContext.partnerName("NA");
-        LoggingContext.targetEntity(APP_NAME);
-        LoggingContext.requestId(UUID.randomUUID().toString());
-        LoggingContext.serviceName(APP_NAME);
-        LoggingContext.targetServiceName("contextInitialized");
-        LoggingContext.statusCode(StatusCode.COMPLETE);
-
-        contextMap = MDC.getCopyOfContextMap();
-        logger.info("SchemaService initialization started...");
+        logger.debug("SchemaService initialization started...");
 
         // Setting this property to allow for encoded slash (/) in the path parameter
         // This is only needed for tomcat keeping this as temporary
@@ -143,20 +130,11 @@ public class SchemaServiceApp {
             logger.warn("You have seriously misconfigured your application");
         }
 
-        LoggingContext.restoreIfPossible();
     }
 
     @PreDestroy
     public void cleanup() {
 
-        LoggingContext.save();
-        LoggingContext.component("Stopped");
-        LoggingContext.partnerName("NA");
-        LoggingContext.targetEntity(APP_NAME);
-        LoggingContext.requestId(UUID.randomUUID().toString());
-        LoggingContext.serviceName(APP_NAME);
-        LoggingContext.targetServiceName("Stopped");
-        LoggingContext.statusCode(StatusCode.COMPLETE);
-        logger.info("SchemaService shutting down");
+        logger.debug("SchemaService shutting down");
     }
 }

@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.query;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 @Service
 public class QueryService {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(QueryService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QueryService.class);
 
     private String queryLocation;
 

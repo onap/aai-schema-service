@@ -76,7 +76,7 @@ public class PutRelationPathSet {
 			relations.add("{\"comment\": \"Valid TO Relations that can be added\"}\n");
 			SortedSet<String> ss=new TreeSet<String>(results.keySet());
 			for(String key : ss) {
-				results.get(key).stream().filter((i) -> (! i.isPrivateEdge())).forEach((i) ->{ String rel = selectedRelation(i); relations.add(rel); logger.debug("Relation added: "+rel); } );
+				results.get(key).stream().filter((i) -> ("NONE".equals(i.getContains()) &&! i.isPrivateEdge())).forEach((i) ->{ String rel = selectedRelation(i); relations.add(rel); logger.debug("Relation added: "+rel); } );
 			}
 		} catch(Exception e) {
 			logger.debug("objectName: "+objectName+"\n"+e);

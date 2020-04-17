@@ -19,8 +19,8 @@
  */
 package org.onap.aai.schemaservice.config;
 
-import com.att.eelf.configuration.EELFLogger;
-import com.att.eelf.configuration.EELFManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.logging.ErrorObject;
@@ -49,7 +49,7 @@ import java.util.List;
 @Component
 public class ErrorHandler extends OncePerRequestFilter {
 
-    private static final EELFLogger LOGGER = EELFManager.getInstance().getLogger(ErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
     private String basePath;
 
     public ErrorHandler(@Value("${schema.uri.base.path}") String basePath) {

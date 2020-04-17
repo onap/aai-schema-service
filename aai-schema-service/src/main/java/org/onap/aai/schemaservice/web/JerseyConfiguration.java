@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.onap.logging.filter.base.AuditLogContainerFilter;
+
 
 @Component
 public class JerseyConfiguration extends ResourceConfig {
@@ -58,19 +60,19 @@ public class JerseyConfiguration extends ResourceConfig {
         register(EdgeResource.class);
 
         //Request Filters
-        registerFiltersForRequests();
-        // Response Filters
-        registerFiltersForResponses();
+        registerFilters(ContainerRequestFilter.class);
+        registerFilters(ContainerResponseFilter.class);
+        registerFilters(AuditLogContainerFilter.class);
 
     }
 
-    public void registerFiltersForRequests() {
+    public <T> void registerFilters(Class<T> type) {
 
-        // Find all the classes within the interceptors package
+        Reflections loggingReflections = new Reflections("org.onap.aai.aailog.filter");
         Reflections reflections = new Reflections("org.onap.aai.schemaservice.interceptors");
         // Filter them based on the clazz that was passed in
-        Set<Class<? extends ContainerRequestFilter>> filters = reflections.getSubTypesOf(ContainerRequestFilter.class);
-
+        Set<Class<? extends T>> filters = loggingReflections.getSubTypesOf(type);
+        filters.addAll(reflections.getSubTypesOf(type));
 
         // Check to ensure that each of the filter has the @Priority annotation and if not throw exception
         for (Class filterClass : filters) {
@@ -80,7 +82,7 @@ public class JerseyConfiguration extends ResourceConfig {
         }
 
         // Turn the set back into a list
-        List<Class<? extends ContainerRequestFilter>> filtersList = filters
+        List<Class<? extends T>> filtersList = filters
                 .stream()
                 .filter(f -> {
                     if (f.isAnnotationPresent(Profile.class)
@@ -98,36 +100,5 @@ public class JerseyConfiguration extends ResourceConfig {
         filtersList.forEach(this::register);
     }
 
-    public void registerFiltersForResponses() {
 
-        // Find all the classes within the interceptors package
-        Reflections reflections = new Reflections("org.onap.aai.schemaservice.interceptors");
-        // Filter them based on the clazz that was passed in
-        Set<Class<? extends ContainerResponseFilter>> filters = reflections.getSubTypesOf(ContainerResponseFilter.class);
-
-
-        // Check to ensure that each of the filter has the @Priority annotation and if not throw exception
-        for (Class filterClass : filters) {
-            if (filterClass.getAnnotation(Priority.class) == null) {
-                throw new RuntimeException("Container filter " + filterClass.getName() + " does not have @Priority annotation");
-            }
-        }
-
-        // Turn the set back into a list
-        List<Class<? extends ContainerResponseFilter>> filtersList = filters.stream()
-                .filter(f -> {
-                    if (f.isAnnotationPresent(Profile.class)
-                            && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
-                        return false;
-                    }
-                    return true;
-                })
-                .collect(Collectors.toList());
-
-        // Sort them by their priority levels value
-        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value()).compareTo(c2.getAnnotation(Priority.class).value()));
-
-        // Then register this to the jersey application
-        filtersList.forEach(this::register);
-    }
 }
