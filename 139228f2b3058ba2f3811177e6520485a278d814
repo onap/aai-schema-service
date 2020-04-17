@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9812f498_21cbb763",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v19/aai_oxm_v19.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9223,
+      "author": {
+        "id": 33
+      },
+      "writtenOn": "2020-04-17T13:40:03Z",
+      "side": 1,
+      "message": "Why are several of these properties camel cased?  Usually we do hyphencasing",
+      "revId": "139228f2b3058ba2f3811177e6520485a278d814",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
