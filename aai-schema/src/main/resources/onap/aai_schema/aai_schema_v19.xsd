@@ -10582,7 +10582,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,labelStart,labelEnd,rangeBitmap,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="label-restrictions",namespace="network",requiredProps="id",uriTemplate="/network/label-restrictions/label-restriction/{id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an label restriction",indexedProps="id,labelStart,labelEnd,rangeBitmap,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="label-restrictions",namespace="network",requiredProps="id",uriTemplate="/network/label-restrictions/label-restriction/{id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -10798,7 +10798,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,linkProtectionType,accessType,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="te-link-attributes",namespace="network",requiredProps="id",uriTemplate="/network/te-link-attributes/te-link-attribute/{id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,linkProtectionType,accessType,operationalStatus,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="te-link-attributes",namespace="network",requiredProps="id",uriTemplate="/network/te-link-attributes/te-link-attribute/{id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -10806,13 +10806,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the TE link attribute")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="is-abstract" type="xs:boolean" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather link is abstract or native")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -10848,6 +10841,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="is-abstract" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather link is abstract or native")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
