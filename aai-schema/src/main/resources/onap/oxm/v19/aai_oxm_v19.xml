@@ -9148,11 +9148,6 @@
                         <xml-property name="description" value="Id that identifies the TE link attribute"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="isAbstract" name="is-abstract" type="java.lang.Boolean">
-                    <xml-properties>
-                        <xml-property name="description" value="Indicate wheather link is abstract or native"/>
-                    </xml-properties>
-                </xml-element>
                 <xml-element java-attribute="linkProtectionType" name="link-protection-type" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Indicate desired protection type of the link e.g, unprotected, shared or 1+1"/>
@@ -9178,6 +9173,12 @@
                         <xml-property name="description" value="The value of available bandwidth."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="isAbstract" name="is-abstract" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate wheather link is abstract or native"/>
+                    </xml-properties>
+                </xml-element>
+
                 <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Store the link to get more information for this object."/>
@@ -9219,7 +9220,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an te-link-attribute"/>
-                <xml-property name="indexedProps" value="id,linkProtectionType,accessType,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="te-link-attributes"/>
@@ -9326,8 +9327,8 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="description" value="Instance of an te-link-attribute"/>
-                <xml-property name="indexedProps" value="id,labelStart,labelEnd,rangeBitmap,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="description" value="Instance of an label restriction"/>
+                <xml-property name="indexedProps" value="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="label-restrictions"/>
