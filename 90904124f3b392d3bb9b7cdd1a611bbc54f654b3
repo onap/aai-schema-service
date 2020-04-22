@@ -1,0 +1,9 @@
+Code-Review+1: Shashikanth VH <shashikanth.vh@huawei.com>
+Code-Review+1: Chandra Cinthala <chandra.cinthala@att.com>
+Code-Review+2: James Forsyth <jf2512@att.com>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: James Forsyth <jf2512@att.com>
+Submitted-at: Wed, 22 Apr 2020 21:11:01 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/106184
+Project: aai/schema-service
+Branch: refs/heads/master
