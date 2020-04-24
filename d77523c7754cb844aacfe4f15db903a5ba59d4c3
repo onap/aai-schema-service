@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Manisha Aggarwal <amanisha@att.com>
+Submitted-by: Manisha Aggarwal <amanisha@att.com>
+Submitted-at: Fri, 24 Apr 2020 15:30:30 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/106594
+Project: aai/schema-service
+Branch: refs/heads/frankfurt
