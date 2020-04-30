@@ -18,22 +18,22 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       <xs:sequence>
         <xs:element name="inventory-item-type" type="xs:string" minOccurs="0"/>
         <xs:element name="inventory-item-link" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:inventory-item-data" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:inventory-item-data" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="tagged-inventory-item-list">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:inventory-item" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:inventory-item" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="edge-tag-query-result">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -67,9 +67,9 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="edge-tag" type="xs:string" minOccurs="0"/>
         <xs:element name="result-detail" type="xs:string" minOccurs="0"/>
         <xs:element name="start-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:start-node-filter" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:include-node-filter" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:secondary-filter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:start-node-filter" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:include-node-filter" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:secondary-filter" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -101,7 +101,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="search-results">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:result-data" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:result-data" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -184,15 +184,15 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element ref="tns:relationship-data" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:related-to-property" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:relationship-data" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:related-to-property" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="relationship-list">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:relationship" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:relationship" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -258,7 +258,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:oam-network" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:oam-network" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -303,7 +303,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:dvs-switch" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:dvs-switch" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -359,7 +359,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="tns:oam-networks" minOccurs="0"/>
-        <xs:element ref="tns:az-and-dvs-switches" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:az-and-dvs-switches" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -393,7 +393,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:sequence>
         <xs:element name="action-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:action-data" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:action-data" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -406,9 +406,9 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:annotation>
       <xs:sequence>
         <xs:element name="update-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:update-node-key" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:update-node-key" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="update-node-uri" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:action" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:action" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -426,7 +426,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="event-id" type="xs:string" minOccurs="0"/>
         <xs:element name="node-type" type="xs:string" minOccurs="0"/>
         <xs:element name="event-trigger" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:key-data" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:key-data" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="selflink" type="xs:string" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
@@ -494,7 +494,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ctag-pools">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ctag-pool" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:ctag-pool" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -572,7 +572,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:complex" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:complex" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -652,7 +652,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:volume-group" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:volume-group" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -697,7 +697,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:volume" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:volume" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -944,15 +944,15 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="vlans">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vlan" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vlan" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1074,7 +1074,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sriov-vf" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:sriov-vf" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1209,8 +1209,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:sriov-vfs" minOccurs="0"/>
         <xs:element ref="tns:l-interfaces" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="admin-status" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -1229,7 +1229,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:l-interface" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l-interface" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1237,7 +1237,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Servers, aka virtual machine or VM.",nameProps="vserver-name",indexedProps="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,vserver-name2",searchable="vserver-id,vserver-name,vserver-name2",dependentOn="tenant",container="vservers",uriTemplate="/vservers/vserver/{vserver-id}",requiredProps="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Servers, aka virtual machine or VM.",nameProps="vserver-name",indexedProps="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2",searchable="vserver-id,vserver-name,vserver-name2",dependentOn="tenant",container="vservers",uriTemplate="/vservers/vserver/{vserver-id}",requiredProps="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -1311,7 +1311,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vserver" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vserver" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1384,7 +1384,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:nos-server" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:nos-server" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1445,7 +1445,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:tenant" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:tenant" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1526,7 +1526,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:hpa-feature-attributes" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:hpa-feature-attributes" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1538,7 +1538,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:hpa-capability" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:hpa-capability" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1646,7 +1646,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:flavor" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:flavor" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1705,7 +1705,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:group-assignment" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:group-assignment" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1806,7 +1806,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:snapshot" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:snapshot" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1844,7 +1844,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:metadatum" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:metadatum" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1939,7 +1939,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:image" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:image" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1951,7 +1951,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:availability-zone" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:availability-zone" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2258,7 +2258,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-system-info" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:esr-system-info" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2378,8 +2378,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:oam-networks" minOccurs="0"/>
         <xs:element ref="tns:availability-zones" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:vip-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:vip-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vip-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vip-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
         <xs:element ref="tns:hpa-capabilities" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -2399,7 +2399,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:cloud-region" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:cloud-region" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2444,7 +2444,172 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-profile" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:network-profile" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="available-bandwidth">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an available-bandwidth-map",indexedProps="ab-id",searchable="ab-id",uniqueProps="ab-id",container="available-bandwidth-map",dependentOn="bandwidth-attribute",requiredProps="ab-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="ab-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the attribute")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="odu-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="ODU Type that identifies the ODU Eg. ODU0, ODU1, ODU2, ODU3, ODU4")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="number" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth. Applicable only for ENNI.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="available-bandwidth-map">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Available Bandwidth. Added for ENNI in MDONS use case.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:available-bandwidth" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="otn-label-restriction">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a otn-label-restriction attribute",indexedProps="lr-id",searchable="lr-id",uniqueProps="lr-id",container="otn-label-restrictions",dependentOn="bandwidth-attribute",requiredProps="lr-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="lr-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the label restriction")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="range-bitmap" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bitmap of available labels starting from label-start to label-end.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-step" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Step of labels in label range.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="otn-label-restrictions">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Label Restriction. Added for ENNI in MDONS use case.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:otn-label-restriction" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bandwidth-attribute">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a bandwidth-attribute",indexedProps="bwa-id",searchable="bwa-id",uniqueProps="bwa-id",container="bandwidth-attributes",dependentOn="pnf,p-interface",requiredProps="bwa-id",uriTemplate="/bandwidth-attributes/bandwidth-attribute/{bwa-id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="bwa-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the bandwidth attribute")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+        <xs:element ref="tns:available-bandwidth-map" minOccurs="0"/>
+        <xs:element ref="tns:otn-label-restrictions" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bandwidth-attributes">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of bandwidth attribute. Added for ENNI in MDONS use case.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:bandwidth-attribute" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2482,7 +2647,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sriov-pf" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:sriov-pf" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2536,6 +2701,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+        <xs:element name="domain-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Domain type of the SDNC controllerr.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="equipment-identifier" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -2554,6 +2726,20 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the physical properties of the interface.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="network-interface-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the physical properties of the interface.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:bandwidth-attributes" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The data structure to indicate value of available bandwidth. Applicable only for ENNI.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -2613,6 +2799,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+        <xs:element name="inter-domain-plug-id" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="connect interdomain link")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:sriov-pfs" minOccurs="0"/>
         <xs:element ref="tns:l-interfaces" minOccurs="0"/>
@@ -2627,7 +2820,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:p-interface" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:p-interface" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2715,7 +2908,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lag-interface" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:lag-interface" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2952,7 +3145,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:p-interfaces" minOccurs="0"/>
         <xs:element ref="tns:lag-interfaces" minOccurs="0"/>
-        <xs:element ref="tns:hpa-capacity" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:hpa-capacity" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2964,7 +3157,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:pserver" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:pserver" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3009,7 +3202,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:virtual-data-center" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:virtual-data-center" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3082,7 +3275,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:operational-environment" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:operational-environment" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3127,7 +3320,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-technology" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:network-technology" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3184,7 +3377,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-ems" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:esr-ems" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3237,7 +3430,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-vnfm" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:esr-vnfm" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3283,7 +3476,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-nfvo" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:esr-nfvo" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3316,6 +3509,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+        <xs:element name="domain-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Domain type of the SDNC controllerr.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -3336,7 +3536,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-thirdparty-sdnc" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:esr-thirdparty-sdnc" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3418,7 +3618,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:connector" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:connector" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3456,7 +3656,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:tunnel-xconnect" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:tunnel-xconnect" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3607,7 +3807,436 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:allotted-resource" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:allotted-resource" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="communication-service-profile">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Requirement of comunication service.",uniqueProps="profile-id",indexedProps="profile-id",container="communication-service-profiles",dependentOn="service-instance",uriTemplate="/service-instances/service-instance/{service-instance-id}/communication-service-profiles/communication-service-profile/{profile-id}",searcheable="profile-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-number-of-UEs" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum number of UEs may simultaneously access the communication service")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="coverage-area-list" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="A list of TrackingAreas where the NSI can be selected.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="latency" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-UL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of upload.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-DL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of download.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ue-mobility-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-sharing-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s).")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="communication-service-profiles">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of communication service profile.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:communication-service-profile" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="service-profile">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Requirement of E2E Slice service.",uniqueProps="profile-id",indexedProps="profile-id",container="service-profiles",dependentOn="service-instance",uriTemplate="/service-instances/service-instance/{service-instance-id}/service-profiles/service-profile/{profile-id}",searcheable="profile-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="latency" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-number-of-UEs" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum number of UEs may simultaneously access the E2E slice service")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="coverage-area-TA-list" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="A list of TrackingAreas where the NSI can be selected.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ue-mobility-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-sharing-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s).")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-UL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of upload.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-DL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of download.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="area-traffic-cap-UL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of upload.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="area-traffic-cap-DL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of download.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The activity factor.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="jitter" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="jitter")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="survival-time" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Survival Time")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cs-availability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="reliability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="traffic-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="traffic density")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="conn-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="connection density")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="service-profiles">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of E2E slice service profile.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:service-profile" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="slice-profile">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Requirement of network slice subnet service.",uniqueProps="profile-id",indexedProps="profile-id",container="slice-profiles",dependentOn="service-instance",uriTemplate="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}",searcheable="profile-id")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="latency" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The packet transmission latency (millisecond) through the RAN or CN or TN and is used to evaluate utilization performance of the end-to-end network slice instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-number-of-UEs" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum number of UEs may simultaneously access the slice subnet service")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="coverage-area-TA-list" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="A list of TrackingAreas where the NSSI can be selected.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ue-mobility-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-sharing-level" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Whether the resources to be allocated to the slice subnet instance may be shared with another network slice instance(s).")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-UL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of upload.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate-DL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of download.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="area-traffic-cap-UL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of upload.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="area-traffic-cap-DL" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of download.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The activity factor.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="e2e-latency" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="e2e latency")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="jitter" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="jitter")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="survival-time" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Survival Time")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cs-availability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="reliability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="payload-size" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="payload size.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="traffic-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="traffic density")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="conn-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="connection density")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="service-area-dimension" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="service area dimension")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="s-nssai" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="S-NSSAI")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="slice-profiles">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of slice subnet service profile.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:slice-profile" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3644,6 +4273,34 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing the service role.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="service-rate" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Rate of the service instance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="service-layer" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Definition of the service layer.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="due-date" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Due date of the service creation.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="end-date" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="End date of the service creation.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -3769,6 +4426,16 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:metadata" minOccurs="0"/>
         <xs:element ref="tns:allotted-resources" minOccurs="0"/>
+        <xs:element ref="tns:communication-service-profiles" minOccurs="0"/>
+        <xs:element ref="tns:service-profiles" minOccurs="0"/>
+        <xs:element ref="tns:slice-profiles" minOccurs="0"/>
+        <xs:element name="service-function" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing function of the service.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3780,7 +4447,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-instance" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:service-instance" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3826,7 +4493,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-subscription" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:service-subscription" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3879,7 +4546,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:customer" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:customer" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3917,7 +4584,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:line-of-business" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:line-of-business" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3962,7 +4629,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:owning-entity" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:owning-entity" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4000,7 +4667,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:platform" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:platform" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4038,7 +4705,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:project" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:project" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4118,7 +4785,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sp-partner" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:sp-partner" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4202,7 +4869,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vnf-image" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vnf-image" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4261,7 +4928,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:service" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4306,7 +4973,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-capability" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:service-capability" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4336,7 +5003,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="element-choice-sets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:element-choice-set" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:element-choice-set" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4366,7 +5033,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="constrained-element-sets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:constrained-element-set" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:constrained-element-set" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4400,7 +5067,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-constraints">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-constraint" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:model-constraint" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4433,7 +5100,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="linkage-points" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="linkage-points" type="xs:string" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -4462,7 +5129,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-elements">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-element" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:model-element" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4525,7 +5192,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-vers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-ver" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:model-ver" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4571,7 +5238,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:model" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:model" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4594,7 +5261,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="source-node-property" type="xs:string" minOccurs="0"/>
         <xs:element name="target-node-type" type="xs:string" minOccurs="0"/>
         <xs:element name="target-node-property" type="xs:string" minOccurs="0"/>
-        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
       </xs:sequence>
@@ -4603,7 +5270,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="related-lookups">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:related-lookup" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:related-lookup" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4632,7 +5299,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="property-constraints">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:property-constraint" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:property-constraint" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4651,7 +5318,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element name="property-limit-desc" type="xs:string" minOccurs="0"/>
         <xs:element name="do-not-output" type="xs:string" minOccurs="0"/>
@@ -4665,7 +5332,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="named-query-elements">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:named-query-element" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:named-query-element" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4689,7 +5356,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="required-input-params" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="required-input-param" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+              <xs:element name="required-input-param" type="xs:string" minOccurs="0" maxOccurs="5000"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -4703,7 +5370,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="named-queries">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:named-query" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:named-query" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4727,7 +5394,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Logical links generally connect l-interfaces but are used to express logical connectivity between two points",indexedProps="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,link-type",uniqueProps="link-id",container="logical-links",namespace="network",searchable="link-name",uriTemplate="/network/logical-links/logical-link/{link-name}",requiredProps="link-name,in-maint,link-type")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Logical links generally connect l-interfaces but are used to express logical connectivity between two points",indexedProps="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,link-type,purpose,operational-status",uniqueProps="link-id",container="logical-links",namespace="network",searchable="link-name",uriTemplate="/network/logical-links/logical-link/{link-name}",requiredProps="link-name,in-maint,link-type")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -4763,6 +5430,20 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the units corresponding to the speed")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="available-capacity" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the units corresponding to the speed")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="admin-state" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Captures the administrative state of the link")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -4876,7 +5557,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:logical-link" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:logical-link" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4928,7 +5609,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:class-of-service" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:class-of-service" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5002,7 +5683,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-pair" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:site-pair" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5048,7 +5729,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:routing-instance" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:routing-instance" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5087,7 +5768,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-pair-set" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:site-pair-set" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5132,7 +5813,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:route-target" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:route-target" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5291,7 +5972,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vpn-bindings">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vpn-binding" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vpn-binding" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5359,7 +6040,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vpls-pe" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vpls-pe" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5411,7 +6092,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:multicast-configuration" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:multicast-configuration" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5444,7 +6125,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="cvlan-tags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:cvlan-tag-entry" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:cvlan-tag-entry" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5541,7 +6222,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="port-groups">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:port-group" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:port-group" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5607,7 +6288,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:license" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:license" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5652,7 +6333,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:entitlement" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:entitlement" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5812,7 +6493,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vce" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vce" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5846,8 +6527,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5859,7 +6540,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:cp" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:cp" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5867,7 +6548,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(indexedProps="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status",searchable="vnfc-name",container="vnfcs",namespace="network",uriTemplate="/network/vnfcs/vnfc/{vnfc-name}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(indexedProps="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,in-maint,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status",searchable="vnfc-name",container="vnfcs",namespace="network",uriTemplate="/network/vnfcs/vnfc/{vnfc-name}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -5964,8 +6645,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:cps" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5977,7 +6658,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vnfc" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vnfc" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6031,7 +6712,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="host-routes">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:host-route" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:host-route" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6156,7 +6837,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="subnets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:subnet" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:subnet" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6189,7 +6870,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ctag-assignments">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ctag-assignment" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:ctag-assignment" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6227,7 +6908,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:segmentation-assignment" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:segmentation-assignment" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6286,7 +6967,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:aggregate-route" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:aggregate-route" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6504,7 +7185,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="l3-networks">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:l3-network" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-network" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6551,7 +7232,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="network-policies">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:network-policy" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:network-policy" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6687,7 +7368,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vf-module" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vf-module" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6695,7 +7376,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General purpose VNF",nameProps="vnf-name",indexedProps="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status",searchable="vnf-id,vnf-name,vnf-name2,operational-status",uniqueProps="vnf-id",container="generic-vnfs",namespace="network",extendsFrom="vnf",containsSuggestibleProps="true",suggestionAliases="VNFs",uriTemplate="/network/generic-vnfs/generic-vnf/{vnf-id}",requiredProps="vnf-id,vnf-type,in-maint,is-closed-loop-disabled")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General purpose VNF",nameProps="vnf-name",indexedProps="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,in-maint,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status",searchable="vnf-id,vnf-name,vnf-name2,operational-status",uniqueProps="vnf-id",container="generic-vnfs",namespace="network",extendsFrom="vnf",containsSuggestibleProps="true",suggestionAliases="VNFs",uriTemplate="/network/generic-vnfs/generic-vnf/{vnf-id}",requiredProps="vnf-id,vnf-type,in-maint,is-closed-loop-disabled")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -7129,7 +7810,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:generic-vnf" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:generic-vnf" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7167,7 +7848,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lag-link" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:lag-link" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7290,7 +7971,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:newvce" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:newvce" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7327,7 +8008,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:software-version" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:software-version" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7396,7 +8077,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vrfs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vrf" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vrf" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7648,7 +8329,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:pnf" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:pnf" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7756,7 +8437,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:physical-link" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:physical-link" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7775,14 +8456,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ipaddress-v4-vig" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ipaddress-v4-vig" type="xs:string" minOccurs="0" maxOccurs="5000">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="v4 IP of the vig server")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ipaddress-v6-vig" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ipaddress-v6-vig" type="xs:string" minOccurs="0" maxOccurs="5000">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="v6 IP of the vig server")</annox:annotate>
@@ -7803,7 +8484,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vig-servers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vig-server" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vig-server" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7977,7 +8658,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ipsec-configurations">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ipsec-configuration" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:ipsec-configuration" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8022,7 +8703,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:route-table-reference" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:route-table-reference" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8030,7 +8711,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General mechanism for grouping instances",nameProps="description,instance-group-name",uniqueProps="id",searchable="id,description",indexedProps="id,type,model-invariant-id,model-version-id",container="instance-groups",namespace="network",uriTemplate="/network/instance-groups/instance-group/{id}",requiredProps="id,instance-group-type")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General mechanism for grouping instances",nameProps="description,instance-group-name",uniqueProps="id",searchable="id,description",indexedProps="id,type,sub-type,model-invariant-id,model-version-id",container="instance-groups",namespace="network",uriTemplate="/network/instance-groups/instance-group/{id}",requiredProps="id,instance-group-type")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8109,7 +8790,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:instance-group" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:instance-group" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8182,7 +8863,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:zone" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:zone" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8242,7 +8923,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vlan-mapping" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vlan-mapping" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8304,7 +8985,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarder-evcs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarder-evc" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:forwarder-evc" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8435,7 +9116,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="evcs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:evc" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:evc" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8595,7 +9276,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:configuration" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:configuration" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8635,7 +9316,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarders">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarder" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:forwarder" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8683,7 +9364,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarding-paths">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarding-path" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:forwarding-path" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8772,7 +9453,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="collections">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:collection" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:collection" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8833,7 +9514,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vlan-tags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vlan-tag" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vlan-tag" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9011,7 +9692,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:connectivity" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:connectivity" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9119,7 +9800,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:dhcp-service" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:dhcp-service" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9221,7 +9902,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lan-port-config" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:lan-port-config" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9287,7 +9968,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-resource" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:network-resource" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9395,7 +10076,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-resource" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:site-resource" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9503,7 +10184,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sdwan-vpn" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:sdwan-vpn" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9646,7 +10327,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:device" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:device" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9838,7 +10519,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:wan-port-config" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:wan-port-config" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9879,7 +10560,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ext-aai-networks">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ext-aai-network" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:ext-aai-network" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9964,8 +10645,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="aai-internal">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:reserved-prop-names" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="tns:edge-prop-names" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:reserved-prop-names" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:edge-prop-names" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10024,7 +10705,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:contact" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:contact" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10162,7 +10843,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:instance-filter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:instance-filter" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10179,7 +10860,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:secondary-filt" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:secondary-filt" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10228,7 +10909,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:extra-property" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:extra-property" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10254,7 +10935,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:inventory-response-item" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:inventory-response-item" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -10285,6 +10966,539 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uni">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an User network interface",indexedProps="id,tpId,cVLAN,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="unis",namespace="network",requiredProps="id",uriTemplate="/network/unis/uni/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the UNI")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tpId" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Termination point ID.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cVLAN" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The cvlan for the site used for ethernet type connectivity.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unis">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of User network interface.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:uni" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interlayer-attachment">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an inter layer topology attachment",indexedProps="id,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="interlayer-attachments",namespace="network",requiredProps="id",uriTemplate="/network/interlayer-attachments/interlayer-attachment/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the interlayer topology attachment")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inter-layer-lockId" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inter layer lock id")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interlayer-attachments">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of interlayer topology connectivities.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:interlayer-attachment" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="te-link-attribute">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="te-link-attributes",namespace="network",requiredProps="id",uriTemplate="/network/te-link-attributes/te-link-attribute/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the TE link attribute")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="link-protection-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate desired protection type of the link e.g, unprotected, shared or 1+1")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="access-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate link access type e.g, point-to-point or multi-access.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="available-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bandwidth available on link.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="odu-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="number" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="is-abstract" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather link is abstract or native")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="te-link-attributes">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of TE link attributes.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:te-link-attribute" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="label-restriction">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an label restriction",indexedProps="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="label-restrictions",namespace="network",requiredProps="id",uriTemplate="/network/label-restrictions/label-restriction/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the label restriction")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-start" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="First number in the label range")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-end" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Last number in the label range")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="range-bitmap" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bitmap of available labels starting from label-start to label-end.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-step" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Step of labels in label range.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inclusive-exclusive" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather range-bitmap items are inclusive or exclusive.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="range-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate the label range e.g.trib-slot, trib-port")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="trib-slot-granularity" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate trib slot granularity.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="priority" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Priority.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="label-restrictions">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Label Restriction.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:label-restriction" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tunnel-termination-point">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an tunnel termination point",indexedProps="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id",searchable="ttp-id",uniqueProps="ttp-id",container="tunnel-termination-points",namespace="network",requiredProps="ttp-id",uriTemplate="/network/tunnel-termination-points/tunnel-termination-point/{ttp-id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="ttp-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the tunnel termination point")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tunnel-tp-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="TTP ID discovered from controller")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="name" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of tunnel termination point")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="admin-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Admin status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="oper-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operational status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="switching-capability" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate switching capability of TTP e.g,PSC-1, EVPL,L2SC,TDM,OTN.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="encoding" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Encoding support by the TTP e.g, packet,ethernet,PDH,SDH,digital-wrapper,lambda,fiber,ODUK,line.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="protection-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate supported protection type of this TTP e.g, unprotected,reroute,reroute-extra,1-for-n,unidir-1-to-1.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inter-layer-lock-id" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="correlation between related objects in ETH and OTN topology.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tunnel-termination-points">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Tunnel Termination Point.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:tunnel-termination-point" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

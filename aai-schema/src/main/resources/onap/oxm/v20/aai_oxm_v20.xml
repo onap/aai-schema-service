@@ -394,6 +394,11 @@
                                                <xml-property name="description" value="password used to access SDNC server."/>
                                        </xml-properties>
                                </xml-element>
+                               <xml-element java-attribute="domainType" name="domain-type" type="java.lang.String">
+                                       <xml-properties>
+			               		<xml-property name="description" value="Domain type of the SDNC controllerr."/>
+                                       </xml-properties>
+                               </xml-element>                               
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -1183,7 +1188,7 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Servers, aka virtual machine or VM."/>
                 <xml-property name="nameProps" value="vserver-name"/>
-                <xml-property name="indexedProps" value="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,vserver-name2"/>
+                <xml-property name="indexedProps" value="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2"/>
                 <xml-property name="searchable" value="vserver-id,vserver-name,vserver-name2"/>
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="container" value="vservers"/>
@@ -2306,6 +2311,11 @@
                         <xml-property name="description" value="Nature of the services and connectivity on this port."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="domainType" name="domain-type" type="java.lang.String">
+		    <xml-properties>
+			<xml-property name="description" value="Domain type of the SDNC controllerr."/>
+	            </xml-properties>
+		</xml-element>
                 <xml-element java-attribute="equipmentIdentifier" name="equipment-identifier" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="CLEI or other specification for p-interface hardware."/>
@@ -2321,6 +2331,16 @@
                         <xml-property name="description" value="Indicates the physical properties of the interface."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="networkInterfaceType" name="network-interface-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicates the physical properties of the interface."/>
+                    </xml-properties>
+                </xml-element>
+		<xml-element java-attribute="bandwidthAttributes" name="bandwidth-attributes" type="inventory.aai.onap.org.v20.BandwidthAttributes">
+                    <xml-properties>
+                        <xml-property name="description" value="The data structure to indicate value of available bandwidth. Applicable only for ENNI."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="provStatus" name="prov-status" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Trigger for operational monitoring of this resource by Service Assurance systems."/>
@@ -2362,6 +2382,11 @@
 						<xml-property name="description" value="oper Status of this p-interface."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="interDomainPlugId" name="inter-domain-plug-id" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="connect interdomain link"/>
+                    </xml-properties>
+                </xml-element>				
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="sriovPfs" name="sriov-pfs" type="inventory.aai.onap.org.v20.SriovPfs"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v20.LInterfaces"/>
@@ -2377,6 +2402,149 @@
                 <xml-property name="requiredProps" value="interface-name,in-maint"/>
              </xml-properties>
         </java-type>
+        
+       <java-type name="BandwidthAttributes">
+            <xml-properties>
+                <xml-property name="description" value="Collection of bandwidth attribute. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="bandwidth-attributes"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="bandwidthAttribute" name="bandwidth-attribute" type="inventory.aai.onap.org.v20.BandwidthAttribute"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="BandwidthAttribute">
+            <xml-root-element name="bandwidth-attribute"/>
+            <java-attributes>
+                <xml-element java-attribute="bwaId" name="bwa-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the bandwidth attribute"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+                <xml-element java-attribute="availableBandwidthMap" name="available-bandwidth-map" type="inventory.aai.onap.org.v20.AvailableBandwidthMap"/>
+                <xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v20.OTNLabelRestrictions"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of a bandwidth-attribute"/>
+                <xml-property name="indexedProps" value="bwa-id"/>
+                <xml-property name="searchable" value="bwa-id"/>
+                <xml-property name="uniqueProps" value="bwa-id"/>
+                <xml-property name="container" value="bandwidth-attributes"/>
+                <xml-property name="dependentOn" value="pnf,p-interface"/>
+                <xml-property name="requiredProps" value="bwa-id"/>
+                <xml-property name="uriTemplate" value="/bandwidth-attributes/bandwidth-attribute/{bwa-id}"/>
+            </xml-properties>
+        </java-type>
+
+       <java-type name="AvailableBandwidthMap">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Available Bandwidth. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="available-bandwidth-map"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="availableBandwidth" name="available-bandwidth" type="inventory.aai.onap.org.v20.AvailableBandwidth"/>
+            </java-attributes>
+       </java-type>
+        <java-type name="AvailableBandwidth">
+            <xml-root-element name="available-bandwidth"/>
+            <java-attributes>
+               <xml-element java-attribute="abId" name="ab-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the attribute"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="oduType" name="odu-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="ODU Type that identifies the ODU Eg. ODU0, ODU1, ODU2, ODU3, ODU4"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="number" name="number" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The value of available bandwidth. Applicable only for ENNI."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an available-bandwidth-map"/>
+                <xml-property name="indexedProps" value="ab-id"/>
+                <xml-property name="searchable" value="ab-id"/>
+                <xml-property name="uniqueProps" value="ab-id"/>
+                <xml-property name="container" value="available-bandwidth-map"/>
+                <xml-property name="dependentOn" value="bandwidth-attribute"/>
+                <xml-property name="requiredProps" value="ab-id"/>
+            </xml-properties>
+        </java-type>
+
+       <java-type name="OTNLabelRestrictions">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Label Restriction. Added for ENNI in MDONS use case."/>
+            </xml-properties>
+            <xml-root-element name="otn-label-restrictions"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="OTNLabelRestriction" name="otn-label-restriction" type="inventory.aai.onap.org.v20.OTNLabelRestriction"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="OTNLabelRestriction">
+            <xml-root-element name="otn-label-restriction"/>
+            <java-attributes>
+                <xml-element java-attribute="lrId" name="lr-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the label restriction"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rangeBitmap" name="range-bitmap" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Bitmap of available labels starting from label-start to label-end."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="labelStep" name="label-step" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Step of labels in label range."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of a otn-label-restriction attribute"/>
+                <xml-property name="indexedProps" value="lr-id"/>
+                <xml-property name="searchable" value="lr-id"/>
+                <xml-property name="uniqueProps" value="lr-id"/>
+                <xml-property name="container" value="otn-label-restrictions"/>
+                <xml-property name="dependentOn" value="bandwidth-attribute"/>
+                <xml-property name="requiredProps" value="lr-id"/>
+            </xml-properties>
+        </java-type>        
 
         <java-type name="LagInterfaces">
             <xml-properties>
@@ -3012,6 +3180,26 @@
                         <xml-property name="description" value="String capturing the service role."/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="serviceRate" name="service-rate" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Rate of the service instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceLayer" name="service-layer" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Definition of the service layer."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dueDate" name="due-date" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Due date of the service creation."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="endDate" name="end-date" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="End date of the service creation."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="environmentContext" name="environment-context" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="This field will store the environment context assigned to the service-instance."/>
@@ -3110,6 +3298,14 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="metadata" name="metadata" type="inventory.aai.onap.org.v20.Metadata"/>
                 <xml-element java-attribute="allottedResources" name="allotted-resources" type="inventory.aai.onap.org.v20.AllottedResources"/>
+                <xml-element java-attribute="communicationServiceProfiles" name="communication-service-profiles" type="inventory.aai.onap.org.v20.CommunicationServiceProfiles"/>
+                <xml-element java-attribute="serviceProfiles" name="service-profiles" type="inventory.aai.onap.org.v20.ServiceProfiles"/>
+                <xml-element java-attribute="sliceProfiles" name="slice-profiles" type="inventory.aai.onap.org.v20.SliceProfiles"/>
+		<xml-element java-attribute="serviceFunction" name="service-function" type="java.lang.String">
+                  <xml-properties>
+                    <xml-property name="description" value="String capturing function of the service."/>
+                  </xml-properties>
+                </xml-element>                
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
@@ -3492,6 +3688,16 @@
                         <xml-property name="description" value="Captures the units corresponding to the speed"/>
                     </xml-properties>
                 </xml-element>
+		<xml-element java-attribute="availableCapacity" name="available-capacity" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Captures the units corresponding to the speed"/>
+                    </xml-properties>
+                </xml-element>
+		<xml-element java-attribute="adminState" name="admin-state" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Captures the administrative state of the link"/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="ipVersion" name="ip-version" type="java.lang.String">
                     <xml-properties>
 						<xml-property name="description" value="v4, v6, or ds for dual stack"/>
@@ -3573,7 +3779,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Logical links generally connect l-interfaces but are used to express logical connectivity between two points"/>
-				<xml-property name="indexedProps" value="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,link-type"/>
+				<xml-property name="indexedProps" value="link-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,link-id,prov-status,circuit-id,link-type,purpose,operational-status"/>
                 <xml-property name="uniqueProps" value="link-id"/>
                 <xml-property name="container" value="logical-links"/>
                 <xml-property name="namespace" value="network"/>
@@ -4320,7 +4526,7 @@
                 <xml-element container-type="java.util.ArrayList" java-attribute="l3InterfaceIpv6AddressList" name="l3-interface-ipv6-address-list" type="inventory.aai.onap.org.v20.L3InterfaceIpv6AddressList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status"/>
+                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,in-maint,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnfc-name"/>
                 <xml-property name="container" value="vnfcs"/>
                 <xml-property name="namespace" value="network"/>
@@ -5016,7 +5222,7 @@
             <xml-properties>
                 <xml-property name="description" value="General purpose VNF"/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status"/>
+                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,in-maint,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2,operational-status"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="generic-vnfs"/>
@@ -5701,7 +5907,7 @@
                 </xml-element>
                 <xml-element java-attribute="ikev1Encryption" name="ikev1-encryption" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Encyption values like 3des-cbc, des-cbc, aes-128-cbc,Â aes-192-cbc, aes-265-cbc"/>
+                        <xml-property name="description" value="Encyption values like 3des-cbc, des-cbc, aes-128-cbc,&#xC2;&#xA0;aes-192-cbc, aes-265-cbc"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ikev1DhGroup" name="ikev1-dh-group" type="java.lang.String">
@@ -5731,7 +5937,7 @@
                 </xml-element>
                 <xml-element java-attribute="ipsecEncryption" name="ipsec-encryption" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="3des-cbc, des-cbc, aes-128-cbc,Â aes-192-cbc, aes-265-cbc"/>
+                        <xml-property name="description" value="3des-cbc, des-cbc, aes-128-cbc,&#xC2;&#xA0;aes-192-cbc, aes-265-cbc"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="ipsecSaLifetime" name="ipsec-sa-lifetime" type="java.lang.String">
@@ -6559,7 +6765,7 @@
                 <xml-property name="nameProps" value="description,instance-group-name"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="searchable" value="id,description"/>
-                <xml-property name="indexedProps" value="id,type,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,type,sub-type,model-invariant-id,model-version-id"/>
                 <xml-property name="container" value="instance-groups"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/instance-groups/instance-group/{id}"/>
@@ -6908,7 +7114,7 @@
                 </xml-element>
                 <xml-element java-attribute="designType" name="design-type" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Design of zone [Medium/Large…]"/>
+                        <xml-property name="description" value="Design of zone [Medium/Large&#x2026;]"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="zoneContext" name="zone-context" required="true" type="java.lang.String">
@@ -8703,6 +8909,470 @@
             <xml-property name="uriTemplate" value="/network/ext-aai-networks/ext-aai-network/{aai-id}"/>
             </xml-properties>
 		</java-type>
+		
+      <java-type name="Unis">
+            <xml-properties>
+                <xml-property name="description" value="Collection of User network interface."/>
+            </xml-properties>
+            <xml-root-element name="unis"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="uni" name="uni" type="inventory.aai.onap.org.v20.Uni"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="Uni">
+            <xml-root-element name="uni"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the UNI"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="tpId" name="tpId" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Termination point ID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="cVLAN" name="cVLAN" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The cvlan for the site used for ethernet type connectivity."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the operational-status for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an User network interface"/>
+                <xml-property name="indexedProps" value="id,tpId,cVLAN,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="uniqueProps" value="id"/>
+                <xml-property name="container" value="unis"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="id"/>
+                <xml-property name="uriTemplate" value="/network/unis/uni/{id}"/>
+
+            </xml-properties>
+        </java-type>
+
+        <java-type name="InterlayerAttachments">
+            <xml-properties>
+                <xml-property name="description" value="Collection of interlayer topology connectivities."/>
+            </xml-properties>
+            <xml-root-element name="interlayer-attachments"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="interlayerAttachment" name="interlayer-attachment" type="inventory.aai.onap.org.v20.InterlayerAttachment"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="InterlayerAttachment">
+            <xml-root-element name="interlayer-attachment"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the interlayer topology attachment"/>
+                    </xml-properties>
+                </xml-element>                
+                <xml-element java-attribute="interLayerLockId" name="inter-layer-lockId" required="true" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Inter layer lock id"/>
+                    </xml-properties>
+                </xml-element>                
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an inter layer topology attachment"/>
+                <xml-property name="indexedProps" value="id,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="uniqueProps" value="id"/>
+                <xml-property name="container" value="interlayer-attachments"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="id"/>
+                <xml-property name="uriTemplate" value="/network/interlayer-attachments/interlayer-attachment/{id}"/>
+
+            </xml-properties>
+        </java-type>
+
+	<java-type name="TeLinkAttributes">
+            <xml-properties>
+                <xml-property name="description" value="Collection of TE link attributes."/>
+            </xml-properties>
+            <xml-root-element name="te-link-attributes"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="teLinkAttribute" name="te-link-attribute" type="inventory.aai.onap.org.v20.TeLinkAttribute"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="TeLinkAttribute">
+            <xml-root-element name="te-link-attribute"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the TE link attribute"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="linkProtectionType" name="link-protection-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate desired protection type of the link e.g, unprotected, shared or 1+1"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="accessType" name="access-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate link access type e.g, point-to-point or multi-access."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="availableBandwidth" name="available-bandwidth" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Bandwidth available on link."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="oduType" name="odu-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="number" name="number" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The value of available bandwidth."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="isAbstract" name="is-abstract" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate wheather link is abstract or native"/>
+                    </xml-properties>
+                </xml-element>
+
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the operational-status for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an te-link-attribute"/>
+                <xml-property name="indexedProps" value="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="uniqueProps" value="id"/>
+                <xml-property name="container" value="te-link-attributes"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="id"/>
+                <xml-property name="uriTemplate" value="/network/te-link-attributes/te-link-attribute/{id}"/>
+            </xml-properties>
+        </java-type>
+
+	<java-type name="LabelRestrictions">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Label Restriction."/>
+            </xml-properties>
+            <xml-root-element name="label-restrictions"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="labelRestriction" name="label-restriction" type="inventory.aai.onap.org.v20.LabelRestriction"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="LabelRestriction">
+            <xml-root-element name="label-restriction"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the label restriction"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="labelStart" name="label-start" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="First number in the label range"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="labelEnd" name="label-end" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Last number in the label range"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rangeBitmap" name="range-bitmap" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Bitmap of available labels starting from label-start to label-end."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="labelStep" name="label-step" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Step of labels in label range."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="inclusiveExclusive" name="inclusive-exclusive" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate wheather range-bitmap items are inclusive or exclusive."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rangeType" name="range-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate the label range e.g.trib-slot, trib-port"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="tribSlotGranularity" name="trib-slot-granularity" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate trib slot granularity."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="priority" name="priority" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Priority."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the operational-status for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an label restriction"/>
+                <xml-property name="indexedProps" value="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="uniqueProps" value="id"/>
+                <xml-property name="container" value="label-restrictions"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="id"/>
+                <xml-property name="uriTemplate" value="/network/label-restrictions/label-restriction/{id}"/>
+            </xml-properties>
+        </java-type>
+
+	<java-type name="TunnelTerminationPoints">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Tunnel Termination Point."/>
+            </xml-properties>
+            <xml-root-element name="tunnel-termination-points"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="tunnelTerminationPoint" name="tunnel-termination-point" type="inventory.aai.onap.org.v20.TunnelTerminationPoint"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="TunnelTerminationPoint">
+            <xml-root-element name="tunnel-termination-point"/>
+            <java-attributes>
+                <xml-element java-attribute="ttpId" name="ttp-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Id that identifies the tunnel termination point"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="tunnelTpId" name="tunnel-tp-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="TTP ID discovered from controller"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="name" name="name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of tunnel termination point"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="adminStatus" name="admin-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Admin status of TTP e.g, up,down,testing,preparing-maintenance,maintenance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operStatus" name="oper-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Operational status of TTP e.g, up,down,testing,preparing-maintenance,maintenance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="switchingCapability" name="switching-capability" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate switching capability of TTP e.g,PSC-1, EVPL,L2SC,TDM,OTN."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="encoding" name="encoding" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Encoding support by the TTP e.g, packet,ethernet,PDH,SDH,digital-wrapper,lambda,fiber,ODUK,line."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="protectionType" name="protection-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicate supported protection type of this TTP e.g, unprotected,reroute,reroute-extra,1-for-n,unidir-1-to-1."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="interlayerLockID" name="inter-layer-lock-id" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="correlation between related objects in ETH and OTN topology."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the link to get more information for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the operational-status for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the model-customization-id for this object."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelInvariantId" name="model-invariant-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model id for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-version-id"/>
+                        <xml-property name="dbAlias" value="model-invariant-id-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="modelVersionId" name="model-version-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="the ASDC model version for this resource or service model."/>
+                        <xml-property name="visibility" value="deployment"/>
+                        <xml-property name="requires" value="model-invariant-id"/>
+                        <xml-property name="dbAlias" value="model-version-id-local"/>
+                        <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Instance of an tunnel termination point"/>
+                <xml-property name="indexedProps" value="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="searchable" value="ttp-id"/>
+                <xml-property name="uniqueProps" value="ttp-id"/>
+                <xml-property name="container" value="tunnel-termination-points"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="requiredProps" value="ttp-id"/>
+                <xml-property name="uriTemplate" value="/network/tunnel-termination-points/tunnel-termination-point/{ttp-id}"/>
+            </xml-properties>
+        </java-type>
+		
 
         <java-type name="Common">
             <xml-properties>
@@ -8813,6 +9483,332 @@
             <xml-property name="requiredProps" value="route-id,network-start-address,cidr-mask,ip-version"/>
             </xml-properties>
 		</java-type>
-
+		<java-type name="CommunicationServiceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of communication service profile."/>
+            </xml-properties>
+            <xml-root-element name="communication-service-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="communicationServiceProfile" name="communication-service-profile" type="inventory.aai.onap.org.v20.CommunicationServiceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="CommunicationServiceProfile">
+            <xml-root-element name="communication-service-profile"/>
+            <java-attributes>
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the communication service"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="coverageAreaList" name="coverage-area-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSI can be selected."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of comunication service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="communication-service-profiles"/>
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/communication-service-profiles/communication-service-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="ServiceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of E2E slice service profile."/>
+            </xml-properties>
+            <xml-root-element name="service-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="serviceProfile" name="service-profile" type="inventory.aai.onap.org.v20.ServiceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="ServiceProfile">
+            <xml-root-element name="service-profile"/>
+            <java-attributes>
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN, CN, and TN part of 5G network and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the E2E slice service"/>
+                    </xml-properties>
+                </xml-element> 
+                <xml-element java-attribute="coverageAreaTAList" name="coverage-area-TA-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSI can be selected."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="areaTrafficCapUL" name="area-traffic-cap-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of upload."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="areaTrafficCapDL" name="area-traffic-cap-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of download."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The activity factor."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="jitter"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Survival Time"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The availability requirement for an network slice instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The reliability requirement for an network slice instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="traffic density"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="connection density"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of E2E Slice service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="service-profiles"/>
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/service-profiles/service-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+		</java-type>
+		<java-type name="SliceProfiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of slice subnet service profile."/>
+            </xml-properties>
+            <xml-root-element name="slice-profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="sliceProfile" name="slice-profile" type="inventory.aai.onap.org.v20.SliceProfile"/>
+            </java-attributes>
+        </java-type>
+        <java-type name="SliceProfile">
+            <xml-root-element name="slice-profile"/>
+            <java-attributes>
+                <xml-element java-attribute="profileId" name="profile-id" required="true" type="java.lang.String" xml-key="true" >
+                    <xml-properties>
+                        <xml-property name="description" value="ID of the profile."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="latency" name="latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The packet transmission latency (millisecond) through the RAN or CN or TN and is used to evaluate utilization performance of the end-to-end network slice instance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="maxNumberOfUEs" name="max-number-of-UEs" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The maximum number of UEs may simultaneously access the slice subnet service"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="coverageAreaTAList" name="coverage-area-TA-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="A list of TrackingAreas where the NSSI can be selected."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="uEMobilityLevel" name="ue-mobility-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="User mobility level, value can be stationary, nomadic, restricted mobility, fully mobility."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceSharingLevel" name="resource-sharing-level" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Whether the resources to be allocated to the slice subnet instance may be shared with another network slice instance(s)."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of upload."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate of download."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="areaTrafficCapUL" name="area-traffic-cap-UL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of upload."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="areaTrafficCapDL" name="area-traffic-cap-DL" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The area traffic capbility of download."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="The activity factor."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="e2eLatency" name="e2e-latency" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="e2e latency"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="jitter"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Survival Time"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The availability requirement for an network slice subnet instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="The reliability requirement for an network slice subnet instance, expressed as a percentage."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="User experience data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="payloadSize" name="payload-size" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="payload size."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="traffic density"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="connection density"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceAreaDimension" name="service-area-dimension" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="service area dimension"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="S-NSSAI" name="s-nssai" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="S-NSSAI"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Requirement of network slice subnet service."/>
+                <xml-property name="uniqueProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="container" value="slice-profiles"/>
+                <xml-property name="dependentOn" value="service-instance"/>
+                <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
+                <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+		</java-type>
 	</java-types>
 </xml-bindings>
