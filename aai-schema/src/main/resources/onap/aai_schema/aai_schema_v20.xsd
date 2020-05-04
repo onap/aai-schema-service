@@ -10973,7 +10973,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an User network interface",indexedProps="id,tpId,cVLAN,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="unis",namespace="network",requiredProps="id",uriTemplate="/network/unis/uni/{id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an User network interface",indexedProps="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="unis",namespace="network",requiredProps="id",uriTemplate="/network/unis/uni/{id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -10984,14 +10984,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="tpId" type="xs:string" minOccurs="0">
+        <xs:element name="tp-id" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Termination point ID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cVLAN" type="xs:string" minOccurs="0">
+        <xs:element name="cvlan" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The cvlan for the site used for ethernet type connectivity.")</annox:annotate>
