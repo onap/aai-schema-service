@@ -9000,12 +9000,12 @@
                         <xml-property name="description" value="Id that identifies the UNI"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="tpId" name="tpId" type="java.lang.String">
+                <xml-element java-attribute="tpId" name="tp-id" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Termination point ID."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="cVLAN" name="cVLAN" type="java.lang.String">
+                <xml-element java-attribute="cvlan" name="cvlan" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="The cvlan for the site used for ethernet type connectivity."/>
                     </xml-properties>
@@ -9051,7 +9051,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an User network interface"/>
-                <xml-property name="indexedProps" value="id,tpId,cVLAN,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="unis"/>
