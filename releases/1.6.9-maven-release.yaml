@@ -1,0 +1,4 @@
+distribution_type: 'maven'
+version: '1.6.9'
+project: 'aai-schema-service'
+log_dir: 'aai-schema-service-maven-stage-frankfurt/30'
