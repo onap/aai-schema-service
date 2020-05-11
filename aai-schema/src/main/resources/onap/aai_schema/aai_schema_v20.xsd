@@ -1237,7 +1237,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Servers, aka virtual machine or VM.",nameProps="vserver-name",indexedProps="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2",searchable="vserver-id,vserver-name,vserver-name2",dependentOn="tenant",container="vservers",uriTemplate="/vservers/vserver/{vserver-id}",requiredProps="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Servers, aka virtual machine or VM.",nameProps="vserver-name",indexedProps="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2",searchable="vserver-id,vserver-name,vserver-name2,operational-status",dependentOn="tenant",container="vservers",uriTemplate="/vservers/vserver/{vserver-id}",requiredProps="vserver-id,vserver-name,vserver-selflink,in-maint,is-closed-loop-disabled")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -1294,6 +1294,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -2949,7 +2956,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Compute host whose hostname must be unique and must exactly match what is sent as a relationship to a vserver.",nameProps="pserver-name2",indexedProps="hostname,pserver-id,pserver-name2,inv-status,prov-status,ptnii-equip-name",searchable="hostname,pserver-name2,pserver-id,ipv4-oam-address",uniqueProps="hostname",container="pservers",namespace="cloud-infrastructure",uriTemplate="/cloud-infrastructure/pservers/pserver/{hostname}",requiredProps="hostname,in-maint")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Compute host whose hostname must be unique and must exactly match what is sent as a relationship to a vserver.",nameProps="pserver-name2",indexedProps="hostname,pserver-id,pserver-name2,inv-status,prov-status,ptnii-equip-name",searchable="hostname,pserver-name2,pserver-id,ipv4-oam-address,operational-status",uniqueProps="hostname",container="pservers",namespace="cloud-infrastructure",uriTemplate="/cloud-infrastructure/pservers/pserver/{hostname}",requiredProps="hostname,in-maint")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -3139,6 +3146,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The host profile that defines the configuration of the pserver.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -4244,7 +4258,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name,operational-status",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -4420,6 +4434,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing request parameters from SO to pass to Closed Loop.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
@@ -7240,7 +7261,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="a deployment unit of VNFCs",indexedProps="vf-module-id,vf-module-name,heat-stack-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn,orchestration-status",searchable="vf-module-id,vf-module-name",dependentOn="generic-vnf",container="vf-modules",uriTemplate="/vf-modules/vf-module/{vf-module-id}",requiredProps="vf-module-id,is-base-vf-module,automated-assignment")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="a deployment unit of VNFCs",indexedProps="vf-module-id,vf-module-name,heat-stack-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn,orchestration-status",searchable="vf-module-id,vf-module-name,operational-status",dependentOn="generic-vnf",container="vf-modules",uriTemplate="/vf-modules/vf-module/{vf-module-id}",requiredProps="vf-module-id,is-base-vf-module,automated-assignment")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -7353,6 +7374,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Path to the controller object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>

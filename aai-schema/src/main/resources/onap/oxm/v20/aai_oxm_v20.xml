@@ -398,7 +398,7 @@
                                        <xml-properties>
 			               		<xml-property name="description" value="Domain type of the SDNC controllerr."/>
                                        </xml-properties>
-                               </xml-element>                               
+                               </xml-element>
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -1184,12 +1184,18 @@
                 <xml-element java-attribute="volumes" name="volumes" type="inventory.aai.onap.org.v20.Volumes"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v20.LInterfaces"/>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Virtual Servers, aka virtual machine or VM."/>
                 <xml-property name="nameProps" value="vserver-name"/>
                 <xml-property name="indexedProps" value="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2"/>
-                <xml-property name="searchable" value="vserver-id,vserver-name,vserver-name2"/>
+                <xml-property name="searchable" value="vserver-id,vserver-name,vserver-name2,operational-status"/>
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="container" value="vservers"/>
                 <xml-property name="uriTemplate" value="/vservers/vserver/{vserver-id}"/>
@@ -1299,7 +1305,7 @@
                         <xml-property name="description" value="Identifies l2-multicasting support on an l-interface. true indicates that l2-multicasting is supported; defaulted to false ."/>
                     </xml-properties>
                 </xml-element>
-                
+
                 <xml-element java-attribute="vlans" name="vlans" type="inventory.aai.onap.org.v20.Vlans"/>
                 <xml-element java-attribute="sriovVfs" name="sriov-vfs" type="inventory.aai.onap.org.v20.SriovVfs"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v20.LInterfaces"/>
@@ -2222,6 +2228,12 @@
                         <xml-property name="description" value="The host profile that defines the configuration of the pserver."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="pInterfaces" name="p-interfaces" type="inventory.aai.onap.org.v20.PInterfaces"/>
                 <xml-element java-attribute="lagInterfaces" name="lag-interfaces" type="inventory.aai.onap.org.v20.LagInterfaces"/>
@@ -2231,7 +2243,7 @@
                 <xml-property name="description" value="Compute host whose hostname must be unique and must exactly match what is sent as a relationship to a vserver."/>
                 <xml-property name="nameProps" value="pserver-name2"/>
                 <xml-property name="indexedProps" value="hostname,pserver-id,pserver-name2,inv-status,prov-status,ptnii-equip-name"/>
-                <xml-property name="searchable" value="hostname,pserver-name2,pserver-id,ipv4-oam-address"/>
+                <xml-property name="searchable" value="hostname,pserver-name2,pserver-id,ipv4-oam-address,operational-status"/>
                 <xml-property name="uniqueProps" value="hostname"/>
                 <xml-property name="container" value="pservers"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
@@ -2340,7 +2352,7 @@
                     <xml-properties>
                         <xml-property name="description" value="The data structure to indicate value of available bandwidth. Applicable only for ENNI."/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="provStatus" name="prov-status" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Trigger for operational monitoring of this resource by Service Assurance systems."/>
@@ -2386,7 +2398,7 @@
                     <xml-properties>
                         <xml-property name="description" value="connect interdomain link"/>
                     </xml-properties>
-                </xml-element>				
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="sriovPfs" name="sriov-pfs" type="inventory.aai.onap.org.v20.SriovPfs"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v20.LInterfaces"/>
@@ -2402,7 +2414,7 @@
                 <xml-property name="requiredProps" value="interface-name,in-maint"/>
              </xml-properties>
         </java-type>
-        
+
        <java-type name="BandwidthAttributes">
             <xml-properties>
                 <xml-property name="description" value="Collection of bandwidth attribute. Added for ENNI in MDONS use case."/>
@@ -2544,7 +2556,7 @@
                 <xml-property name="dependentOn" value="bandwidth-attribute"/>
                 <xml-property name="requiredProps" value="lr-id"/>
             </xml-properties>
-        </java-type>        
+        </java-type>
 
         <java-type name="LagInterfaces">
             <xml-properties>
@@ -3199,7 +3211,7 @@
                     <xml-properties>
                         <xml-property name="description" value="End date of the service creation."/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="environmentContext" name="environment-context" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="This field will store the environment context assigned to the service-instance."/>
@@ -3305,13 +3317,19 @@
                   <xml-properties>
                     <xml-property name="description" value="String capturing function of the service."/>
                   </xml-properties>
-                </xml-element>                
+                </xml-element>
+            <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                <xml-properties>
+                    <xml-property name="description" value="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path."/>
+                    <xml-property name="suggestibleOnSearch" value="true"/>
+                </xml-properties>
+            </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
                 <xml-property name="indexedProps" value="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context"/>
                 <xml-property name="nameProps" value="service-instance-name"/>
-                <xml-property name="searchable" value="service-instance-id,service-instance-name"/>
+                <xml-property name="searchable" value="service-instance-id,service-instance-name,operational-status"/>
                 <xml-property name="uniqueProps" value="service-instance-id"/>
                 <xml-property name="dependentOn" value="service-subscription"/>
                 <xml-property name="container" value="service-instances"/>
@@ -3697,7 +3715,7 @@
                     <xml-properties>
                         <xml-property name="description" value="Captures the administrative state of the link"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="ipVersion" name="ip-version" type="java.lang.String">
                     <xml-properties>
 						<xml-property name="description" value="v4, v6, or ds for dual stack"/>
@@ -5340,11 +5358,17 @@
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="a deployment unit of VNFCs"/>
                 <xml-property name="indexedProps" value="vf-module-id,vf-module-name,heat-stack-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-service-instance-fqdn,orchestration-status"/>
-                <xml-property name="searchable" value="vf-module-id,vf-module-name"/>
+                <xml-property name="searchable" value="vf-module-id,vf-module-name,operational-status"/>
                 <xml-property name="dependentOn" value="generic-vnf"/>
                 <xml-property name="container" value="vf-modules"/>
                 <xml-property name="uriTemplate" value="/vf-modules/vf-module/{vf-module-id}"/>
@@ -8909,7 +8933,7 @@
             <xml-property name="uriTemplate" value="/network/ext-aai-networks/ext-aai-network/{aai-id}"/>
             </xml-properties>
 		</java-type>
-		
+
       <java-type name="Unis">
             <xml-properties>
                 <xml-property name="description" value="Collection of User network interface."/>
@@ -9005,12 +9029,12 @@
                     <xml-properties>
                         <xml-property name="description" value="Id that identifies the interlayer topology attachment"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="interLayerLockId" name="inter-layer-lockId" required="true" type="java.lang.Integer">
                     <xml-properties>
                         <xml-property name="description" value="Inter layer lock id"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Store the link to get more information for this object."/>
@@ -9372,7 +9396,7 @@
                 <xml-property name="uriTemplate" value="/network/tunnel-termination-points/tunnel-termination-point/{ttp-id}"/>
             </xml-properties>
         </java-type>
-		
+
 
         <java-type name="Common">
             <xml-properties>
@@ -9578,7 +9602,7 @@
                     <xml-properties>
                         <xml-property name="description" value="The maximum number of UEs may simultaneously access the E2E slice service"/>
                     </xml-properties>
-                </xml-element> 
+                </xml-element>
                 <xml-element java-attribute="coverageAreaTAList" name="coverage-area-TA-list" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="A list of TrackingAreas where the NSI can be selected."/>
