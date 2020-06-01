@@ -23,28 +23,12 @@ RESOURCES_HOME=${APP_HOME}/resources/;
 
 export SERVER_PORT=${SERVER_PORT:-8452};
 
-USER_ID=${LOCAL_USER_ID:-9001}
-GROUP_ID=${LOCAL_GROUP_ID:-9001}
-
-if [ $(cat /etc/passwd | grep aaiadmin | wc -l) -eq 0 ]; then
-
-	groupadd aaiadmin -g ${GROUP_ID} || {
-		echo "Unable to create the group id for ${GROUP_ID}";
-		exit 1;
-	}
-	useradd --shell=/bin/bash -u ${USER_ID} -g ${GROUP_ID} -o -c "" -m aaiadmin || {
-		echo "Unable to create the user id for ${USER_ID}";
-		exit 1;
-	}
-fi;
-
-chown -R aaiadmin:aaiadmin /opt/app /opt/aai/logroot
 find /opt/app/ -name "*.sh" -exec chmod +x {} +
 
 if [ -f ${APP_HOME}/aai.sh ]; then
 
-    gosu aaiadmin ln -s bin scripts
-    gosu aaiadmin ln -s /opt/aai/logroot/AAI-SS logs
+    ln -s bin scripts
+    ln -s /opt/aai/logroot/AAI-SS logs
 
     mv ${APP_HOME}/aai.sh /etc/profile.d/aai.sh
     chmod 755 /etc/profile.d/aai.sh
@@ -55,7 +39,7 @@ if [ -f ${APP_HOME}/aai.sh ]; then
 
         if [ -f ${APP_HOME}/bin/${scriptName} ]; then
             shift 1;
-            gosu aaiadmin ${APP_HOME}/bin/${scriptName} "$@" || {
+            ${APP_HOME}/bin/${scriptName} "$@" || {
                 echo "Failed to run the ${scriptName}";
                 exit 1;
             }
@@ -71,12 +55,9 @@ if [ -f ${APP_HOME}/aai.sh ]; then
         echo "Unable to find the updatePem script";
         exit 1;
     else
-        gosu aaiadmin ${APP_HOME}/scripts/updatePem.sh
+        ${APP_HOME}/scripts/updatePem.sh
     fi;
 fi;
-
-mkdir -p /opt/app/aai-schema-service/logs/gc
-chown -R aaiadmin:aaiadmin /opt/app/aai-schema-service/logs/gc
 
 if [ -f ${APP_HOME}/resources/aai-schema-service-swm-vars.sh ]; then
     source ${APP_HOME}/resources/aai-schema-service-swm-vars.sh;
@@ -91,7 +72,7 @@ MIN_HEAP_SIZE=${MIN_HEAP_SIZE:-512m};
 MAX_HEAP_SIZE=${MAX_HEAP_SIZE:-1024m};
 MAX_METASPACE_SIZE=${MAX_METASPACE_SIZE:-512m};
 
-JAVA_CMD="exec gosu aaiadmin java";
+JAVA_CMD="exec java";
 
 JVM_OPTS="${PRE_JVM_ARGS} -Xloggc:/opt/app/aai-schema-service/logs/gc/aai_gc.log";
 JVM_OPTS="${JVM_OPTS} -XX:HeapDumpPath=/opt/app/aai-schema-service/logs/ajsc-jetty/heap-dump";
