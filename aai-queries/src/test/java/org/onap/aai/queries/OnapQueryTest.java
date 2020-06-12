@@ -141,7 +141,8 @@ public abstract class OnapQueryTest {
             {new SchemaVersion("v16")},
             {new SchemaVersion("v17")},
             {new SchemaVersion("v18")},
-            {new SchemaVersion("v19")}
+            {new SchemaVersion("v19")},
+            {new SchemaVersion("v20")}
 		});
 	}
 

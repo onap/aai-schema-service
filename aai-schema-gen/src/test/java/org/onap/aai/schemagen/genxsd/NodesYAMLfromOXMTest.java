@@ -252,7 +252,7 @@ public class NodesYAMLfromOXMTest {
         sb.append("info:" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("  description: |\n");
         sb.append("\n");
-        sb.append("    [Differences versus the previous schema version](apidocs/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
+        sb.append("    [Differences versus the previous schema version](apidocs/aai/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         sb.append("    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         sb.append("    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         sb.append("    You may obtain a copy of the License at\n");

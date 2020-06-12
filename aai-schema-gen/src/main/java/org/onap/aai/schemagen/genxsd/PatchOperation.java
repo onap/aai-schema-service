@@ -33,8 +33,10 @@ public class PatchOperation {
 	private String pathParams;
 	private String prefixForPatch;
 	private SchemaVersion version;
+	private String basePath;
 
-	public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, SchemaVersion v) {
+	public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path, 
+			String pathParams, SchemaVersion v, String basePath) {
 		super();
 		this.useOpId = useOpId;
 		this.xmlRootElementName = xmlRootElementName;
@@ -43,6 +45,7 @@ public class PatchOperation {
 		this.pathParams = pathParams;
 		this.prefixForPatch = "";
 		this.version = v;
+		this.basePath = basePath;
 	}
 		public void setPrefixForPatchRef(String prefixForPatchRef) {
 			this.prefixForPatch = prefixForPatchRef;
@@ -85,7 +88,7 @@ public class PatchOperation {
 			if ( path.endsWith("/relationship") ) {
 				pathSb.append("      summary: see node definition for valid relationships\n");
 			} else {
-				relationshipExamplesSb.append("[See Examples](apidocs/relations/"+version.toString()+"/"+useOpId+".json)");
+				relationshipExamplesSb.append("[See Examples](apidocs" + basePath + "/relations/"+version.toString()+"/"+useOpId+".json)");
 				pathSb.append("      summary: update an existing " + xmlRootElementName + "\n");
 				pathSb.append("      description: |\n");
 				pathSb.append("        Update an existing " + xmlRootElementName + "\n");

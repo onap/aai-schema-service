@@ -313,7 +313,7 @@ public class YAMLfromOXMTest {
 		sb.append("info:" + OxmFileProcessor.LINE_SEPARATOR);
 		sb.append("  description: |\n");
 		sb.append("\n");
-		sb.append("    [Differences versus the previous schema version](apidocs/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
+		sb.append("    [Differences versus the previous schema version](apidocs/aai/aai_swagger_v11.diff)" + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
 		sb.append("    You may obtain a copy of the License at\n");
@@ -401,7 +401,7 @@ public class YAMLfromOXMTest {
 		sb.append("          example: __SERVICE-TYPE__\n");
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
-		sb.append("          description: service-subscription object that needs to be created or updated. [Valid relationship examples shown here](apidocs/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
+		sb.append("          description: service-subscription object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/service-subscription\"\n");
@@ -444,7 +444,7 @@ public class YAMLfromOXMTest {
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
 		sb.append("          description: service-subscription object that needs to be updated.");
-		sb.append("[See Examples](apidocs/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
+		sb.append("[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/zzzz-patch-service-subscription\"\n");
@@ -557,7 +557,7 @@ public class YAMLfromOXMTest {
 		sb.append("          example: __GLOBAL-CUSTOMER-ID__\n");
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
-		sb.append("          description: customer object that needs to be created or updated. [Valid relationship examples shown here](apidocs/relations/v11/BusinessCustomersCustomer.json)\n");
+		sb.append("          description: customer object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/customer\"\n");
@@ -594,7 +594,7 @@ public class YAMLfromOXMTest {
 		sb.append("        - name: body\n");
 		sb.append("          in: body\n");
 		sb.append("          description: customer object that needs to be updated.");
-		sb.append("[See Examples](apidocs/relations/v11/BusinessCustomersCustomer.json)\n");
+		sb.append("[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)\n");
 		sb.append("          required: true\n");
 		sb.append("          schema:\n");
 		sb.append("            $ref: \"#/definitions/zzzz-patch-customer\"\n");

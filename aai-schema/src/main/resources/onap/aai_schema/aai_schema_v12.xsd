@@ -3007,7 +3007,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist SDNC address information used by ONAP SDNC.",indexedProps="sdnc-id",searchable="sdnc-id",container="esr-thirdparty-sdnc-list",namespace="external-system",requiredProps="thirdparty-sdnc-id",uriTemplate="/external-system/esr-thirdparty-sdnc-list/esr-thirdparty-sdnc/{thirdparty-sdnc-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persist SDNC address information used by ONAP SDNC.",container="esr-thirdparty-sdnc-list",namespace="external-system",requiredProps="thirdparty-sdnc-id",uriTemplate="/external-system/esr-thirdparty-sdnc-list/esr-thirdparty-sdnc/{thirdparty-sdnc-id}")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -5023,7 +5023,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Used to capture the network interfaces of this VCE",nameProps="port-group-name",indexedProps="port-group-id,heat-stack-id,interface-id,interface-name,switch-name",dependentOn="vce",container="port-groups",uriTemplate="/port-groups/port-group/{interface-id}",requiredProps="interface-id,orchestration-status")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Used to capture the network interfaces of this VCE",nameProps="port-group-name",indexedProps="port-group-id,heat-stack-id,interface-id,switch-name",dependentOn="vce",container="port-groups",uriTemplate="/port-groups/port-group/{interface-id}",requiredProps="interface-id,orchestration-status")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -5210,7 +5210,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated.",nameProps="vnf-name",indexedProps="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,prov-status,service-id",searchable="vnf-id,vnf-name,vnf-name2",uniqueProps="vnf-id",container="vces",namespace="network",extendsFrom="vnf",uriTemplate="/network/vces/vce/{vnf-id}",requiredProps="vnf-id,vnf-name,vnf-type")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated.",nameProps="vnf-name",indexedProps="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,regional-resource-zone,vpe-id,prov-status,service-id",searchable="vnf-id,vnf-name,vnf-name2",uniqueProps="vnf-id",container="vces",namespace="network",extendsFrom="vnf",uriTemplate="/network/vces/vce/{vnf-id}",requiredProps="vnf-id,vnf-name,vnf-type")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -5737,7 +5737,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Generic network definition",nameProps="network-name",indexedProps="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role",searchable="network-id,network-name",uniqueProps="network-id",container="l3-networks",namespace="network",uriTemplate="/network/l3-networks/l3-network/{network-id}",requiredProps="network-id,is-bound-to-vpn,is-provider-network,is-shared-network,is-external-network")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Generic network definition",nameProps="network-name",indexedProps="heat-stack-id,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role",searchable="network-id,network-name",uniqueProps="network-id",container="l3-networks",namespace="network",uriTemplate="/network/l3-networks/l3-network/{network-id}",requiredProps="network-id,is-bound-to-vpn,is-provider-network,is-shared-network,is-external-network")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -6712,7 +6712,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="PNF represents a physical network function. typically equipment used in the D1 world. in 1607, this will be populated by SDN-C to represent a premises router that a uCPE connects to. But this can be used to represent any physical device that is not an AIC node or uCPE.",indexedProps="pnf-name,orchestration-status,inv-status",searchable="pnf-name",uniqueProps="pnf-name",container="pnfs",namespace="network",uriTemplate="/network/pnfs/pnf/{pnf-name}",requiredProps="pnf-name,in-maint")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="PNF represents a physical network function. typically equipment used in the D1 world. in 1607, this will be populated by SDN-C to represent a premises router that a uCPE connects to. But this can be used to represent any physical device that is not an AIC node or uCPE.",indexedProps="pnf-name,inv-status",searchable="pnf-name",uniqueProps="pnf-name",container="pnfs",namespace="network",uriTemplate="/network/pnfs/pnf/{pnf-name}",requiredProps="pnf-name,in-maint")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>

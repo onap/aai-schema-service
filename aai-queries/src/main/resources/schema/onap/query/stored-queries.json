@@ -421,17 +421,9 @@
     {
       "pserver-fromHostnameFirstToken": {
 		"query":{
-        	"required-properties":["hostnameFirstToken","sourcesOfTruth"]
+        	"required-properties":["hostnameFirstToken"]
     	},
-		"stored-query": "builder.getVerticesStartsWithProperty('hostname', hostnameFirstToken).getVerticesByProperty('source-of-truth', new ArrayList<>(Arrays.asList(sourcesOfTruth)))"
-	  }
-	},
-	{
-      "pserver-fromFqdnFirstToken": {
-		"query":{
-        	"required-properties":["fqdnFirstToken","sourcesOfTruth"]
-    	},
-		"stored-query": "builder.getVerticesStartsWithProperty('fqdn', fqdnFirstToken).getVerticesByProperty('source-of-truth', new ArrayList<>(Arrays.asList(sourcesOfTruth)))"
+		"stored-query": "builder.getVerticesStartsWithProperty('hostname', hostnameFirstToken)"
 	  }
 	},
 	{
