@@ -33,8 +33,10 @@ public class PutOperation {
     private String path;
     private String pathParams;
     private SchemaVersion version;
+    private String basePath;
 
-        public PutOperation(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, SchemaVersion v) {
+        public PutOperation(String useOpId, String xmlRootElementName, String tag, String path, 
+        		String pathParams, SchemaVersion v, String basePath) {
             super();
             this.useOpId = useOpId;
             this.xmlRootElementName = xmlRootElementName;
@@ -42,6 +44,7 @@ public class PutOperation {
             this.path = path;
             this.pathParams = pathParams;
             this.version = v;
+            this.basePath = basePath;
         }
 
         @Override
@@ -80,7 +83,7 @@ public class PutOperation {
                 pathSb.append("      summary: create or update an existing " + xmlRootElementName + "\n");
                 pathSb.append("      description: |\n        Create or update an existing " + xmlRootElementName + ".\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
             }
-            relationshipExamplesSb.append("[Valid relationship examples shown here](apidocs/relations/"+version.toString()+"/"+useOpId.replace("RelationshipListRelationship", "")+".json)");
+            relationshipExamplesSb.append("[Valid relationship examples shown here](apidocs" + basePath + "/relations/"+version.toString()+"/"+useOpId.replace("RelationshipListRelationship", "")+".json)");
             pathSb.append("      operationId: createOrUpdate" + useOpId + "\n");
             pathSb.append("      consumes:\n");
             pathSb.append("        - application/json\n");

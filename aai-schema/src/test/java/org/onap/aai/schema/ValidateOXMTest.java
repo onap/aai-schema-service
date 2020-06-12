@@ -60,6 +60,7 @@ public class ValidateOXMTest {
     private String DBEDGERULES_OUT = "OUT";
     private String DBEDGERULES_IN = "IN";
     private String XMLROOTELEMENT = "xml-root-element";
+    private String XMLPROPERTIES = "xml-properties";
     private String ECOMP = "ecomp";
     private String NARAD = "narad";
     private String ONAP = "onap";
@@ -141,6 +142,238 @@ public class ValidateOXMTest {
 
     }
 
+    @Test
+    public void verifyAllIndexedPropertiesExistInObject()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+
+        boolean foundIssue = false;
+        List<File> fileList = getOxmSchemaFiles();
+        fileList.addAll(getOnapOxmSchemaFiles());
+        StringBuilder msg = new StringBuilder();
+        for (File file : fileList) {
+            Document xmlDocument = getDocument(file);
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String expression = "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='indexedProps']) > 0]";
+            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+            Map<String, List<String>> nodeTypeBadIndexProps = new HashMap<>();
+            for(int i = 0; i < nodeList.getLength(); i++){
+                String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+
+                NodeList javaAttributesList = ((Element)nodeList.item(i)).getElementsByTagName("java-attributes");
+
+                Set<String> properties = new HashSet<>();
+
+                for(int j = 0; j < javaAttributesList.getLength(); j++){
+                    NodeList elementList = ((Element)javaAttributesList.item(j)).getElementsByTagName("xml-element");
+                    for(int k = 0; k < elementList.getLength(); k++){
+                        properties.add(elementList.item(k).getAttributes().getNamedItem("name").getNodeValue());
+                    }
+                }
+
+                NodeList xmlPropertiesList = ((Element)nodeList.item(i)).getElementsByTagName("xml-properties");
+                List<String> badIndexedProps = new ArrayList<>();
+                boolean foundIssueInNodeType = false;
+
+                for(int j = 0; j < xmlPropertiesList.getLength(); j++){
+                    NodeList xmlProperties = ((Element)xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+                    for(int k = 0; k < xmlProperties.getLength(); k++){
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
+                        if("indexedProps".equals(xmlProp)){
+                            String xmlPropValue = xmlProperties.item(k).getAttributes().getNamedItem("value").getNodeValue();
+
+                            List<String> indexProps = Arrays
+                                .stream(xmlPropValue.split(","))
+                                .collect(Collectors.toList());
+
+                            for(String indexProp : indexProps){
+                                if(!properties.contains(indexProp)){
+                                    foundIssueInNodeType = true;
+                                    badIndexedProps.add(indexProp);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                if(foundIssueInNodeType){
+                    foundIssue =true;
+                    nodeTypeBadIndexProps.put(name, badIndexedProps);
+                }
+            }
+
+            if(!nodeTypeBadIndexProps.isEmpty()){
+                msg.append("\n");
+                msg.append("File: " + file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+                msg.append("\n");
+                for (Map.Entry<String, List<String>> nodeTypeBadIndex : nodeTypeBadIndexProps.entrySet()) {
+                    msg.append("NodeType: " + nodeTypeBadIndex.getKey());
+                    msg.append(" contains following indexed props that are not properties in object: ");
+                    msg.append(String.join(",", nodeTypeBadIndex.getValue()));
+                    msg.append("\n");
+                }
+            }
+
+        }
+
+        if (foundIssue) {
+            fail(msg.toString());
+        }
+    }
+
+    @Test
+    public void verifyAllUniquePropertiesExistInObject()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+
+        boolean foundIssue = false;
+        List<File> fileList = getOxmSchemaFiles();
+        fileList.addAll(getOnapOxmSchemaFiles());
+        StringBuilder msg = new StringBuilder();
+        for (File file : fileList) {
+            Document xmlDocument = getDocument(file);
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String expression = "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='uniqueProps']) > 0]";
+            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+            Map<String, List<String>> nodeTypeBadUniqueProps = new HashMap<>();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+
+                NodeList javaAttributesList = ((Element) nodeList.item(i)).getElementsByTagName("java-attributes");
+
+                Set<String> properties = new HashSet<>();
+
+                for (int j = 0; j < javaAttributesList.getLength(); j++) {
+                    NodeList elementList = ((Element) javaAttributesList.item(j)).getElementsByTagName("xml-element");
+                    for (int k = 0; k < elementList.getLength(); k++) {
+                        properties.add(elementList.item(k).getAttributes().getNamedItem("name").getNodeValue());
+                    }
+                }
+
+                NodeList xmlPropertiesList = ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
+                List<String> badUniqueProps = new ArrayList<>();
+                boolean foundIssueInNodeType = false;
+
+                for (int j = 0; j < xmlPropertiesList.getLength(); j++) {
+                    NodeList xmlProperties = ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+                    for (int k = 0; k < xmlProperties.getLength(); k++) {
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
+                        if ("uniqueProps".equals(xmlProp)) {
+                            String xmlPropValue = xmlProperties.item(k).getAttributes().getNamedItem("value").getNodeValue();
+
+                            List<String> uniqueProps = Arrays
+                                .stream(xmlPropValue.split(","))
+                                .collect(Collectors.toList());
+
+                            for (String uniqueProp : uniqueProps) {
+                                if (!properties.contains(uniqueProp)) {
+                                    foundIssueInNodeType = true;
+                                    badUniqueProps.add(uniqueProp);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+                if (foundIssueInNodeType) {
+                    foundIssue = true;
+                    nodeTypeBadUniqueProps.put(name, badUniqueProps);
+                }
+            }
+
+            if (!nodeTypeBadUniqueProps.isEmpty()) {
+                msg.append("\n");
+                msg.append("File: " + file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+                msg.append("\n");
+                for (Map.Entry<String, List<String>> nodeTypeBadUnique : nodeTypeBadUniqueProps.entrySet()) {
+                    msg.append("NodeType: " + nodeTypeBadUnique.getKey());
+                    msg.append(" contains following unique props that are not properties in object: ");
+                    msg.append(String.join(",", nodeTypeBadUnique.getValue()));
+                    msg.append("\n");
+                }
+            }
+
+        }
+
+        if (foundIssue) {
+            fail(msg.toString());
+        }
+    }
+
+
+    /**
+     * Verifies that all of the top level node types in the oxm's have their namespace in uri templates.
+     * @throws XPathExpressionException
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    @Test
+	public void verifyAllUriTemplateHaveNamespace()
+			throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+		boolean foundIssue = false;
+		List<File> fileList = getOxmSchemaFiles();
+		fileList.addAll(getOnapOxmSchemaFiles());
+		StringBuilder msg = new StringBuilder();
+		for (File file : fileList) {
+			msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+			msg.append("\n");
+			Document xmlDocument = getDocument(file);
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			String expression = "/xml-bindings/java-types/java-type["
+					+ "count(xml-properties/xml-property[@name='namespace']) > 0 " + "]";
+			NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+
+				NodeList childNodeList = (NodeList) nodeList.item(i).getChildNodes();
+				for (int j = 0; j < childNodeList.getLength(); j++) {
+
+					String nodeName = childNodeList.item(j).getNodeName();
+					NodeList xmlPropertyNodeList = childNodeList.item(j).getChildNodes();
+					if (XMLPROPERTIES.equals(nodeName)) {
+
+						String namespaceVal = "";
+						String uriTemplateVal = "";
+						for (int k = 0; k < xmlPropertyNodeList.getLength(); k++) {
+
+							if ("xml-property".equals(xmlPropertyNodeList.item(k).getNodeName())) {
+
+								NamedNodeMap attributes = xmlPropertyNodeList.item(k).getAttributes();
+
+								if ("namespace".equals(attributes.getNamedItem("name").getNodeValue())) {
+									namespaceVal = attributes.getNamedItem("value").getNodeValue();
+								}
+								if ("uriTemplate".equals(attributes.getNamedItem("name").getNodeValue())) {
+									uriTemplateVal = attributes.getNamedItem("value").getNodeValue();
+								}
+
+							}
+
+						}
+
+						if (!uriTemplateVal.startsWith("/" + namespaceVal + "/")) {
+							foundIssue = true;
+							msg.append("\t");
+							msg.append(uriTemplateVal);
+							msg.append("\n");
+						}
+
+					}
+				}
+
+			}
+		}
+		if (foundIssue) {
+			System.out.println(msg.toString());
+			fail("uriTemplate doesnt start with /namespace/.");
+		}
+
+	}
+
 
     /**
      * Verifies that all specified properties are indexed
@@ -206,8 +439,8 @@ public class ValidateOXMTest {
      * dependentOn relationship matches what is listed in the edge rules.
      *
      */
-    @Test
     @Ignore
+    @Test
     public void testSchemaValidationAgainstEdgeRules() throws  XPathExpressionException, IOException, SAXException, ParserConfigurationException, ParseException {
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
         List<File> subDirs = Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
@@ -448,6 +681,35 @@ public class ValidateOXMTest {
             .filter(file -> file.getAbsolutePath().contains("oxm"))
             .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
             .collect(Collectors.toList());
+    }
+
+    private List<File> getOxmSchemaFiles() {
+
+        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        return FileUtils.listFiles(
+                currentRelativePath.toFile(),
+                new RegexFileFilter(".*\\.xml"),
+                DirectoryFileFilter.DIRECTORY)
+                .stream()
+                .filter(file -> file.getAbsolutePath().contains("oxm"))
+                .filter(file -> file.getAbsolutePath().contains("aai_schema_oxm"))
+                .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
+                .collect(Collectors.toList());
+
+    }
+
+    private List<File> getOnapOxmSchemaFiles() {
+
+        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        return FileUtils.listFiles(
+                currentRelativePath.toFile(),
+                new RegexFileFilter(".*\\.xml"),
+                DirectoryFileFilter.DIRECTORY)
+                .stream()
+                .filter(file -> file.getAbsolutePath().contains("oxm"))
+                .filter(file -> file.getAbsolutePath().contains("aai_oxm"))
+                .collect(Collectors.toList());
+
     }
 
     private List<File> getAaiSchemaOxmFiles() {

@@ -105,7 +105,7 @@ public class SchemaServiceTest {
         ResponseEntity responseEntity;
 
         responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/nodes?version=v19",
+            baseUrl + "/aai/schema-service/v1/nodes?version=v20",
             HttpMethod.GET,
             httpEntity,
             String.class
@@ -117,7 +117,7 @@ public class SchemaServiceTest {
         httpEntity = new HttpEntity(headers);
 
         responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/edgerules?version=v19",
+            baseUrl + "/aai/schema-service/v1/edgerules?version=v20",
             HttpMethod.GET,
             httpEntity,
             String.class

@@ -1559,6 +1559,29 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
+		},{
+			"from": "pnf",
+			"to": "instance-group",
+			"label": "org.onap.relationships.inventory.Primary",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description":""
+		},
+		{
+			"from": "pnf",
+			"to": "instance-group",
+			"label": "org.onap.relationships.inventory.Secondary",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description":""
 		},
 		{
 			"from": "pnf",
@@ -3056,6 +3079,30 @@
 			"from": "generic-vnf",
 			"to": "instance-group",
 			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description":""
+		},
+		{
+			"from": "generic-vnf",
+			"to": "instance-group",
+			"label": "org.onap.relationships.inventory.Primary",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "false",
+			"description":""
+		},
+		{
+			"from": "generic-vnf",
+			"to": "instance-group",
+			"label": "org.onap.relationships.inventory.Secondary",
 			"direction": "OUT",
 			"multiplicity": "ONE2MANY",
 			"contains-other-v": "NONE",

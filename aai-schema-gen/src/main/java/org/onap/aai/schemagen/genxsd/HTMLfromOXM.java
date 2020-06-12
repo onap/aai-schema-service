@@ -271,13 +271,6 @@ public class HTMLfromOXM extends OxmFileProcessor {
 	}
 
 	private boolean versionUsesAnnotations( String version) {
-		int ver = new Integer(version.substring(1)).intValue();
-		if ( ver >= HTMLfromOXM.annotationsStartVersion ) {
-			return true;
-		}
-		if ( ver <= HTMLfromOXM.annotationsMinVersion ) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 }
