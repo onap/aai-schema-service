@@ -5821,6 +5821,12 @@
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
             </java-attributes>
             <xml-properties>
@@ -5829,7 +5835,7 @@
                 <xml-property name="alternateKeys1" value="circuit-id"/>
                 <xml-property name="container" value="physical-links"/>
                 <xml-property name="namespace" value="network"/>
-                <xml-property name="searchable" value="link-name,circuit-id"/>
+                <xml-property name="searchable" value="link-name,circuit-id,operational-status"/>
                 <xml-property name="uriTemplate" value="/network/physical-links/physical-link/{link-name}"/>
             <xml-property name="requiredProps" value="link-name"/>
             </xml-properties>

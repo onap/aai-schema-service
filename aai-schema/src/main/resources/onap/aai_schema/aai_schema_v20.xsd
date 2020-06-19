@@ -8365,7 +8365,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical connections, typically between p-interfaces",indexedProps="circuit-id,link-name",alternateKeys1="circuit-id",container="physical-links",namespace="network",searchable="link-name,circuit-id",uriTemplate="/network/physical-links/physical-link/{link-name}",requiredProps="link-name")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical connections, typically between p-interfaces",indexedProps="circuit-id,link-name",alternateKeys1="circuit-id",container="physical-links",namespace="network",searchable="link-name,circuit-id,operational-status",uriTemplate="/network/physical-links/physical-link/{link-name}",requiredProps="link-name")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8450,6 +8450,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
