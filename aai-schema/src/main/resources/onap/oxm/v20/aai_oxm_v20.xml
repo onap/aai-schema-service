@@ -409,8 +409,6 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist SDNC address information used by ONAP SDNC."/>
-                               <xml-property name="indexedProps" value="sdnc-id"/>
-                               <xml-property name="searchable" value="sdnc-id"/>
                                <xml-property name="container" value="esr-thirdparty-sdnc-list"/>
                                <xml-property name="namespace" value="external-system"/>
                        		   <xml-property name="requiredProps" value="thirdparty-sdnc-id"/>
@@ -2405,7 +2403,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Physical interface (e.g., nic)"/>
-				<xml-property name="indexedProps" value="interface-name,prov-status,networkRef,operational-status,interface-role,interface-name2"/>
+				<xml-property name="indexedProps" value="interface-name,prov-status,network-ref,operational-status,interface-role,interface-name2"/>
                 <xml-property name="nameProps" value="prov-status"/>
                 <xml-property name="dependentOn" value="vpls-pe,pserver,pnf"/>
                 <xml-property name="container" value="p-interfaces"/>
@@ -4331,7 +4329,7 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated."/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,prov-status,service-id,orchestration-status"/>
+                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,regional-resource-zone,vpe-id,prov-status,service-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="vces"/>
@@ -4413,7 +4411,7 @@
             <xml-properties>
                 <xml-property name="description" value="Used to capture the network interfaces of this VCE"/>
                 <xml-property name="nameProps" value="port-group-name"/>
-                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,interface-name,switch-name,interface-role,orchestration-status"/>
+                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,switch-name,interface-role,orchestration-status"/>
                 <xml-property name="dependentOn" value="vce"/>
                 <xml-property name="container" value="port-groups"/>
                 <xml-property name="uriTemplate" value="/port-groups/port-group/{interface-id}"/>
@@ -4724,7 +4722,7 @@
             <xml-properties>
                 <xml-property name="description" value="Generic network definition"/>
                 <xml-property name="nameProps" value="network-name"/>
-                <xml-property name="indexedProps" value="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role,orchestration-status"/>
+                <xml-property name="indexedProps" value="heat-stack-id,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role,orchestration-status"/>
                 <xml-property name="searchable" value="network-id,network-name"/>
                 <xml-property name="uniqueProps" value="network-id"/>
                 <xml-property name="container" value="l3-networks"/>
@@ -5739,7 +5737,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Software Version"/>
-                <xml-property name="indexedProps" value="softwareVersionId,isActiveSwVer"/>
+                <xml-property name="indexedProps" value="software-version-id,is-active-sw-ver"/>
                 <xml-property name="dependentOn" value="pnf"/>
                 <xml-property name="container" value="pnf"/>
                 <xml-property name="requiredProps" value="software-version-id,is-active-sw-ver"/>
@@ -6050,8 +6048,8 @@
 		<java-type name="ReservedPropNames">
 			<xml-properties>
 				<xml-property name="description" value="Internal map to define some reserved properties of a vertex"/>
-				<xml-property name="uniqueProps" value="aai-unique-key,aai-uri,aai-uuid"/>
-				<xml-property name="indexedProps" value="aai-unique-key,source-of-truth,aai-node-type,aai-uri,aai-uuid"/>
+				<xml-property name="uniqueProps" value="aai-unique-key,aai-uri"/>
+				<xml-property name="indexedProps" value="aai-unique-key,source-of-truth,aai-node-type,aai-uri"/>
 			</xml-properties>
 			<xml-root-element name="reserved-prop-names"/>
 			<java-attributes>
@@ -6789,7 +6787,7 @@
                 <xml-property name="nameProps" value="description,instance-group-name"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="searchable" value="id,description"/>
-                <xml-property name="indexedProps" value="id,type,sub-type,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,model-invariant-id,model-version-id"/>
                 <xml-property name="container" value="instance-groups"/>
                 <xml-property name="namespace" value="network"/>
                 <xml-property name="uriTemplate" value="/network/instance-groups/instance-group/{id}"/>
@@ -7086,7 +7084,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Metadata for license group."/>
-                <xml-property name="indexedProps" value="group-uuid,resource-uuid,projectNumber,orderNumber,receiptDate"/>
+                <xml-property name="indexedProps" value="group-uuid,resource-uuid,project-number,order-number,receipt-date"/>
                 <xml-property name="dependentOn" value="generic-vnf,vce"/>
                 <xml-property name="container" value="licenses"/>
                 <xml-property name="uriTemplate" value="/licenses/license/{group-uuid}/{resource-uuid}"/>

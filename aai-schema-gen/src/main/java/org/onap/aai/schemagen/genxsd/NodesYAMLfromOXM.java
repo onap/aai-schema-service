@@ -84,7 +84,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         sb.append("description: |");
         if (versionSupportsSwaggerDiff(v.toString())) {
             sb.append("\n\n    [Differences versus the previous schema version]("
-                + "apidocs/aai_swagger_" + v.toString() + ".diff)");
+                    +"apidocs" + basePath + "/aai_swagger_" + v.toString() + ".diff)");
         }
         sb.append(
             DOUBLE_LINE_SEPARATOR + "    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR + "    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License." + DOUBLE_LINE_SEPARATOR + "    You may obtain a copy of the License at\n\n    (https://creativecommons.org/licenses/by/4.0/)" + DOUBLE_LINE_SEPARATOR + "    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License." + OxmFileProcessor.DOUBLE_LINE_SEPARATOR + "    This document is best viewed with Firefox or Chrome. ");

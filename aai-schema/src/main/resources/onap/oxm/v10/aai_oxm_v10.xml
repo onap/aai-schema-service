@@ -3013,7 +3013,7 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated."/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,interface-name,regional-resource-zone,vpe-id,prov-status,service-id"/>
+                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,regional-resource-zone,vpe-id,prov-status,service-id"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="vces"/>
@@ -3095,7 +3095,7 @@
             <xml-properties>
                 <xml-property name="description" value="Used to capture the network interfaces of this VCE"/>
                 <xml-property name="nameProps" value="port-group-name"/>
-                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,interface-name,switch-name"/>
+                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,switch-name"/>
                 <xml-property name="dependentOn" value="vce"/>
                 <xml-property name="container" value="port-groups"/>
                 <xml-property name="uriTemplate" value="/port-groups/port-group/{interface-id}"/>
@@ -3377,7 +3377,7 @@
             <xml-properties>
                 <xml-property name="description" value="Generic network definition"/>
                 <xml-property name="nameProps" value="network-name"/>
-                <xml-property name="indexedProps" value="heat-stack-id,network-uuid,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role"/>
+                <xml-property name="indexedProps" value="heat-stack-id,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role"/>
                 <xml-property name="searchable" value="network-id,network-name"/>
                 <xml-property name="uniqueProps" value="network-id"/>
                 <xml-property name="container" value="l3-networks"/>
@@ -4199,7 +4199,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="PNF represents a physical network function. typically equipment used in the D1 world. in 1607, this will be populated by SDN-C to represent a premises router that a uCPE connects to. But this can be used to represent any physical device that is not an AIC node or uCPE."/>
-                <xml-property name="indexedProps" value="pnf-name,orchestration-status,inv-status"/>
+                <xml-property name="indexedProps" value="pnf-name,inv-status"/>
                 <xml-property name="searchable" value="pnf-name"/>
                 <xml-property name="uniqueProps" value="pnf-name"/>
                 <xml-property name="container" value="pnfs"/>
