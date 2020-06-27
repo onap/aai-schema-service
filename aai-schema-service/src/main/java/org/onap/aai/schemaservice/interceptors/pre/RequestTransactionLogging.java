@@ -20,24 +20,25 @@
 package org.onap.aai.schemaservice.interceptors.pre;
 
 import com.google.gson.JsonObject;
-import org.glassfish.jersey.message.internal.ReaderWriter;
-import org.glassfish.jersey.server.ContainerException;
-import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
-import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.MediaType;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
+import org.glassfish.jersey.message.internal.ReaderWriter;
+import org.glassfish.jersey.server.ContainerException;
+import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
+import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
+import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @PreMatching
 @Priority(AAIRequestFilterPriority.REQUEST_TRANS_LOGGING)
@@ -48,8 +49,6 @@ public class RequestTransactionLogging extends AAIContainerFilter implements Con
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String ACCEPT = "Accept";
     private static final String TEXT_PLAIN = "text/plain";
-    @Autowired
-    private HttpServletRequest httpServletRequest;
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
@@ -85,12 +84,21 @@ public class RequestTransactionLogging extends AAIContainerFilter implements Con
         return txId;
     }
 
+    private String getHttpServletRequestContentType() {
+        final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+            return request.getContentType();
+        }
+        return null;
+    }
+
     private String getRequest(ContainerRequestContext requestContext, String fullId) {
 
         JsonObject request = new JsonObject();
         request.addProperty("ID", fullId);
         request.addProperty("Http-Method", requestContext.getMethod());
-        request.addProperty(CONTENT_TYPE, httpServletRequest.getContentType());
+        request.addProperty(CONTENT_TYPE, getHttpServletRequestContentType());
         request.addProperty("Headers", requestContext.getHeaders().toString());
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();

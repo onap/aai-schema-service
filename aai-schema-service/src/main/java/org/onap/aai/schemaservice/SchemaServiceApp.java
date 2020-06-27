@@ -39,6 +39,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Map;
 import java.util.UUID;
+import org.springframework.web.context.request.RequestContextListener;
 
 @SpringBootApplication
 // Component Scan provides a way to look for spring beans
@@ -71,12 +72,11 @@ public class SchemaServiceApp {
 
         setDefaultProps();
 
-
-
         SpringApplication app = new SpringApplication(SchemaServiceApp.class);
         app.setLogStartupInfo(false);
         app.setRegisterShutdownHook(true);
         app.addInitializers(new PropertyPasswordConfiguration());
+
         Environment env = app.run(args).getEnvironment();
 
         logger.debug(

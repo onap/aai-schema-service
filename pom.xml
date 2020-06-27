@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.onap.aai.aai-common</groupId>
         <artifactId>aai-parent</artifactId>
-        <version>1.6.8</version>
+        <version>1.7.0-SNAPSHOT</version>
     </parent>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>schema-service</artifactId>
@@ -61,7 +61,7 @@
                 Using https://code.revelc.net/formatter-maven-plugin/ for Eclipse formatter
                 Using https://github.com/diffplug/spotless/tree/master/plugin-maven for import order
                 Use in combination to rewrite code and imports, then checkstyle
-                
+
                 mvn formatter:format spotless:apply process-sources
                 -->
                 <plugin>
