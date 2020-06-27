@@ -49,7 +49,7 @@
         <schema.version.edge.label.start>v12</schema.version.edge.label.start>
         <schema.version.api.default>v19</schema.version.api.default>
         <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20</schema.version.list>
-	<springframework.version>4.3.18.RELEASE</springframework.version>
+
         <!-- End of Default ONAP Schema Properties -->
     </properties>
     <profiles>
@@ -70,7 +70,6 @@
                 <schema.version.api.default>v15</schema.version.api.default>
                 <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19</schema.version.list>
                 <gendoc.version>v16</gendoc.version>
-		<springframework.version>4.3.18.RELEASE</springframework.version>
             </properties>
         </profile>
         <!-- End of ONAP profile -->
@@ -601,43 +600,32 @@
         </profile>
     </profiles>
 
-    <dependencyManagement>
-      <dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${springframework.version}</version>
             <scope>test</scope>
-        </dependency>	
-      </dependencies>
-    </dependencyManagement>
-	
-    <dependencies>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -655,6 +643,28 @@
             <artifactId>aai-schema-ingest</artifactId>
             <version>1.4.0</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-expression</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>

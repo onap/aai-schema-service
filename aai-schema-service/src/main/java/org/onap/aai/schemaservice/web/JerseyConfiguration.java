@@ -19,26 +19,25 @@
  */
 package org.onap.aai.schemaservice.web;
 
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.annotation.Priority;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.container.ContainerResponseFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaResource;
 import org.onap.aai.schemaservice.query.QueryResource;
 import org.onap.aai.schemaservice.versions.VersionResource;
+import org.onap.logging.filter.base.AuditLogContainerFilter;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Priority;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseFilter;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import org.onap.logging.filter.base.AuditLogContainerFilter;
 
 
 @Component

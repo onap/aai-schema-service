@@ -21,7 +21,11 @@ package org.onap.aai.schemaservice.config;
 
 import org.onap.aai.schemaservice.nodeschema.NodeIngestor;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
-import org.onap.aai.schemaservice.nodeschema.validation.*;
+import org.onap.aai.schemaservice.nodeschema.validation.CheckEverythingStrategy;
+import org.onap.aai.schemaservice.nodeschema.validation.DefaultDuplicateNodeDefinitionValidationModule;
+import org.onap.aai.schemaservice.nodeschema.validation.DuplicateNodeDefinitionValidationModule;
+import org.onap.aai.schemaservice.nodeschema.validation.NodeValidator;
+import org.onap.aai.schemaservice.nodeschema.validation.SchemaErrorStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

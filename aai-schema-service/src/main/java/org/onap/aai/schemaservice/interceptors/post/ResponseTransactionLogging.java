@@ -19,33 +19,30 @@
  */
 package org.onap.aai.schemaservice.interceptors.post;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.gson.JsonObject;
-import org.onap.aai.exceptions.AAIException;
-import org.onap.aai.logging.ErrorLogHelper;
-import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
-import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
-import org.onap.aai.util.AAIConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
+import org.onap.aai.logging.ErrorLogHelper;
+import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
+import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
+import org.onap.aai.util.AAIConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Priority(AAIResponseFilterPriority.RESPONSE_TRANS_LOGGING)
 public class ResponseTransactionLogging extends AAIContainerFilter implements ContainerResponseFilter {
 
     private static final Logger TRANSACTION_LOGGER = LoggerFactory.getLogger(ResponseTransactionLogging.class);
-
-    @Autowired
-    private HttpServletResponse httpServletResponse;
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
@@ -97,10 +94,19 @@ public class ResponseTransactionLogging extends AAIContainerFilter implements Co
         }
     }
 
+    private String getHttpServletResponseContentType() {
+        final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
+            return response.getContentType();
+        }
+        return null;
+    }
+
     private String getResponseString(ContainerResponseContext responseContext) {
         JsonObject response = new JsonObject();
         response.addProperty("ID", responseContext.getHeaderString(AAIHeaderProperties.AAI_TX_ID));
-        response.addProperty("Content-Type", this.httpServletResponse.getContentType());
+        response.addProperty("Content-Type", getHttpServletResponseContentType());
         response.addProperty("Response-Code", responseContext.getStatus());
         response.addProperty("Headers", responseContext.getHeaders().toString());
         Optional<Object> entityOptional = Optional.ofNullable(responseContext.getEntity());
