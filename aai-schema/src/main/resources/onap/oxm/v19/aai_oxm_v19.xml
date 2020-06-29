@@ -2450,7 +2450,7 @@
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v19.RelationshipList"/>
                 <xml-element java-attribute="availableBandwidthMap" name="available-bandwidth-map" type="inventory.aai.onap.org.v19.AvailableBandwidthMap"/>
-                <xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v19.OTNLabelRestrictions"/>
+                <!--xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v19.OTNLabelRestrictions"/-->
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a bandwidth-attribute"/>
