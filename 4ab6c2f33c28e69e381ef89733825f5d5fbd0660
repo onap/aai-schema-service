@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64b56b7c_dccdeb1a",
+        "filename": "aai-schema-service/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2020-06-30T13:35:21Z",
+      "side": 1,
+      "message": "Please exclude the schema ingest library as we don\u0027t want to cause an circular dependency with aai-common",
+      "revId": "4ab6c2f33c28e69e381ef89733825f5d5fbd0660",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
