@@ -6122,6 +6122,11 @@
                         <xml-property name="description" value="Type of the model, e.g., service, resource, widget, etc."/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="modelRole" name="model-role"  type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Role of the model,e.g.,NST,NSST,CST,etc"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
