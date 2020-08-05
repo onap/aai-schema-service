@@ -1,4 +1,5 @@
 # UUID                                                                             	Group Name
 #
 daebbf523be390041a1a9c0e340a6d833aae5043                                           	GitHub Replication
+e9e6401d7607ff9b1c44c1f1c286dd8781eac36a                                           	saml/onap-gerrit-aai-schema-service-committers
 ldap:cn=onap-gerrit-aai-schema-service-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-aai-schema-service-committers
