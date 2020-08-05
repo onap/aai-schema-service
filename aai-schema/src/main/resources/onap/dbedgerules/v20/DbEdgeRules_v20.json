@@ -1607,6 +1607,45 @@
 			"default": "true",
 			"description":""
 		},
+                {
+                        "from": "profile",
+                        "to": "pnf",
+                        "label": "org.onap.relationships.inventory.supports",
+                        "direction": "OUT",
+                        "multiplicity": "MANY2MANY",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "SVC-INFRA": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description":""
+                },
+                {
+                        "from": "profile",
+                        "to": "pserver",
+                        "label": "org.onap.relationships.inventory.supports",
+                        "direction": "OUT",
+                        "multiplicity": "MANY2MANY",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "SVC-INFRA": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description":""
+                },
+                {
+                        "from": "profile",
+                        "to": "vserver",
+                        "label": "org.onap.relationships.inventory.supports",
+                        "direction": "OUT",
+                        "multiplicity": "MANY2MANY",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "SVC-INFRA": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description":""
+                },
 		{
 			"from": "cvlan-tag",
 			"to": "port-group",
@@ -3184,7 +3223,7 @@
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
-			"description":"A Configuration uses VRFs"	
+			"description":"A Configuration uses VRFs"
 		},
 		{
 			"from": "vrf",
@@ -3236,7 +3275,7 @@
 			"SVC-INFRA": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
-			"description":""		
+			"description":""
 		},
 		{
 			"from": "communication-service-profile",
@@ -3321,7 +3360,7 @@
 			"default": "true",
 			"description":""
 		}
-		
+
 	]
 }
 
