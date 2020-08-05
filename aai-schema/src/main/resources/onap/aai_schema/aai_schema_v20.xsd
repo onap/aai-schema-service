@@ -10744,6 +10744,66 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="profile">
+      <xs:complexType>
+          <xs:annotation>
+              <xs:appinfo>
+                  <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="describes an profiles",indexedProps="profile-name",uniqueProps="profile-name",nameProps="profile-type",container="profiles",namespace="common",uriTemplate="/common/profiles/profile/{profile-name}",requiredProps="profile-name,profile-type,characteristics",searchable="profile-name,profile-type",dslStartNodeProps="profile-name,profile-type,characteristics,profile-subtype")</annox:annotate>
+              </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+              <xs:element name="profile-name" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique name for the profile.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="profile-type" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of profile (ex,network-power-profile)")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="characteristics" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Set of characteristics of the profile.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="profile-subtype" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Descriptive subtype.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="resource-version" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element ref="tns:relationship-list" minOccurs="0"/>
+              <xs:element ref="tns:metadata" minOccurs="0"/>
+          </xs:sequence>
+      </xs:complexType>
+  </xs:element>
+  <xs:element name="profiles">
+      <xs:complexType>
+          <xs:annotation>
+              <xs:appinfo>
+                  <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of profiles")</annox:annotate>
+              </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+              <xs:element ref="tns:profile" minOccurs="0" maxOccurs="5000"/>
+          </xs:sequence>
+      </xs:complexType>
+  </xs:element>
   <xs:element name="common">
     <xs:complexType>
       <xs:annotation>
@@ -10753,6 +10813,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:annotation>
       <xs:sequence>
         <xs:element ref="tns:contacts" minOccurs="0"/>
+        <xs:element ref="tns:profiles" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
