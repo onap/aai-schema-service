@@ -16,6 +16,24 @@
       "revId": "4c0136def837a8cb1922603781b92c475a7b08e3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9bf8139_5bf7f230",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 3
+      },
+      "lineNbr": 10747,
+      "author": {
+        "id": 153
+      },
+      "writtenOn": "2020-08-06T21:19:37Z",
+      "side": 1,
+      "message": "thanks I mixed up the two :)",
+      "parentUuid": "46845259_45b48d66",
+      "revId": "4c0136def837a8cb1922603781b92c475a7b08e3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
