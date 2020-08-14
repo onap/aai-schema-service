@@ -1,0 +1,7 @@
+distribution_type: container
+container_release_tag: 1.7.3
+project: aai/schema-service
+ref: b928bf45a15809de50fcc09bd95312895d51dfaf
+containers:
+    - name: aai-schema-service
+      version: 1.7-STAGING-20200813T143645Z
