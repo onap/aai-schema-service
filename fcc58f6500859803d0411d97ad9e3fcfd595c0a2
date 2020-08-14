@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "56f05c56_fcc418e4",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 7
+      },
+      "lineNbr": 4295,
+      "author": {
+        "id": 5319
+      },
+      "writtenOn": "2020-08-14T13:34:08Z",
+      "side": 1,
+      "message": "You may want to use existing ip-address-list node as a child of endpoint instead of an ipaddress property.",
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ef12aca6_6be3d2c4",
         "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
         "patchSetId": 7
