@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac44983e_248a68f4",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 7
+      },
+      "lineNbr": 3812,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "fix spacing on these two lines",
+      "range": {
+        "startLine": 3812,
+        "startChar": 0,
+        "endLine": 3812,
+        "endChar": 1
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54dccd9_9d25e449",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 7
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "fix spacing on this line",
+      "range": {
+        "startLine": 4194,
+        "startChar": 0,
+        "endLine": 4194,
+        "endChar": 1
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef12aca6_6be3d2c4",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 7
+      },
+      "lineNbr": 4514,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "fix spacing on this line",
+      "range": {
+        "startLine": 4514,
+        "startChar": 1,
+        "endLine": 4514,
+        "endChar": 2
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08221d55_f0c58c60",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v20/DbEdgeRules_ccvpn_v20.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "move this brace inline",
+      "range": {
+        "startLine": 448,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 2
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a834714_de7ab4c3",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v20/DbEdgeRules_ccvpn_v20.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "move this brace inline",
+      "range": {
+        "startLine": 461,
+        "startChar": 3,
+        "endLine": 462,
+        "endChar": 2
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e30bd7_11e7384e",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v20/DbEdgeRules_ccvpn_v20.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "move this brace inline",
+      "range": {
+        "startLine": 486,
+        "startChar": 3,
+        "endLine": 487,
+        "endChar": 2
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d659ad8_ae4b3b67",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v20/DbEdgeRules_ccvpn_v20.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "fix indentation here",
+      "range": {
+        "startLine": 549,
+        "startChar": 4,
+        "endLine": 549,
+        "endChar": 5
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda292e0_7f97dae5",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v20/DbEdgeRules_ccvpn_v20.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "move this brace inline",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 4
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31c91117_dd9deabb",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v20/aai_oxm_v20.xml",
+        "patchSetId": 7
+      },
+      "lineNbr": 3314,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-14T12:47:05Z",
+      "side": 1,
+      "message": "fix space formatting in this file",
+      "range": {
+        "startLine": 3314,
+        "startChar": 2,
+        "endLine": 3314,
+        "endChar": 3
+      },
+      "revId": "fcc58f6500859803d0411d97ad9e3fcfd595c0a2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
