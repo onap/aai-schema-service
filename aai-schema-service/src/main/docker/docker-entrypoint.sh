@@ -51,12 +51,6 @@ if [ -f ${APP_HOME}/aai.sh ]; then
         exit 0;
     fi;
 
-    if [ ! -f "${APP_HOME}/scripts/updatePem.sh" ]; then
-        echo "Unable to find the updatePem script";
-        exit 1;
-    else
-        ${APP_HOME}/scripts/updatePem.sh
-    fi;
 fi;
 
 if [ -f ${APP_HOME}/resources/aai-schema-service-swm-vars.sh ]; then
