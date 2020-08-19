@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d2f5b35_620dbc7e",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v20/aai_oxm_v20.xml",
+        "patchSetId": 9
+      },
+      "lineNbr": 3314,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-19T17:15:14Z",
+      "side": 1,
+      "message": "Please fix the formatting in this file",
+      "range": {
+        "startLine": 3314,
+        "startChar": 0,
+        "endLine": 3314,
+        "endChar": 1
+      },
+      "revId": "1cc48e36405d579bbd852a01f5ee92f0117dea25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
