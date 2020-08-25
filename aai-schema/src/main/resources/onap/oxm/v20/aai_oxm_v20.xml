@@ -6163,6 +6163,16 @@
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="sdncModelName" name="sdnc-model-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The CDS blue print name associated with the resource."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="sdncModelVersion" name="sdnc-model-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The version of the CDS blue print."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="modelVers" name="model-vers" type="inventory.aai.onap.org.v20.ModelVers"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
             </java-attributes>
