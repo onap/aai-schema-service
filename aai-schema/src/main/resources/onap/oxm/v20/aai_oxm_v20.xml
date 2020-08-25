@@ -6214,6 +6214,16 @@
                         <xml-property name="description" value="Description"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="sdncModelName" name="sdnc-model-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The CDS blue print name associated with the resource."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="sdncModelVersion" name="sdnc-model-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The version of the CDS blue print."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
