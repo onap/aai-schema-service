@@ -22,6 +22,30 @@
       "revId": "7c02f29dd26db77b8947a4e70bb521e5717eb6af",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "657cf35b_6ff82cbe",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v20/aai_oxm_v20.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6166,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2020-08-25T17:48:27Z",
+      "side": 1,
+      "message": "I was going with what was agreed. Think it\u0027s best to align the naming across the components no?",
+      "parentUuid": "13dadcc6_f682fdd3",
+      "range": {
+        "startLine": 6166,
+        "startChar": 45,
+        "endLine": 6166,
+        "endChar": 58
+      },
+      "revId": "7c02f29dd26db77b8947a4e70bb521e5717eb6af",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
