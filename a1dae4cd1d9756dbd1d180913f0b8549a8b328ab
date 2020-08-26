@@ -1,0 +1,9 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Chandra Cinthala <chandra.cinthala@att.com>
+Code-Review+1: Zu Qiang (Ericsson) <qiang.zu@gmail.com>
+Code-Review+2: William Reehil <william.reehil@att.com>
+Submitted-by: William Reehil <william.reehil@att.com>
+Submitted-at: Wed, 26 Aug 2020 18:40:34 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/111691
+Project: aai/schema-service
+Branch: refs/heads/master
