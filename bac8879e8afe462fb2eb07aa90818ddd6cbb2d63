@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e428fbf4_1e47d862",
+        "filename": "releases/1.7.6-container-release.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-27T16:47:12Z",
+      "side": 1,
+      "message": "https://jenkins.onap.org/job/aai-schema-service-maven-docker-stage-master/449/ please take the details from here instead of the previous one",
+      "revId": "bac8879e8afe462fb2eb07aa90818ddd6cbb2d63",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
