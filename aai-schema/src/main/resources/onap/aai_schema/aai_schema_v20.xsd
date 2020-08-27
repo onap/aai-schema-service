@@ -2662,7 +2662,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Physical interface (e.g., nic)",indexedProps="interface-name,prov-status,network-ref,operational-status,interface-role,interface-name2",nameProps="prov-status",dependentOn="vpls-pe,pserver,pnf",container="p-interfaces",uriTemplate="/p-interfaces/p-interface/{interface-name}",searchable="interface-name",requiredProps="interface-name,in-maint")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Physical interface (e.g., nic)",indexedProps="interface-name,prov-status,network-ref,operational-status,interface-role,interface-name2",nameProps="prov-status",dependentOn="vpls-pe,pserver,pnf",container="p-interfaces",namespace="network",uriTemplate="/network/p-interfaces/p-interface/{interface-name}",searchable="interface-name",requiredProps="interface-name,in-maint")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -4263,7 +4263,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-    <xs:element name="ip-address">
+  <xs:element name="ip-address">
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
@@ -4339,7 +4339,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Endpoint object.",uniqueProps="endpoint-id",indexedProps="endpoint-id",container="endpoints",uriTemplate="/endpoints/endpoint/{endpoint-id}",searcheable="endpoint-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Endpoint object.",uniqueProps="endpoint-id",indexedProps="endpoint-id",container="endpoints",namespace="network",uriTemplate="/network/endpoints/endpoint/{endpoint-id}",searcheable="endpoint-id",requiredProps="endpoint-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -10151,6 +10151,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the id of the te-topo of this network-resource.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="network-resource-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of a network topology, e.g., Ethernet, OTN, WSON.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>

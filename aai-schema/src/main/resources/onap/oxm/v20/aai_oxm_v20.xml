@@ -2407,7 +2407,8 @@
                 <xml-property name="nameProps" value="prov-status"/>
                 <xml-property name="dependentOn" value="vpls-pe,pserver,pnf"/>
                 <xml-property name="container" value="p-interfaces"/>
-                <xml-property name="uriTemplate" value="/p-interfaces/p-interface/{interface-name}"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="uriTemplate" value="/network/p-interfaces/p-interface/{interface-name}"/>
                 <xml-property name="searchable" value="interface-name"/>
                 <xml-property name="requiredProps" value="interface-name,in-maint"/>
              </xml-properties>
@@ -8437,6 +8438,11 @@
 						<xml-property name="description" value="Store the id of the te-topo of this network-resource."/>
 					</xml-properties>
 				</xml-element>
+				<xml-element java-attribute="networkResourceType" name="network-resource-type" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Type of a network topology, e.g., Ethernet, OTN, WSON."/>
+					</xml-properties>
+				</xml-element>
 				<xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Store the link to get more information for this object."/>
@@ -10035,8 +10041,10 @@
                 <xml-property name="uniqueProps" value="endpoint-id"/>
                 <xml-property name="indexedProps" value="endpoint-id"/>
                 <xml-property name="container" value="endpoints"/>
-                <xml-property name="uriTemplate" value="/endpoints/endpoint/{endpoint-id}"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="uriTemplate" value="/network/endpoints/endpoint/{endpoint-id}"/>
                 <xml-property name="searcheable" value="endpoint-id"/>
+                <xml-property name="requiredProps" value="endpoint-id"/>
             </xml-properties>
     </java-type>
     <java-type name="Endpoints">
