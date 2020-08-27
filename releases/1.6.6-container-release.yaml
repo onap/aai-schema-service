@@ -4,5 +4,5 @@ project: aai/schema-service
 ref: bb98d8a64b0d1dd8bcd4fb9ce6ef9a28a6ce18dc
 containers:
     - name: aai-schema-service
-      version: 1.6-STAGING-20200323T011423Z
+      version: 1.6-STAGING-20200827T135041Z
 
