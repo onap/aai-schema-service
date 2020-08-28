@@ -16,6 +16,24 @@
       "revId": "bac8879e8afe462fb2eb07aa90818ddd6cbb2d63",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f42c5d5_0d0b6ce1",
+        "filename": "releases/1.7.6-container-release.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4405
+      },
+      "writtenOn": "2020-08-28T09:10:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e428fbf4_1e47d862",
+      "revId": "bac8879e8afe462fb2eb07aa90818ddd6cbb2d63",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
