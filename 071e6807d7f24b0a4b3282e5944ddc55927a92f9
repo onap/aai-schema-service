@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19a70275_79756e6e",
+        "filename": "releases/1.7.6-container-release.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2979
+      },
+      "writtenOn": "2020-08-28T12:28:21Z",
+      "side": 1,
+      "message": "ref should be 5c3b35bd42863f2eb9e147bf775307c8ab98fb0d and version 1.7-STAGING-20200827T135041Z, looks like version is right, just need ref updated.",
+      "revId": "071e6807d7f24b0a4b3282e5944ddc55927a92f9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
