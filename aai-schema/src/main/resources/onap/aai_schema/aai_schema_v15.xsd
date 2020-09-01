@@ -6132,11 +6132,11 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Aggregate route configs are used on the D2 IPE’s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. ",uniqueProps="route-id",container="aggregate-routes",dependentOn="l3-network",uriTemplate="/aggregate-routes/aggregate-route/{route-id}",requiredProps="route-id,network-start-address,cidr-mask,ip-version")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Aggregate route configs are used on the D2 IPE’s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. ",uniqueProps="agg-route-id",container="aggregate-routes",dependentOn="l3-network",uriTemplate="/aggregate-routes/aggregate-route/{agg-route-id}",requiredProps="agg-route-id,network-start-address,cidr-mask,ip-version")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="route-id" type="xs:string" minOccurs="0">
+        <xs:element name="agg-route-id" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of the aggregate-route instance")</annox:annotate>
@@ -8614,42 +8614,63 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(namespace="network",container="vlan-tags",uniqueProps="vlan-tag-id",uriTemplate="/network/vlan-tags/vlan-tag/{vlan-tag-id}")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="vlan tag information",container="vlan-tags",dependentOn="vlan-range",uriTemplate="/network/vlan-tags/vlan-tag/{vlan-tag-id}",requiredProps="vlan-tag-id,vlan-tag-role,is-private")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
         <xs:element name="vlan-tag-id" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of the vlan-tag")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Vlan Tag Id")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
         <xs:element name="vlan-tag-role" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="purpose (l3-network to be connected to)")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Role assigned to this vlan-tag")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-id-inner" type="xs:int" minOccurs="0">
+        <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VLAN inner id")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inner VLAN tag")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-id-outer" type="xs:int" minOccurs="0">
+        <xs:element name="vlan-id-outer" type="xs:unsignedInt" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VLAN outer id")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Outer VLAN tag")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
         <xs:element name="is-private" type="xs:boolean" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="is VLAN private?")</annox:annotate>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="is private flag.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="vlan-tag-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VLAN tag Type")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="vlan-tag-function" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VLAN Tag Function")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="config-phase" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The config-phase associated with this vlan-tag")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
