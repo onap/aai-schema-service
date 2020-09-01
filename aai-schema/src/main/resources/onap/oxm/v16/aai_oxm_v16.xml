@@ -7570,28 +7570,42 @@
             <java-attributes>
                 <xml-element java-attribute="vlanTagId" name="vlan-tag-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="Unique ID of the vlan-tag"/>
+                        <xml-property name="description" value="Vlan Tag Id"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="vlanTagRole" name="vlan-tag-role" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="purpose (l3-network to be connected to)"/>
+                        <xml-property name="description" value="Role assigned to this vlan-tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdInner" name="vlan-id-inner" type="java.lang.Integer">
+                <xml-element java-attribute="vlanIdInner" name="vlan-id-inner" type="java.lang.Long">
                     <xml-properties>
-                        <xml-property name="description" value="VLAN inner id"/>
+                        <xml-property name="description" value="Inner VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Integer">
+                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Long">
                     <xml-properties>
-                        <xml-property name="description" value="VLAN outer id"/>
+                        <xml-property name="description" value="Outer VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element default-value="false" java-attribute="isPrivate" name="is-private" required="true" type="java.lang.Boolean">
+                <xml-element java-attribute="isPrivate" name="is-private" required="true" type="java.lang.Boolean">
                     <xml-properties>
-                        <xml-property name="defaultValue" value="false"/>
-                        <xml-property name="description" value="is VLAN private?"/>
+                        <xml-property name="description" value="is private flag."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="VLAN tag Type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="VLAN Tag Function"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="configPhase" name="config-phase" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The config-phase associated with this vlan-tag"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
@@ -7602,10 +7616,11 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="namespace" value="network"/>
+                <xml-property name="description" value="vlan tag information"/>
                 <xml-property name="container" value="vlan-tags"/>
-                <xml-property name="uniqueProps" value="vlan-tag-id"/>
+                <xml-property name="dependentOn" value="vlan-range"/>
                 <xml-property name="uriTemplate" value="/network/vlan-tags/vlan-tag/{vlan-tag-id}"/>
+                <xml-property name="requiredProps" value="vlan-tag-id,vlan-tag-role,is-private"/>
             </xml-properties>
         </java-type>
 
@@ -8684,44 +8699,44 @@
                 <xml-element container-type="java.util.ArrayList" java-attribute="aggregateRoute" name="aggregate-route" type="inventory.aai.onap.org.v16.AggregateRoute"/>
             </java-attributes>
         </java-type>	
-        
+
         <java-type name="AggregateRoute">
             <xml-root-element name="aggregate-route"/>
             <java-attributes>
-                <xml-element java-attribute="routeId" name="route-id" required="true" type="java.lang.String" xml-key="true">
+                <xml-element java-attribute="aggRouteId" name="agg-route-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
                         <xml-property name="description" value="Unique id of the aggregate-route instance"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="networkStartAddress" name="network-start-address" required="true" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Name of the forwarding-path"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="cidrMask" name="cidr-mask" required="true" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="CIDR-mask for aggregate route subnet"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                 <xml-element java-attribute="ipVersion" name="ip-version" required="true" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies is aggregate route is ipv4 or ipv6"/>
                     </xml-properties>
-                </xml-element>                
+                </xml-element>
                  <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                     </xml-properties>
-                </xml-element>	
-                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>			
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v16.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="description" value="Aggregate route configs are used on the D2 IPE&#x2019;s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. "/>
-                <xml-property name="uniqueProps" value="route-id"/>
-                <xml-property name="container" value="aggregate-routes"/> 
+                <xml-property name="description" value="Aggregate route configs are used on the D2 IPE’s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. "/>
+                <xml-property name="uniqueProps" value="agg-route-id"/>
+                <xml-property name="container" value="aggregate-routes"/>
                 <xml-property name="dependentOn" value="l3-network"/>
-                <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{route-id}"/>
-            <xml-property name="requiredProps" value="route-id,network-start-address,cidr-mask,ip-version"/>
+                <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{agg-route-id}"/>
+            <xml-property name="requiredProps" value="agg-route-id,network-start-address,cidr-mask,ip-version"/>
             </xml-properties>
 		</java-type>
 			

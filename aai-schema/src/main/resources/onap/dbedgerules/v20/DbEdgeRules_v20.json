@@ -289,6 +289,18 @@
 			"description":""
 		},
 		{
+ 			"from": "line-of-business",
+ 			"to": "cloud-region",
+ 			"label": "org.onap.relationships.inventory.Uses",
+ 			"direction": "OUT",
+ 			"multiplicity": "MANY2MANY",
+ 			"contains-other-v": "NONE",
+ 			"delete-other-v": "NONE",
+ 			"prevent-delete": "NONE",
+ 			"default": "true",
+ 			"description":""
+		},
+		{
 			"from": "volume-group",
 			"to": "cloud-region",
 			"label": "org.onap.relationships.inventory.BelongsTo",
@@ -329,9 +341,9 @@
 			"to": "allotted-resource",
 			"label": "org.onap.relationships.inventory.Uses",
 			"direction": "OUT",
-			"multiplicity": "ONE2ONE",
+			"multiplicity": "MANY2ONE",
 			"contains-other-v": "NONE",
-			"delete-other-v": "${direction}",
+			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
@@ -3278,6 +3290,18 @@
 			"description":""
 		},
 		{
+                        "from": "configuration",
+                        "to": "lag-interface",
+                        "label": "org.onap.relationships.inventory.AppliesTo",
+                        "direction": "OUT",
+                        "multiplicity": "MANY2ONE",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description":""
+                },
+		{
 			"from": "communication-service-profile",
 			"to": "service-instance",
 			"label": "org.onap.relationships.inventory.BelongsTo",
@@ -3359,6 +3383,138 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
+		},{
+			"from": "vlan-tag",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.BelongsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A vlan-tag belongs to a vlan-range."
+		},{
+			"from": "l3-network",
+			"to": "vlan-tag",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A l3-network Uses vlan-tag."
+		},{
+			"from": "l-interface",
+			"to": "vlan-tag",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "!${direction}",
+			"default": "true",
+			"description":"An sub-interface that uses a vlan-tag."
+		},{
+			"from": "vlan-range",
+			"to": "cloud-region",
+			"label": "org.onap.relationships.inventory.BelongsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A vlan range belongs to a cloud-region."
+		},{
+			"from": "owning-entity",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"An owning-entity uses a vlan-range."
+		},{
+			"from": "line-of-business",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A line-of uses a vlan-range"
+		},{
+			"from": "fqdn",
+			"to": "l3-interface-ipv4-address-list",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "ONE2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The fqdn that applies to a l3-interface-ipv4-address-list."
+		},{
+			"from": "fqdn",
+			"to": "l3-interface-ipv6-address-list",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "ONE2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The fqdn that applies to a l3-interface-ipv6-address-list."
+		},{
+			"from": "fqdn",
+			"to": "vip-ipv4-address-list",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "ONE2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The fqdn that applies to a vip-ipv4-address-list."
+		},{
+			"from": "fqdn",
+			"to": "vip-ipv6-address-list",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "ONE2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The fqdn that applies to a vip-ipv6-address-list."
+		},{
+			"from": "fqdn",
+			"to": "generic-vnf",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The fqdn that applies to a generic-vnf."
+		},{
+			"from": "fqdn",
+			"to": "fqdn",
+			"label": "org.onap.relationships.inventory.network.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": "The dns cname record that applies to an A-record (ipv4) and/or quad-A-record (ipv6)."
 		}
 
 	]

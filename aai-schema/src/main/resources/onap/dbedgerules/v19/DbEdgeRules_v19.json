@@ -3261,6 +3261,72 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
+		},{
+			"from": "vlan-tag",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.BelongsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A vlan-tag belongs to a vlan-range."
+		},{
+			"from": "l3-network",
+			"to": "vlan-tag",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A l3-network Uses vlan-tag."
+		},{
+			"from": "l-interface",
+			"to": "vlan-tag",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "!${direction}",
+			"default": "true",
+			"description":"An sub-interface that uses a vlan-tag."
+		},{
+			"from": "vlan-range",
+			"to": "cloud-region",
+			"label": "org.onap.relationships.inventory.BelongsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A vlan range belongs to a cloud-region."
+		},{
+			"from": "owning-entity",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"An owning-entity uses a vlan-range."
+		},{
+			"from": "line-of-business",
+			"to": "vlan-range",
+			"label": "org.onap.relationships.inventory.Uses",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":"A line-of uses a vlan-range"
 		}
 	]
 }
