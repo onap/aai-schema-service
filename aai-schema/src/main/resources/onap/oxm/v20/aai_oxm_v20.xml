@@ -742,6 +742,7 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vipIpv4AddressList" name="vip-ipv4-address-list" type="inventory.aai.onap.org.v20.VipIpv4AddressList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vipIpv6AddressList" name="vip-ipv6-address-list" type="inventory.aai.onap.org.v20.VipIpv6AddressList"/>
+                <xml-element java-attribute="vlanRanges" name="vlan-ranges" type="inventory.aai.onap.org.v20.VlanRanges"/>
 				<xml-element java-attribute="hpaCapabilities" name="hpa-capabilities" type="inventory.aai.onap.org.v20.HpaCapabilities">
 					<xml-properties>
 						<xml-property name="description" value="List of cloud-region specific HPA Capabilities"/>
@@ -759,6 +760,58 @@
                 <xml-property name="requiredProps" value="cloud-owner,cloud-region-id,orchestration-disabled,in-maint"/>
              </xml-properties>
         </java-type>
+
+        <java-type name="VlanRanges">
+            <xml-root-element name="vlan-ranges"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="vlanRange" name="vlan-range" type="inventory.aai.onap.org.v20.VlanRange"/>
+            </java-attributes>
+            <xml-properties>
+            </xml-properties>
+        </java-type>
+
+        <java-type name="VlanRange">
+            <xml-root-element name="vlan-range"/>
+            <java-attributes>
+                <xml-element java-attribute="vlanRangeId" name="vlan-range-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanIdLower" name="vlan-id-lower" required="true" type="java.lang.Long">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range lower"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanIdUpper" name="vlan-id-upper" required="true" type="java.lang.Long">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range upper"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanType" name="vlan-type" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTags" name="vlan-tags" type="inventory.aai.onap.org.v20.VlanTags"/>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Definition of vlan range"/>
+                <xml-property name="indexedProps" value="vlan-range-id,vlan-type"/>
+                <xml-property name="dependentOn" value="cloud-region"/>
+                <xml-property name="container" value="vlan-ranges"/>
+                <xml-property name="uriTemplate" value="/vlan-ranges/vlan-range/{vlan-range-id}"/>
+                <xml-property name="searchable" value="vlan-range-id"/>
+                <xml-property name="requiredProps" value="vlan-range-id,vlan-id-lower,vlan-id-upper,vlan-type"/>
+            </xml-properties>
+        </java-type>
+
         <java-type name="VolumeGroups">
             <xml-properties>
                 <xml-property name="description" value="Collection of persistent block-level storage."/>
@@ -1192,7 +1245,7 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Servers, aka virtual machine or VM."/>
                 <xml-property name="nameProps" value="vserver-name"/>
-                <xml-property name="indexedProps" value="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,in-maint,vserver-name2"/>
+                <xml-property name="indexedProps" value="is-closed-loop-disabled,prov-status,vserver-name,vserver-id,vserver-name2"/>
                 <xml-property name="searchable" value="vserver-id,vserver-name,vserver-name2,operational-status"/>
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="container" value="vservers"/>
@@ -1552,7 +1605,7 @@
                         <xml-property name="description" value="Flag indicating the interface uses the IP Unnumbered configuration."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element default-value="false" java-attribute="isPrivate" name="is-private" type="java.lang.Boolean">
+                <xml-element default-value="false" java-attribute="isPrivate" name="is-private" required="true" type="java.lang.Boolean">
                     <xml-properties>
                         <xml-property name="defaultValue" value="false"/>
                         <xml-property name="description" value="Private VLAN indicator."/>
@@ -1568,7 +1621,7 @@
                 <xml-property name="dependentOn" value="l-interface"/>
                 <xml-property name="container" value="vlans"/>
                 <xml-property name="uriTemplate" value="/vlans/vlan/{vlan-interface}"/>
-                <xml-property name="requiredProps" value="vlan-interface,in-maint,is-ip-unnumbered"/>
+                <xml-property name="requiredProps" value="vlan-interface,in-maint,is-ip-unnumbered,is-private"/>
              </xml-properties>
         </java-type>
 
@@ -1686,7 +1739,7 @@
                 </xml-element>
                 <xml-element java-attribute="flavorName" name="flavor-name" required="true" type="java.lang.String">
                     <xml-properties>
-						<xml-property name="description" value="Cloud Region Flavor name"/>
+                        <xml-property name="description" value="Flavor name"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="flavorVcpus" name="flavor-vcpus" type="java.lang.Integer">
@@ -2239,8 +2292,8 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Compute host whose hostname must be unique and must exactly match what is sent as a relationship to a vserver."/>
-                <xml-property name="nameProps" value="pserver-name2"/>
-                <xml-property name="indexedProps" value="hostname,pserver-id,pserver-name2,inv-status,prov-status,ptnii-equip-name"/>
+                <xml-property name="nameProps" value="pserver-name2,fqdn"/>
+                <xml-property name="indexedProps" value="hostname,pserver-id,pserver-name2,inv-status,fqdn,prov-status,ptnii-equip-name"/>
                 <xml-property name="searchable" value="hostname,pserver-name2,pserver-id,ipv4-oam-address,operational-status"/>
                 <xml-property name="uniqueProps" value="hostname"/>
                 <xml-property name="container" value="pservers"/>
@@ -2403,7 +2456,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Physical interface (e.g., nic)"/>
-				<xml-property name="indexedProps" value="interface-name,prov-status,network-ref,operational-status,interface-role,interface-name2"/>
+                <xml-property name="indexedProps" value="interface-name,prov-status,network-ref,operational-status,interface-role,interface-name2"/>
                 <xml-property name="nameProps" value="prov-status"/>
                 <xml-property name="dependentOn" value="vpls-pe,pserver,pnf"/>
                 <xml-property name="container" value="p-interfaces"/>
@@ -2615,6 +2668,11 @@
                         <xml-property name="description" value="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="minLinks" name="min-links" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Minimum links in service before a LAG should be taken out of service"/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v20.LInterfaces"/>
             </java-attributes>
@@ -2673,6 +2731,11 @@
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vrfGroupName" name="vrf-group-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Bridge domain group name"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="routeTargets" name="route-targets" type="inventory.aai.onap.org.v20.RouteTargets"/>
@@ -3300,11 +3363,16 @@
                         <xml-property name="description" value="Orchestration status of this service."/>
                     </xml-properties>
                 </xml-element>
-				<xml-element java-attribute="inputParameters" name="input-parameters" required="false" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="String capturing request parameters from SO to pass to Closed Loop."/>
-					</xml-properties>
-				</xml-element>
+                <xml-element java-attribute="inputParameters" name="input-parameters" required="false" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="String capturing request parameters from SO to pass to Closed Loop."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceFunction" name="service-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="String capturing function of the service."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
                 <xml-element java-attribute="metadata" name="metadata" type="inventory.aai.onap.org.v20.Metadata"/>
                 <xml-element java-attribute="allottedResources" name="allotted-resources" type="inventory.aai.onap.org.v20.AllottedResources"/>
@@ -3525,14 +3593,15 @@
                 <xml-element java-attribute="forwardingPaths" name="forwarding-paths" type="inventory.aai.onap.org.v20.ForwardingPaths"/>
                 <xml-element java-attribute="collections" name="collections" type="inventory.aai.onap.org.v20.Collections"/>
                 <xml-element java-attribute="vlanTags" name="vlan-tags" type="inventory.aai.onap.org.v20.VlanTags"/>
-				<xml-element java-attribute="connectivities" name="connectivities" type="inventory.aai.onap.org.v20.Connectivities"/>
-				<xml-element java-attribute="lanPortConfigs" name="lan-port-configs" type="inventory.aai.onap.org.v20.LanPortConfigs"/>
-				<xml-element java-attribute="networkResources" name="network-resources" type="inventory.aai.onap.org.v20.NetworkResources"/>
-				<xml-element java-attribute="siteResources" name="site-resources" type="inventory.aai.onap.org.v20.SiteResources"/>
-				<xml-element java-attribute="sdwanVpns" name="sdwan-vpns" type="inventory.aai.onap.org.v20.SdwanVpns"/>
-				<xml-element java-attribute="devices" name="devices" type="inventory.aai.onap.org.v20.Devices"/>
-				<xml-element java-attribute="wanPortConfigs" name="wan-port-configs" type="inventory.aai.onap.org.v20.WanPortConfigs"/>
-				<xml-element java-attribute="extAaiNetworks" name="ext-aai-networks" type="inventory.aai.onap.org.v20.ExtAaiNetworks"/>
+                <xml-element java-attribute="connectivities" name="connectivities" type="inventory.aai.onap.org.v20.Connectivities"/>
+                <xml-element java-attribute="lanPortConfigs" name="lan-port-configs" type="inventory.aai.onap.org.v20.LanPortConfigs"/>
+                <xml-element java-attribute="networkResources" name="network-resources" type="inventory.aai.onap.org.v20.NetworkResources"/>
+                <xml-element java-attribute="siteResources" name="site-resources" type="inventory.aai.onap.org.v20.SiteResources"/>
+                <xml-element java-attribute="sdwanVpns" name="sdwan-vpns" type="inventory.aai.onap.org.v20.SdwanVpns"/>
+                <xml-element java-attribute="devices" name="devices" type="inventory.aai.onap.org.v20.Devices"/>
+                <xml-element java-attribute="wanPortConfigs" name="wan-port-configs" type="inventory.aai.onap.org.v20.WanPortConfigs"/>
+                <xml-element java-attribute="extAaiNetworks" name="ext-aai-networks" type="inventory.aai.onap.org.v20.ExtAaiNetworks"/>
+                <xml-element java-attribute="fqdns" name="fqdns" type="inventory.aai.onap.org.v20.Fqdns"/>
             </java-attributes>
         </java-type>
         <java-type name="Configurations">
@@ -4107,7 +4176,7 @@
             <xml-properties>
                 <xml-property name="description" value="VPN binding"/>
                 <xml-property name="nameProps" value="vpn-name,vpn-type"/>
-				<xml-property name="indexedProps" value="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="vpn-name,vpn-id,vpn-type,access-provider-id,access-client-id,access-topology-id,src-access-node-id,src-access-ltp-id,dst-access-node-id,dst-access-ltp-id,operational-status,model-invariant-id,model-version-id"/>
                 <xml-property name="searchable" value="vpn-id,vpn-name"/>
                 <xml-property name="uniqueProps" value="vpn-id"/>
                 <xml-property name="container" value="vpn-bindings"/>
@@ -4330,7 +4399,8 @@
             <xml-properties>
                 <xml-property name="description" value="Virtual Customer Edge Router, used specifically for Gamma.  This object is deprecated."/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,regional-resource-zone,vpe-id,prov-status,service-id,orchestration-status"/>
+		<xml-property name="indexedProps" 
+                              value="vnf-name,vnf-name2,vnf-type,heat-stack-id,vnf-id,regional-resource-zone,vpe-id,prov-status,service-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="vces"/>
@@ -4412,7 +4482,8 @@
             <xml-properties>
                 <xml-property name="description" value="Used to capture the network interfaces of this VCE"/>
                 <xml-property name="nameProps" value="port-group-name"/>
-                <xml-property name="indexedProps" value="port-group-id,heat-stack-id,interface-id,switch-name,interface-role,orchestration-status"/>
+		<xml-property name="indexedProps" 
+                              value="port-group-id,heat-stack-id,interface-id,switch-name,interface-role,orchestration-status"/>
                 <xml-property name="dependentOn" value="vce"/>
                 <xml-property name="container" value="port-groups"/>
                 <xml-property name="uriTemplate" value="/port-groups/port-group/{interface-id}"/>
@@ -4543,7 +4614,7 @@
                 <xml-element container-type="java.util.ArrayList" java-attribute="l3InterfaceIpv6AddressList" name="l3-interface-ipv6-address-list" type="inventory.aai.onap.org.v20.L3InterfaceIpv6AddressList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,in-maint,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status"/>
+                <xml-property name="indexedProps" value="vnfc-name,prov-status,nfc-function,nfc-naming-code,ipaddress-v4-oam-vip,is-closed-loop-disabled,group-notation,model-invariant-id,model-version-id,orchestration-status"/>
                 <xml-property name="searchable" value="vnfc-name"/>
                 <xml-property name="container" value="vnfcs"/>
                 <xml-property name="namespace" value="network"/>
@@ -4723,7 +4794,8 @@
             <xml-properties>
                 <xml-property name="description" value="Generic network definition"/>
                 <xml-property name="nameProps" value="network-name"/>
-                <xml-property name="indexedProps" value="heat-stack-id,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role,orchestration-status"/>
+		<xml-property name="indexedProps" 
+                              value="heat-stack-id,service-id,network-id,network-name,model-invariant-id,model-version-id,widget-model-id,widget-model-version,contrail-network-fqdn,network-role,orchestration-status"/>
                 <xml-property name="searchable" value="network-id,network-name"/>
                 <xml-property name="uniqueProps" value="network-id"/>
                 <xml-property name="container" value="l3-networks"/>
@@ -5269,7 +5341,7 @@
             <xml-properties>
                 <xml-property name="description" value="General purpose VNF"/>
                 <xml-property name="nameProps" value="vnf-name"/>
-                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,in-maint,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status"/>
+                <xml-property name="indexedProps" value="is-closed-loop-disabled,vnf-name2,vnf-type,heat-stack-id,vnf-name,vnf-id,regional-resource-zone,prov-status,service-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,nf-type,nf-function,nf-naming-code,nf-role,nm-profile-name,orchestration-status"/>
                 <xml-property name="searchable" value="vnf-id,vnf-name,vnf-name2,operational-status"/>
                 <xml-property name="uniqueProps" value="vnf-id"/>
                 <xml-property name="container" value="generic-vnfs"/>
@@ -6248,7 +6320,7 @@
                 <xml-property name="uniqueProps" value="model-element-uuid"/>
                 <xml-property name="indexedProps" value="model-element-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
-                <xml-property name="dependentOn" value="model-element,element-choice-set,model-ver"/>
+                <xml-property name="dependentOn" value="element-choice-set,model-element,model-ver"/>
                 <xml-property name="allowDirectWrite" value="false"/>
                 <xml-property name="container" value="model-elements"/>
                 <xml-property name="uriTemplate" value="/model-elements/model-element/{model-element-uuid}"/>
@@ -6306,7 +6378,7 @@
                 <xml-property name="indexedProps" value="model-constraint-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
-                <xml-property name="dependentOn" value="model-element,"/>
+                <xml-property name="dependentOn" value="model-element"/>
                 <xml-property name="container" value="model-constraints"/>
                 <xml-property name="uriTemplate" value="/model-constraints/model-constraint/{model-constraint-uuid}"/>
             <xml-property name="requiredProps" value="model-constraint-uuid,constrained-element-set-uuid-to-replace"/>
@@ -6342,7 +6414,7 @@
                 <xml-property name="indexedProps" value="constrained-element-set-uuid"/>
                 <xml-property name="allowDirectRead" value="true"/>
                 <xml-property name="allowDirectWrite" value="false"/>
-                <xml-property name="dependentOn" value="model-element,model-constraint"/>
+                <xml-property name="dependentOn" value="model-constraint,model-element"/>
                 <xml-property name="container" value="constrained-element-sets"/>
                 <xml-property name="uriTemplate" value="/constrained-element-sets/constrained-element-set/{constrained-element-set-uuid}"/>
             <xml-property name="requiredProps" value="constrained-element-set-uuid,constraint-type,check-type"/>
@@ -7886,6 +7958,60 @@
             </xml-properties>
         </java-type>
 
+		<java-type name="Fqdns">
+            <xml-root-element name="fqdns"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="fqdn" name="fqdn" type="inventory.aai.onap.org.v20.Fqdn"/>
+            </java-attributes>
+            <xml-properties>
+            </xml-properties>
+        </java-type>
+
+        <java-type name="Fqdn">
+            <xml-root-element name="fqdn"/>
+            <java-attributes>
+                <xml-element java-attribute="fqdn" name="fqdn" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Fully qualified domain name."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="fqdnType" name="fqdn-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize this object in conjunction with role &amp; function. The most generic category."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="fqdnRole" name="fqdn-role" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize this object in conjunction with type &amp; function."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="fqdnFunction" name="fqdn-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used to categorize this object in conjunction with type &amp; role. The most specific category."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dnsDomain" name="dns-domain" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Domain name."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="A fully qualified domain name (FQDN) is the complete domain name for a specific computer, or host, on the internet."/>
+                <xml-property name="requiredProps" value="fqdn,dns-domain"/>
+				<xml-property name="indexedProps" value="fqdn"/>
+                <xml-property name="namespace" value="network"/>
+				<xml-property name="container" value="fqdns"/>
+                <xml-property name="uriTemplate" value="/network/fqdns/fqdn/{fqdn}"/>
+            </xml-properties>
+        </java-type>
+
         <java-type name="Cps">
             <xml-properties>
                 <xml-property name="description" value="Collection of connection points."/>
@@ -7929,6 +8055,9 @@
         </java-type>
 
         <java-type name="VlanTags">
+            <xml-properties>
+                <xml-property name="description" value="Vlan Tags Assigned out of a Vlan Range"/>
+            </xml-properties>
             <xml-root-element name="vlan-tags"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vlanTag" name="vlan-tag" type="inventory.aai.onap.org.v20.VlanTag"/>
@@ -7940,28 +8069,42 @@
             <java-attributes>
                 <xml-element java-attribute="vlanTagId" name="vlan-tag-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="Unique ID of the vlan-tag"/>
+                        <xml-property name="description" value="Vlan Tag Id"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="vlanTagRole" name="vlan-tag-role" required="true" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="purpose (l3-network to be connected to)"/>
+                        <xml-property name="description" value="Role assigned to this vlan-tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdInner" name="vlan-id-inner" type="java.lang.Integer">
+                <xml-element java-attribute="vlanIdInner" name="vlan-id-inner" type="java.lang.Long">
                     <xml-properties>
-                        <xml-property name="description" value="VLAN inner id"/>
+                        <xml-property name="description" value="Inner VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Integer">
+                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Long">
                     <xml-properties>
-                        <xml-property name="description" value="VLAN outer id"/>
+                        <xml-property name="description" value="Outer VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element default-value="false" java-attribute="isPrivate" name="is-private" required="true" type="java.lang.Boolean">
+                <xml-element java-attribute="isPrivate" name="is-private" required="true" type="java.lang.Boolean">
                     <xml-properties>
-                        <xml-property name="defaultValue" value="false"/>
-                        <xml-property name="description" value="is VLAN private?"/>
+                        <xml-property name="description" value="is private flag."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="VLAN tag Type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="VLAN Tag Function"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="configPhase" name="config-phase" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The config-phase associated with this vlan-tag"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
@@ -7972,10 +8115,11 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v20.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="namespace" value="network"/>
+                <xml-property name="description" value="vlan tag information"/>
                 <xml-property name="container" value="vlan-tags"/>
-                <xml-property name="uniqueProps" value="vlan-tag-id"/>
+                <xml-property name="dependentOn" value="vlan-range"/>
                 <xml-property name="uriTemplate" value="/network/vlan-tags/vlan-tag/{vlan-tag-id}"/>
+                <xml-property name="requiredProps" value="vlan-tag-id,vlan-tag-role,is-private"/>
             </xml-properties>
         </java-type>
 
@@ -9571,7 +9715,7 @@
             </xml-properties>
         </java-type>
 
-				<java-type name="AggregateRoutes">
+        <java-type name="AggregateRoutes">
             <xml-properties>
                 <xml-property name="description" value="Collection of aggregate routes."/>
             </xml-properties>
@@ -9584,7 +9728,7 @@
         <java-type name="AggregateRoute">
             <xml-root-element name="aggregate-route"/>
             <java-attributes>
-                <xml-element java-attribute="routeId" name="route-id" required="true" type="java.lang.String" xml-key="true">
+                <xml-element java-attribute="aggRouteId" name="agg-route-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
                         <xml-property name="description" value="Unique id of the aggregate-route instance"/>
                     </xml-properties>
@@ -9613,11 +9757,11 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Aggregate route configs are used on the D2 IPE’s for the Voice services.  In 1902, SDNC will create aggregate-route objects and write them to A&amp;AI. "/>
-                <xml-property name="uniqueProps" value="route-id"/>
+                <xml-property name="uniqueProps" value="agg-route-id"/>
                 <xml-property name="container" value="aggregate-routes"/>
                 <xml-property name="dependentOn" value="l3-network"/>
-                <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{route-id}"/>
-            <xml-property name="requiredProps" value="route-id,network-start-address,cidr-mask,ip-version"/>
+                <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{agg-route-id}"/>
+            <xml-property name="requiredProps" value="agg-route-id,network-start-address,cidr-mask,ip-version"/>
             </xml-properties>
 		</java-type>
 		<java-type name="CommunicationServiceProfiles">
