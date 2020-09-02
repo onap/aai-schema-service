@@ -744,6 +744,7 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v17.RelationshipList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vipIpv4AddressList" name="vip-ipv4-address-list" type="inventory.aai.onap.org.v17.VipIpv4AddressList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vipIpv6AddressList" name="vip-ipv6-address-list" type="inventory.aai.onap.org.v17.VipIpv6AddressList"/>
+				<xml-element java-attribute="vlanRanges" name="vlan-ranges" type="inventory.aai.onap.org.v17.VlanRanges"/>
 				<xml-element java-attribute="hpaCapabilities" name="hpa-capabilities" type="inventory.aai.onap.org.v17.HpaCapabilities">
 					<xml-properties>
 						<xml-property name="description" value="List of cloud-region specific HPA Capabilities"/>
@@ -3333,7 +3334,6 @@
                 <xml-element java-attribute="configurations" name="configurations" type="inventory.aai.onap.org.v17.Configurations"/>
                 <xml-element java-attribute="forwardingPaths" name="forwarding-paths" type="inventory.aai.onap.org.v17.ForwardingPaths"/>
                 <xml-element java-attribute="collections" name="collections" type="inventory.aai.onap.org.v17.Collections"/>
-                <xml-element java-attribute="vlanTags" name="vlan-tags" type="inventory.aai.onap.org.v17.VlanTags"/>
 				<xml-element java-attribute="connectivities" name="connectivities" type="inventory.aai.onap.org.v17.Connectivities"/>
 				<xml-element java-attribute="lanPortConfigs" name="lan-port-configs" type="inventory.aai.onap.org.v17.LanPortConfigs"/>
 				<xml-element java-attribute="networkResources" name="network-resources" type="inventory.aai.onap.org.v17.NetworkResources"/>
@@ -7635,13 +7635,67 @@
             </xml-properties>
         </java-type>
 
+        <java-type name="VlanRanges">
+            <xml-root-element name="vlan-ranges"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="vlanRange" name="vlan-range" type="inventory.aai.onap.org.v17.VlanRange"/>
+            </java-attributes>
+            <xml-properties>
+            </xml-properties>
+        </java-type>
+
+        <java-type name="VlanRange">
+            <xml-root-element name="vlan-range"/>
+            <java-attributes>
+                <xml-element java-attribute="vlanRangeId" name="vlan-range-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanIdLower" name="vlan-id-lower" required="true" type="java.lang.Long">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range lower"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanIdUpper" name="vlan-id-upper" required="true" type="java.lang.Long">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan id in range upper"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanType" name="vlan-type" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="vlan type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="vlanTags" name="vlan-tags" type="inventory.aai.onap.org.v17.VlanTags"/>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v17.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Definition of vlan range"/>
+                <xml-property name="indexedProps" value="vlan-range-id,vlan-type"/>
+                <xml-property name="dependentOn" value="cloud-region"/>
+                <xml-property name="container" value="vlan-ranges"/>
+                <xml-property name="uriTemplate" value="/vlan-ranges/vlan-range/{vlan-range-id}"/>
+                <xml-property name="searchable" value="vlan-range-id"/>
+                <xml-property name="requiredProps" value="vlan-range-id,vlan-id-lower,vlan-id-upper,vlan-type"/>
+                <xml-property name="dslStartNodeProps" value="vlan-range-id,vlan-type,vlan-id-lower,vlan-id-upper"/>
+            </xml-properties>
+        </java-type>
+
         <java-type name="VlanTags">
+            <xml-properties>
+                <xml-property name="description" value="Vlan Tags Assigned out of a Vlan Range"/>
+            </xml-properties>
             <xml-root-element name="vlan-tags"/>
             <java-attributes>
                 <xml-element container-type="java.util.ArrayList" java-attribute="vlanTag" name="vlan-tag" type="inventory.aai.onap.org.v17.VlanTag"/>
             </java-attributes>
         </java-type>
-
         <java-type name="VlanTag">
             <xml-root-element name="vlan-tag"/>
             <java-attributes>
@@ -7660,7 +7714,7 @@
                         <xml-property name="description" value="Inner VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Long">
+                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" type="java.lang.Long">
                     <xml-properties>
                         <xml-property name="description" value="Outer VLAN tag"/>
                     </xml-properties>
@@ -7670,12 +7724,12 @@
                         <xml-property name="description" value="is private flag."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
+				<xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="VLAN tag Type"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
+				<xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="VLAN Tag Function"/>
                     </xml-properties>
@@ -7696,8 +7750,9 @@
                 <xml-property name="description" value="vlan tag information"/>
                 <xml-property name="container" value="vlan-tags"/>
                 <xml-property name="dependentOn" value="vlan-range"/>
-                <xml-property name="uriTemplate" value="/network/vlan-tags/vlan-tag/{vlan-tag-id}"/>
+                <xml-property name="uriTemplate" value="/vlan-tags/vlan-tag/{vlan-tag-id}"/>
                 <xml-property name="requiredProps" value="vlan-tag-id,vlan-tag-role,is-private"/>
+                <xml-property name="dslStartNodeProps" value="vlan-tag-id,vlan-tag-role,vlan-tag-type,vlan-id-inner,vlan-id-outer,config-phase,vlan-tag-function"/>
             </xml-properties>
         </java-type>
 
