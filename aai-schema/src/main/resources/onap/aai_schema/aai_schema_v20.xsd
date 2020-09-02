@@ -2102,7 +2102,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="vlan tag information",container="vlan-tags",dependentOn="vlan-range",uriTemplate="/network/vlan-tags/vlan-tag/{vlan-tag-id}",requiredProps="vlan-tag-id,vlan-tag-role,is-private")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="vlan tag information",container="vlan-tags",dependentOn="vlan-range",uriTemplate="/vlan-tags/vlan-tag/{vlan-tag-id}",requiredProps="vlan-tag-id,vlan-tag-role,is-private")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -10990,7 +10990,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:configurations" minOccurs="0"/>
         <xs:element ref="tns:forwarding-paths" minOccurs="0"/>
         <xs:element ref="tns:collections" minOccurs="0"/>
-        <xs:element ref="tns:vlan-tags" minOccurs="0"/>
         <xs:element ref="tns:connectivities" minOccurs="0"/>
         <xs:element ref="tns:lan-port-configs" minOccurs="0"/>
         <xs:element ref="tns:network-resources" minOccurs="0"/>
