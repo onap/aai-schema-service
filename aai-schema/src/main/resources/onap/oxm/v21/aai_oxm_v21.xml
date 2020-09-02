@@ -4160,7 +4160,6 @@
 				<xml-element java-attribute="nextHops" name="next-hops" type="inventory.aai.onap.org.v21.NextHops"/>
 				<xml-element java-attribute="bfds" name="bfds" type="inventory.aai.onap.org.v21.Bfds"/>
 				<xml-element java-attribute="fqdns" name="fqdns" type="inventory.aai.onap.org.v21.Fqdns"/>
-                <xml-element java-attribute="vlanTags" name="vlan-tags" type="inventory.aai.onap.org.v21.VlanTags"/>
                 <xml-element java-attribute="connectivities" name="connectivities" type="inventory.aai.onap.org.v21.Connectivities"/>
                 <xml-element java-attribute="lanPortConfigs" name="lan-port-configs" type="inventory.aai.onap.org.v21.LanPortConfigs"/>
                 <xml-element java-attribute="networkResources" name="network-resources" type="inventory.aai.onap.org.v21.NetworkResources"/>
@@ -5665,9 +5664,10 @@
                 <xml-property name="indexedProps" value="subnet-id,subnet-name,orchestration-status"/>
                 <xml-property name="nameProps" value="subnet-name"/>
                 <xml-property name="uniqueProps" value="subnet-id"/>
-                <xml-property name="dependentOn" value="l3-network"/>
+                <xml-property name="dependentOn" value="l3-network,zone"/>
                 <xml-property name="container" value="subnets"/>
                 <xml-property name="uriTemplate" value="/subnets/subnet/{subnet-id}"/>
+                <xml-property name="requiredProps" value="subnet-id"/>
              </xml-properties>
         </java-type>
 
@@ -9911,7 +9911,6 @@
             </xml-properties>
         </java-type>
 
-
         <java-type name="VlanTags">
             <xml-properties>
                 <xml-property name="description" value="Vlan Tags Assigned out of a Vlan Range"/>
@@ -9921,7 +9920,6 @@
                 <xml-element container-type="java.util.ArrayList" java-attribute="vlanTag" name="vlan-tag" type="inventory.aai.onap.org.v21.VlanTag"/>
             </java-attributes>
         </java-type>
-
         <java-type name="VlanTag">
             <xml-root-element name="vlan-tag"/>
             <java-attributes>
@@ -9940,7 +9938,7 @@
                         <xml-property name="description" value="Inner VLAN tag"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" required="true" type="java.lang.Long">
+                <xml-element java-attribute="vlanIdOuter" name="vlan-id-outer" type="java.lang.Long">
                     <xml-properties>
                         <xml-property name="description" value="Outer VLAN tag"/>
                     </xml-properties>
@@ -9950,12 +9948,12 @@
                         <xml-property name="description" value="is private flag."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
+				<xml-element java-attribute="vlanTagType" name="vlan-tag-type" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="VLAN tag Type"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
+				<xml-element java-attribute="vlanTagFunction" name="vlan-tag-function" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="VLAN Tag Function"/>
                     </xml-properties>
@@ -9976,7 +9974,7 @@
                 <xml-property name="description" value="vlan tag information"/>
                 <xml-property name="container" value="vlan-tags"/>
                 <xml-property name="dependentOn" value="vlan-range"/>
-                <xml-property name="uriTemplate" value="/network/vlan-tags/vlan-tag/{vlan-tag-id}"/>
+                <xml-property name="uriTemplate" value="/vlan-tags/vlan-tag/{vlan-tag-id}"/>
                 <xml-property name="requiredProps" value="vlan-tag-id,vlan-tag-role,is-private"/>
             </xml-properties>
         </java-type>
@@ -11515,10 +11513,147 @@
             </xml-properties>
             <xml-root-element name="common"/>
             <java-attributes>
+            	<xml-element java-attribute="hardwareCatalogItems" name="hardware-catalog-items" type="inventory.aai.onap.org.v21.HardwareCatalogItems"/>
             	<xml-element java-attribute="contacts" name="contacts" type="inventory.aai.onap.org.v21.Contacts"/>
               <xml-element java-attribute="profiles" name="profiles" type="inventory.aai.onap.org.v21.Profiles"/>
+				<xml-element java-attribute="policies" name="policies" type="inventory.aai.onap.org.v21.Policies"/>
+				<xml-element java-attribute="vlanCharacteristics" name="vlan-characteristics" type="inventory.aai.onap.org.v21.VlanCharacteristics"/>
+				<xml-element java-attribute="relationshipRules" name="relationship-rules" type="inventory.aai.onap.org.v21.RelationshipRules"/>
             </java-attributes>
 		</java-type>
+
+		<java-type name="HardwareCatalogItems">
+            <xml-properties>
+                <xml-property name="description" value="Collection of hardware-catalog-items"/>
+            </xml-properties>
+            <xml-root-element name="hardware-catalog-items"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="hardwareCatalogItem" name="hardware-catalog-item" type="inventory.aai.onap.org.v21.HardwareCatalogItem"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="HardwareCatalogItem">
+            <xml-root-element name="hardware-catalog-item"/>
+            <java-attributes>
+                <xml-element java-attribute="itemName" name="item-name" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique name for the hardware-catalog-item"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="systemType" name="system-type" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type of system defined by ATT"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="manufacturer" name="manufacturer" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Manufacturer of the hardware-catalog-item (ex,Cisco)"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="model" name="model" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Model of the hardware-catalog-item (ex,5501 NCS)"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="partNumber" name="part-number" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Part number assigned by the manufacturer"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="description" name="description" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Description of the hardware-catalog-item"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="sku" name="sku" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Stock-keeping-unit (ATT specific identifier for the hardware-catalog-item)"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="describes an hardware-catalog-items"/>
+                <xml-property name="indexedProps" value="item-name"/>
+                <xml-property name="uniqueProps" value="item-name"/>
+                <xml-property name="container" value="hardware-catalog-items"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="uriTemplate" value="/common/hardware-catalog-items/hardware-catalog-item/{item-name}"/>
+                <xml-property name="requiredProps" value="item-name,system-type,manufacturer,model,sku"/>
+             </xml-properties>
+        </java-type>
+
+        <java-type name="Profiles">
+            <xml-properties>
+                <xml-property name="description" value="Collection of profiles"/>
+            </xml-properties>
+            <xml-root-element name="profiles"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="profile" name="profile" type="inventory.aai.onap.org.v21.Profile"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="Profile">
+            <xml-root-element name="profile"/>
+            <java-attributes>
+                <xml-element java-attribute="profileName" name="profile-name" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of the profile"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileType" name="profile-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type of profile (ex,network-power-profile)"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileCharacteristics" name="profile-characteristics" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Set of characteristics of the profile."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileSubtype" name="profile-subtype" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Descriptive subtype."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileRole" name="profile-role" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="used to categorize this object in conjunction with profile-type and profile-function."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileFunction" name="profile-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="used to categorize this object in conjunction with profile-type and profile-role. The most specific category"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="profileSelflink" name="profile-selflink" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="URL to endpoint where AAI can get more details"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Profiles store the information (ex, credential-profile) and have a relationship to (ex, pnf)"/>
+                <xml-property name="uniqueProps" value="profile-name"/>
+                <xml-property name="container" value="profiles"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="nameProps" value="profile-name,profile-type"/>
+                <xml-property name="uriTemplate" value="/common/profiles/profile/{profile-name}"/>
+                <xml-property name="requiredProps" value="profile-name"/>
+            </xml-properties>
+        </java-type>
+
 
 		<java-type name="Contacts">
             <xml-properties>
@@ -11569,42 +11704,28 @@
             <xml-property name="requiredProps" value="contact-name"/>
             </xml-properties>
 		</java-type>
-        <java-type name="Profiles">
-            <xml-properties>
-                <xml-property name="description" value="Collection of profiles"/>
-            </xml-properties>
-            <xml-root-element name="profiles"/>
-            <java-attributes>
-                <xml-element container-type="java.util.ArrayList" java-attribute="profile" name="profile" type="inventory.aai.onap.org.v21.Profile"/>
-            </java-attributes>
-        </java-type>
 
-        <java-type name="Profile">
-            <xml-root-element name="profile"/>
+        <java-type name="PortList">
+            <xml-root-element name="port-list"/>
             <java-attributes>
-                <xml-element java-attribute="profileName" name="profile-name" required="true" type="java.lang.String" xml-key="true">
+                <xml-element java-attribute="port" name="port" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
-                        <xml-property name="description" value="Name of the profile"/>
+                        <xml-property name="description" value="Port number"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="profileType" name="profile-type" type="java.lang.String">
+                <xml-element java-attribute="assignment" name="assignment" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Type of profile (ex,network-power-profile)"/>
+                        <xml-property name="description" value="Name or assignment for the port"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="profileCharacteristics" name="profile-characteristics" type="java.lang.String">
+                <xml-element java-attribute="type" name="type" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Set of characteristics of the profile."/>
+                        <xml-property name="description" value="Type or usage of the port"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="profileSubtype" name="profile-subtype" type="java.lang.String">
+                <xml-element java-attribute="operator" name="operator" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Descriptive subtype."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="profileSelflink" name="profile-selflink" required="true" type="java.lang.String">
-                    <xml-properties>
-                        <xml-property name="description" value="URL to endpoint where AAI can get more details"/>
+                        <xml-property name="description" value="Operator to apply to the port (greater than, less than, etc)."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
@@ -11615,15 +11736,424 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="description" value="Profiles store the information (ex, credential-profile) and have a relationship to (ex, pnf)"/>
-                <xml-property name="uniqueProps" value="profile-name"/>
-                <xml-property name="container" value="profiles"/>
-                <xml-property name="namespace" value="common"/>
-                <xml-property name="nameProps" value="profile-name,profile-type"/>
-                <xml-property name="uriTemplate" value="/common/profiles/profile/{profile-name}"/>
-                <xml-property name="requiredProps" value="profile-name"/>
+                <xml-property name="description" value="Port List Range"/>
+                <xml-property name="dependentOn" value="endpoint,rule,object-group"/>
+                <xml-property name="uriTemplate" value="/port-list/{port}"/>
+                <xml-property name="requiredProps" value="port"/>
             </xml-properties>
         </java-type>
+
+        <java-type name="SelectorList">
+            <xml-root-element name="selector-list"/>
+            <java-attributes>
+                <xml-element java-attribute="selector" name="selector" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Selector"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="assignment" name="assignment" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name or assignment for the selector"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="type" name="type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type or usage of the selector"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Selectors list"/>
+                <xml-property name="dependentOn" value="rule,object-group,endpoint,policy"/>
+                <xml-property name="uriTemplate" value="/selector-list/{selector}"/>
+                <xml-property name="requiredProps" value="selector"/>
+             </xml-properties>
+        </java-type>
+
+        <java-type name="Policies">
+            <xml-root-element name="policies"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="policy" name="policy" type="inventory.aai.onap.org.v21.Policy"/>
+            </java-attributes>
+            <xml-properties>
+            </xml-properties>
+        </java-type>
+
+        <java-type name="Policy">
+            <xml-root-element name="policy"/>
+            <java-attributes>
+                <xml-element java-attribute="policyId" name="policy-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique Policy UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="policyName" name="policy-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Policy Name"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="policyType" name="policy-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Policy Type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="policyRole" name="policy-role" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Policy role"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="policyFunction" name="policy-function" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="policy function"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="doNotTrack" name="do-not-track" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+                      	<xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="Do not track"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="preDnat" name="pre-dnat" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+                      	<xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="Pre destination NAT"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="applyOnForward" name="apply-on-forward" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+                      	<xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="apply on forward"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selector" name="selector" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Host and Interface Type Selector"/>
+						<xml-property name="dbAlias" value="selector-local"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="order" name="order" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Order"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="version" name="version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Version"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="status" name="status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Status"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="remoteAsn" name="remote-asn" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Remote ASN"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="namespace" name="namespace" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Namespace filter to apply the policy"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="policyDescription" name="policy-description" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Description of the policy"/>
+                    </xml-properties>
+                </xml-element>
+                 <xml-element java-attribute="policyVariables" name="policy-variables" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Set of rule variables"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rules" name="rules" type="inventory.aai.onap.org.v21.Rules"/>
+                <xml-element container-type="java.util.ArrayList" java-attribute="selectorList" name="selector-list" type="inventory.aai.onap.org.v21.SelectorList"/>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Definition of policy"/>
+                <xml-property name="indexedProps" value="policy-id"/>
+                <xml-property name="uniqueProps" value="policy-id"/>
+                <xml-property name="container" value="policies"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="uriTemplate" value="/common/policies/policy/{policy-id}"/>
+                <xml-property name="requiredProps" value="policy-id,do-not-track,pre-dnat,apply-on-forward"/>
+            </xml-properties>
+        </java-type>
+
+
+        <java-type name="Rules">
+            <xml-properties>
+                <xml-property name="description" value="Collection of rules"/>
+            </xml-properties>
+            <xml-root-element name="rules"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="rule" name="rule" type="inventory.aai.onap.org.v21.Rule"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="Rule">
+            <xml-root-element name="rule"/>
+            <java-attributes>
+                <xml-element java-attribute="ruleId" name="rule-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="direction" name="direction" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="ingress or egress"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="protocol" name="protocol" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Positive protocol match. tcp, udp, icmpv6, sctp, udplite, integer 1-255."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="notProtocol" name="not-protocol" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Negative protocol match. tcp, udp, icmpv6, sctp, udplite, integer 1-255."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="action" name="action" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Action to perform when matching this rule."/>
+                    </xml-properties>
+                </xml-element>
+				 <xml-element container-type="java.util.ArrayList" java-attribute="icmp" name="icmp" type="java.lang.String">
+				 <xml-properties>
+                        <xml-property name="description" value=""/>
+                    </xml-properties>
+                </xml-element>
+				 <xml-element container-type="java.util.ArrayList" java-attribute="notIcmp" name="not-icmp" type="java.lang.String">
+				 <xml-properties>
+                        <xml-property name="description" value=""/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="sequence" name="sequence" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Sequence number of the rule."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="threshold" name="threshold" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Threshold"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="status" name="status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="status"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="version" name="version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Version"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="countVariable" name="count-variable" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Named variable used for counting transactions."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="log" name="log" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+                      	<xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="Boolean to indicate whether or not logging is required."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="description" name="description" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Description."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element container-type="java.util.ArrayList" java-attribute="portList" name="port-list" type="inventory.aai.onap.org.v21.PortList"/>
+                <xml-element container-type="java.util.ArrayList" java-attribute="selectorList" name="selector-list" type="inventory.aai.onap.org.v21.SelectorList"/>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="describes an rules"/>
+                <xml-property name="container" value="rules"/>
+                <xml-property name="dependentOn" value="policy"/>
+                <xml-property name="uriTemplate" value="/rules/rule/{rule-id}"/>
+                <xml-property name="requiredProps" value="rule-id,log"/>
+            </xml-properties>
+        </java-type>
+
+        <java-type name="VlanCharacteristics">
+            <xml-properties>
+                <xml-property name="description" value="Collection of vlan characteristics"/>
+            </xml-properties>
+            <xml-root-element name="vlan-characteristics"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="vlanCharacteristic" name="vlan-characteristic" type="inventory.aai.onap.org.v21.VlanCharacteristic"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="VlanCharacteristic">
+            <xml-root-element name="vlan-characteristic"/>
+            <java-attributes>
+                <xml-element java-attribute="vlanCharacteristicId" name="vlan-characteristic-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="rootName" name="root-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="appliesTo" name="applies-to" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Device role the vlan-characteristic applies to (c-agg-leaf-a, c-agg-leaf-b, r-leaf)."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="dhcpPool" name="dhcp-pool" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+						<xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="DHCP Agent access."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element default-value="false" java-attribute="internetAccess" name="internet-access" required="true" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="defaultValue" value="false"/>
+                        <xml-property name="description" value="Boolean to represent if requires internet access."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="describes an vlan characteristic"/>
+                <xml-property name="indexedProps" value="vlan-characteristic-id"/>
+                <xml-property name="container" value="vlan-characteristics"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="uriTemplate" value="/common/vlan-characteristics/vlan-characteristic/{vlan-characteristic-id}"/>
+            	<xml-property name="requiredProps" value="vlan-characteristic-id,dhcp-pool,internet-access"/>
+             </xml-properties>
+        </java-type>
+
+        <java-type name="RelationshipRules">
+            <xml-properties>
+                <xml-property name="description" value="Collection of relationship rules"/>
+            </xml-properties>
+            <xml-root-element name="relationship-rules"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="relationshipRule" name="relationship-rule" type="inventory.aai.onap.org.v21.RelationshipRule"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="RelationshipRule">
+            <xml-root-element name="relationship-rule"/>
+            <java-attributes>
+                <xml-element java-attribute="ruleId" name="rule-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="context" name="context" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Example global,site"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="ruleTraversals" name="rule-traversals" required="true" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Number of traversals"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="appliesTo" name="applies-to" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Node the related object applies to"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipComponents" name="relationship-components" type="inventory.aai.onap.org.v21.RelationshipComponents"/>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="describes an relationship rule"/>
+                <xml-property name="indexedProps" value="rule-id,context,rule-traversals,applies-to"/>
+                 <xml-property name="uniqueProps" value="rule-id"/>
+                <xml-property name="container" value="relationship-rules"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="uriTemplate" value="/common/relationship-rules/relationship-rule/{rule-id}"/>
+            	<xml-property name="requiredProps" value="rule-id,context,rule-traversals,applies-to"/>
+             </xml-properties>
+        </java-type>
+
+		<java-type name="RelationshipComponents">
+            <xml-properties>
+                <xml-property name="description" value="Collection of relationship components"/>
+            </xml-properties>
+            <xml-root-element name="relationship-components"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="relationshipComponent" name="relationship-component" type="inventory.aai.onap.org.v21.RelationshipComponent"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="RelationshipComponent">
+            <xml-root-element name="relationship-component"/>
+            <java-attributes>
+                <xml-element java-attribute="ruleNode" name="rule-node" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="NARAD object"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="ruleProperty" name="rule-property" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Object property"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="ruleValue" name="rule-value" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Property value"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="componentOrder" name="component-order" required="true" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Order in traversal"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="describes an relationship component"/>
+                <xml-property name="indexedProps" value="rule-node,rule-property,rule-value,component-order"/>
+                <xml-property name="container" value="relationship-components"/>
+                <xml-property name="dependentOn" value="relationship-rule"/>
+                <xml-property name="uriTemplate" value="common/relationship-components/relationship-component/{rule-node}"/>
+                <xml-property name="requiredProps" value="rule-node,rule-property,rule-value,component-order"/>
+             </xml-properties>
+        </java-type>
+
 
         <java-type name="AggregateRoutes">
             <xml-properties>
