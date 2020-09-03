@@ -4145,19 +4145,6 @@
 		},
 		{
 			"from": "cloud-region",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "cloud-region",
 			"to": "geo-region",
 			"label": "org.onap.relationships.inventory.MemberOf",
 			"direction": "OUT",
@@ -4203,32 +4190,6 @@
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "community-list",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "complex",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": ""
 		},
@@ -4406,19 +4367,6 @@
 			"description": "The bgp-neighbor associated to a generic-vnf."
 		},
 		{
-			"from": "generic-vnf",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "A relationship that ties the device to the prefix-list/community-list."
-		},
-		{
 			"from": "host-aggregate",
 			"to": "cloud-region",
 			"label": "org.onap.relationships.inventory.BelongsTo",
@@ -4502,19 +4450,6 @@
 			"prevent-delete": "!${direction}",
 			"default": "true",
 			"description": "This edge relates an object-group's ip-address-list through reference from DLP data to an ip-address from FCT in the l3-interface-ipv6-address-list of an R-Leaf's l-interface that is for VLAN 2"
-		},
-		{
-			"from": "ip-address-list",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
 		},
 		{
 			"from": "ip-address-list",
@@ -4826,18 +4761,6 @@
 		},
 		{
 			"from": "mapping",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.MemberOf",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "The mapping associated to an object-group"
-		},
-		{
-			"from": "mapping",
 			"to": "pnf",
 			"label": "org.onap.relationships.inventory.MemberOf",
 			"direction": "OUT",
@@ -4922,18 +4845,6 @@
 		},
 		{
 			"from": "network-route",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.MemberOf",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": "The route is part of part of a route-list that is modeled in an object-group."
-		},
-		{
-			"from": "network-route",
 			"to": "subnet",
 			"label": "org.onap.relationships.inventory.MemberOf",
 			"direction": "OUT",
@@ -4955,79 +4866,6 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": ""
-		},
-		{
-			"from": "object-group",
-			"to": "cloud-region",
-			"label": "org.onap.relationships.inventory.LocatedIn",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "The object-group is located in a cloud-region"
-		},
-		{
-			"from": "object-group",
-			"to": "complex",
-			"label": "org.onap.relationships.inventory.LocatedIn",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "The object-group is located in a complex"
-		},
-		{
-			"from": "object-group",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "The object-gorup that applies to an object-group"
-		},
-		{
-			"from": "object-group",
-			"to": "pnf",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "object-group",
-			"to": "vrf",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": "The object-group to VRF for various route types."
-		},
-		{
-			"from": "object-group",
-			"to": "zone",
-			"label": "org.onap.relationships.inventory.LocatedIn",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "The object-group is located in a zone"
 		},
 		{
 			"from": "pdu",
@@ -5172,19 +5010,6 @@
 		},
 		{
 			"from": "pnf",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "pnf",
 			"to": "hw-component",
 			"label": "org.onap.relationships.inventory.MemberOf",
 			"direction": "OUT",
@@ -5312,18 +5137,6 @@
 		},
 		{
 			"from": "policy",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "policy",
 			"to": "rule",
 			"label": "org.onap.relationships.inventory.Implements",
 			"direction": "OUT",
@@ -5369,32 +5182,6 @@
 			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "port-list",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "port-list",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
 			"SVC-INFRA": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
@@ -5531,19 +5318,6 @@
 		},
 		{
 			"from": "profile",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": "A profile (set of characteristics) applies to the endpoint."
-		},
-		{
-			"from": "profile",
 			"to": "hardware-catalog-item",
 			"label": "org.onap.relationships.inventory.AppliesTo",
 			"direction": "OUT",
@@ -5619,18 +5393,6 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A profile (set of characteristics) applies to the logical-link."
-		},
-		{
-			"from": "profile",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": "The profile (set of characteristics) classifies the object-group."
 		},
 		{
 			"from": "profile",
@@ -5803,19 +5565,6 @@
 		},
 		{
 			"from": "pserver",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "pserver",
 			"to": "hw-component",
 			"label": "org.onap.relationships.inventory.MemberOf",
 			"direction": "OUT",
@@ -5930,30 +5679,6 @@
 		},
 		{
 			"from": "relationship-rule",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": "Details relationships endpoint requires"
-		},
-		{
-			"from": "relationship-rule",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "Details relationships object-group requires"
-		},
-		{
-			"from": "relationship-rule",
 			"to": "policy",
 			"label": "org.onap.relationships.inventory.AppliesTo",
 			"direction": "OUT",
@@ -5987,84 +5712,6 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The rule that is used by the next-hop. For CG-NAT these are the ACL policies."
-		},
-		{
-			"from": "rule",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "!${direction}",
-			"default": "false",
-			"description": ""
-		},
-		{
-			"from": "rule",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.Destination",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "!${direction}",
-			"default": "false",
-			"description": ""
-		},
-		{
-			"from": "rule",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.Source",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "!${direction}",
-			"default": "false",
-			"description": ""
-		},
-		{
-			"from": "rule",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "!${direction}",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "selector-list",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "selector-list",
-			"to": "object-group",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
 		},
 		{
 			"from": "selector-list",
@@ -6273,19 +5920,6 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The sw-component associated to a vserver"
-		},
-		{
-			"from": "zone",
-			"to": "endpoint",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "${direction}",
-			"default": "true",
-			"description": ""
 		},
 		{
 			"from": "zone",

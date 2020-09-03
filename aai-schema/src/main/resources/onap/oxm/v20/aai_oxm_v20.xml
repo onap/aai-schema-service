@@ -10133,7 +10133,7 @@
                 <xml-property name="uniqueProps" value="ip-address"/>
                 <xml-property name="indexedProps" value="ip-address"/>
                 <xml-property name="container" value="ip-address-list"/>
-                <xml-property name="uriTemplate" value="/endpoints/endpoint/{endpoint-id}/ip-address-list/ip-address/{ip-address}"/>
+                <xml-property name="uriTemplate" value="/ip-address-list/ip-address/{ip-address}"/>
                 <xml-property name="searcheable" value="ip-address"/>
             </xml-properties>
     </java-type>
