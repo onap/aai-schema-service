@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "170ebcf2_86a88c2b",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v21/aai_oxm_v21.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12325,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2020-09-08T15:03:43Z",
+      "side": 1,
+      "message": "maxNumberofUEs should be maxNumberOfUEs, based on the conventions we followed so far. @Chandra or @Bill, let me know if I am incorrect here?",
+      "revId": "1f6fb0562dd389aedb61d063fa33d427585e0e4a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
