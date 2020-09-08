@@ -4808,90 +4808,90 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="exp-data-rate-UL" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of upload.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="exp-data-rate-DL" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate of download.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="area-traffic-cap-UL" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of upload.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="area-traffic-cap-DL" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The area traffic capbility of download.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The activity factor.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="jitter" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="jitter")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="survival-time" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Survival Time")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="cs-availability" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="reliability" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="traffic-density" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="traffic density")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="conn-density" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="connection density")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
+		<xs:element name="activity-factor" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="jitter" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="survival-time" type="xs:string" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the time that an application consuming a communication service may continue without an anticipated message.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="availability" type="xs:float" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the availability requirement, expressed as a percentage.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="reliability" type="xs:string" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies in the context of network layer packet transmissions, percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="dl-thpt-per-slice" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="dl-thpt-per-UE" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines downlink data rate supported by the network slice per UE.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="ul-thpt-per-slice" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in uplink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="ul-thpt-per-UE" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="uLThptPerUE Integer 1 This attribute defines uplink data rate supported by the network slice per UE.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="max-pkt-size" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the maximum packet size supported by the network slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="max-number-of-conns" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter defines the maximum number of concurrent sessions supported by the network slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="term-density" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the overall user density over the coverage area of the network slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -4993,97 +4993,83 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The activity factor.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="e2e-latency" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="e2e latency")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="jitter" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="jitter")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="survival-time" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Survival Time")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="cs-availability" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum bandwidth (mb) of the connection links in a transport slice instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="reliability" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="User experience data rate.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="payload-size" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="payload size.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="traffic-density" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="traffic density")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="conn-density" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="connection density")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-area-dimension" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="service area dimension")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="s-nssai" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="S-NSSAI")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
+		<xs:element name="activity-factor" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specfies the percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="jitter" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice subnet.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="survival-time" type="xs:string" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="survivalTime	String 1 Survival time for network slice subnet.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="cs-availability-target" type="xs:float" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communica¬tion service availability target value.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Maxmun bandwidth value of TN network. ")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Expected date rate for uRLLC.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="max-number-of-PDU-session" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum number of PDU sessions that can simultaneously/concurrently access to the network slice.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="overall-user-density" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Overall User Density.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="cs-reliability-mean-time" type="xs:int" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communication service reliability mean time between failures.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="msg-size-byte" type="xs:string" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Message size(byte) .")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
+		<xs:element name="transfer-interval-target" type="xs:string" minOccurs="0">
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Target value of transfer interval.")</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+		</xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
