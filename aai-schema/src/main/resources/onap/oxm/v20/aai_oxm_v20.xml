@@ -9868,66 +9868,66 @@
                         <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="expDataRateUL" name="exp-data-rate-UL" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="User experience data rate of upload."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="expDataRateDL" name="exp-data-rate-DL" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="User experience data rate of download."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="areaTrafficCapUL" name="area-traffic-cap-UL" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="The area traffic capbility of upload."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="areaTrafficCapDL" name="area-traffic-cap-DL" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="The area traffic capbility of download."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="The activity factor."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="jitter"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="Survival Time"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
-                    <xml-properties>
-                        <xml-property name="description" value="The availability requirement for an network slice instance, expressed as a percentage."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
-                    <xml-properties>
-                        <xml-property name="description" value="The reliability requirement for an network slice instance, expressed as a percentage."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="User experience data rate."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="traffic density"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="connection density"/>
-                    </xml-properties>
-                </xml-element>
+				<xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="Percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="The jitter requirements of network slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="An attribute specifies the time that an application consuming a communication service may continue without an anticipated message."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="availability" name="availability" type="java.lang.Float">
+					<xml-properties>
+						<xml-property name="description" value="This parameter specifies the availability requirement, expressed as a percentage."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="reliability" name="reliability" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="An attribute specifies in the context of network layer packet transmissions, percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="dLThptPerSlice" name="dl-thpt-per-slice" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This attribute defines achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="dLThptPerUE" name="dl-thpt-per-ue" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This attribute defines downlink data rate supported by the network slice per UE."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="uLThptPerSlice" name="ul-thpt-per-slice" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This attribute defines achievable data rate of the network slice in uplink that is available ubiquitously across the coverage area of the slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="uLThptPerUE" name="ul-thpt-per-ue" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This attribute defines uplink data rate supported by the network slice per UE."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="maxPktSize" name="max-pkt-size" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This parameter specifies the maximum packet size supported by the network slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="maxNumberOfConns" name="max-number-of-conns" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="This parameter defines the maximum number of concurrent sessions supported by the network slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="termDensity" name="term-density" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="An attribute specifies the overall user density over the coverage area of the network slice."/>
+					</xml-properties>
+				</xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -10007,71 +10007,61 @@
                         <xml-property name="description" value="The area traffic capbility of download."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="The activity factor."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="e2eLatency" name="e2e-latency" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="e2e latency"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="jitter"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="Survival Time"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="csAvailability" name="cs-availability" type="java.lang.Float">
-                    <xml-properties>
-                        <xml-property name="description" value="The availability requirement for an network slice subnet instance, expressed as a percentage."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="maxBandwidth" name="max-bandwidth" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="The maximum bandwidth (mb) of the connection links in a transport slice instance."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="reliability" name="reliability" type="java.lang.Float">
-                    <xml-properties>
-                        <xml-property name="description" value="The reliability requirement for an network slice subnet instance, expressed as a percentage."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="User experience data rate."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="payloadSize" name="payload-size" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="payload size."/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="trafficDensity" name="traffic-density" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="traffic density"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="connDensity" name="conn-density" type="java.lang.Integer">
-                    <xml-properties>
-                        <xml-property name="description" value="connection density"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="serviceAreaDimension" name="service-area-dimension" type="java.lang.String">
-                    <xml-properties>
-                        <xml-property name="description" value="service area dimension"/>
-                    </xml-properties>
-                </xml-element>
-                <xml-element java-attribute="S-NSSAI" name="s-nssai" type="java.lang.String">
-                    <xml-properties>
-                        <xml-property name="description" value="S-NSSAI"/>
-                    </xml-properties>
-                </xml-element>
+				<xml-element java-attribute="activityFactor" name="activity-factor" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="An attribute specfies the percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="jitter" name="jitter" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="The jitter requirements of network slice subnet."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Survival time for network slice subnet."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="cSAvailabilityTarget" name="cs-availability-target" type="java.lang.Float">
+					<xml-properties>
+						<xml-property name="description" value="Communication service availability target value."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="maxBandwidth" name="max-bandwidth" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="Maxmun bandwidth value of TN network."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="expDataRate" name="exp-data-rate" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="Expected date rate for uRLLC."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="maxNumberOfPDUSession" name="max-number-of-pdu-session" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="maxNumberofPDUSession Integer 1	The maximum number of PDU sessions that can simultaneously/concurrently access to the network slice."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="overallUserDensity" name="overall-user-density" type="java.lang.Integer">
+					<xml-properties>
+						<xml-property name="description" value="Overall User Density."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="cSReliabilityMeanTime" name="cs-reliability-mean-time" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Communication service reliability mean time between failures."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="msgSizeByte" name="msg-size-byte" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Message size(byte) ."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="transferIntervalTarget" name="transfer-interval-target" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="transferIntervalTarget String 1	Target value of transfer interval."/>
+					</xml-properties>
+				</xml-element>
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
