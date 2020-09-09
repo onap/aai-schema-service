@@ -8998,6 +8998,11 @@
                         <xml-property name="description" value="ip-address prefix length."/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="logicalInterfaceId" name="logical-interface-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identity of a logical interface, e.g., VLAN ID."/>
+                    </xml-properties>
+                </xml-element>
 				<xml-element java-attribute="nextHop" name="next-hop" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Could be ip-address, hostname, or service-instance."/>
