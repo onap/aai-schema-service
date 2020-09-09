@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3c4925f_af41d673",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v20/aai_oxm_v20.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9896,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2020-09-09T04:19:28Z",
+      "side": 1,
+      "message": "Convention that we follow is the java-attribute value we use the camelCase and for the name value we use kebab-case.\n\nIf for example, if we have name in-maint (kebab-case) then we will have java-attribute inMaint, we will not have the java-attribute iNMaint\n\nYour kebab-case and camelCase are not matching up and will potentially cause issues with the code.\n\njava-attribute is not exposed to the client so you need to follow the convention that was set.\n\nIf you have name as dl-thpt-per-slice the equivalent java-attribute would be dlThptPerSlice.\n\nI see other properties in the same file where they are not matching please fix them:\n\ndLThptPerUE\nuLThptPerSlice\ncSAvailabilityTarget\nmaxNumberOfPDUSession\ncSReliabilityMeanTime",
+      "revId": "e89ace18c5530669c6ff024789089d196d790826",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
