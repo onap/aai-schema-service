@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6945aa39_80ed5dd1",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 4
+      },
+      "lineNbr": 4222,
+      "author": {
+        "id": 3755
+      },
+      "writtenOn": "2020-09-09T18:20:53Z",
+      "side": 0,
+      "message": "Logical-links and network-policies are children under allotted-resource. Is this an issue as well?",
+      "revId": "b865838ae98d4faed6348f260b2e3970b8c5247b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3a8776c_2f91b168",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v21.xsd",
+        "patchSetId": 4
+      },
+      "lineNbr": 4939,
+      "author": {
+        "id": 3755
+      },
+      "writtenOn": "2020-09-09T18:20:53Z",
+      "side": 0,
+      "message": "Can logical-links and network-policies not be children?",
+      "revId": "b865838ae98d4faed6348f260b2e3970b8c5247b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
