@@ -109,6 +109,18 @@
 			"description": ""
 		},
 		{
+			"from": "logical-link",
+			"to": "allotted-resource",
+			"label": "org.onap.relationships.inventory.BelongsTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2ONE",
+			"contains-other-v": "NONE",
+			"delete-other-v": "!${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": ""
+		},
+		{
 			"from": "availability-zone",
 			"to": "complex",
 			"label": "org.onap.relationships.inventory.LocatedIn",
@@ -5823,6 +5835,19 @@
 			"prevent-delete": "NONE",
 			"default": "false",
 			"description": ""
+		},
+		{
+			"from": "service-instance",
+			"to": "network-route",
+			"label": "org.onap.relationships.inventory.ComposedOf",
+			"direction": "OUT",
+			"multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "${direction}",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description": ""
 		}
+
 	]
 }
