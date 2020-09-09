@@ -687,7 +687,7 @@
 			"to": "l3-network",
 			"label": "org.onap.relationships.inventory.ComposedOf",
 			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
+			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
@@ -722,7 +722,7 @@
 			"direction": "OUT",
 			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
-			"delete-other-v": "${direction}",
+			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true"
 		},
