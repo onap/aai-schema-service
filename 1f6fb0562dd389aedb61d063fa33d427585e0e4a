@@ -16,6 +16,24 @@
       "revId": "1f6fb0562dd389aedb61d063fa33d427585e0e4a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45a7c68c_09746635",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v21/aai_oxm_v21.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12325,
+      "author": {
+        "id": 4093
+      },
+      "writtenOn": "2020-09-09T03:29:05Z",
+      "side": 1,
+      "message": "Hi Harish and all,\n  We use maxNumberofUEs is because we refer 3GPP original definition directly(all the of in the middle is \"of\"), since the AAI convention is \"Of\", we can change all the attributes with \"of\" in the middle into \"Of\", please review patch set 2.",
+      "parentUuid": "170ebcf2_86a88c2b",
+      "revId": "1f6fb0562dd389aedb61d063fa33d427585e0e4a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
