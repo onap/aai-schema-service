@@ -544,18 +544,6 @@
                 "prevent-delete": "NONE",
                 "default": "true",
                 "description":"For MDONS usecase"
-        },
-        {
-                "from": "endpoint",
-                "to": "p-interface",
-                "label": "tosca.relationships.network.LinksTo",
-                "direction": "OUT",
-                "multiplicity": "ONE2ONE",
-                "contains-other-v": "NONE",
-                "delete-other-v": "NONE",
-                "prevent-delete": "NONE",
-                "default": "true",
-                "description":"For CCVPN Transport Slicing usecase"
-       }
+        }
   ]
 }
