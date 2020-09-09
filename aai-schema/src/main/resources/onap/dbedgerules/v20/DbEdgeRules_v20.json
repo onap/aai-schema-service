@@ -355,7 +355,7 @@
 			"direction": "OUT",
 			"multiplicity": "ONE2MANY",
 			"contains-other-v": "NONE",
-			"delete-other-v": "${direction}",
+			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":""
@@ -941,7 +941,7 @@
 			"to": "l3-network",
 			"label": "org.onap.relationships.inventory.ComposedOf",
 			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
+			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
@@ -1025,7 +1025,7 @@
 			"to": "l-interface",
 			"label": "org.onap.relationships.inventory.Uses",
 			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
+			"multiplicity": "MANY2MANY",
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
@@ -1629,7 +1629,7 @@
                         "delete-other-v": "NONE",
                         "SVC-INFRA": "NONE",
                         "prevent-delete": "NONE",
-                        "default": "true",
+                        "default": "false",
                         "description":""
                 },
                 {
@@ -1642,7 +1642,7 @@
                         "delete-other-v": "NONE",
                         "SVC-INFRA": "NONE",
                         "prevent-delete": "NONE",
-                        "default": "true",
+                        "default": "false",
                         "description":""
                 },
                 {
@@ -3029,18 +3029,6 @@
 		},
 		{
 			"from": "vlan-tag",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description":""
-		},
-		{
-			"from": "vlan-tag",
 			"to": "cloud-region",
 			"label": "org.onap.relationships.inventory.BelongsTo",
 			"direction": "OUT",
@@ -3290,18 +3278,6 @@
 			"description":""
 		},
 		{
-                        "from": "configuration",
-                        "to": "lag-interface",
-                        "label": "org.onap.relationships.inventory.AppliesTo",
-                        "direction": "OUT",
-                        "multiplicity": "MANY2ONE",
-                        "contains-other-v": "NONE",
-                        "delete-other-v": "NONE",
-                        "prevent-delete": "NONE",
-                        "default": "true",
-                        "description":""
-                },
-		{
 			"from": "communication-service-profile",
 			"to": "service-instance",
 			"label": "org.onap.relationships.inventory.BelongsTo",
@@ -3515,8 +3491,33 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The dns cname record that applies to an A-record (ipv4) and/or quad-A-record (ipv6)."
+		},
+		{
+			"from": "profile",
+			"to": "pnf",
+			"label": "org.onap.relationships.inventory.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"SVC-INFRA": "NONE",
+			"prevent-delete": "${direction}",
+			"default": "true",
+			"description": "A profile (set of characteristics) applies to the pnf."
+		},
+		{
+			"from": "profile",
+			"to": "pserver",
+			"label": "org.onap.relationships.inventory.AppliesTo",
+			"direction": "OUT",
+			"multiplicity": "MANY2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"SVC-INFRA": "NONE",
+			"prevent-delete": "${direction}",
+			"default": "true",
+			"description": "A profile (set of characteristics) applies to the pserver."
 		}
-
 	]
 }
 
