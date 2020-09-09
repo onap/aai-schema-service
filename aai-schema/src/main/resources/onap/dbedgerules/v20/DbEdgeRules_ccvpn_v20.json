@@ -546,7 +546,7 @@
                 "description":"For MDONS usecase"
         },
         {
-                "from": "endpoint",
+                "from": "network-route",
                 "to": "p-interface",
                 "label": "tosca.relationships.network.LinksTo",
                 "direction": "OUT",

@@ -5390,131 +5390,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ip-address">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="IP address.",uniqueProps="ip-address",indexedProps="ip-address",container="ip-address-list",uriTemplate="/endpoints/endpoint/{endpoint-id}/ip-address-list/ip-address/{ip-address}",searcheable="ip-address")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="ip-address" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ip-address-end" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="IP address end range.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ip-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="IP version, either 4 or 6.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of IP address, eg., Reserved, Static, DHCP.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="assignment" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="assignment.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operator" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operator to apply to the port (greater than, less than, etc).")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="length" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="ip-address prefix length, 32 for single address.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ip-address-list">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="List of IP addresses.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:ip-address" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="endpoint">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Endpoint object.",uniqueProps="endpoint-id",indexedProps="endpoint-id",container="endpoints",uriTemplate="/endpoints/endpoint/{endpoint-id}",searcheable="endpoint-id",requiredProps="endpoint-id")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="endpoint-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of an endpoint.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="endpoint-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of an endpoint.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="endpoint-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of an endpoint.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="logical-interface-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identity of a logical interface, e.g., VLAN ID.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:ip-address-list" minOccurs="0"/>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="endpoints">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Endpoint objects.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:endpoint" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="service-instance">
     <xs:complexType>
       <xs:annotation>
@@ -5739,7 +5614,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:communication-service-profiles" minOccurs="0"/>
         <xs:element ref="tns:service-profiles" minOccurs="0"/>
         <xs:element ref="tns:slice-profiles" minOccurs="0"/>
-        <xs:element ref="tns:endpoints" minOccurs="0"/>
         <xs:element name="operational-status" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -8289,7 +8163,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:host-routes" minOccurs="0"/>
-        <xs:element ref="tns:ip-address-list" minOccurs="0" maxOccurs="5000"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:bgp-neighbors" minOccurs="0"/>
       </xs:sequence>
