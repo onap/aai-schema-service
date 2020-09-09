@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03561c71_39143e75",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 4
+      },
+      "lineNbr": 4222,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2020-09-09T18:43:40Z",
+      "side": 0,
+      "message": "Logical Link and Network Policy are already an top level object so it can\u0027t be possible for it to be an child object at least according to how our code works, this would fail at runtime with issues.",
+      "parentUuid": "6945aa39_80ed5dd1",
+      "revId": "b865838ae98d4faed6348f260b2e3970b8c5247b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c3a8776c_2f91b168",
         "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v21.xsd",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2020-09-09T18:20:53Z",
       "side": 0,
       "message": "Can logical-links and network-policies not be children?",
+      "revId": "b865838ae98d4faed6348f260b2e3970b8c5247b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a56a68c_73eeb6ff",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v21.xsd",
+        "patchSetId": 4
+      },
+      "lineNbr": 4939,
+      "author": {
+        "id": 75
+      },
+      "writtenOn": "2020-09-09T18:43:40Z",
+      "side": 0,
+      "message": "Since they are already top level object, it has to be an cousin relationships, it cannot be an child of another object since its already an top level",
+      "parentUuid": "c3a8776c_2f91b168",
       "revId": "b865838ae98d4faed6348f260b2e3970b8c5247b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
