@@ -349,18 +349,6 @@
 			"description": ""
 		},
 		{
-			"from": "configuration",
-			"to": "logical-link",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "${direction}",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
 			"from": "metadatum",
 			"to": "configuration",
 			"label": "org.onap.relationships.inventory.BelongsTo",
@@ -417,18 +405,6 @@
 			"contains-other-v": "NONE",
 			"delete-other-v": "NONE",
 			"prevent-delete": "!${direction}",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "service-subscription",
-			"to": "customer",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"prevent-delete": "NONE",
 			"default": "true",
 			"description": ""
 		},
@@ -938,18 +914,6 @@
 		},
 		{
 			"from": "service-instance",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.ComposedOf",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "service-instance",
 			"to": "p-interface",
 			"label": "org.onap.relationships.inventory.ComposedOf",
 			"direction": "OUT",
@@ -1018,18 +982,6 @@
 			"delete-other-v": "!${direction}",
 			"prevent-delete": "NONE",
 			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "lag-interface",
-			"to": "l-interface",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "false",
 			"description": ""
 		},
 		{
@@ -1630,7 +1582,7 @@
 			"delete-other-v": "NONE",
 			"SVC-INFRA": "NONE",
 			"prevent-delete": "NONE",
-			"default": "true",
+			"default": "false",
 			"description": ""
 		},
 		{
@@ -1643,7 +1595,7 @@
 			"delete-other-v": "NONE",
 			"SVC-INFRA": "NONE",
 			"prevent-delete": "NONE",
-			"default": "true",
+			"default": "false",
 			"description": ""
 		},
 		{
@@ -3030,18 +2982,6 @@
 		},
 		{
 			"from": "vlan-tag",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "vlan-tag",
 			"to": "cloud-region",
 			"label": "org.onap.relationships.inventory.BelongsTo",
 			"direction": "OUT",
@@ -3103,19 +3043,6 @@
 		},
 		{
 			"from": "platform",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "l3-network",
 			"to": "l3-network",
 			"label": "org.onap.relationships.inventory.Uses",
 			"direction": "OUT",
@@ -3227,18 +3154,6 @@
 			"description": "A vrf uses many l3-networks"
 		},
 		{
-			"from": "configuration",
-			"to": "vrf",
-			"label": "org.onap.relationships.inventory.Uses",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "A Configuration uses VRFs"
-		},
-		{
 			"from": "vrf",
 			"to": "l-interface",
 			"label": "org.onap.relationships.inventory.Uses",
@@ -3286,18 +3201,6 @@
 			"contains-other-v": "!${direction}",
 			"delete-other-v": "!${direction}",
 			"SVC-INFRA": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "configuration",
-			"to": "lag-interface",
-			"label": "org.onap.relationships.inventory.AppliesTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": ""
@@ -5762,18 +5665,6 @@
 			"prevent-delete": "NONE",
 			"default": "false",
 			"description": "service-instance Uses an owning-entity"
-		},
-		{
-			"from": "service-instance",
-			"to": "service-subscription",
-			"label": "org.onap.relationships.inventory.BelongsTo",
-			"direction": "OUT",
-			"multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "!${direction}",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": "service-instance BelongsTo service-subscription"
 		},
 		{
 			"from": "service-instance",
