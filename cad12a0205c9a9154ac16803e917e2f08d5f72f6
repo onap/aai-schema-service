@@ -16,6 +16,24 @@
       "revId": "cad12a0205c9a9154ac16803e917e2f08d5f72f6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9147be19_1dd42eac",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 4
+      },
+      "lineNbr": 4115,
+      "author": {
+        "id": 4093
+      },
+      "writtenOn": "2020-09-11T02:51:13Z",
+      "side": 1,
+      "message": "Hi Chandra,\n  Profiles have differernt functionalities and at different levels, a generic node can\u0027t satisfy and enable the requirements and usage. If it can be a generic one, we\u0027d also like too, however it can\u0027t. Please carry these changes.",
+      "parentUuid": "e23400f8_4b766985",
+      "revId": "cad12a0205c9a9154ac16803e917e2f08d5f72f6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
