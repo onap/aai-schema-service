@@ -720,6 +720,18 @@
 			"default": "true",
 			"description": ""
 		},
+                {
+                        "from": "vf-module",
+                        "to": "tenant",
+                        "label": "tosca.relationships.HostedOn",
+                        "direction": "OUT",
+                        "multiplicity": "MANY2ONE",
+                        "contains-other-v": "NONE",
+                        "delete-other-v": "NONE",
+                        "prevent-delete": "NONE",
+                        "default": "true",
+                        "description": ""
+                },
 		{
 			"from": "pserver",
 			"to": "group-assignment",
