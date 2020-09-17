@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "589ecec0_d4c92f4d",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v21/DbEdgeRules_v21.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5319
+      },
+      "writtenOn": "2020-09-17T15:35:31Z",
+      "side": 1,
+      "message": "There is an existing relationship betwen generic-vnf/vserver and tenant This will be a redundant edge.",
+      "revId": "6301153359a3b12a845f7678519ef75d00e5aec2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
