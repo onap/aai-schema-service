@@ -16,6 +16,24 @@
       "revId": "6301153359a3b12a845f7678519ef75d00e5aec2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a6ba177_9e3cf252",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v21/DbEdgeRules_v21.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 153
+      },
+      "writtenOn": "2020-09-17T15:38:29Z",
+      "side": 1,
+      "message": "a VNF can have multiple vf-modules and those can be deployed into different cloud region.\n\nthere are scenarios where a vf-module can deploy networks without any vservers for example a base vf-module might deploy a provider network in Openstack that gets represented as l3network in AAI.",
+      "parentUuid": "589ecec0_d4c92f4d",
+      "revId": "6301153359a3b12a845f7678519ef75d00e5aec2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
