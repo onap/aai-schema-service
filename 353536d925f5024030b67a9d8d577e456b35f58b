@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a3d3e02_c5980170",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v20.xsd",
+        "patchSetId": 2
+      },
+      "lineNbr": 9923,
+      "author": {
+        "id": 3755
+      },
+      "writtenOn": "2020-10-23T00:49:42Z",
+      "side": 1,
+      "message": "In v19 schema, there were the following entries after the highlighted line:\n\n        \u003cxs:element ref\u003d\"tns:label-restrictions\" minOccurs\u003d\"0\"/\u003e\n        \u003cxs:element ref\u003d\"tns:unis\" minOccurs\u003d\"0\"/\u003e\n        \u003cxs:element ref\u003d\"tns:te-link-attributes\" minOccurs\u003d\"0\"/\u003e\n        \u003cxs:element ref\u003d\"tns:interlayer-attachments\" minOccurs\u003d\"0\"/\u003e\n        \u003cxs:element ref\u003d\"tns:tunnel-termination-points\" minOccurs\u003d\"0\"/\u003e\n\nBut they were removed from the v20 schema.  May I ask why? \n\nThese entries were added by the CCVPN use case in Frankfurt release. CCVPN may not\nfunction without them.",
+      "range": {
+        "startLine": 9923,
+        "startChar": 8,
+        "endLine": 9923,
+        "endChar": 62
+      },
+      "revId": "353536d925f5024030b67a9d8d577e456b35f58b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
