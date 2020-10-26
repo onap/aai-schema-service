@@ -4175,6 +4175,11 @@
                 <xml-element java-attribute="devices" name="devices" type="inventory.aai.onap.org.v21.Devices"/>
                 <xml-element java-attribute="wanPortConfigs" name="wan-port-configs" type="inventory.aai.onap.org.v21.WanPortConfigs"/>
                 <xml-element java-attribute="extAaiNetworks" name="ext-aai-networks" type="inventory.aai.onap.org.v21.ExtAaiNetworks"/>
+                <xml-element java-attribute="labelRestrictions" name="label-restrictions" type="inventory.aai.onap.org.v21.LabelRestrictions"/>
+                <xml-element java-attribute="unis" name="unis" type="inventory.aai.onap.org.v21.Unis"/>
+                <xml-element java-attribute="teLinkAttributes" name="te-link-attributes" type="inventory.aai.onap.org.v21.TeLinkAttributes"/>
+    	        <xml-element java-attribute="interlayerAttachments" name="interlayer-attachments" type="inventory.aai.onap.org.v21.InterlayerAttachments"/>
+                <xml-element java-attribute="tunnelTerminationPoints" name="tunnel-termination-points" type="inventory.aai.onap.org.v21.TunnelTerminationPoints"/>
             </java-attributes>
         </java-type>
         <java-type name="Configurations">

@@ -4808,90 +4808,90 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-		<xs:element name="activity-factor" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="jitter" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="survival-time" type="xs:string" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the time that an application consuming a communication service may continue without an anticipated message.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="availability" type="xs:float" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the availability requirement, expressed as a percentage.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="reliability" type="xs:string" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies in the context of network layer packet transmissions, percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="dl-thpt-per-slice" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="dl-thpt-per-UE" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines downlink data rate supported by the network slice per UE.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="ul-thpt-per-slice" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in uplink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="ul-thpt-per-UE" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="uLThptPerUE Integer 1 This attribute defines uplink data rate supported by the network slice per UE.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="max-pkt-size" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the maximum packet size supported by the network slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="max-number-of-conns" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter defines the maximum number of concurrent sessions supported by the network slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="term-density" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the overall user density over the coverage area of the network slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
+        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="jitter" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="survival-time" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the time that an application consuming a communication service may continue without an anticipated message.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="availability" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the availability requirement, expressed as a percentage.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="reliability" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies in the context of network layer packet transmissions, percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="dl-thpt-per-slice" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="dl-thpt-per-UE" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines downlink data rate supported by the network slice per UE.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ul-thpt-per-slice" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines achievable data rate of the network slice in uplink that is available ubiquitously across the coverage area of the slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ul-thpt-per-UE" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This attribute defines uplink data rate supported by the network slice per UE.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-pkt-size" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the maximum packet size supported by the network slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-number-of-conns" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter defines the maximum number of concurrent sessions supported by the network slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="term-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies the overall user density over the coverage area of the network slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -4993,83 +4993,83 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-		<xs:element name="activity-factor" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specfies the percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="jitter" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice subnet.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="survival-time" type="xs:string" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="survivalTime	String 1 Survival time for network slice subnet.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="cs-availability-target" type="xs:float" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communica¬tion service availability target value.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Maxmun bandwidth value of TN network. ")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Expected date rate for uRLLC.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="max-number-of-PDU-session" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The maximum number of PDU sessions that can simultaneously/concurrently access to the network slice.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="overall-user-density" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Overall User Density.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="cs-reliability-mean-time" type="xs:int" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communication service reliability mean time between failures.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="msg-size-byte" type="xs:string" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Message size(byte) .")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
-		<xs:element name="transfer-interval-target" type="xs:string" minOccurs="0">
-			<xs:annotation>
-				<xs:appinfo>
-					<annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Target value of transfer interval.")</annox:annotate>
-				</xs:appinfo>
-			</xs:annotation>
-		</xs:element>
+        <xs:element name="activity-factor" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specfies the percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="jitter" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The jitter requirements of network slice subnet.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="survival-time" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Survival time for network slice subnet.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cs-availability-target" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communication service availability target value.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Maxmun bandwidth value of TN network.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="exp-data-rate" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Expected date rate for uRLLC.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="max-number-of-PDU-session" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="maxNumberofPDUSession Integer 1 The maximum number of PDU sessions that can simultaneously/concurrently access to the network slice.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="overall-user-density" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Overall User Density.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cs-reliability-mean-time" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communication service reliability mean time between failures.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="msg-size-byte" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Message size(byte) .")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="transfer-interval-target" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="transferIntervalTarget String 1 Target value of transfer interval.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -13158,6 +13158,539 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="label-restriction">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an label restriction",indexedProps="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="label-restrictions",namespace="network",requiredProps="id",uriTemplate="/network/label-restrictions/label-restriction/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the label restriction")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-start" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="First number in the label range")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-end" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Last number in the label range")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="range-bitmap" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bitmap of available labels starting from label-start to label-end.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="label-step" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Step of labels in label range.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inclusive-exclusive" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather range-bitmap items are inclusive or exclusive.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="range-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate the label range e.g.trib-slot, trib-port")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="trib-slot-granularity" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate trib slot granularity.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="priority" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Priority.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="label-restrictions">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Label Restriction.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:label-restriction" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uni">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an User network interface",indexedProps="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="unis",namespace="network",requiredProps="id",uriTemplate="/network/unis/uni/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the UNI")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tp-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Termination point ID.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="cvlan" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The cvlan for the site used for ethernet type connectivity.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unis">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of User network interface.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:uni" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="te-link-attribute">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="te-link-attributes",namespace="network",requiredProps="id",uriTemplate="/network/te-link-attributes/te-link-attribute/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the TE link attribute")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="link-protection-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate desired protection type of the link e.g, unprotected, shared or 1+1")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="access-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate link access type e.g, point-to-point or multi-access.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="available-bandwidth" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bandwidth available on link.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="odu-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="number" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="is-abstract" type="xs:boolean" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather link is abstract or native")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="te-link-attributes">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of TE link attributes.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:te-link-attribute" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interlayer-attachment">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an inter layer topology attachment",indexedProps="id,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="interlayer-attachments",namespace="network",requiredProps="id",uriTemplate="/network/interlayer-attachments/interlayer-attachment/{id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the interlayer topology attachment")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inter-layer-lockId" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inter layer lock id")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interlayer-attachments">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of interlayer topology connectivities.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:interlayer-attachment" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tunnel-termination-point">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an tunnel termination point",indexedProps="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id",searchable="ttp-id",uniqueProps="ttp-id",container="tunnel-termination-points",namespace="network",requiredProps="ttp-id",uriTemplate="/network/tunnel-termination-points/tunnel-termination-point/{ttp-id}")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element name="ttp-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the tunnel termination point")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="tunnel-tp-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="TTP ID discovered from controller")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="name" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of tunnel termination point")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="admin-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Admin status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="oper-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operational status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="switching-capability" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate switching capability of TTP e.g,PSC-1, EVPL,L2SC,TDM,OTN.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="encoding" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Encoding support by the TTP e.g, packet,ethernet,PDH,SDH,digital-wrapper,lambda,fiber,ODUK,line.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="protection-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate supported protection type of this TTP e.g, unprotected,reroute,reroute-extra,1-for-n,unidir-1-to-1.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="inter-layer-lock-id" type="xs:int" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="correlation between related objects in ETH and OTN topology.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="selflink" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="operational-status" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tunnel-termination-points">
+    <xs:complexType>
+      <xs:annotation>
+        <xs:appinfo>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Tunnel Termination Point.")</annox:annotate>
+        </xs:appinfo>
+      </xs:annotation>
+      <xs:sequence>
+        <xs:element ref="tns:tunnel-termination-point" minOccurs="0" maxOccurs="5000"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="network">
     <xs:complexType>
       <xs:annotation>
@@ -13205,6 +13738,11 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:devices" minOccurs="0"/>
         <xs:element ref="tns:wan-port-configs" minOccurs="0"/>
         <xs:element ref="tns:ext-aai-networks" minOccurs="0"/>
+        <xs:element ref="tns:label-restrictions" minOccurs="0"/>
+        <xs:element ref="tns:unis" minOccurs="0"/>
+        <xs:element ref="tns:te-link-attributes" minOccurs="0"/>
+        <xs:element ref="tns:interlayer-attachments" minOccurs="0"/>
+        <xs:element ref="tns:tunnel-termination-points" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -14278,539 +14816,6 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="uni">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an User network interface",indexedProps="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="unis",namespace="network",requiredProps="id",uriTemplate="/network/unis/uni/{id}")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the UNI")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="tp-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Termination point ID.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="cvlan" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The cvlan for the site used for ethernet type connectivity.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="unis">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of User network interface.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:uni" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="interlayer-attachment">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an inter layer topology attachment",indexedProps="id,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="interlayer-attachments",namespace="network",requiredProps="id",uriTemplate="/network/interlayer-attachments/interlayer-attachment/{id}")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the interlayer topology attachment")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="inter-layer-lockId" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inter layer lock id")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="interlayer-attachments">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of interlayer topology connectivities.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:interlayer-attachment" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="te-link-attribute">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an te-link-attribute",indexedProps="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="te-link-attributes",namespace="network",requiredProps="id",uriTemplate="/network/te-link-attributes/te-link-attribute/{id}")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the TE link attribute")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="link-protection-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate desired protection type of the link e.g, unprotected, shared or 1+1")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="access-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate link access type e.g, point-to-point or multi-access.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="available-bandwidth" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bandwidth available on link.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="odu-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of ODU e.g, ODU1, ODU2, ODU3, ODU4.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="number" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The value of available bandwidth.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="is-abstract" type="xs:boolean" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather link is abstract or native")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="te-link-attributes">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of TE link attributes.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:te-link-attribute" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="label-restriction">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an label restriction",indexedProps="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id",searchable="id",uniqueProps="id",container="label-restrictions",namespace="network",requiredProps="id",uriTemplate="/network/label-restrictions/label-restriction/{id}")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the label restriction")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="label-start" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="First number in the label range")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="label-end" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Last number in the label range")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="range-bitmap" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Bitmap of available labels starting from label-start to label-end.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="label-step" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Step of labels in label range.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="inclusive-exclusive" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate wheather range-bitmap items are inclusive or exclusive.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="range-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate the label range e.g.trib-slot, trib-port")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="trib-slot-granularity" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate trib slot granularity.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="priority" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Priority.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="label-restrictions">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Label Restriction.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:label-restriction" minOccurs="0" maxOccurs="5000"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="tunnel-termination-point">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of an tunnel termination point",indexedProps="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id",searchable="ttp-id",uniqueProps="ttp-id",container="tunnel-termination-points",namespace="network",requiredProps="ttp-id",uriTemplate="/network/tunnel-termination-points/tunnel-termination-point/{ttp-id}")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="ttp-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the tunnel termination point")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="tunnel-tp-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="TTP ID discovered from controller")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of tunnel termination point")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="admin-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Admin status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="oper-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operational status of TTP e.g, up,down,testing,preparing-maintenance,maintenance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="switching-capability" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate switching capability of TTP e.g,PSC-1, EVPL,L2SC,TDM,OTN.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="encoding" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Encoding support by the TTP e.g, packet,ethernet,PDH,SDH,digital-wrapper,lambda,fiber,ODUK,line.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="protection-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicate supported protection type of this TTP e.g, unprotected,reroute,reroute-extra,1-for-n,unidir-1-to-1.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="inter-layer-lock-id" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="correlation between related objects in ETH and OTN topology.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the link to get more information for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the operational-status for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Store the model-customization-id for this object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="tunnel-termination-points">
-    <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of Tunnel Termination Point.")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element ref="tns:tunnel-termination-point" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
