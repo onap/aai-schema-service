@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Chandra Cinthala <chandra.cinthala@att.com>
+Code-Review+2: William Reehil <william.reehil@att.com>
+Submitted-by: William Reehil <william.reehil@att.com>
+Submitted-at: Wed, 28 Oct 2020 21:56:20 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/114373
+Project: aai/schema-service
+Branch: refs/heads/master
