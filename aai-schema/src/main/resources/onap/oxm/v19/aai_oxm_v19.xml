@@ -2515,7 +2515,7 @@
             </xml-properties>
         </java-type>
 
-       <java-type name="OTNLabelRestrictions">
+       <!--java-type name="OTNLabelRestrictions">
             <xml-properties>
                 <xml-property name="description" value="Collection of Label Restriction. Added for ENNI in MDONS use case."/>
             </xml-properties>
@@ -2563,7 +2563,7 @@
                 <xml-property name="dependentOn" value="bandwidth-attribute"/>
                 <xml-property name="requiredProps" value="lr-id"/>
             </xml-properties>
-        </java-type>
+        </java-type-->
 	
         <java-type name="LagInterfaces">
             <xml-properties>
