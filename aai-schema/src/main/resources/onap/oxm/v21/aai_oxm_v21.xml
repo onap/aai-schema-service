@@ -3040,7 +3040,7 @@
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v21.RelationshipList"/>
                 <xml-element java-attribute="availableBandwidthMap" name="available-bandwidth-map" type="inventory.aai.onap.org.v21.AvailableBandwidthMap"/>
-                <xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v21.OTNLabelRestrictions"/>
+                <!--xml-element java-attribute="OTNLabelRestrictions" name="otn-label-restrictions" type="inventory.aai.onap.org.v21.OTNLabelRestrictions"/-->
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a bandwidth-attribute"/>
@@ -3104,7 +3104,7 @@
             </xml-properties>
         </java-type>
 
-       <java-type name="OTNLabelRestrictions">
+       <!--java-type name="OTNLabelRestrictions">
             <xml-properties>
                 <xml-property name="description" value="Collection of Label Restriction. Added for ENNI in MDONS use case."/>
             </xml-properties>
@@ -3152,7 +3152,7 @@
                 <xml-property name="dependentOn" value="bandwidth-attribute"/>
                 <xml-property name="requiredProps" value="lr-id"/>
             </xml-properties>
-        </java-type>
+        </java-type-->
 
         <java-type name="Vrfs">
             <xml-root-element name="vrfs"/>
