@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://org.onap.aai.inventory/v21" xmlns:tns="http://org.onap.aai.inventory/v21" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://org.onap.aai.inventory/v22" xmlns:tns="http://org.onap.aai.inventory/v22" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     jaxb:version="2.1"
     xmlns:annox="http://annox.dev.java.net"
@@ -5261,6 +5261,20 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="production-state" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Production state")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="support-model" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Support Model")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
