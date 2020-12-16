@@ -1337,6 +1337,16 @@
                         <xml-property name="description" value="tenant parent-id"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="productionState" name="production-state" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Production state"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="supportModel" name="support-model" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Support Model"/>
+                    </xml-properties>
+                </xml-element> 
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -3956,16 +3966,6 @@
                     <xml-property name="suggestibleOnSearch" value="true"/>
                 </xml-properties>
             </xml-element>
-    <xml-element java-attribute="productionState" name="production-state" type="java.lang.String">
-        <xml-properties>
-            <xml-property name="description" value="Production state"/>
-        </xml-properties>
-    </xml-element>
-    <xml-element java-attribute="supportModel" name="support-model" type="java.lang.String">
-        <xml-properties>
-            <xml-property name="description" value="Support Model"/>
-        </xml-properties>
-    </xml-element> 
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
