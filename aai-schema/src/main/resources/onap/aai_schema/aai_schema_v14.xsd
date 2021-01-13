@@ -18,22 +18,22 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       <xs:sequence>
         <xs:element name="inventory-item-type" type="xs:string" minOccurs="0"/>
         <xs:element name="inventory-item-link" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:inventory-item-data" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:inventory-item-data" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="tagged-inventory-item-list">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:inventory-item" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:inventory-item" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="edge-tag-query-result">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:tagged-inventory-item-list" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -67,9 +67,9 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="edge-tag" type="xs:string" minOccurs="0"/>
         <xs:element name="result-detail" type="xs:string" minOccurs="0"/>
         <xs:element name="start-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:start-node-filter" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:include-node-filter" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:secondary-filter" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:start-node-filter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:include-node-filter" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:secondary-filter" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -101,7 +101,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="search-results">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:result-data" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:result-data" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -184,15 +184,15 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element ref="tns:relationship-data" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:related-to-property" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:relationship-data" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:related-to-property" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="relationship-list">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:relationship" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:relationship" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -258,7 +258,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:oam-network" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:oam-network" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -303,7 +303,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:dvs-switch" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:dvs-switch" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -359,7 +359,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="tns:oam-networks" minOccurs="0"/>
-        <xs:element ref="tns:az-and-dvs-switches" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:az-and-dvs-switches" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -393,7 +393,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:sequence>
         <xs:element name="action-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:action-data" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:action-data" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -406,9 +406,9 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
       </xs:annotation>
       <xs:sequence>
         <xs:element name="update-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:update-node-key" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:update-node-key" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="update-node-uri" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:action" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:action" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -426,7 +426,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="event-id" type="xs:string" minOccurs="0"/>
         <xs:element name="node-type" type="xs:string" minOccurs="0"/>
         <xs:element name="event-trigger" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:key-data" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:key-data" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="selflink" type="xs:string" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
@@ -494,7 +494,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ctag-pools">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ctag-pool" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:ctag-pool" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -572,7 +572,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:complex" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:complex" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -652,7 +652,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:volume-group" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:volume-group" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -697,7 +697,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:volume" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:volume" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -944,15 +944,15 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="vlans">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vlan" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vlan" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1074,7 +1074,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sriov-vf" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:sriov-vf" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1195,8 +1195,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:sriov-vfs" minOccurs="0"/>
         <xs:element ref="tns:l-interfaces" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="admin-status" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -1215,7 +1215,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:l-interface" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l-interface" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1297,7 +1297,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vserver" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vserver" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1370,7 +1370,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:nos-server" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:nos-server" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1424,7 +1424,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:tenant" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:tenant" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1505,7 +1505,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:hpa-feature-attributes" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:hpa-feature-attributes" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1517,7 +1517,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:hpa-capability" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:hpa-capability" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1625,7 +1625,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:flavor" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:flavor" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1684,7 +1684,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:group-assignment" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:group-assignment" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1785,7 +1785,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:snapshot" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:snapshot" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1823,7 +1823,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:metadatum" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:metadatum" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1918,7 +1918,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:image" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:image" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1930,7 +1930,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:availability-zone" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:availability-zone" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2127,7 +2127,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vlan-tags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vlan-tag" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vlan-tag" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2182,7 +2182,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vlan-ranges">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vlan-range" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vlan-range" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2353,7 +2353,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-system-info" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:esr-system-info" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2452,8 +2452,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:oam-networks" minOccurs="0"/>
         <xs:element ref="tns:availability-zones" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:vip-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:vip-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vip-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:vip-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element ref="tns:vlan-ranges" minOccurs="0"/>
         <xs:element ref="tns:hpa-capabilities" minOccurs="0">
           <xs:annotation>
@@ -2474,7 +2474,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:cloud-region" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:cloud-region" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2519,7 +2519,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-profile" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:network-profile" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2557,7 +2557,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sriov-pf" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:sriov-pf" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2695,7 +2695,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:p-interface" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:p-interface" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2783,7 +2783,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lag-interface" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:lag-interface" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3020,7 +3020,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:p-interfaces" minOccurs="0"/>
         <xs:element ref="tns:lag-interfaces" minOccurs="0"/>
-        <xs:element ref="tns:hpa-capacity" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:hpa-capacity" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3032,7 +3032,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:pserver" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:pserver" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3077,7 +3077,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:virtual-data-center" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:virtual-data-center" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3150,7 +3150,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:operational-environment" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:operational-environment" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3195,7 +3195,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-technology" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:network-technology" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3252,7 +3252,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-ems" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:esr-ems" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3305,7 +3305,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-vnfm" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:esr-vnfm" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3358,7 +3358,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:esr-thirdparty-sdnc" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:esr-thirdparty-sdnc" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3439,7 +3439,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:connector" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:connector" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3477,7 +3477,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:tunnel-xconnect" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:tunnel-xconnect" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3628,7 +3628,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:allotted-resource" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:allotted-resource" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3801,7 +3801,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-instance" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:service-instance" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3847,7 +3847,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-subscription" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:service-subscription" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3900,7 +3900,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:customer" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:customer" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3938,7 +3938,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:line-of-business" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:line-of-business" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -3983,7 +3983,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:owning-entity" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:owning-entity" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4021,7 +4021,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:platform" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:platform" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4059,7 +4059,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:project" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:project" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4139,7 +4139,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sp-partner" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:sp-partner" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4223,7 +4223,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vnf-image" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vnf-image" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4282,7 +4282,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:service" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4327,7 +4327,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:service-capability" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:service-capability" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4357,7 +4357,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="element-choice-sets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:element-choice-set" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:element-choice-set" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4387,7 +4387,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="constrained-element-sets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:constrained-element-set" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:constrained-element-set" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4421,7 +4421,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-constraints">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-constraint" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:model-constraint" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4454,7 +4454,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="linkage-points" type="xs:string" minOccurs="0" maxOccurs="5000"/>
+        <xs:element name="linkage-points" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -4483,7 +4483,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-elements">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-element" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:model-element" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4546,7 +4546,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="model-vers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:model-ver" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:model-ver" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4592,7 +4592,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:model" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:model" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4615,7 +4615,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="source-node-property" type="xs:string" minOccurs="0"/>
         <xs:element name="target-node-type" type="xs:string" minOccurs="0"/>
         <xs:element name="target-node-property" type="xs:string" minOccurs="0"/>
-        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="5000"/>
+        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
       </xs:sequence>
@@ -4624,7 +4624,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="related-lookups">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:related-lookup" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:related-lookup" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4653,7 +4653,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="property-constraints">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:property-constraint" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:property-constraint" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4672,7 +4672,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="5000"/>
+        <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element name="property-limit-desc" type="xs:string" minOccurs="0"/>
         <xs:element name="do-not-output" type="xs:string" minOccurs="0"/>
@@ -4686,7 +4686,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="named-query-elements">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:named-query-element" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:named-query-element" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4710,7 +4710,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element name="required-input-params" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="required-input-param" type="xs:string" minOccurs="0" maxOccurs="5000"/>
+              <xs:element name="required-input-param" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -4724,7 +4724,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="named-queries">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:named-query" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:named-query" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4897,7 +4897,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:logical-link" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:logical-link" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -4949,7 +4949,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:class-of-service" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:class-of-service" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5023,7 +5023,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-pair" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:site-pair" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5069,7 +5069,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:routing-instance" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:routing-instance" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5108,7 +5108,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-pair-set" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:site-pair-set" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5153,7 +5153,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:route-target" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:route-target" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5312,7 +5312,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vpn-bindings">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vpn-binding" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vpn-binding" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5380,7 +5380,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vpls-pe" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vpls-pe" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5432,7 +5432,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:multicast-configuration" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:multicast-configuration" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5465,7 +5465,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="cvlan-tags">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:cvlan-tag-entry" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:cvlan-tag-entry" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5562,7 +5562,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="port-groups">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:port-group" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:port-group" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5607,7 +5607,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:license" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:license" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5652,7 +5652,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:entitlement" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:entitlement" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5812,7 +5812,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vce" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vce" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5846,8 +5846,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
           </xs:annotation>
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5859,7 +5859,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:cp" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:cp" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5964,8 +5964,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:element>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
         <xs:element ref="tns:cps" minOccurs="0"/>
-        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-interface-ipv4-address-list" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:l3-interface-ipv6-address-list" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -5977,7 +5977,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vnfc" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vnfc" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6031,7 +6031,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="host-routes">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:host-route" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:host-route" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6156,7 +6156,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="subnets">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:subnet" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:subnet" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6189,7 +6189,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ctag-assignments">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ctag-assignment" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:ctag-assignment" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6227,7 +6227,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:segmentation-assignment" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:segmentation-assignment" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6444,7 +6444,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="l3-networks">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:l3-network" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:l3-network" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6491,7 +6491,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="network-policies">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:network-policy" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:network-policy" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6627,7 +6627,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vf-module" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vf-module" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7055,7 +7055,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:generic-vnf" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:generic-vnf" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7093,7 +7093,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lag-link" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:lag-link" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7216,7 +7216,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:newvce" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:newvce" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7253,7 +7253,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:software-version" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:software-version" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7490,7 +7490,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:pnf" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:pnf" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7598,7 +7598,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:physical-link" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:physical-link" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7617,14 +7617,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ipaddress-v4-vig" type="xs:string" minOccurs="0" maxOccurs="5000">
+        <xs:element name="ipaddress-v4-vig" type="xs:string" minOccurs="0" maxOccurs="unbounded">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="v4 IP of the vig server")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ipaddress-v6-vig" type="xs:string" minOccurs="0" maxOccurs="5000">
+        <xs:element name="ipaddress-v6-vig" type="xs:string" minOccurs="0" maxOccurs="unbounded">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="v6 IP of the vig server")</annox:annotate>
@@ -7645,7 +7645,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="vig-servers">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:vig-server" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vig-server" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7819,7 +7819,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ipsec-configurations">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ipsec-configuration" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:ipsec-configuration" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7864,7 +7864,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:route-table-reference" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:route-table-reference" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -7951,7 +7951,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:instance-group" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:instance-group" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8017,7 +8017,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:zone" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:zone" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8077,7 +8077,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:vlan-mapping" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:vlan-mapping" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8139,7 +8139,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarder-evcs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarder-evc" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:forwarder-evc" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8263,7 +8263,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="evcs">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:evc" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:evc" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8395,7 +8395,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:configuration" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:configuration" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8435,7 +8435,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarders">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarder" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:forwarder" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8483,7 +8483,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="forwarding-paths">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:forwarding-path" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:forwarding-path" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8572,7 +8572,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="collections">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:collection" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:collection" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8750,7 +8750,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:connectivity" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:connectivity" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8858,7 +8858,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:dhcp-service" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:dhcp-service" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -8960,7 +8960,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:lan-port-config" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:lan-port-config" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9026,7 +9026,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:network-resource" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:network-resource" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9134,7 +9134,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:site-resource" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:site-resource" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9242,7 +9242,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:sdwan-vpn" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:sdwan-vpn" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9385,7 +9385,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:device" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:device" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9577,7 +9577,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:wan-port-config" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:wan-port-config" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9618,7 +9618,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="ext-aai-networks">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:ext-aai-network" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:ext-aai-network" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9702,8 +9702,8 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   <xs:element name="aai-internal">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="tns:reserved-prop-names" minOccurs="0" maxOccurs="5000"/>
-        <xs:element ref="tns:edge-prop-names" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:reserved-prop-names" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tns:edge-prop-names" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9829,7 +9829,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:instance-filter" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:instance-filter" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9846,7 +9846,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:secondary-filt" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:secondary-filt" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9895,7 +9895,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:extra-property" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:extra-property" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -9921,7 +9921,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element ref="tns:inventory-response-item" minOccurs="0" maxOccurs="5000"/>
+        <xs:element ref="tns:inventory-response-item" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
