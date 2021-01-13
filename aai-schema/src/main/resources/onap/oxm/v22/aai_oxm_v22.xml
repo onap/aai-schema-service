@@ -14503,17 +14503,17 @@
                         <xml-property name="description" value="Route UUID."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="networkStartAddress" name="network-start-address" required="true" type="java.lang.String">
+                <xml-element java-attribute="networkStartAddress" name="network-start-address" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Name of the forwarding-path"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="cidrMask" name="cidr-mask" required="true" type="java.lang.String">
+                <xml-element java-attribute="cidrMask" name="cidr-mask" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="CIDR-mask for aggregate route subnet"/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="ipVersion" name="ip-version" required="true" type="java.lang.String">
+                <xml-element java-attribute="ipVersion" name="ip-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies is aggregate route is ipv4 or ipv6"/>
                     </xml-properties>
@@ -14561,7 +14561,7 @@
                 <xml-property name="container" value="aggregate-routes"/>
                 <xml-property name="dependentOn" value="vrf,l3-network"/>
                 <xml-property name="uriTemplate" value="/aggregate-routes/aggregate-route/{agg-route-id}"/>
-            	<xml-property name="requiredProps" value="agg-route-id,network-start-address,cidr-mask,ip-version"/>            
+            	<xml-property name="requiredProps" value="agg-route-id"/>            
             </xml-properties>
 		</java-type>
 		<java-type name="CommunicationServiceProfiles">
