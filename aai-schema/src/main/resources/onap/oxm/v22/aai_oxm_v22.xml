@@ -12328,7 +12328,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an sp-partner"/>
-                <xml-property name="indexedProps" value="sp-partner-id,url,callsource,model-invariant-id,model-version-id,data-onwer,data-source,data-source-version"/>
+                <xml-property name="indexedProps" value="sp-partner-id,url,callsource,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="nameProps" value="sp-partner-id"/>
                 <xml-property name="searchable" value="sp-partner-id"/>
                 <xml-property name="uniqueProps" value="sp-partner-id"/>
