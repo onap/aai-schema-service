@@ -257,9 +257,24 @@
                                                <xml-property name="description" value="Unique ID of EMS."/>
                                        </xml-properties>
                                </xml-element>
-                               <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
-                                       <xml-properties>
-                                               <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    				</xml-properties>
+                				</xml-element>
+								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    				</xml-properties>
+               					</xml-element>
+								<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    				</xml-properties>
+                				</xml-element>                               
+                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                                	<xml-properties>
+                                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
                                        </xml-properties>
                                </xml-element>
                                <xml-element java-attribute="esrSystemInfoList" name="esr-system-info-list" type="inventory.aai.onap.org.v22.EsrSystemInfoList"/>
@@ -267,7 +282,7 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist EMS address information used by EMS driver."/>
-                               <xml-property name="indexedProps" value="ems-id"/>
+                               <xml-property name="indexedProps" value="ems-id,data-owner,data-source,data-source-version"/>
                                <xml-property name="searchable" value="ems-id"/>
                                <xml-property name="container" value="esr-ems-list"/>
                                <xml-property name="namespace" value="external-system"/>
@@ -304,6 +319,21 @@
                                                <xml-property name="description" value="certificate url of VNFM."/>
                                        </xml-properties>
                                </xml-element>
+                				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    				</xml-properties>
+                				</xml-element>
+								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    				</xml-properties>
+               					</xml-element>
+								<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    				</xml-properties>
+                				</xml-element>                                  
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -314,7 +344,7 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist VNFM address information used by VF-C."/>
-                               <xml-property name="indexedProps" value="vnfm-id"/>
+                               <xml-property name="indexedProps" value="vnfm-id,data-owner,data-source,data-source-version"/>
                                <xml-property name="searchable" value="vnfm-id"/>
                                <xml-property name="container" value="esr-vnfm-list"/>
                                <xml-property name="namespace" value="external-system"/>
@@ -346,6 +376,21 @@
                                                <xml-property name="description" value="indecate the api-root."/>
                                        </xml-properties>
                                </xml-element>
+                				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    				</xml-properties>
+                				</xml-element>
+								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    				</xml-properties>
+               					</xml-element>
+								<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    				</xml-properties>
+                				</xml-element>                                  
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -356,7 +401,7 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist NFVO address information used by VF-C."/>
-                               <xml-property name="indexedProps" value="nfvo-id"/>
+                               <xml-property name="indexedProps" value="nfvo-id,data-owner,data-source,data-source-version"/>
                                <xml-property name="searchable" value="nfvo-id"/>
                                <xml-property name="container" value="esr-nfvo-list"/>
                                <xml-property name="namespace" value="external-system"/>
@@ -399,6 +444,21 @@
 			               		<xml-property name="description" value="Domain type of the SDNC controllerr."/>
                                        </xml-properties>
                                </xml-element>
+                				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    				</xml-properties>
+                				</xml-element>
+								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    				</xml-properties>
+               					</xml-element>
+								<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    				</xml-properties>
+                				</xml-element>                                  
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -409,6 +469,7 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist SDNC address information used by ONAP SDNC."/>
+                               <xml-property name="indexedProps" value="data-owner,data-source,data-source-version"/>                               
                                <xml-property name="searchable" value="sdnc-id"/>
                                <xml-property name="container" value="esr-thirdparty-sdnc-list"/>
                                <xml-property name="namespace" value="external-system"/>
@@ -533,6 +594,21 @@
 	                                           <xml-property name="description" value="OpenStack region ID used by MultiCloud plugin to interact with an OpenStack instance."/>
                                        </xml-properties>
                                </xml-element>
+                				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    				</xml-properties>
+                				</xml-element>
+								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    				</xml-properties>
+               					</xml-element>
+								<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    				<xml-properties>
+                        				<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    				</xml-properties>
+                				</xml-element>                                     
                                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                                        <xml-properties>
                                                <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -542,7 +618,7 @@
                        </java-attributes>
                        <xml-properties>
                                <xml-property name="description" value="Persist common address information of external systems."/>
-                               <xml-property name="indexedProps" value="esr-system-info-id,system-name,system-type"/>
+                               <xml-property name="indexedProps" value="esr-system-info-id,system-name,system-type,data-owner,data-source,data-source-version"/>
                                <xml-property name="searchable" value="esr-system-info-id,system-name,system-type"/>
                                <xml-property name="container" value="esr-system-info-list"/>
                                <xml-property name="dependentOn" value="cloud-region,esr-ems,esr-vnfm,esr-thirdparty-sdnc,ext-aai-network,esr-nfvo"/>
@@ -584,6 +660,21 @@
 						<xml-property name="description" value="Hardware architecture"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>      				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -594,7 +685,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Represents a HPA capability"/>
-				<xml-property name="indexedProps" value="hpa-feature,architecture,hpa-capability-id"/>
+				<xml-property name="indexedProps" value="hpa-feature,architecture,hpa-capability-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="dependentOn" value="flavor,cloud-region"/>
 				<xml-property name="container" value="hpa-capabilities"/>
 			    <xml-property name="requiredProps" value="hpa-capability-id,hpa-feature"/>
@@ -615,6 +706,21 @@
 						<xml-property name="description" value="JSON string specifying the value, unit and type of the specific HPA attribute"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>  				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -624,7 +730,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="HPA Capability Feature attributes"/>
-				<xml-property name="indexedProps" value="hpa-attribute-key"/>
+				<xml-property name="indexedProps" value="hpa-attribute-key,data-owner,data-source,data-source-version"/>
 				<xml-property name="dependentOn" value="hpa-capability"/>
 			    <xml-property name="requiredProps" value="hpa-attribute-key"/>
              </xml-properties>
@@ -858,12 +964,12 @@
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v22.RelationshipList"/>
             </java-attributes>
             <xml-properties>
-                <xml-property name="description" value="describes an hostAggregates"/>
+                <xml-property name="description" value="describes an hostAggregates"/>              
+                <xml-property name="indexedProps" value="data-owner,data-source,data-source-version"/>
                 <xml-property name="dependentOn" value="cloud-region"/>
                 <xml-property name="container" value="host-aggregates"/>
                 <xml-property name="uriTemplate" value="/host-aggregates/host-aggregate/{host-aggregate-id}"/>
                 <xml-property name="requiredProps" value="host-aggregate-id,host-aggregate-name"/>
-                <xml-property name="indexedProps" value="data-owner,data-source,data-source-version"/>
 	         </xml-properties>
         </java-type>
 
@@ -1041,6 +1147,7 @@
                 </xml-element>
                 <xml-element container-type="java.util.ArrayList" java-attribute="relationshipData" name="relationship-data" type="inventory.aai.onap.org.v22.RelationshipData"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="relatedToProperty" name="related-to-property" type="inventory.aai.onap.org.v22.RelatedToProperty"/>
+                <xml-element java-attribute="relationshipProperties" name="relationship-properties" type="inventory.aai.onap.org.v22.RelationshipProperties"/>
             </java-attributes>
         </java-type>
 
@@ -1075,6 +1182,28 @@
                 </xml-element>
             </java-attributes>
         </java-type>
+
+        <java-type name="RelationshipProperties">
+            <xml-root-element name="relationship-properties"/>
+            <java-attributes>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+            </java-attributes>
+        </java-type>        
+        
         <java-type name="Complexes">
             <xml-properties>
                 <xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
@@ -3029,6 +3158,21 @@
                         <xml-property name="description" value="JSON string specifying the capacity (total,free), unit and metadata of the specific HPA attribute"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                  
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -3038,7 +3182,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="HPA Capacity information for compute node"/>
-                <xml-property name="indexedProps" value="hpa-capacity-key"/>
+                <xml-property name="indexedProps" value="hpa-capacity-key,data-owner,data-source,data-source-version"/>
                 <xml-property name="dependentOn" value="pserver"/>
                 <xml-property name="requiredProps" value="hpa-capacity-key"/>
             </xml-properties>
@@ -3587,6 +3731,21 @@
                         <xml-property name="description" value="Store the link to get more information for this object."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                  
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -3598,7 +3757,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a bandwidth-attribute"/>
-                <xml-property name="indexedProps" value="bwa-id"/>
+                <xml-property name="indexedProps" value="bwa-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="bwa-id"/>
                 <xml-property name="uniqueProps" value="bwa-id"/>
                 <xml-property name="container" value="bandwidth-attributes"/>
@@ -3640,6 +3799,21 @@
                         <xml-property name="description" value="Store the link to get more information for this object."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                  
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -3649,7 +3823,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an available-bandwidth-map"/>
-                <xml-property name="indexedProps" value="ab-id"/>
+                <xml-property name="indexedProps" value="ab-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="ab-id"/>
                 <xml-property name="uniqueProps" value="ab-id"/>
                 <xml-property name="container" value="available-bandwidth-map"/>
@@ -3690,6 +3864,21 @@
                         <xml-property name="description" value="Store the link to get more information for this object."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                 	<xml-properties>
+                    	<xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+               	</xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                	<xml-properties>
+                    	<xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                  
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -3699,7 +3888,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a otn-label-restriction attribute"/>
-                <xml-property name="indexedProps" value="lr-id"/>
+                <xml-property name="indexedProps" value="lr-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="lr-id"/>
                 <xml-property name="uniqueProps" value="lr-id"/>
                 <xml-property name="container" value="otn-label-restrictions"/>
@@ -8132,10 +8321,25 @@
                         <xml-property name="description" value="used to indicate whether or not this software-version is the active one (activeSw = true)"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Software Version"/>
-                <xml-property name="indexedProps" value="software-version-id,is-active-sw-ver"/>
+                <xml-property name="indexedProps" value="software-version-id,is-active-sw-ver,data-owner,data-source,data-source-version"/>
                 <xml-property name="dependentOn" value="pnf"/>
                 <xml-property name="container" value="pnf"/>
                 <xml-property name="requiredProps" value="software-version-id,is-active-sw-ver"/>
@@ -11985,7 +12189,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Top level node for a cg-nat geographical region."/>
-                <xml-property name="indexedProps" value="geo-region-id"/>
+                <xml-property name="indexedProps" value="geo-region-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="uniqueProps" value="geo-region-id"/>
                 <xml-property name="container" value="geo-regions"/>
                 <xml-property name="namespace" value="cloud-infrastructure"/>
@@ -12072,6 +12276,21 @@
                         <xml-property name="description" value="Store the callsource of this sp-partner."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12109,7 +12328,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an sp-partner"/>
-                <xml-property name="indexedProps" value="sp-partner-id,url,callsource,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="sp-partner-id,url,callsource,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="nameProps" value="sp-partner-id"/>
                 <xml-property name="searchable" value="sp-partner-id"/>
                 <xml-property name="uniqueProps" value="sp-partner-id"/>
@@ -12244,6 +12463,7 @@
 						<xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
 					</xml-properties>
 				</xml-element>
+				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12327,6 +12547,21 @@
 						<xml-property name="description" value="Store the output-bandwidth of this lan-port-config."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12337,7 +12572,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a lan-port-config"/>
-				<xml-property name="indexedProps" value="lan-port-config-id,lan-port-config-name,device-id,port-id,ipv4-address,ipv6-address,vlan-tag"/>
+				<xml-property name="indexedProps" value="lan-port-config-id,lan-port-config-name,device-id,port-id,ipv4-address,ipv6-address,vlan-tag,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="lan-port-config-name"/>
 				<xml-property name="searchable" value="lan-port-config-id"/>
 				<xml-property name="uniqueProps" value="lan-port-config-id"/>
@@ -12415,6 +12650,21 @@
 						<xml-property name="description" value="Store the nbns of this dhcp-service."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12424,7 +12674,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a dhcp-service"/>
-				<xml-property name="indexedProps" value="dhcp-service-id,dhcp-service-type,domain-name,server-ipv4-address,server-ipv6-address"/>
+				<xml-property name="indexedProps" value="dhcp-service-id,dhcp-service-type,domain-name,server-ipv4-address,server-ipv6-address,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="domain-name"/>
 				<xml-property name="searchable" value="dhcp-service-id"/>
 				<xml-property name="uniqueProps" value="dhcp-service-id"/>
@@ -12478,6 +12728,21 @@
 						<xml-property name="description" value="Store the link to get more information for this object."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12490,7 +12755,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a network-resource"/>
-				<xml-property name="indexedProps" value="network-id,provider-id,client-id,te-topo-id"/>
+				<xml-property name="indexedProps" value="network-id,provider-id,client-id,te-topo-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="network-id"/>
 				<xml-property name="searchable" value="network-id"/>
 				<xml-property name="uniqueProps" value="network-id"/>
@@ -12575,6 +12840,21 @@
 						<xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12584,7 +12864,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a site-resource"/>
-				<xml-property name="indexedProps" value="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status,model-invariant-id,model-version-id"/>
+				<xml-property name="indexedProps" value="site-resource-id,site-resource-name,type,role,generated-site-id,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="site-resource-name"/>
 				<xml-property name="searchable" value="site-resource-id"/>
 				<xml-property name="uniqueProps" value="site-resource-id"/>
@@ -12678,6 +12958,21 @@
 						<xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12687,7 +12982,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of an sdwan-vpn"/>
-				<xml-property name="indexedProps" value="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status,model-invariant-id,model-version-id"/>
+				<xml-property name="indexedProps" value="sdwan-vpn-id,sdwan-vpn-name,vxlan-id,topology,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="sdwan-vpn-name"/>
 				<xml-property name="searchable" value="sdwan-vpn-id"/>
 				<xml-property name="uniqueProps" value="sdwan-vpn-id"/>
@@ -12797,6 +13092,21 @@
 						<xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12806,7 +13116,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a device"/>
-				<xml-property name="indexedProps" value="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status,model-invariant-id,model-version-id"/>
+				<xml-property name="indexedProps" value="device-id,device-name,esn,vendor,class,type,version,system-ip,system-ipv4,system-ipv6,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="device-name"/>
 				<xml-property name="searchable" value="device-id"/>
 				<xml-property name="uniqueProps" value="device-id"/>
@@ -12942,6 +13252,21 @@
 						<xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -12951,7 +13276,7 @@
 			</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Instance of a wan-port-config"/>
-				<xml-property name="indexedProps" value="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status,model-invariant-id,model-version-id"/>
+				<xml-property name="indexedProps" value="wan-port-config-id,wan-port-config-name,device-id,ip-address,ipv4-address,ipv6-address,port-type,port-number,device-port-id,wan-port-id,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="nameProps" value="wan-port-config-name"/>
 				<xml-property name="searchable" value="wan-port-config-id"/>
 				<xml-property name="uniqueProps" value="wan-port-config-id"/>
@@ -12990,6 +13315,21 @@
 						<xml-property name="description" value="Schema version of the referenced AAI."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13013,7 +13353,7 @@
 				</java-attributes>
 			<xml-properties>
 				<xml-property name="description" value="Refer to an external AAI in another ONAP."/>
-				<xml-property name="indexedProps" value="aai-id"/>
+				<xml-property name="indexedProps" value="aai-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="searchable" value="aai-id"/>
 				<xml-property name="container" value="ext-aai-networks"/>
 				<xml-property name="namespace" value="network"/>
@@ -13081,6 +13421,21 @@
                         <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13090,7 +13445,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an User network interface"/>
-                <xml-property name="indexedProps" value="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,tp-id,cvlan,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="unis"/>
@@ -13150,6 +13505,21 @@
                         <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13159,7 +13529,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an inter layer topology attachment"/>
-                <xml-property name="indexedProps" value="id,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="interlayer-attachments"/>
@@ -13250,6 +13620,21 @@
                         <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13259,7 +13644,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an te-link-attribute"/>
-                <xml-property name="indexedProps" value="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,link-protection-type,access-type,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="te-link-attributes"/>
@@ -13358,6 +13743,21 @@
                         <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13367,7 +13767,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an label restriction"/>
-                <xml-property name="indexedProps" value="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="id,label-start,label-end,range-bitmap,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="id"/>
                 <xml-property name="uniqueProps" value="id"/>
                 <xml-property name="container" value="label-restrictions"/>
@@ -13466,6 +13866,21 @@
                         <xml-property name="privateEdge" value="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}"/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -13475,7 +13890,7 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an tunnel termination point"/>
-                <xml-property name="indexedProps" value="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id"/>
+                <xml-property name="indexedProps" value="ttp-id,tunnel-tp-id,name,operational-status,model-invariant-id,model-version-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="ttp-id"/>
                 <xml-property name="uniqueProps" value="ttp-id"/>
                 <xml-property name="container" value="tunnel-termination-points"/>
@@ -14616,6 +15031,21 @@
                         <xml-property name="description" value="Whether the resources to be allocated to the network slice instance may be shared with another network slice instance(s)."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>                
                 <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -14626,7 +15056,7 @@
             <xml-properties>
                 <xml-property name="description" value="Requirement of comunication service."/>
                 <xml-property name="uniqueProps" value="profile-id"/>
-                <xml-property name="indexedProps" value="profile-id"/>
+                <xml-property name="indexedProps" value="profile-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="container" value="communication-service-profiles"/>
                 <xml-property name="dependentOn" value="service-instance"/>
                 <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/communication-service-profiles/communication-service-profile/{profile-id}"/>
@@ -14735,6 +15165,21 @@
 						<xml-property name="description" value="An attribute specifies the overall user density over the coverage area of the network slice."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -14745,7 +15190,7 @@
 			<xml-properties>
 				<xml-property name="description" value="Requirement of E2E Slice service."/>
 				<xml-property name="uniqueProps" value="profile-id"/>
-				<xml-property name="indexedProps" value="profile-id"/>
+				<xml-property name="indexedProps" value="profile-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="container" value="service-profiles"/>
 				<xml-property name="dependentOn" value="service-instance"/>
 				<xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/service-profiles/service-profile/{profile-id}"/>
@@ -14869,6 +15314,21 @@
 						<xml-property name="description" value="transferIntervalTarget String 1	Target value of transfer interval."/>
 					</xml-properties>
 				</xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>				
 				<xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
@@ -14879,7 +15339,7 @@
 			<xml-properties>
 				<xml-property name="description" value="Requirement of network slice subnet service."/>
 				<xml-property name="uniqueProps" value="profile-id"/>
-				<xml-property name="indexedProps" value="profile-id"/>
+				<xml-property name="indexedProps" value="profile-id,data-owner,data-source,data-source-version"/>
 				<xml-property name="container" value="slice-profiles"/>
 				<xml-property name="dependentOn" value="service-instance"/>
 				<xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
