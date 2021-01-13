@@ -1075,6 +1075,28 @@
                 </xml-element>
             </java-attributes>
         </java-type>
+
+        <java-type name="RelationshipProperties">
+            <xml-root-element name="relationship-properties"/>
+            <java-attributes>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Key part of a key/value pair"/>
+                    </xml-properties>
+                </xml-element>
+            </java-attributes>
+        </java-type>        
+        
         <java-type name="Complexes">
             <xml-properties>
                 <xml-property name="description" value="Collection of physical locations that can house cloud-regions."/>
