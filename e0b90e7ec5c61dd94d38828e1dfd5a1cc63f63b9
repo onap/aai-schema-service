@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: William Reehil <william.reehil@att.com>
+Submitted-by: William Reehil <william.reehil@att.com>
+Submitted-at: Thu, 14 Jan 2021 18:25:37 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/116806
+Project: aai/schema-service
+Branch: refs/heads/master
