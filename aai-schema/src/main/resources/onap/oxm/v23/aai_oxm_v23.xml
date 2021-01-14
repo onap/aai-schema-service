@@ -260,6 +260,7 @@
                 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     				<xml-properties>
                         				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+										<xml-property name="ownerCheck" value="N/A"/>
                     				</xml-properties>
                 				</xml-element>
 								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -322,6 +323,7 @@
                 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     				<xml-properties>
                         				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+										<xml-property name="ownerCheck" value="N/A"/>
                     				</xml-properties>
                 				</xml-element>
 								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -379,6 +381,7 @@
                 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     				<xml-properties>
                         				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+										<xml-property name="ownerCheck" value="N/A"/>
                     				</xml-properties>
                 				</xml-element>
 								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -447,6 +450,7 @@
                 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     				<xml-properties>
                         				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+										<xml-property name="ownerCheck" value="N/A"/>
                     				</xml-properties>
                 				</xml-element>
 								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -597,6 +601,7 @@
                 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     				<xml-properties>
                         				<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+										<xml-property name="ownerCheck" value="N/A"/>
                     				</xml-properties>
                 				</xml-element>
 								<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -663,6 +668,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -709,6 +715,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -872,6 +879,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -944,6 +952,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1008,6 +1017,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1090,6 +1100,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1189,6 +1200,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Key part of a key/value pair"/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1258,6 +1270,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1337,6 +1350,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1392,6 +1406,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1439,6 +1454,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1491,6 +1507,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1554,6 +1571,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1632,6 +1650,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1712,6 +1731,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1800,6 +1820,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -1959,6 +1980,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2070,6 +2092,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2155,6 +2178,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2269,6 +2293,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2346,6 +2371,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2395,6 +2421,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2495,6 +2522,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2591,6 +2619,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2658,6 +2687,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2750,6 +2780,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2799,6 +2830,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2853,6 +2885,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -2908,6 +2941,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3107,6 +3141,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3161,6 +3196,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3325,6 +3361,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3439,6 +3476,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3508,6 +3546,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3616,6 +3655,7 @@
 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3683,6 +3723,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3734,6 +3775,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3802,6 +3844,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3867,6 +3910,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                 	<xml-properties>
                     	<xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                    	<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -3967,6 +4011,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4082,6 +4127,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4147,6 +4193,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4208,6 +4255,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4263,6 +4311,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4346,6 +4395,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4429,6 +4479,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4489,6 +4540,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4543,6 +4595,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4599,6 +4652,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4651,6 +4705,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4707,6 +4762,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -4915,6 +4971,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5008,6 +5065,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5079,6 +5137,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5129,6 +5188,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5328,6 +5388,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5500,6 +5561,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5547,6 +5609,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5604,6 +5667,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5679,6 +5743,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5739,6 +5804,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -5937,6 +6003,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6006,6 +6073,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6068,6 +6136,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6208,6 +6277,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6307,6 +6377,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6351,6 +6422,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6463,6 +6535,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6671,6 +6744,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6732,6 +6806,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6810,6 +6885,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -6951,6 +7027,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -7314,6 +7391,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -7458,6 +7536,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -7511,6 +7590,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -7626,6 +7706,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -7892,6 +7973,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8009,6 +8091,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8106,6 +8189,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8155,6 +8239,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8203,6 +8288,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8254,6 +8340,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8312,6 +8399,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8369,6 +8457,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8486,6 +8575,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8546,6 +8636,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8693,6 +8784,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8837,6 +8929,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8918,6 +9011,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -8997,6 +9091,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9042,6 +9137,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9093,6 +9189,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9142,6 +9239,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9509,6 +9607,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9625,6 +9724,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9675,6 +9775,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9817,6 +9918,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9866,6 +9968,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -9967,6 +10070,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10073,6 +10177,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10159,6 +10264,7 @@
 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10215,6 +10321,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10286,6 +10393,7 @@
 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10390,6 +10498,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10469,6 +10578,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10566,6 +10676,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10673,6 +10784,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10739,6 +10851,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10808,6 +10921,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10907,6 +11021,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -10996,6 +11111,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11071,6 +11187,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11147,6 +11264,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11201,6 +11319,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11251,6 +11370,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11317,6 +11437,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11396,6 +11517,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11470,6 +11592,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11542,6 +11665,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11617,6 +11741,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11665,6 +11790,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11723,6 +11849,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11795,6 +11922,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -11919,6 +12047,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12014,6 +12143,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12070,6 +12200,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12157,6 +12288,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12227,6 +12359,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12282,6 +12415,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12334,6 +12468,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12605,6 +12740,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12708,6 +12844,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12786,6 +12923,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -12898,6 +13036,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13016,6 +13155,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13150,6 +13290,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13310,6 +13451,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13373,6 +13515,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13479,6 +13622,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13563,6 +13707,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13678,6 +13823,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13801,6 +13947,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -13924,6 +14071,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14023,6 +14171,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14104,6 +14253,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14172,6 +14322,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14244,6 +14395,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14293,6 +14445,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14362,6 +14515,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14416,6 +14570,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14465,6 +14620,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14597,6 +14753,7 @@
 				<xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14718,6 +14875,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14793,6 +14951,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14858,6 +15017,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -14925,6 +15085,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -15006,6 +15167,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -15089,6 +15251,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -15223,6 +15386,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
@@ -15372,6 +15536,7 @@
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+						<xml-property name="ownerCheck" value="N/A"/>
                     </xml-properties>
                 </xml-element>
 				<xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
