@@ -18,87 +18,56 @@
 # ============LICENSE_END=========================================================
 ###
 
-APP_HOME=$(pwd);
+APP_HOME=/opt/app/aai-schema-service;
 RESOURCES_HOME=${APP_HOME}/resources/;
 
 export SERVER_PORT=${SERVER_PORT:-8452};
 
-find /opt/app/ -name "*.sh" -exec chmod +x {} +
+if [[ ! -h "${APP_HOME}/scripts" ]]; then
 
-if [ -f ${APP_HOME}/aai.sh ]; then
+  ln -s ${APP_HOME}/bin ${APP_HOME}/scripts;
+  ln -s /opt/aai/logroot/AAI-SS ${APP_HOME}/logs;
 
-    ln -s bin scripts
-    ln -s /opt/aai/logroot/AAI-SS logs
+  if [ ! -f ${APP_HOME}/bin/updatePem.sh ]; then
+      echo "Unable to find the updatePem script";
+      exit 1;
+  else
+      ${APP_HOME}/bin/updatePem.sh
+  fi;
 
-    mv ${APP_HOME}/aai.sh /etc/profile.d/aai.sh
-    chmod 755 /etc/profile.d/aai.sh
+fi
 
-    scriptName=$1;
+scriptName=$1;
 
-    if [ ! -z $scriptName ]; then
+if [ ! -z $scriptName ]; then
 
-        if [ -f ${APP_HOME}/bin/${scriptName} ]; then
-            shift 1;
-            ${APP_HOME}/bin/${scriptName} "$@" || {
-                echo "Failed to run the ${scriptName}";
-                exit 1;
-            }
-        else
-            echo "Unable to find the script ${scriptName} in ${APP_HOME}/bin";
+    if [ -f ${APP_HOME}/bin/${scriptName} ]; then
+        shift 1;
+        ${APP_HOME}/bin/${scriptName} "$@" || {
+            echo "Failed to run the ${scriptName}";
             exit 1;
-        fi;
-
-        exit 0;
+        }
+    else
+        echo "Unable to find the script ${scriptName} in ${APP_HOME}/bin";
+        exit 1;
     fi;
 
+    exit 0;
 fi;
+
+mkdir -p /opt/app/aai-schema-service/logs/gc
+mkdir -p /opt/app/aai-schema-service/logs/heap-dumps
 
 if [ -f ${APP_HOME}/resources/aai-schema-service-swm-vars.sh ]; then
     source ${APP_HOME}/resources/aai-schema-service-swm-vars.sh;
 fi;
 
-if [ ! -z "${HEAP_SIZE}" ]; then
-    MIN_HEAP_SIZE=${HEAP_SIZE};
-    MAX_HEAP_SIZE=${HEAP_SIZE};
-fi;
-
-MIN_HEAP_SIZE=${MIN_HEAP_SIZE:-512m};
-MAX_HEAP_SIZE=${MAX_HEAP_SIZE:-1024m};
-MAX_METASPACE_SIZE=${MAX_METASPACE_SIZE:-512m};
-
 JAVA_CMD="exec java";
 
-JVM_OPTS="${PRE_JVM_ARGS} -Xloggc:/opt/app/aai-schema-service/logs/gc/aai_gc.log";
-JVM_OPTS="${JVM_OPTS} -XX:HeapDumpPath=/opt/app/aai-schema-service/logs/ajsc-jetty/heap-dump";
-JVM_OPTS="${JVM_OPTS} -Xms${MIN_HEAP_SIZE}";
-JVM_OPTS="${JVM_OPTS} -Xmx${MAX_HEAP_SIZE}";
-
-JVM_OPTS="${JVM_OPTS} -XX:+PrintGCDetails";
-JVM_OPTS="${JVM_OPTS} -XX:+PrintGCTimeStamps";
-JVM_OPTS="${JVM_OPTS} -XX:MaxMetaspaceSize=${MAX_METASPACE_SIZE}";
-
-JVM_OPTS="${JVM_OPTS} -server";
-JVM_OPTS="${JVM_OPTS} -XX:NewSize=512m";
-JVM_OPTS="${JVM_OPTS} -XX:MaxNewSize=512m";
-JVM_OPTS="${JVM_OPTS} -XX:SurvivorRatio=8";
-JVM_OPTS="${JVM_OPTS} -XX:+DisableExplicitGC";
-JVM_OPTS="${JVM_OPTS} -verbose:gc";
-JVM_OPTS="${JVM_OPTS} -XX:+UseParNewGC";
-JVM_OPTS="${JVM_OPTS} -XX:+CMSParallelRemarkEnabled";
-JVM_OPTS="${JVM_OPTS} -XX:+CMSClassUnloadingEnabled";
-JVM_OPTS="${JVM_OPTS} -XX:+UseConcMarkSweepGC";
-JVM_OPTS="${JVM_OPTS} -XX:-UseBiasedLocking";
-JVM_OPTS="${JVM_OPTS} -XX:ParallelGCThreads=4";
-JVM_OPTS="${JVM_OPTS} -XX:LargePageSizeInBytes=128m";
-JVM_OPTS="${JVM_OPTS} -XX:+PrintGCDetails";
-JVM_OPTS="${JVM_OPTS} -XX:+PrintGCTimeStamps";
+JVM_OPTS="${PRE_JVM_ARGS}";
 JVM_OPTS="${JVM_OPTS} -Dsun.net.inetaddr.ttl=180";
-JVM_OPTS="${JVM_OPTS} -XX:+HeapDumpOnOutOfMemoryError";
 JVM_OPTS="${JVM_OPTS} ${POST_JVM_ARGS}";
 JAVA_OPTS="${PRE_JAVA_OPTS} -DAJSC_HOME=$APP_HOME";
-if [ -f ${INTROSCOPE_LIB}/Agent.jar ] && [ -f ${INTROSCOPE_AGENTPROFILE} ]; then
-        JAVA_OPTS="${JAVA_OPTS} -javaagent:${INTROSCOPE_LIB}/Agent.jar -noverify -Dcom.wily.introscope.agentProfile=${INTROSCOPE_AGENTPROFILE} -Dintroscope.agent.agentName=schema-service"
-fi
 JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT}";
 JAVA_OPTS="${JAVA_OPTS} -DBUNDLECONFIG_DIR=./resources";
 JAVA_OPTS="${JAVA_OPTS} -Dserver.local.startpath=${RESOURCES_HOME}";

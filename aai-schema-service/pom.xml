@@ -50,7 +50,7 @@
         </aai.build.directory>
         <aai.docker.namespace>onap</aai.docker.namespace>
         <aai.base.image>alpine</aai.base.image>
-        <aai.base.image.version>1.6.0</aai.base.image.version>
+        <aai.base.image.version>1.8.1</aai.base.image.version>
 
         <maven.skip.tests>true</maven.skip.tests>
 
@@ -161,7 +161,7 @@
                             </execution>
                             <execution>
                                 <id>generate-images</id>
-                                <phase>package</phase>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>build</goal>
                                 </goals>
@@ -270,6 +270,11 @@
     </profiles>
     <dependencies>
         <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
             <scope>compile</scope>
@@ -339,14 +344,17 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.moxy</artifactId>
+            <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -622,6 +630,45 @@
                                     <includes>
                                         <include>**/query/**/*.json</include>
                                     </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-fat-jar</id>
+                        <!--
+                          Reason the phase for this is set in the post integration phase due
+                          to the spring boot maven plugin repackages post package phase
+
+                          So basically first the spring boot plugin in phase package or pre package
+                          only creates an jar without its dependencies
+
+                          ls -trl target/
+
+                          3.3 MB  aai-schema-1.8.0-SNAPSHOT.jar
+
+                          Then in the post package or during the package phase, it would get dependencies
+                          and convert it into an fat jar
+
+                          80 MB  aai-schema-1.8.0-SNAPSHOT.jar
+
+                          During the package phase if the copy of the above aai-schema-1.8.0-SNAPSHOT jar
+                          was done, it would take the slim 3.3 MB jar and wouldn't include any of the dependencies
+                          so thats why the phase for this exection must be in post the spring boot repackage phase
+                        -->
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${aai.build.directory}/lib/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/</directory>
+                                    <includes>
+                                        <include>${project.artifactId}-${project.version}.jar</include>
+                                    </includes>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
