@@ -628,6 +628,55 @@ public class ValidateOXMTest {
     }
 
     /**
+     * Check dataOwner elements to ensure that they have ownerCheck side effect added to it.
+     *
+     */
+    @Test
+    public void testDataOwnerWithOwnerCheck() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException, ParseException {
+        List<File> fileList = getLatestFiles();
+
+        for (File file : fileList) {
+            Document xmlDocument = getDocument(file);
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String expression = "/xml-bindings/java-types/java-type/java-attributes/xml-element[@name='data-owner']";
+            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+            List<String> typeMissingOwnerCheck = new ArrayList<>();
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                String type = nodeList.item(i).getParentNode().getParentNode().getAttributes().getNamedItem("name").getNodeValue();
+                NodeList xmlPropertiesList = ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
+
+                boolean missingOwnerCheck = true;
+                for (int j = 0; j < xmlPropertiesList.getLength(); j++) {
+                    NodeList xmlProperties = ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+
+                    for (int k = 0; k < xmlProperties.getLength(); k++) {
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
+
+                        if ("ownerCheck".equals(xmlProp)) {
+                            missingOwnerCheck = false;
+                            break;
+                        }
+                    }
+
+                    if (!missingOwnerCheck) {
+                        break;
+                    }
+                }
+
+                if (missingOwnerCheck) {
+                    typeMissingOwnerCheck.add(type);
+                }
+            }
+
+            if (!typeMissingOwnerCheck.isEmpty()) {
+                fail(file.getAbsolutePath().replaceAll(".*aai-schema", "") + ": " + String.join(", ", typeMissingOwnerCheck));
+            }
+        }
+    }
+
+    /**
      * Null check for strings
      * @param s
      * @return
