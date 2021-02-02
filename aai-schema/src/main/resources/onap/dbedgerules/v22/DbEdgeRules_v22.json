@@ -934,18 +934,6 @@
 			"delete-other-v": "!${direction}",
 			"prevent-delete": "NONE",
 			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "service-instance",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.ComposedOf",
-			"direction": "OUT",
-			"multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
 			"description":""
 		},
 		{
@@ -4733,7 +4721,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]			
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "network-range",
@@ -5011,7 +4999,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A policy applies to an address family.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "policy",
@@ -5050,7 +5038,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The policy associated to an instance-group",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "policy",
@@ -5077,7 +5065,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The policy applies to an l-interface.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "policy",
@@ -5104,7 +5092,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "This edge allows for QOS policy to vlan-tag relationship. For a given policy get all vlan tags as well as for a given vlan-tag get all the policies.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "policy",
@@ -5131,7 +5119,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "port-list",
@@ -5327,7 +5315,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A profile (set of characteristics) applies to the l-interface.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "profile",
@@ -5380,7 +5368,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A profile (set of characteristics) applies to the p-interface.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "profile",
@@ -5421,7 +5409,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A profile (set of characteristics) applies to the policy.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "profile",
@@ -5513,7 +5501,7 @@
 			"prevent-delete": "${direction}",
 			"default": "true",
 			"description": "A profile (set of characteristics) applies to the vrf.",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "pserver",
@@ -5762,7 +5750,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The profile associated to a sw-component",
-			"relationship-properties": ["data-owner","data-source","data-source-version"]	
+			"relationship-properties": ["data-owner","data-source","data-source-version"]
 		},
 		{
 			"from": "validation-audit",
@@ -5912,7 +5900,7 @@
 			"default": "true",
 			"description": "",
 			"relationship-properties": ["data-owner","data-source","data-source-version"]
-		},	
+		},
         {
             "from": "generic-vnf",
             "to": "object-group",
@@ -6041,7 +6029,7 @@
 			"default": "true",
 			"description": "",
 			"relationship-properties": ["data-owner","data-source","data-source-version"]
-		},	
+		},
 		{
 			"from": "relationship-rule",
 			"to": "object-group",
@@ -6053,7 +6041,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "Details relationships object-group requires"
-		},	
+		},
 		{
 			"from": "object-group",
 			"to": "vrf",
@@ -6066,7 +6054,7 @@
 			"default": "true",
 			"description": "The object-group to VRF for various route types.",
 			"relationship-properties": ["data-owner","data-source","data-source-version"]
-		},		
+		},
 		{
 			"from": "profile",
 			"to": "endpoint",
@@ -6104,7 +6092,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The object-gorup that applies to an object-group"
-		},	
+		},
 		{
 			"from": "object-group",
 			"to": "cloud-region",
@@ -6116,7 +6104,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": "The object-group is located in a cloud-region"
-		},	
+		},
 		{
 			"from": "rule",
 			"to": "object-group",
@@ -6172,7 +6160,7 @@
 			"default": "false",
 			"description": "",
 			"relationship-properties": ["data-owner","data-source","data-source-version"]
-		},	
+		},
 		{
 			"from": "profile",
 			"to": "object-group",
@@ -6222,7 +6210,7 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description": ""
-		},				
+		},
 		{
 			"from": "object-group",
 			"to": "pnf",
@@ -6340,6 +6328,6 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":"Used by Auditing applications to identify appropriate audit models based on the platform associated with the given object"
-		}	
+		}
 	]
 }
