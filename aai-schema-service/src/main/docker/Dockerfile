@@ -9,7 +9,7 @@ EXPOSE 8447
 
 HEALTHCHECK --interval=40s --timeout=10s --retries=3 CMD nc -z -v localhost 8452 || exit 1
 
-ENTRYPOINT ["/sbin/tini", "--", "/bin/bash", "/opt/app/aai-schema-service/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/opt/app/aai-schema-service/docker-entrypoint.sh"]
 
 VOLUME /tmp
 VOLUME /opt/tools
