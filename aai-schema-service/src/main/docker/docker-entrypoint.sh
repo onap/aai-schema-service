@@ -28,13 +28,6 @@ if [[ ! -h "${APP_HOME}/scripts" ]]; then
   ln -s ${APP_HOME}/bin ${APP_HOME}/scripts;
   ln -s /opt/aai/logroot/AAI-SS ${APP_HOME}/logs;
 
-  if [ ! -f ${APP_HOME}/bin/updatePem.sh ]; then
-      echo "Unable to find the updatePem script";
-      exit 1;
-  else
-      ${APP_HOME}/bin/updatePem.sh
-  fi;
-
 fi
 
 scriptName=$1;
