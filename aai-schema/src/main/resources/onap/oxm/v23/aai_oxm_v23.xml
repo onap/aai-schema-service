@@ -5878,46 +5878,76 @@
                         <xml-property name="description" value="Used to distinguish the distinct VPN routes of separate customers who connect to the provider in an MPLS network."/>
                     </xml-properties>
                 </xml-element>
-				<xml-element java-attribute="accessProviderId" name="access-provider-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the access provider of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="accessClientId" name="access-client-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the access client of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="accessTopologyId" name="access-topology-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the access topology of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="srcAccessNodeId" name="src-access-node-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the src-access-node of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="srcAccessLtpId" name="src-access-ltp-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the src-access-ltp of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="dstAccessNodeId" name="dst-access-node-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the dst-access-node of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="dstAccessLtpId" name="dst-access-ltp-id" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the id of the dst-access-ltp of this vpn."/>
-					</xml-properties>
-				</xml-element>
-				<xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
-					<xml-properties>
-						<xml-property name="description" value="Store the operational-status for this object."/>
-					</xml-properties>
-				</xml-element>
+                <xml-element java-attribute="accessProviderId" name="access-provider-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the access provider of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="accessClientId" name="access-client-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the access client of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="accessTopologyId" name="access-topology-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the access topology of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="srcAccessNodeId" name="src-access-node-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the src-access-node of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="srcAccessLtpId" name="src-access-ltp-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the src-access-ltp of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dstAccessNodeId" name="dst-access-node-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the dst-access-node of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dstAccessLtpId" name="dst-access-ltp-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the id of the dst-access-ltp of this vpn."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the operational-status of this vpn service."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="adminStatus" name="admin-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the admin-status of this vpn service."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="protectionType" name="protection-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the protection-type of this vpn service."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="sliceId" name="slice-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the ID of the transport slice to which this vpn service may belong."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="switchingType" name="switching-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store the type of multiplexing used for this vpn service."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="srcTpn" name="src-tpn" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store source tributary port number of the underlay OTN tunnel realizing this vpn service."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dstTpn" name="dst-tpn" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Store destination tributary port number of the underlay OTN tunnel realizing this vpn service."/>
+                    </xml-properties>
+                </xml-element>
 				<xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
 					<xml-properties>
 						<xml-property name="description" value="Store the model-customization-id for this object."/>
@@ -12628,7 +12658,22 @@
 				</xml-element>
 				<xml-element java-attribute="operationalStatus" name="operational-status" type="java.lang.String">
 					<xml-properties>
-						<xml-property name="description" value="Store the operational-status for this object."/>
+						<xml-property name="description" value="Store the operational-status of this connectivity."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="adminStatus" name="admin-status" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Store the admin-status of this connectivity."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="protectionType" name="protection-type" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Store the protection-type of this connectivity."/>
+					</xml-properties>
+				</xml-element>
+				<xml-element java-attribute="sliceId" name="slice-id" type="java.lang.String">
+					<xml-properties>
+						<xml-property name="description" value="Store the ID of the transport slice to which this connectivity may belong."/>
 					</xml-properties>
 				</xml-element>
 				<xml-element java-attribute="modelCustomizationId" name="model-customization-id" type="java.lang.String">
