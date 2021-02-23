@@ -86,6 +86,11 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonar.scanner.version}</version>
+                    </plugin>
+                    <plugin>
                         <groupId>org.codehaus.groovy.maven</groupId>
                         <artifactId>gmaven-plugin</artifactId>
                         <executions>
