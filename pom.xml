@@ -53,10 +53,25 @@
         <!-- GMaven plugin uses this property to figure out the name of the docker tag -->
         <aai.project.version>${project.version}</aai.project.version>
         <checkstyle.skip>false</checkstyle.skip>
+        <!-- Sonar Properties -->
+        <sonar.language>java</sonar.language>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
+        <sonar.jacoco.reportPath>${project.build.directory}/code-coverage/jacoco-ut.exec</sonar.jacoco.reportPath>
+        <sonar.jacoco.reportMissing.force.zero>false</sonar.jacoco.reportMissing.force.zero>
+        <sonar.projectVersion>${project.version}</sonar.projectVersion>
+        <sitePath>/content/sites/site/org/onap/aai/${project.artifactId}/${project.version}</sitePath>
+        <sonar.scanner.version>3.7.0.1746</sonar.scanner.version>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar.scanner.version}</version>
+                </plugin>
                 <!--
                 Using https://code.revelc.net/formatter-maven-plugin/ for Eclipse formatter
                 Using https://github.com/diffplug/spotless/tree/master/plugin-maven for import order
