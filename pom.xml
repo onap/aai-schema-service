@@ -64,26 +64,12 @@
         <maven-compiler-plugin.target>8</maven-compiler-plugin.target>
         <maven-compiler-plugin.test.source>8</maven-compiler-plugin.test.source>
         <maven-compiler-plugin.test.target>8</maven-compiler-plugin.test.target>
+        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
         <slf4j.version>1.7.26</slf4j.version>
-        <!-- Sonar Properties -->
-        <sonar.language>java</sonar.language>
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
-        <sonar.jacoco.reportPath>${project.build.directory}/code-coverage/jacoco-ut.exec</sonar.jacoco.reportPath>
-        <sonar.jacoco.reportMissing.force.zero>false</sonar.jacoco.reportMissing.force.zero>
-        <sonar.projectVersion>${project.version}</sonar.projectVersion>
-        <sitePath>/content/sites/site/org/onap/aai/${project.artifactId}/${project.version}</sitePath>
-        <sonar.scanner.version>3.7.0.1746</sonar.scanner.version>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar.scanner.version}</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
@@ -148,6 +134,11 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration/>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
                 </plugin>
 
 
