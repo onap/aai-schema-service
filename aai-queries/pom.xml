@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.8.6-SNAPSHOT</version>
+        <version>1.8.6</version>
     </parent>
     <artifactId>aai-queries</artifactId>
     <name>aai-queries</name>
