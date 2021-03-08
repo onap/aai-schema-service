@@ -64,7 +64,6 @@
         <maven-compiler-plugin.target>8</maven-compiler-plugin.target>
         <maven-compiler-plugin.test.source>8</maven-compiler-plugin.test.source>
         <maven-compiler-plugin.test.target>8</maven-compiler-plugin.test.target>
-        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
         <slf4j.version>1.7.26</slf4j.version>
     </properties>
     <build>
@@ -86,18 +85,6 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin.version}</version>
-                    <executions>
-                        <!-- Unit-Tests -->
-                        <execution>
-                            <id>prepare-agent</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                            <configuration>
-                                <destFile>${sonar.jacoco.reportPath}</destFile>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -135,12 +122,6 @@
                     <version>${maven-javadoc-plugin.version}</version>
                     <configuration/>
                 </plugin>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar-maven-plugin.version}</version>
-                </plugin>
-
 
                 <!--
                 Using https://code.revelc.net/formatter-maven-plugin/ for Eclipse formatter
