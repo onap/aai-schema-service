@@ -52,6 +52,18 @@
 	{
 		"from": "connectivity",
 		"to": "vpn-binding",
+		"label": "tosca.relationships.network.BindsTo",
+		"direction": "OUT",
+		"multiplicity": "MANY2MANY",
+		"contains-other-v": "NONE",
+		"delete-other-v": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description":"For CCVPN Usecase"
+	},
+	{
+		"from": "connectivity",
+		"to": "uni",
 		"label": "org.onap.relationships.inventory.PartOf",
 		"direction": "OUT",
 		"multiplicity": "ONE2MANY",
@@ -59,7 +71,19 @@
 		"delete-other-v": "NONE",
 		"prevent-delete": "NONE",
 		"default": "true",
-		"description":"For CCVPN Usecase"
+		"description":"For CCVPN Usecase -- ETree"
+	},
+	{
+		"from": "connectivity",
+		"to": "connectivity",
+		"label": "tosca.relationships.network.LinksTo",
+		"direction": "OUT",
+		"multiplicity": "MANY2MANY",
+		"contains-other-v": "NONE",
+		"delete-other-v": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description":"For CCVPN Usecase -- ETree super and slave connectivity"
 	},
 	{
 		"from": "lan-port-config",
