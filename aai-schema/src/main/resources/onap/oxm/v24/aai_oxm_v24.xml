@@ -14162,6 +14162,7 @@
 				<xml-element java-attribute="policies" name="policies" type="inventory.aai.onap.org.v24.Policies"/>
 				<xml-element java-attribute="vlanCharacteristics" name="vlan-characteristics" type="inventory.aai.onap.org.v24.VlanCharacteristics"/>
 				<xml-element java-attribute="relationshipRules" name="relationship-rules" type="inventory.aai.onap.org.v24.RelationshipRules"/>
+				<xml-element java-attribute="intentInstances" name="intent-instances" type="inventory.aai.onap.org.v24.IntentInstances"/>
             </java-attributes>
 		</java-type>
 
@@ -15611,6 +15612,53 @@
 				<xml-property name="searcheable" value="profile-id"/>
 			</xml-properties>
 		</java-type>
+		<java-type name="IntentInstances">
+            <xml-root-element name="intent-instances"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="intentInstance" name="intent-instance" type="inventory.aai.onap.org.v24.IntentInstance"/>
+            </java-attributes>
+            <xml-properties>
+            </xml-properties>
+        </java-type>
+        <java-type name="IntentInstance">
+            <xml-root-element name="intent-instance"/>
+            <java-attributes>
+                <xml-element java-attribute="intentInstanceId" name="intent-instance-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique intent-instance UUID."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceType" name="service-type" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Service type"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="serviceId" name="service-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Related Service Id"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="intentContent" name="intent-content" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Intent content"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Definition of intent-instance"/>
+                <xml-property name="indexedProps" value="intent-instance-id"/>
+                <xml-property name="uniqueProps" value="intent-instance-id"/>
+                <xml-property name="container" value="intent-instances"/>
+                <xml-property name="namespace" value="common"/>
+                <xml-property name="uriTemplate" value="/common/intent-instances/intent-instance/{intent-instance-id}"/>
+                <xml-property name="requiredProps" value="intent-instance-id"/>
+            </xml-properties>
+        </java-type>
 	</java-types>
 </xml-bindings>
 
