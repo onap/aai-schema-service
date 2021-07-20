@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,28 +17,28 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.onap.aai.exceptions.AAIException;
-import org.onap.aai.logging.ErrorLogHelper;
-import org.onap.aai.logging.ErrorObject;
-import org.onap.aai.logging.ErrorObjectNotFoundException;
-import org.onap.aai.logging.LogFormatTools;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.onap.aai.exceptions.AAIException;
+import org.onap.aai.logging.ErrorLogHelper;
+import org.onap.aai.logging.ErrorObject;
+import org.onap.aai.logging.ErrorObjectNotFoundException;
+import org.onap.aai.logging.LogFormatTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Responsible for dealing with uri that doesn't start with basePath
@@ -60,7 +60,9 @@ public class ErrorHandler extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         String uri = httpServletRequest.getRequestURI();
 
@@ -102,14 +104,15 @@ public class ErrorHandler extends OncePerRequestFilter {
 
                 ArrayList<String> templateVars = new ArrayList<>();
                 AAIException aaiException = (AAIException) e;
-                String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
+                String message = ErrorLogHelper
+                    .getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
                 ErrorObject object = null;
                 try {
                     object = ErrorLogHelper.getErrorObject(aaiException.getCode());
+                    httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 } catch (ErrorObjectNotFoundException e1) {
-                    e1.printStackTrace();
+                    LOGGER.error("getErrorObject exception {}", LogFormatTools.getStackTop(e1));
                 }
-                httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 httpServletResponse.setContentType(mediaTypeList.get(0).toString());
                 httpServletResponse.getWriter().write(message);
                 httpServletResponse.getWriter().close();
@@ -125,14 +128,15 @@ public class ErrorHandler extends OncePerRequestFilter {
                 ArrayList<String> templateVars = new ArrayList<>();
                 AAIException aaiException = new AAIException("AAI_4000", e);
                 LOGGER.error("Encountered an internal exception {}", LogFormatTools.getStackTop(e));
-                String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
+                String message = ErrorLogHelper
+                    .getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
                 ErrorObject object = null;
                 try {
                     object = ErrorLogHelper.getErrorObject(aaiException.getCode());
+                    httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 } catch (ErrorObjectNotFoundException e1) {
-                    e1.printStackTrace();
+                    LOGGER.error("getErrorObject exception {}", LogFormatTools.getStackTop(e1));
                 }
-                httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 httpServletResponse.setContentType(mediaTypeList.get(0).toString());
                 httpServletResponse.getWriter().write(message);
                 httpServletResponse.getWriter().close();
