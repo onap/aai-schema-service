@@ -54,6 +54,11 @@ public class DefaultDuplicateNodeDefinitionValidationModule implements Duplicate
 		try {
 			final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+            docFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            docFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            docFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 			final DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
 			Multimap<String, String> types = ArrayListMultimap.create();

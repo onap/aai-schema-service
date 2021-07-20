@@ -113,6 +113,11 @@ public class NodeIngestor {
         Set<String> types = new HashSet<>();
         final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        docFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        docFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        docFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         final DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
         ArrayList<Node> javaTypes = new ArrayList<>();
@@ -136,6 +141,11 @@ public class NodeIngestor {
     private Document createCombinedSchema(List<String> files, SchemaVersion v) throws ParserConfigurationException, SAXException, IOException {
         final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        docFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        docFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        docFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         final DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
         DocumentBuilder masterDocBuilder = docFactory.newDocumentBuilder();
         Document combinedDoc = masterDocBuilder.parse(getShell(v));
