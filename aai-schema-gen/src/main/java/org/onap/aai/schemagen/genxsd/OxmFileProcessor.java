@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,26 +17,37 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemagen.genxsd;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.setup.SchemaVersion;
 import org.onap.aai.setup.SchemaVersions;
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.*;
 
 public abstract class OxmFileProcessor {
 
@@ -44,10 +55,10 @@ public abstract class OxmFileProcessor {
     public static final String DOUBLE_LINE_SEPARATOR =
         System.getProperty("line.separator") + System.getProperty("line.separator");
     protected static int annotationsStartVersion = 9; // minimum version to support annotations in
-                                                      // xsd
+    // xsd
     protected static int annotationsMinVersion = 6; // lower versions support annotations in xsd
     protected static int swaggerSupportStartsVersion = 1; // minimum version to support swagger
-                                                          // documentation
+    // documentation
     protected static int swaggerDiffStartVersion = 1; // minimum version to support difference
     protected static int swaggerMinBasepath = 6; // minimum version to support difference
     static List<String> nodeFilter = createNodeFilter();
@@ -75,28 +86,28 @@ public abstract class OxmFileProcessor {
     }
 
     private static List<String> createNodeFilter() {
-        List<String> list = Arrays.asList("search", "actions", "aai-internal", "nodes");
-        return list;
+        return Arrays.asList("search", "actions", "aai-internal", "nodes");
     }
 
     private Map<String, String> createJavaTypeDefinitions() {
-        StringBuffer aaiInternal = new StringBuffer();
-        StringBuffer nodes = new StringBuffer();
+        StringBuilder aaiInternal = new StringBuilder();
+        StringBuilder nodes = new StringBuilder();
         Map<String, String> javaTypeDefinitions = new HashMap<String, String>();
         // update to use platform portable line separator
-        aaiInternal.append("  aai-internal:" + LINE_SEPARATOR);
-        aaiInternal.append("    properties:" + LINE_SEPARATOR);
-        aaiInternal.append("      property-name:" + LINE_SEPARATOR);
-        aaiInternal.append("        type: string" + LINE_SEPARATOR);
-        aaiInternal.append("      property-value:" + LINE_SEPARATOR);
-        aaiInternal.append("        type: string" + LINE_SEPARATOR);
+        aaiInternal.append("  aai-internal:").append(LINE_SEPARATOR);
+        aaiInternal.append("    properties:").append(LINE_SEPARATOR);
+        aaiInternal.append("      property-name:").append(LINE_SEPARATOR);
+        aaiInternal.append("        type: string").append(LINE_SEPARATOR);
+        aaiInternal.append("      property-value:").append(LINE_SEPARATOR);
+        aaiInternal.append("        type: string").append(LINE_SEPARATOR);
         // javaTypeDefinitions.put("aai-internal", aaiInternal.toString());
-        nodes.append("  nodes:" + LINE_SEPARATOR);
-        nodes.append("    properties:" + LINE_SEPARATOR);
-        nodes.append("      inventory-item-data:" + LINE_SEPARATOR);
-        nodes.append("        type: array" + LINE_SEPARATOR);
-        nodes.append("        items:" + LINE_SEPARATOR);
-        nodes.append("          $ref: \"#/definitions/inventory-item-data\"" + LINE_SEPARATOR);
+        nodes.append("  nodes:").append(LINE_SEPARATOR);
+        nodes.append("    properties:").append(LINE_SEPARATOR);
+        nodes.append("      inventory-item-data:").append(LINE_SEPARATOR);
+        nodes.append("        type: array").append(LINE_SEPARATOR);
+        nodes.append("        items:").append(LINE_SEPARATOR);
+        nodes.append("          $ref: \"#/definitions/inventory-item-data\"")
+            .append(LINE_SEPARATOR);
         javaTypeDefinitions.put("nodes", nodes.toString());
         return javaTypeDefinitions;
     }
@@ -166,20 +177,17 @@ public abstract class OxmFileProcessor {
     }
 
     protected boolean checkTopLevel(String topLevel, boolean ignoreActionsSearch) {
-    	// when ignoreActionsSearch is set to true, with a topLevel that matches one of the values
-    	// to ignore, the logic will handle those values, as if they are not at the top level.
-    	// this was done when refactoring checks that may or may not include these top levels.
-    	// Using this API allows new top levels to be added to the schema file and
-    	// included in the generated yaml without changing this generation logic.
+        // when ignoreActionsSearch is set to true, with a topLevel that matches one of the values
+        // to ignore, the logic will handle those values, as if they are not at the top level.
+        // this was done when refactoring checks that may or may not include these top levels.
+        // Using this API allows new top levels to be added to the schema file and
+        // included in the generated yaml without changing this generation logic.
         if (ignoreActionsSearch) {
             if ("Actions".equals(topLevel) || "Search".equals(topLevel)) {
                 return false;
             }
         }
-        if (topLevelPaths.contains(topLevel)) {
-            return true;
-        }
-        return false;
+        return topLevelPaths.contains(topLevel);
     }
 
     protected void init()
@@ -217,27 +225,18 @@ public abstract class OxmFileProcessor {
     }
 
     private void createDocument() throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilder dBuilder = null;
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            dBuilder = dbFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            throw e;
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        dbFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        dbFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+        if (xml == null) {
+            doc = dBuilder.parse(oxmFile);
+        } else {
+            InputSource isInput = new InputSource(new StringReader(xml));
+            doc = dBuilder.parse(isInput);
         }
-        try {
-            if (xml == null) {
-                doc = dBuilder.parse(oxmFile);
-            } else {
-                InputSource isInput = new InputSource(new StringReader(xml));
-                doc = dBuilder.parse(isInput);
-            }
-        } catch (SAXException e) {
-            throw e;
-        } catch (IOException e) {
-            throw e;
-        }
-        return;
     }
 
     public abstract String getDocumentHeader();
@@ -257,7 +256,7 @@ public abstract class OxmFileProcessor {
             String attrName = attr.getNodeName();
 
             String attrValue = attr.getNodeValue();
-            if (attrName.equals("name")) {
+            if ("name".equals(attrName)) {
                 xmlRootElementName = attrValue;
             }
         }
@@ -275,7 +274,7 @@ public abstract class OxmFileProcessor {
                 attr = (Attr) attributes.item(j);
                 attrName = attr.getNodeName();
                 attrValue = attr.getNodeValue();
-                if (attrName.equals("name") && attrValue.equals(javaTypeName)) {
+                if ("name".equals(attrName) && attrValue.equals(javaTypeName)) {
                     NodeList valNodes = javaTypeElement.getElementsByTagName("xml-root-element");
                     Element valElement = (Element) valNodes.item(0);
                     attributes = valElement.getAttributes();
@@ -284,7 +283,7 @@ public abstract class OxmFileProcessor {
                         attrName = attr.getNodeName();
 
                         attrValue = attr.getNodeValue();
-                        if (attrName.equals("name")) {
+                        if ("name".equals(attrName)) {
                             return (attrValue);
                         }
                     }
@@ -316,7 +315,7 @@ public abstract class OxmFileProcessor {
                 attr = (Attr) attributes.item(j);
                 attrName = attr.getNodeName();
                 attrValue = attr.getNodeValue();
-                if (attrName.equals("name") && attrValue.equals(javaTypeName)) {
+                if ("name".equals(attrName) && attrValue.equals(javaTypeName)) {
                     combineElementList.add(javaTypeElement);
                 }
             }
@@ -330,19 +329,13 @@ public abstract class OxmFileProcessor {
     }
 
     public boolean versionSupportsSwaggerDiff(String version) {
-        int ver = new Integer(version.substring(1)).intValue();
-        if (ver >= HTMLfromOXM.swaggerDiffStartVersion) {
-            return true;
-        }
-        return false;
+        int ver = Integer.parseInt(version.substring(1));
+        return ver >= HTMLfromOXM.swaggerDiffStartVersion;
     }
 
     public boolean versionSupportsBasePathProperty(String version) {
-        int ver = new Integer(version.substring(1)).intValue();
-        if (ver <= HTMLfromOXM.swaggerMinBasepath) {
-            return true;
-        }
-        return false;
+        int ver = Integer.parseInt(version.substring(1));
+        return ver <= HTMLfromOXM.swaggerMinBasepath;
     }
 
     protected void updateParentXmlElements(Element parentElement, NodeList moreXmlElementNodes) {

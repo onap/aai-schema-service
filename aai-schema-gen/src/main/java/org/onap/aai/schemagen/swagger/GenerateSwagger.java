@@ -96,10 +96,7 @@ public class GenerateSwagger {
         try (BufferedReader reader = new BufferedReader(new FileReader(swaggerYamlFile))){
             swaggerMap = (Map<String, Object>) yaml.load(reader);
         } catch(Exception ex){
-            ex.printStackTrace();
-        }
-
-        if(null == swaggerMap) {
+            System.err.println("Unable load yaml file: " + swaggerYamlFile + " : " + ex.getMessage());
             throw new IOException();
         }
 
@@ -144,7 +141,7 @@ public class GenerateSwagger {
                         line = line.trim();
                         String hyperLink = "";
                         if(line.trim().contains("Differences versus")) {
-                        	return String.format("");
+                        	return "";
                         }
                         if(line.trim().contains("https://")){
                             int startIndex = line.indexOf("https://");
@@ -260,7 +257,7 @@ public class GenerateSwagger {
                             //Filter out all the relationship links that appear in the YAML
                         	if(key.equals("description")) {
                         		String reqBody=(String)requestBody.get(key);
-                        		if(reqBody.replaceAll("\\[.*.json\\)", "") != reqBody) {
+                        		if(!reqBody.replaceAll("\\[.*.json\\)", "").equals(reqBody)) {
                         			requestBody.put(key, reqBody.replaceAll("\\[.*.json\\)", ""));
                         		}
                         	}
@@ -372,7 +369,7 @@ public class GenerateSwagger {
 
                 List<String> requiredProperties = (valueMap.get("required") == null) ? new ArrayList<>() : (List<String>) valueMap.get("required");
 
-                Set<String> requiredPropsSet = requiredProperties.stream().collect(Collectors.toSet());
+                Set<String> requiredPropsSet = new HashSet<>(requiredProperties);
 
                 valueMap
                     .entrySet()
@@ -381,47 +378,55 @@ public class GenerateSwagger {
                     .forEach((propertyEntries) -> {
                         Map<String, Object> propertyRealEntries = (Map<String, Object>) propertyEntries.getValue();
                         propertyRealEntries
-                            .entrySet()
-                            .forEach((propertyEntry) -> {
+                            .forEach((propertyKey, value) -> {
                                 Definition.Property definitionProperty = new Definition.Property();
-                                String propertyKey = propertyEntry.getKey();
-                                if(requiredPropsSet.contains(propertyKey)){
+                                if (requiredPropsSet.contains(propertyKey)) {
                                     definitionProperty.setRequired(true);
                                 }
                                 definitionProperty.setPropertyName(propertyKey);
-                                Map<String, Object> definitionPropertyMap = (Map<String, Object>) propertyEntry.getValue();
+                                Map<String, Object> definitionPropertyMap =
+                                    (Map<String, Object>) value;
 
-                                if(definitionPropertyMap.containsKey("description")){
-                                    definitionProperty.setPropertyDescription(definitionPropertyMap.get("description").toString());
+                                if (definitionPropertyMap.containsKey("description")) {
+                                    definitionProperty.setPropertyDescription(
+                                        definitionPropertyMap.get("description").toString());
                                     definitionProperty.setHasPropertyDescription(true);
                                 }
-                                if(definitionPropertyMap.containsKey("type")){
+                                if (definitionPropertyMap.containsKey("type")) {
                                     String type = definitionPropertyMap.get("type").toString();
                                     definitionProperty.setPropertyType(type);
                                     definitionProperty.setHasType(true);
                                     if ("array".equals(type)) {
                                         definitionProperty.setPropertyType("object[]");
-                                        if(!definitionPropertyMap.containsKey("items")){
-                                            throw new RuntimeException("Unable to find the property items even though the type is array for " + propertyEntry.getKey());
+                                        if (!definitionPropertyMap.containsKey("items")) {
+                                            throw new RuntimeException(
+                                                "Unable to find the property items even though the type is array for " +
+                                                    propertyKey);
                                         } else {
-                                            Map<String, Object> itemMap = (Map<String, Object>) definitionPropertyMap.get("items");
-                                            if(itemMap.containsKey("$ref")){
+                                            Map<String, Object> itemMap =
+                                                (Map<String, Object>) definitionPropertyMap
+                                                    .get("items");
+                                            if (itemMap.containsKey("$ref")) {
                                                 definitionProperty.setHasPropertyReference(true);
                                                 String refItem = itemMap.get("$ref").toString();
                                                 int retCode = refItem.lastIndexOf('/');
-                                                if(retCode != -1 && retCode != refItem.length()){
-                                                    definitionProperty.setPropertyReferenceObjectName(refItem.substring(retCode + 1));
+                                                if (retCode != -1 && retCode != refItem.length()) {
+                                                    definitionProperty
+                                                        .setPropertyReferenceObjectName(
+                                                            refItem.substring(retCode + 1));
                                                 }
                                                 definitionProperty.setPropertyReference(refItem);
                                             }
                                         }
                                     } else {
-                                        if(definitionPropertyMap.containsKey("$ref")){
+                                        if (definitionPropertyMap.containsKey("$ref")) {
                                             definitionProperty.setHasPropertyReference(true);
-                                            String refItem = definitionPropertyMap.get("$ref").toString();
+                                            String refItem =
+                                                definitionPropertyMap.get("$ref").toString();
                                             int retCode = refItem.lastIndexOf('/');
-                                            if(retCode != -1 && retCode != refItem.length()){
-                                                definitionProperty.setPropertyReferenceObjectName(refItem.substring(retCode + 1));
+                                            if (retCode != -1 && retCode != refItem.length()) {
+                                                definitionProperty.setPropertyReferenceObjectName(
+                                                    refItem.substring(retCode + 1));
                                             }
                                             definitionProperty.setPropertyReference(refItem);
                                         }
@@ -435,7 +440,7 @@ public class GenerateSwagger {
 
                 List<Definition.Property> schemaProperties = definitionProperties.
                         stream()
-                        .filter((o) -> o.isHasPropertyReference())
+                        .filter(Definition.Property::isHasPropertyReference)
                         .collect(Collectors.toList());
 
                 List<Definition.Property> regularProperties = definitionProperties.

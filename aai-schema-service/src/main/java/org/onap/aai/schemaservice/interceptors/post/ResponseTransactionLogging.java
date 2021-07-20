@@ -98,7 +98,7 @@ public class ResponseTransactionLogging extends AAIContainerFilter implements Co
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
             HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
-            return response.getContentType();
+            return response == null ? null : response.getContentType();
         }
         return null;
     }
