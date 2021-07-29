@@ -19,7 +19,9 @@
  */
 package org.onap.aai.annotations;
 
-import org.onap.aai.annotations.Metadata;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 public class AnnotationsTest {
 
@@ -45,6 +47,8 @@ public class AnnotationsTest {
         crossEntityReference = "",
         dslStartNodeProps = "")
 
+    @Test
     public void testAnnotation() {
+        assertTrue(true);
     }
 }

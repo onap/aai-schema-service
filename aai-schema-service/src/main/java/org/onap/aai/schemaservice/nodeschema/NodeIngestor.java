@@ -17,17 +17,41 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.nodeschema;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import jakarta.xml.bind.JAXBException;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContext;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContextFactory;
 import org.onap.aai.schemaservice.config.ConfigTranslator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
@@ -35,18 +59,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import jakarta.xml.bind.JAXBException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * NodeIngestor - ingests A&AI OXM files per given config, serves DynamicJAXBContext per version
@@ -96,7 +108,8 @@ public class NodeIngestor {
      * @throws FileNotFoundException if an OXM file can't be found
      * @throws JAXBException         if there's an error creating the DynamicJAXBContext
      */
-    private DynamicJAXBContext ingest(List<String> files) throws FileNotFoundException, JAXBException {
+    private DynamicJAXBContext ingest(List<String> files)
+        throws FileNotFoundException, JAXBException {
         List<InputStream> streams = new ArrayList<>();
 
         for (String name : files) {
@@ -105,11 +118,13 @@ public class NodeIngestor {
 
         Map<String, Object> properties = new HashMap<>();
         properties.put(JAXBContextProperties.OXM_METADATA_SOURCE, streams);
-        return DynamicJAXBContextFactory.createContextFromOXM(this.getClass().getClassLoader(), properties);
+        return DynamicJAXBContextFactory
+            .createContextFromOXM(this.getClass().getClassLoader(), properties);
     }
 
 
-    private Set<String> getAllNodeTypes(List<String> files) throws ParserConfigurationException, SAXException, IOException {
+    private Set<String> getAllNodeTypes(List<String> files)
+        throws ParserConfigurationException, SAXException, IOException {
         Set<String> types = new HashSet<>();
         final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
@@ -138,7 +153,8 @@ public class NodeIngestor {
         return types;
     }
 
-    private Document createCombinedSchema(List<String> files, SchemaVersion v) throws ParserConfigurationException, SAXException, IOException {
+    private Document createCombinedSchema(List<String> files, SchemaVersion v)
+        throws ParserConfigurationException, SAXException, IOException {
         final DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         docFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         docFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -150,7 +166,8 @@ public class NodeIngestor {
         DocumentBuilder masterDocBuilder = docFactory.newDocumentBuilder();
         Document combinedDoc = masterDocBuilder.parse(getShell(v));
         NodeList masterList = combinedDoc.getElementsByTagName("java-types");
-        Node javaTypesContainer = masterList.getLength() == 0 ? combinedDoc.getDocumentElement() : masterList.item(0);
+        Node javaTypesContainer =
+            masterList.getLength() == 0 ? combinedDoc.getDocumentElement() : masterList.item(0);
 
         Multimap<String, Node> nodeMultimap = ArrayListMultimap.create();
         LOGGER.debug("Started combining the schema from list of files {} for version {}", files, v);
@@ -161,7 +178,7 @@ public class NodeIngestor {
             final Document doc = docBuilder.parse(inputStream);
             final NodeList list = doc.getElementsByTagName("java-type");
 
-            for(int i = 0; i < list.getLength(); i++){
+            for (int i = 0; i < list.getLength(); i++) {
                 Node curNode = list.item(i);
                 String name = curNode.getAttributes().getNamedItem("name").getNodeValue();
                 nodeMultimap.put(name, curNode);
@@ -176,41 +193,51 @@ public class NodeIngestor {
         return combinedDoc;
     }
 
-    private void createNode(Document combinedDoc, Node javaTypesContainer, Map<String, Collection<Node>> map){
+    private void createNode(Document combinedDoc, Node javaTypesContainer,
+                            Map<String, Collection<Node>> map) {
 
         for (Entry<String, Collection<Node>> entry : map.entrySet()) {
 
-            List<Node> listOfNodes = (List<Node>)entry.getValue();
+            List<Node> listOfNodes = (List<Node>) entry.getValue();
             LOGGER.trace("NodeType {} Occurrences {}", entry.getKey(), listOfNodes.size());
             Node copyOfFirstElement = null;
             Node javaAttributeElement = null;
 
-            if(listOfNodes.size() > 1){
-                for(int index = 0; index < listOfNodes.size(); index++){
-                    if(index == 0){
+            if (listOfNodes.size() > 1) {
+                for (int index = 0; index < listOfNodes.size(); index++) {
+                    if (index == 0) {
                         Node currentNode = listOfNodes.get(index);
                         copyOfFirstElement = combinedDoc.importNode(currentNode, true);
-                        if(copyOfFirstElement.getNodeType() == Node.ELEMENT_NODE){
+                        if (copyOfFirstElement.getNodeType() == Node.ELEMENT_NODE) {
                             Element element = (Element) copyOfFirstElement;
-                            NodeList javaAttributesList = element.getElementsByTagName("java-attributes");
-                            for(int javaAttributeIndex = 0; javaAttributeIndex < javaAttributesList.getLength(); javaAttributeIndex++){
+                            NodeList javaAttributesList =
+                                element.getElementsByTagName("java-attributes");
+                            for (int javaAttributeIndex = 0;
+                                 javaAttributeIndex < javaAttributesList.getLength();
+                                 javaAttributeIndex++) {
                                 javaAttributeElement = javaAttributesList.item(javaAttributeIndex);
                             }
                         }
                     } else {
                         Node currentNode = listOfNodes.get(index);
                         Node copyOfCurrentElement = combinedDoc.importNode(currentNode, true);
-                        if(copyOfCurrentElement.getNodeType() == Node.ELEMENT_NODE){
+                        if (copyOfCurrentElement.getNodeType() == Node.ELEMENT_NODE) {
                             Element element = (Element) copyOfCurrentElement;
-                            NodeList javaAttributesList = element.getElementsByTagName("java-attributes");
-                            for(int javaAttributeIndex = 0; javaAttributeIndex < javaAttributesList.getLength(); javaAttributeIndex++){
+                            NodeList javaAttributesList =
+                                element.getElementsByTagName("java-attributes");
+                            for (int javaAttributeIndex = 0;
+                                 javaAttributeIndex < javaAttributesList.getLength();
+                                 javaAttributeIndex++) {
                                 Node jaElement = javaAttributesList.item(javaAttributeIndex);
                                 NodeList xmlElementList = jaElement.getChildNodes();
-                                for(int xmlElementIndex = 0; xmlElementIndex < xmlElementList.getLength(); xmlElementIndex++){
-                                    if(javaAttributeElement != null){
+                                for (int xmlElementIndex = 0;
+                                     xmlElementIndex < xmlElementList.getLength();
+                                     xmlElementIndex++) {
+                                    if (javaAttributeElement != null) {
                                         Node curElem = xmlElementList.item(xmlElementIndex);
-                                        if(curElem != null){
-                                            javaAttributeElement.appendChild(curElem.cloneNode(true));
+                                        if (curElem != null) {
+                                            javaAttributeElement
+                                                .appendChild(curElem.cloneNode(true));
                                         }
                                     }
                                 }
@@ -220,7 +247,7 @@ public class NodeIngestor {
                     }
                 }
                 javaTypesContainer.appendChild(copyOfFirstElement);
-            } else if(listOfNodes.size() == 1){
+            } else if (listOfNodes.size() == 1) {
                 javaTypesContainer.appendChild(combinedDoc.importNode(listOfNodes.get(0), true));
             }
         }
@@ -251,22 +278,17 @@ public class NodeIngestor {
         return typesPerVersion.get(v);
     }
 
-    /**
-     * Determines if the given version contains the given node type
-     *
-     * @param nodeType - node type to check, must be in lower hyphen form (ie "type-name")
-     * @param v
-     * @return
-     */
     public Document getSchema(SchemaVersion v) {
         return schemaPerVersion.get(v);
     }
 
     private InputStream getShell(SchemaVersion v) {
         String source = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org." + v.toString().toLowerCase() + "\" xml-mapping-metadata-complete=\"true\">\n" +
+            "<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org." +
+            v.toString().toLowerCase() + "\" xml-mapping-metadata-complete=\"true\">\n" +
             "	<xml-schema element-form-default=\"QUALIFIED\">\n" +
-            "		<xml-ns namespace-uri=\"http://org.onap.aai.inventory/" + v.toString().toLowerCase() + "\" />\n" +
+            "		<xml-ns namespace-uri=\"http://org.onap.aai.inventory/" +
+            v.toString().toLowerCase() + "\" />\n" +
             "	</xml-schema>\n" +
             "	<java-types>\n" +
             "	</java-types>\n" +

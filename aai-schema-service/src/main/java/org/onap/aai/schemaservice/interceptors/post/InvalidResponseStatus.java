@@ -63,23 +63,19 @@ public class InvalidResponseStatus extends AAIContainerFilter implements Contain
             message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, e, templateVars);
 
             responseContext.setEntity(message);
-        }
-
-        else if (responseContext.getStatus() == 406) {
+        } else if (responseContext.getStatus() == 406) {
             responseContext.setStatus(406);
             mediaTypeList.add(MediaType.valueOf(contentType));
-            if (contentType.equals(MediaType.APPLICATION_XML)) {
+            if (contentType == null) {
+                mediaTypeList.add(MediaType.APPLICATION_XML_TYPE);
+                e = new AAIException("AAI_3019", "null");
+            } else if (contentType.equals(MediaType.APPLICATION_XML)) {
                 e = new AAIException("AAI_3019", MediaType.APPLICATION_XML);
             } else if (contentType.equals(MediaType.APPLICATION_JSON)) {
                 e = new AAIException("AAI_3019", MediaType.APPLICATION_JSON);
             } else {
-                if (contentType == null) {
-                    mediaTypeList.add(MediaType.APPLICATION_XML_TYPE);
-                    e = new AAIException("AAI_3019", "null");
-                } else {
-                    mediaTypeList.add(MediaType.valueOf(contentType));
-                    e = new AAIException("AAI_3019", contentType);
-                }
+                mediaTypeList.add(MediaType.valueOf(contentType));
+                e = new AAIException("AAI_3019", contentType);
             }
             message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, e, templateVars);
             responseContext.setEntity(message);
