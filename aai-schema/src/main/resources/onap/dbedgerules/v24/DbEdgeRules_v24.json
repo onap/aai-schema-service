@@ -6352,6 +6352,39 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":"Used by Auditing applications to identify appropriate audit models based on the platform associated with the given object"
-		}
+		},{
+            "from": "k8s-resource",
+            "to": "tenant",
+            "label": "org.onap.relationships.inventory.BelongsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+			"contains-other-v": "!${direction}",
+			"delete-other-v": "NONE",
+			"prevent-delete": "!${direction}",
+			"default": "true",
+			"description":""
+        },{
+            "from": "vf-module",
+            "to": "k8s-resource",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":""
+        },{
+            "from": "generic-vnf",
+            "to": "k8s-resource",
+            "label": "tosca.relationships.HostedOn",
+            "direction": "OUT",
+            "multiplicity": "ONE2MANY",
+			"contains-other-v": "NONE",
+			"delete-other-v": "NONE",
+			"prevent-delete": "NONE",
+			"default": "true",
+			"description":""
+        }
 	]
 }

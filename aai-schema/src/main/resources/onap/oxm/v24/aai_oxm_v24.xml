@@ -1671,6 +1671,7 @@
                 <xml-element java-attribute="vservers" name="vservers" type="inventory.aai.onap.org.v24.Vservers"/>
                 <xml-element java-attribute="nosServers" name="nos-servers" type="inventory.aai.onap.org.v24.NosServers"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v24.RelationshipList"/>
+                <xml-element java-attribute="k8sResources" name="k8s-resources" type="inventory.aai.onap.org.v24.K8sResources"/>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Openstack tenant"/>
@@ -15751,7 +15752,72 @@
 				<xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
 				<xml-property name="searcheable" value="profile-id"/>
 			</xml-properties>
-		</java-type>
+        </java-type>
+
+        <java-type name="K8sResources">
+            <xml-properties>
+                <xml-property name="description" value="Collection of kubernetes resources."/>
+            </xml-properties>
+            <xml-root-element name="k8s-resources"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="k8sResource" name="k8s-resource" type="inventory.aai.onap.org.v24.K8sResource"/>
+            </java-attributes>
+        </java-type>
+
+        <java-type name="K8sResource">
+            <xml-root-element name="k8s-resource"/>
+            <java-attributes>
+                <xml-element java-attribute="id" name="id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique id of k8s resource.  This is unique across the graph."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="name" name="name" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of the kubernetes resource."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="group" name="group" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Kubernetes resource group."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="version" name="version" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Resource version."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="kind" name="kind" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Resource kind as defined by kubernetes e.g. pod, service, etc."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="namespace" name="namespace" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Namespace in which resource is placed."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element container-type="java.util.ArrayList" java-attribute="labels" name="labels" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Kubernetes resource labels."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Query towards SO CNF adapter to retrieve full resource data."/>
+                    </xml-properties>
+                </xml-element>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="General purpose kubernetes resource."/>
+                <xml-property name="indexedProps" value="id,name,kind"/>
+                <xml-property name="searchable" value="id"/>
+                <xml-property name="dependentOn" value="tenant"/>
+                <xml-property name="container" value="k8s-resources"/>
+                <xml-property name="uriTemplate" value="/k8s-resources/k8s-resource/{k8s-resource-id}"/>
+                <xml-property name="requiredProps" value="id,description,name,group,version,kind,namespace,selflink"/>
+             </xml-properties>
+        </java-type>
 	</java-types>
 </xml-bindings>
 
