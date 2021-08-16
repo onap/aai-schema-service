@@ -937,6 +937,18 @@
 			"description": ""
 		},
 		{
+            "from": "service-instance",
+            "to": "l3-network",
+            "label": "org.onap.relationships.inventory.ComposedOf",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":""
+        },
+        {
 			"from": "service-instance",
 			"to": "p-interface",
 			"label": "org.onap.relationships.inventory.ComposedOf",
@@ -5705,18 +5717,6 @@
 		},
 		{
 			"from": "service-instance",
-			"to": "l3-network",
-			"label": "org.onap.relationships.inventory.ComposedOf",
-			"direction": "OUT",
-			"multiplicity": "MANY2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description": ""
-		},
-		{
-			"from": "service-instance",
 			"to": "owning-entity",
 			"label": "org.onap.relationships.inventory.Uses",
 			"direction": "OUT",
@@ -6352,39 +6352,260 @@
 			"prevent-delete": "NONE",
 			"default": "true",
 			"description":"Used by Auditing applications to identify appropriate audit models based on the platform associated with the given object"
-		},{
+		},
+        {
+            "from": "metadatum",
+            "to": "rule",
+            "label": "org.onap.relationships.inventory.BelongsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":""
+        },{
+            "from": "class-map-member",
+            "to": "parameter-list",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "${direction}",
+            "default": "true",
+            "description":"class-map-member to parameter-list"
+        },{
+            "from": "class-map-member",
+            "to": "class-map",
+            "label": "org.onap.relationships.inventory.MemberOf",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "!${direction}",
+            "default": "true",
+            "description":"Member of class map"
+        },{
+            "from": "policy-key-term",
+            "to": "parameter-list",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "${direction}",
+            "default": "true",
+            "description":"policy-key-term to parameter-list"
+        },{
+            "from": "policy-map-member",
+            "to": "policy",
+            "label": "org.onap.relationships.inventory.MemberOf",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "!${direction}",
+            "default": "true",
+            "description":"Member of policy map"
+        },{
+            "from": "policy-map-member",
+            "to": "policy-key-term",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "ONE2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "${direction}",
+            "default": "true",
+            "description":"Policy key term related to policy map member"
+        },{
+            "from": "policy-map-member",
+            "to": "class-map",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "${direction}",
+            "default": "true",
+            "description":"Class-map related to policy-map-member"
+        },{
+            "from": "l-interface",
+            "to": "object-group",
+            "label": "org.onap.relationships.inventory.MemberOf",
+            "direction": "OUT",
+            "multiplicity": "ONE2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"Member of l-interface"
+        },{
+            "from": "hold-timer",
+            "to": "p-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "gig-ether-option",
+            "to": "p-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "temporary-parameter-list",
+            "to": "p-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "temporary-parameter-list",
+            "to": "l-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "aggregated-ether-option",
+            "to": "lag-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "temporary-parameter-list",
+            "to": "lag-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "lacp",
+            "to": "aggregated-ether-option",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "policy",
+            "to": "lag-interface",
+            "label": "tosca.relationships.network.AppliesTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used to support NCX-Hub"
+        },{
+            "from": "esi",
+            "to": "lag-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface parameters"
+        },{
+            "from": "vlan-range",
+            "to": "zone",
+            "label": "tosca.relationships.network.BelongsTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"The vlan-range is located in a zone."
+        },{
+            "from": "zone",
+            "to": "zone",
+            "label": "tosca.relationships.network.AppliesTo",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"the zone is associated to another zone."
+        },{
+            "from": "lcmp-unreachable",
+            "to": "l-interface",
+            "label": "tosca.relationships.network.BindsTo",
+            "direction": "OUT",
+            "multiplicity": "ONE2ONE",
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "!${direction}",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":"used for generic interface"
+        },{
             "from": "k8s-resource",
             "to": "tenant",
             "label": "org.onap.relationships.inventory.BelongsTo",
             "direction": "OUT",
             "multiplicity": "MANY2ONE",
-			"contains-other-v": "!${direction}",
-			"delete-other-v": "NONE",
-			"prevent-delete": "!${direction}",
-			"default": "true",
-			"description":""
+            "contains-other-v": "!${direction}",
+            "delete-other-v": "NONE",
+            "prevent-delete": "!${direction}",
+            "default": "true",
+            "description":""
         },{
             "from": "vf-module",
             "to": "k8s-resource",
             "label": "org.onap.relationships.inventory.Uses",
             "direction": "OUT",
             "multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description":""
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":""
         },{
             "from": "generic-vnf",
             "to": "k8s-resource",
             "label": "tosca.relationships.HostedOn",
             "direction": "OUT",
             "multiplicity": "ONE2MANY",
-			"contains-other-v": "NONE",
-			"delete-other-v": "NONE",
-			"prevent-delete": "NONE",
-			"default": "true",
-			"description":""
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description":""
         }
 	]
 }
