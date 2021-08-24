@@ -2121,6 +2121,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:vservers" minOccurs="0"/>
         <xs:element ref="tns:nos-servers" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
+        <xs:element ref="tns:k8s-resources" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -6606,6 +6607,85 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         <xs:element ref="tns:slice-profile" minOccurs="0" maxOccurs="5000"/>
       </xs:sequence>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="k8s-resource">
+      <xs:complexType>
+          <xs:annotation>
+              <xs:appinfo>
+                  <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General purpose kubernetes resource.",uniqueProps="id",indexedProps="id,name,kind",container="k8s-resources",dependentOn="tenant",uriTemplate="/k8s-resources/k8s-resource/{k8s-resource-id}",searcheable="id")</annox:annotate>
+              </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+              <xs:element name="id" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                        <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of k8s resource.  This is unique across the graph.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="name" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the kubernetes resource.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="group" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Kubernetes resource group.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="version" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Resource version.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="kind" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Resource kind as defined by kubernetes e.g. pod, service, etc.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="namespace" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Namespace in which resource is placed.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="labels" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Kubernetes resource labels.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+              <xs:element name="selflink" type="xs:string" minOccurs="0">
+                  <xs:annotation>
+                      <xs:appinfo>
+                          <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Query towards SO CNF adapter to retrieve full resource data.")</annox:annotate>
+                      </xs:appinfo>
+                  </xs:annotation>
+              </xs:element>
+          </xs:sequence>
+      </xs:complexType>
+  </xs:element>
+  <xs:element name="k8s-resources">
+      <xs:complexType>
+          <xs:annotation>
+              <xs:appinfo>
+                  <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of k8s resources.")</annox:annotate>
+              </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+              <xs:element ref="tns:k8s-resource" minOccurs="0" maxOccurs="5000"/>
+          </xs:sequence>
+      </xs:complexType>
   </xs:element>
   <xs:element name="service-instance">
     <xs:complexType>
