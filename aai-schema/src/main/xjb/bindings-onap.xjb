@@ -35,7 +35,7 @@
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v13">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v13"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v14">
         <jaxb:schemaBindings>
@@ -55,36 +55,41 @@
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v17">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v17"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v18">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v18"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v19">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v19"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v20">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v20"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v21">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v21"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v22">
         <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang.v22"/>
-        </jaxb:schemaBindings>      
-    </jaxb:bindings>    
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v23">
         <jaxb:schemaBindings>
+            <jaxb:package name="org.onap.aai.domain.yang.v23"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v24">
+        <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang"/>
-        </jaxb:schemaBindings>      
+        </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

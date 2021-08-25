@@ -1989,12 +1989,12 @@
                 </xml-element>
                 <xml-element java-attribute="transportType" name="transport-type" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="specifies the transport type: e.g. L2transport"/>
+                        <xml-property name="description" value="specifies the transport type, e.g. L2transport"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="encapsulationTagRewrite" name="encapsulation-tag-rewrite" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="used to store the re-write command: e.g.rewrite ingress tag pop 1 symmetric"/>
+                        <xml-property name="description" value="used to store the re-write command, e.g.rewrite ingress tag pop 1 symmetric"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="mtu" name="mtu" type="java.lang.String">
@@ -3407,12 +3407,12 @@
                 </xml-element>
                 <xml-element java-attribute="lldp" name="lldp" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Link Layer Discovery Protocol: link layer protocol used by network devices for advertising their identity, capabilities, and neighbors on a local area network based on IEEE 802 technology. Values: enable, disable, NULL"/>
+                        <xml-property name="description" value="Link Layer Discovery Protocol, link layer protocol used by network devices for advertising their identity, capabilities, and neighbors on a local area network based on IEEE 802 technology. Values, enable, disable, NULL"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dampening" name="dampening" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="specifies the dampening configuration to slow down the operation of automation scripts executed on the device. Values: NULL (dampening not configured) DEFAULT (dampening w/o options) configures as ‘dampening’ dampening options configures dampening w/ options"/>
+                        <xml-property name="description" value="specifies the dampening configuration to slow down the operation of automation scripts executed on the device. Values, NULL (dampening not configured) DEFAULT (dampening w/o options) configures as ‘dampening’ dampening options configures dampening w/ options"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
@@ -3576,12 +3576,12 @@
                 </xml-element>
                 <xml-element java-attribute="loggingEvent" name="logging-event" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Enables system logging of interface state-change events Values: * NULL (not enabled/configured) Link-status future options, i.e. default, enable, trunk-status."/>
+                        <xml-property name="description" value="Enables system logging of interface state-change events Values, * NULL (not enabled/configured) Link-status future options, i.e. default, enable, trunk-status."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dampening" name="dampening" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="throttles interface flapping events to prevent excessive churn and processing of routing tables. Values: NULL (dampening not configured DEFAULT (dampening w/o options) configures as ‘dampening’ dampening options configures dampening w/ options"/>
+                        <xml-property name="description" value="throttles interface flapping events to prevent excessive churn and processing of routing tables. Values, NULL (dampening not configured DEFAULT (dampening w/o options) configures as ‘dampening’ dampening options configures dampening w/ options"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v24.RelationshipList"/>
@@ -15866,7 +15866,7 @@
 				<xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
 				<xml-property name="searcheable" value="profile-id"/>
 			</xml-properties>
-        </java-type>
+		</java-type>
 
         <java-type name="K8sResources">
             <xml-properties>
@@ -16377,7 +16377,7 @@
                 </xml-element>
                 <xml-element java-attribute="fec" name="fec" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Forward Error Correction Values: null, FEC91, and other future values"/>
+                        <xml-property name="description" value="Forward Error Correction Values, null, FEC91, and other future values"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="lacpOnBundleId" name="lacp-on-bundle-id" type="java.lang.String">
@@ -16614,7 +16614,7 @@
                 </xml-element>
                 <xml-element java-attribute="activeOption" name="active-option" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Values: null, all-active, single-active"/>
+                        <xml-property name="description" value="Values, null, all-active, single-active"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
@@ -16668,12 +16668,12 @@
                 </xml-element>
                 <xml-element java-attribute="afIpv4" name="af-ipv4" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv4 address family Values: null, disable, enable"/>
+                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv4 address family Values, null, disable, enable"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="afIpv6" name="af-ipv6" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv6 address family Values: null, disable, enable"/>
+                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv6 address family Values, null, disable, enable"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
@@ -16706,7 +16706,7 @@
                 <xml-property name="container" value="lcmp-unreachables"/>
                 <xml-property name="uriTemplate" value="/lcmp-unreachables/lcmp-unreachable/{lcmp-unreachable-id}"/>
                 <xml-property name="requiredProps" value="lcmp-unreachable-id"/>
-            </xml-properties>
+             </xml-properties>
         </java-type>
 	</java-types>
 </xml-bindings>
