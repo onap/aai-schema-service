@@ -15921,11 +15921,33 @@
                         <xml-property name="description" value="Query towards SO CNF adapter to retrieve full resource data."/>
                     </xml-properties>
                 </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="General purpose kubernetes resource."/>
-                <xml-property name="indexedProps" value="id,name,kind"/>
-                <xml-property name="searchable" value="id"/>
+                <xml-property name="nameProps" value="name"/>
+                <xml-property name="indexedProps" value="id,name,kind,group,version,data-owner,data-source,data-source-version"/>
+                <xml-property name="searchable" value="id,name,kind,group,version"/>
                 <xml-property name="dependentOn" value="tenant"/>
                 <xml-property name="container" value="k8s-resources"/>
                 <xml-property name="uriTemplate" value="/k8s-resources/k8s-resource/{k8s-resource-id}"/>
