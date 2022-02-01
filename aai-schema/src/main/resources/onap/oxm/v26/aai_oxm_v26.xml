@@ -13977,6 +13977,26 @@
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v26.RelationshipList"/>
+                <xml-element java-attribute="provider" name="provider" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="The network provider which provides the CLL service through this UNI port"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="role" name="role" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Denotes if the UNI port is leaf, root or root-secondary"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="bandwidthUnit" name="bandwidth-unit" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Denotes the unit of the bandwidth-value"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="bandwidthValue" name="bandwidth-value" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Denotes t configuration of the bandwidth value of this UNI port"/>
+                    </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of an User network interface"/>
