@@ -12317,7 +12317,7 @@
                 </xml-element>
                 <xml-element java-attribute="enhancedMulticast" name="enhanced-multicast" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="String value indicating whether the EVC uses enhanced multicast. Possible Values:yes/no/[empty string]"/>
+                        <xml-property name="description" value="String value indicating whether the EVC uses enhanced multicast. Possible Values, yes/no/[empty string]"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="espEvcCircuitId" name="esp-evc-circuit-id" type="java.lang.String">
@@ -16764,7 +16764,7 @@
                 </xml-element>
                 <xml-element java-attribute="afIpv4" name="af-ipv4" type="java.lang.String">
                     <xml-properties>
-                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv4 address family Values: null, disable, enable"/>
+                        <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages for ipv4 address family Values, null, disable, enable"/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="afIpv6" name="af-ipv6" type="java.lang.String">
