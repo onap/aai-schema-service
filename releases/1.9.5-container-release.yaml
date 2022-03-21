@@ -1,0 +1,7 @@
+distribution_type: container
+container_release_tag: 1.9.5
+project: aai/schema-service
+ref: a961b74f0c6d2c3d69e5af13661657cb9b09c6e6
+containers:
+    - name: aai-schema-service
+      version: 1.9-STAGING-20220321T135724Z
