@@ -2027,7 +2027,7 @@
                 <xml-element java-attribute="sriovVfs" name="sriov-vfs" type="inventory.aai.onap.org.v24.SriovVfs"/>
                 <xml-element java-attribute="lInterfaces" name="l-interfaces" type="inventory.aai.onap.org.v24.LInterfaces"/>
                 <xml-element java-attribute="temporaryParameterLists" name="temporary-parameter-lists" type="inventory.aai.onap.org.v24.TemporaryParameterLists"/>
-                <xml-element java-attribute="lcmpUnreachables" name="lcmp-unreachables" type="inventory.aai.onap.org.v24.LcmpUnreachables"/>
+                <xml-element java-attribute="icmpUnreachables" name="icmp-unreachables" type="inventory.aai.onap.org.v24.icmpUnreachables"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v24.RelationshipList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="l3InterfaceIpv4AddressList" name="l3-interface-ipv4-address-list" type="inventory.aai.onap.org.v24.L3InterfaceIpv4AddressList"/>
                 <xml-element container-type="java.util.ArrayList" java-attribute="l3InterfaceIpv6AddressList" name="l3-interface-ipv6-address-list" type="inventory.aai.onap.org.v24.L3InterfaceIpv6AddressList"/>
@@ -16672,19 +16672,19 @@
                 <xml-property name="requiredProps" value="esi-id"/>
             </xml-properties>
         </java-type>
-        <java-type name="LcmpUnreachables">
+        <java-type name="icmpUnreachables">
             <xml-properties>
-                <xml-property name="description" value="Collection of lcmp unreachables."/>
+                <xml-property name="description" value="Collection of icmp unreachables."/>
             </xml-properties>
-            <xml-root-element name="lcmp-unreachables"/>
+            <xml-root-element name="icmp-unreachables"/>
             <java-attributes>
-                <xml-element container-type="java.util.ArrayList" java-attribute="lcmpUnreachable" name="lcmp-unreachable" type="inventory.aai.onap.org.v24.LcmpUnreachable"/>
+                <xml-element container-type="java.util.ArrayList" java-attribute="icmpUnreachable" name="icmp-unreachable" type="inventory.aai.onap.org.v24.icmpUnreachable"/>
             </java-attributes>
         </java-type>
-        <java-type name="LcmpUnreachable">
-            <xml-root-element name="lcmp-unreachable"/>
+        <java-type name="icmpUnreachable">
+            <xml-root-element name="icmp-unreachable"/>
             <java-attributes>
-                <xml-element java-attribute="lcmpUnreachableId" name="lcmp-unreachable-id" required="true" type="java.lang.String" xml-key="true">
+                <xml-element java-attribute="icmpUnreachableId" name="icmp-unreachable-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
                         <xml-property name="description" value="object identifier"/>
                     </xml-properties>
@@ -16724,11 +16724,11 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Flag to indicate generation of Internet Control Message Protocol (ICMP) unreachable messages"/>
-                <xml-property name="indexedProps" value="lcmp-unreachable-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="indexedProps" value="icmp-unreachable-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="dependentOn" value="l-interface"/>
-                <xml-property name="container" value="lcmp-unreachables"/>
-                <xml-property name="uriTemplate" value="/lcmp-unreachables/lcmp-unreachable/{lcmp-unreachable-id}"/>
-                <xml-property name="requiredProps" value="lcmp-unreachable-id"/>
+                <xml-property name="container" value="icmp-unreachables"/>
+                <xml-property name="uriTemplate" value="/icmp-unreachables/icmp-unreachable/{icmp-unreachable-id}"/>
+                <xml-property name="requiredProps" value="icmp-unreachable-id"/>
              </xml-properties>
         </java-type>
 	</java-types>

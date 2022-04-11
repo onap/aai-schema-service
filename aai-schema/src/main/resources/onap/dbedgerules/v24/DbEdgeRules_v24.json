@@ -6563,7 +6563,7 @@
             "default": "true",
             "description":"the zone is associated to another zone."
         },{
-            "from": "lcmp-unreachable",
+            "from": "icmp-unreachable",
             "to": "l-interface",
             "label": "tosca.relationships.network.BindsTo",
             "direction": "OUT",
