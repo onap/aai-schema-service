@@ -62,29 +62,29 @@ public class GremlinServerSingleton {
     @PostConstruct
     public void init() {
 
-		try {
-			String filepath = storedQueriesLocation + AAIConstants.AAI_FILESEP + "stored-queries.json";
-			Path path = Paths.get(filepath);
-			String customQueryConfigJson = new String(Files.readAllBytes(path));
+    try {
+      String filepath = storedQueriesLocation + AAIConstants.AAI_FILESEP + "stored-queries.json";
+      Path path = Paths.get(filepath);
+      String customQueryConfigJson = new String(Files.readAllBytes(path));
 
 
-			queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
-		} catch (IOException e) {
-			logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
-		}
+      queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
+    } catch (IOException e) {
+      logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
+    }
 
 
         TimerTask task = new FileWatcher(new File(storedQueriesLocation)) {
             @Override
             protected void onChange(File file) {
-        		try {
-        			String filepath = storedQueriesLocation;
-        			Path path = Paths.get(filepath);
-        			String customQueryConfigJson = new String(Files.readAllBytes(path));
-        			queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
-        		} catch (IOException e) {
-        			logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
-        		}
+            try {
+              String filepath = storedQueriesLocation;
+              Path path = Paths.get(filepath);
+              String customQueryConfigJson = new String(Files.readAllBytes(path));
+              queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
+            } catch (IOException e) {
+              logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
+            }
             }
         };
 
@@ -102,15 +102,15 @@ public class GremlinServerSingleton {
      * @return
      */
     public String getStoredQueryFromConfig(String key){
-    	CustomQueryConfig customQueryConfig = queryConfig.getStoredQuery(key);
-    	if ( customQueryConfig == null ) {
-    		return null;
-    	}
-    	return customQueryConfig.getQuery();
+      CustomQueryConfig customQueryConfig = queryConfig.getStoredQuery(key);
+      if ( customQueryConfig == null ) {
+        return null;
+      }
+      return customQueryConfig.getQuery();
     }
 
     public CustomQueryConfig getCustomQueryConfig(String key) {
-    	return queryConfig.getStoredQuery(key);
+      return queryConfig.getStoredQuery(key);
     }
 
 

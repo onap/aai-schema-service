@@ -31,36 +31,36 @@ import java.util.List;
  * keep validating so all issues are found in one run.
  */
 public class CheckEverythingStrategy implements SchemaErrorStrategy {
-	private boolean isOK = true;
-	private List<String> errorMsgs = new ArrayList<>();
+  private boolean isOK = true;
+  private List<String> errorMsgs = new ArrayList<>();
 
-	/* (non-Javadoc)
-	 * @see org.onap.aai.edges.validation.SchemaErrorStrategy#isOK()
-	 */
-	@Override
-	public boolean isOK() {
-		return isOK;
-	}
+  /* (non-Javadoc)
+   * @see org.onap.aai.edges.validation.SchemaErrorStrategy#isOK()
+   */
+  @Override
+  public boolean isOK() {
+    return isOK;
+  }
 
-	/* (non-Javadoc)
-	 * @see org.onap.aai.edges.validation.SchemaErrorStrategy#getErrorMsg()
-	 */
-	@Override
-	public String getErrorMsg() {
-		if (errorMsgs.isEmpty()) {
-			return "No errors found.";
-		} else {
-			return StringUtils.join(errorMsgs, "\n");
-		}
-	}
+  /* (non-Javadoc)
+   * @see org.onap.aai.edges.validation.SchemaErrorStrategy#getErrorMsg()
+   */
+  @Override
+  public String getErrorMsg() {
+    if (errorMsgs.isEmpty()) {
+      return "No errors found.";
+    } else {
+      return StringUtils.join(errorMsgs, "\n");
+    }
+  }
 
-	/* (non-Javadoc)
-	 * @see org.onap.aai.edges.validation.SchemaErrorStrategy#notifyOnError(java.lang.String)
-	 */
-	@Override
-	public void notifyOnError(String errorMsg) {
-		isOK = false;
-		errorMsgs.add(errorMsg);
-	}
+  /* (non-Javadoc)
+   * @see org.onap.aai.edges.validation.SchemaErrorStrategy#notifyOnError(java.lang.String)
+   */
+  @Override
+  public void notifyOnError(String errorMsg) {
+    isOK = false;
+    errorMsgs.add(errorMsg);
+  }
 
 }

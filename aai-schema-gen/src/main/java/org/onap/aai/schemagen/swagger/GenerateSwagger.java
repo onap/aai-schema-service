@@ -44,12 +44,12 @@ public class GenerateSwagger {
     public  static SchemaVersions schemaVersions;
 
     public SchemaVersions getSchemaVersions() {
-		return schemaVersions;
-	}
+    return schemaVersions;
+  }
 
 
 
-	public static void main(String[] args) throws IOException, TemplateException {
+  public static void main(String[] args) throws IOException, TemplateException {
 
 
 
@@ -63,13 +63,13 @@ public class GenerateSwagger {
 
         if(schemaDir == null){
             if(System.getProperty("user.dir") != null && !System.getProperty("user.dir").contains(DEFAULT_RUN_DIR)) {
-            	System.out.println("Warning: Schema directory is not set so using default schema dir: " + ALT_SCHEMA_DIR);
-            	schemaDir = ALT_SCHEMA_DIR;
-    		}
-    		else {
-    			System.out.println("Warning: Schema directory is not set so using default schema dir: " + DEFAULT_SCHEMA_DIR);
-    			schemaDir = DEFAULT_SCHEMA_DIR;
-    		}
+              System.out.println("Warning: Schema directory is not set so using default schema dir: " + ALT_SCHEMA_DIR);
+              schemaDir = ALT_SCHEMA_DIR;
+        }
+        else {
+          System.out.println("Warning: Schema directory is not set so using default schema dir: " + DEFAULT_SCHEMA_DIR);
+          schemaDir = DEFAULT_SCHEMA_DIR;
+        }
         }
 
         if(versionToGenerate == null){
@@ -141,7 +141,7 @@ public class GenerateSwagger {
                         line = line.trim();
                         String hyperLink = "";
                         if(line.trim().contains("Differences versus")) {
-                        	return "";
+                          return "";
                         }
                         if(line.trim().contains("https://")){
                             int startIndex = line.indexOf("https://");
@@ -161,10 +161,10 @@ public class GenerateSwagger {
         configuration.setClassForTemplateLoading(Api.class, "/");
         String resourcePath = "src/main/resources";
         if(System.getProperty("user.dir") != null && !System.getProperty("user.dir").contains(DEFAULT_RUN_DIR)) {
-        	configuration.setDirectoryForTemplateLoading(new File(DEFAULT_RUN_DIR + "/" + resourcePath));
+          configuration.setDirectoryForTemplateLoading(new File(DEFAULT_RUN_DIR + "/" + resourcePath));
         }
         else {
-        	configuration.setDirectoryForTemplateLoading(new File(resourcePath));
+          configuration.setDirectoryForTemplateLoading(new File(resourcePath));
         }
         Template template = configuration.getTemplate("swagger.html.ftl");
 
@@ -255,23 +255,23 @@ public class GenerateSwagger {
                         requestBody = requestBodyList.get(0);
                         for(String key : requestBody.keySet()) {
                             //Filter out all the relationship links that appear in the YAML
-                        	if(key.equals("description")) {
-                        		String reqBody=(String)requestBody.get(key);
-                        		if(!reqBody.replaceAll("\\[.*.json\\)", "").equals(reqBody)) {
-                        			requestBody.put(key, reqBody.replaceAll("\\[.*.json\\)", ""));
-                        		}
-                        	}
+                          if(key.equals("description")) {
+                            String reqBody=(String)requestBody.get(key);
+                            if(!reqBody.replaceAll("\\[.*.json\\)", "").equals(reqBody)) {
+                              requestBody.put(key, reqBody.replaceAll("\\[.*.json\\)", ""));
+                            }
+                          }
                             //Filter out all the patchDefinition links that appear in the YAML
-                        	if(key.equals("schema")) {
-                        		LinkedHashMap<String,String> reqBody = (LinkedHashMap<String,String>)requestBody.get(key);
-                        		String schema=reqBody.get("$ref");
-                        		String schemaNopatch = schema.replace("patchDefinitions", "definitions");
+                          if(key.equals("schema")) {
+                            LinkedHashMap<String,String> reqBody = (LinkedHashMap<String,String>)requestBody.get(key);
+                            String schema=reqBody.get("$ref");
+                            String schemaNopatch = schema.replace("patchDefinitions", "definitions");
 
-                        		if(! schema.equals(schemaNopatch)) {
-                        			reqBody.put("$ref", schemaNopatch);
-                        			requestBody.put(key, reqBody);
-                        		}
-                        	}
+                            if(! schema.equals(schemaNopatch)) {
+                              reqBody.put("$ref", schemaNopatch);
+                              requestBody.put(key, reqBody);
+                            }
+                          }
                         }
                         httpVerb.setBodyParametersEnabled(true);
                         httpVerb.setBodyParameters(requestBody);

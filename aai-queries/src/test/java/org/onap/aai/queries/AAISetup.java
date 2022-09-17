@@ -50,51 +50,51 @@ import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 
 @ContextConfiguration(classes = {
-		SchemaLocationsBean.class,
+    SchemaLocationsBean.class,
         SchemaVersions.class,
-		AAIConfigTranslator.class,
+    AAIConfigTranslator.class,
         EdgeIngestor.class,
         EdgeSerializer.class,
         NodeIngestor.class,
         SpringContextAware.class,
         IntrospectionConfig.class ,
         RestBeanConfig.class,
-		GremlinServerSingleton.class
+    GremlinServerSingleton.class
 })
 @TestPropertySource(properties = {
-		"schema.uri.base.path = /aai",
-		"schema.ingest.file = src/test/resources/application-test.properties"
+    "schema.uri.base.path = /aai",
+    "schema.ingest.file = src/test/resources/application-test.properties"
 })
 public abstract class AAISetup {
-	@Autowired
-	protected NodeIngestor nodeIngestor;
+  @Autowired
+  protected NodeIngestor nodeIngestor;
 
-	@Autowired
-	protected LoaderFactory loaderFactory;
+  @Autowired
+  protected LoaderFactory loaderFactory;
 
-	@Autowired
-	protected  Map<SchemaVersion, MoxyLoader>  moxyLoaderInstance;
+  @Autowired
+  protected  Map<SchemaVersion, MoxyLoader>  moxyLoaderInstance;
 
-	@Autowired
-	protected HttpEntry traversalHttpEntry;
+  @Autowired
+  protected HttpEntry traversalHttpEntry;
 
-	@Autowired
-	protected HttpEntry traversalUriHttpEntry;
+  @Autowired
+  protected HttpEntry traversalUriHttpEntry;
 
-	@Autowired
-	protected EdgeSerializer edgeSer;
+  @Autowired
+  protected EdgeSerializer edgeSer;
 
-	@Autowired
-	protected EdgeIngestor edgeIngestor;
+  @Autowired
+  protected EdgeIngestor edgeIngestor;
 
-	@Autowired
-	protected SchemaVersions schemaVersions;
+  @Autowired
+  protected SchemaVersions schemaVersions;
 
-	@Autowired
-	protected GremlinServerSingleton gremlinServerSingleton;
+  @Autowired
+  protected GremlinServerSingleton gremlinServerSingleton;
 
-	@Value("${schema.uri.base.path}")
-	protected String basePath;
+  @Value("${schema.uri.base.path}")
+  protected String basePath;
 
     @ClassRule
     public static final SpringClassRule springClassRule = new SpringClassRule();

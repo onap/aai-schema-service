@@ -31,51 +31,51 @@ import java.util.*;
 
 public class ConfigTranslatorForDocs extends ConfigTranslator {
 
-	public ConfigTranslatorForDocs(SchemaLocationsBean bean, SchemaVersions schemaVersions) {
-		super(bean, schemaVersions);
-	}
+  public ConfigTranslatorForDocs(SchemaLocationsBean bean, SchemaVersions schemaVersions) {
+    super(bean, schemaVersions);
+  }
 
-	@Override
-	public Map<SchemaVersion, List<String>> getNodeFiles() {
-		List<SchemaVersion> versionsToGen = new ArrayList<>();
-		versionsToGen = schemaVersions.getVersions();
-		Collections.sort(versionsToGen);
-		Collections.reverse(versionsToGen);
-		Map<SchemaVersion, List<String>> mp = new TreeMap<>();
-		for (SchemaVersion v : versionsToGen) {
-			File dir = new File(bean.getNodeDirectory() + File.separator + v.toString().toLowerCase());
-			File [] fileSet = dir.listFiles();
-			List<String> files = new ArrayList<>();
-			for(File f: fileSet ) {
-				files.add(f.getAbsolutePath());
-			}
+  @Override
+  public Map<SchemaVersion, List<String>> getNodeFiles() {
+    List<SchemaVersion> versionsToGen = new ArrayList<>();
+    versionsToGen = schemaVersions.getVersions();
+    Collections.sort(versionsToGen);
+    Collections.reverse(versionsToGen);
+    Map<SchemaVersion, List<String>> mp = new TreeMap<>();
+    for (SchemaVersion v : versionsToGen) {
+      File dir = new File(bean.getNodeDirectory() + File.separator + v.toString().toLowerCase());
+      File [] fileSet = dir.listFiles();
+      List<String> files = new ArrayList<>();
+      for(File f: fileSet ) {
+        files.add(f.getAbsolutePath());
+      }
 
-			mp.put(v, files);
-		}
-		return mp;
-	}
+      mp.put(v, files);
+    }
+    return mp;
+  }
 
-	@Override
-	public Map<SchemaVersion, List<String>> getEdgeFiles() {
-		List<SchemaVersion> versionsToGen = new ArrayList<>();
-		versionsToGen = schemaVersions.getVersions();
-		Collections.sort(versionsToGen);
-		Collections.reverse(versionsToGen);
-		Map<SchemaVersion, List<String>> mp = new TreeMap<>();
-		for (SchemaVersion v : versionsToGen) {
-			File dir = new File(bean.getEdgeDirectory());
-			File [] fileSet = dir.listFiles(new FilenameFilter() {
-				@Override
-				public boolean accept(File dir, String name) {
-					return name.contains("_"+v.toString().toLowerCase());
-				}
-			});
-			List<String> files = new ArrayList<>();
-			for(File f: fileSet ) {
-				files.add(f.getAbsolutePath());
-			}
-			mp.put(v, files);
-		}
-		return mp;
-	}
+  @Override
+  public Map<SchemaVersion, List<String>> getEdgeFiles() {
+    List<SchemaVersion> versionsToGen = new ArrayList<>();
+    versionsToGen = schemaVersions.getVersions();
+    Collections.sort(versionsToGen);
+    Collections.reverse(versionsToGen);
+    Map<SchemaVersion, List<String>> mp = new TreeMap<>();
+    for (SchemaVersion v : versionsToGen) {
+      File dir = new File(bean.getEdgeDirectory());
+      File [] fileSet = dir.listFiles(new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+          return name.contains("_"+v.toString().toLowerCase());
+        }
+      });
+      List<String> files = new ArrayList<>();
+      for(File f: fileSet ) {
+        files.add(f.getAbsolutePath());
+      }
+      mp.put(v, files);
+    }
+    return mp;
+  }
 }

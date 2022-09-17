@@ -28,25 +28,25 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class VersionValidator {
-	private SchemaErrorStrategy strat;
-	private VersionValidationModule verMod;
+  private SchemaErrorStrategy strat;
+  private VersionValidationModule verMod;
 
-	@Autowired
-	public VersionValidator(SchemaErrorStrategy strategy, VersionValidationModule verMod) {
-		this.strat = strategy;
-		this.verMod = verMod;
-	}
+  @Autowired
+  public VersionValidator(SchemaErrorStrategy strategy, VersionValidationModule verMod) {
+    this.strat = strategy;
+    this.verMod = verMod;
+  }
 
-	public boolean validate() {
-		String result = verMod.validate();
-		if (!"".equals(result)) {
-			strat.notifyOnError(result);
-		}
+  public boolean validate() {
+    String result = verMod.validate();
+    if (!"".equals(result)) {
+      strat.notifyOnError(result);
+    }
 
-		return strat.isOK();
-	}
+    return strat.isOK();
+  }
 
-	public String getErrorMsg() {
-		return strat.getErrorMsg();
-	}
+  public String getErrorMsg() {
+    return strat.getErrorMsg();
+  }
 }

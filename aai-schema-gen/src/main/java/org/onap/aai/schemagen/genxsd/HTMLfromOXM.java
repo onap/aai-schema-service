@@ -203,7 +203,7 @@ public class HTMLfromOXM extends OxmFileProcessor {
                 XSDElement xmlElementElement =
                     new XSDElement((Element) xmlElementNodes.item(i), maxOccurs);
 
-//				String elementName = xmlElementElement.getAttribute("name");
+//        String elementName = xmlElementElement.getAttribute("name");
                 String elementType = xmlElementElement.getAttribute("type");
                 //No simple types; only AAI custom types
                 String addType = elementType.contains("." + v.toString() + ".") ?

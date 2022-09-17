@@ -34,39 +34,39 @@ import java.util.Map;
  */
 @Component
 public class DefaultVersionValidationModule implements VersionValidationModule {
-	private ConfigTranslator config;
+  private ConfigTranslator config;
 
-	@Autowired
-	public DefaultVersionValidationModule(ConfigTranslator config) {
-		this.config = config;
-	}
+  @Autowired
+  public DefaultVersionValidationModule(ConfigTranslator config) {
+    this.config = config;
+  }
 
-	/* (non-Javadoc)
-	 * @see org.onap.aai.validation.VersionValidationModule#validate(org.onap.aai.setup.ConfigTranslator)
-	 */
-	@Override
-	public String validate() {
-		Map<SchemaVersion, List<String>> nodeConfig = config.getNodeFiles();
-		Map<SchemaVersion, List<String>> edgeConfig = config.getEdgeFiles();
+  /* (non-Javadoc)
+   * @see org.onap.aai.validation.VersionValidationModule#validate(org.onap.aai.setup.ConfigTranslator)
+   */
+  @Override
+  public String validate() {
+    Map<SchemaVersion, List<String>> nodeConfig = config.getNodeFiles();
+    Map<SchemaVersion, List<String>> edgeConfig = config.getEdgeFiles();
 
-		StringBuilder missingVers = new StringBuilder().append("Missing schema for the following versions: ");
-		boolean isMissing = false;
-		for (SchemaVersion v : config.getSchemaVersions().getVersions()) {
-			if (nodeConfig.get(v) == null) {
-				isMissing = true;
-				missingVers.append(v.toString()).append(" has no OXM configured. ");
-			}
-			if (edgeConfig.get(v) == null) {
-				isMissing = true;
-				missingVers.append(v.toString()).append(" has no edge rules configured. ");
-			}
-		}
+    StringBuilder missingVers = new StringBuilder().append("Missing schema for the following versions: ");
+    boolean isMissing = false;
+    for (SchemaVersion v : config.getSchemaVersions().getVersions()) {
+      if (nodeConfig.get(v) == null) {
+        isMissing = true;
+        missingVers.append(v.toString()).append(" has no OXM configured. ");
+      }
+      if (edgeConfig.get(v) == null) {
+        isMissing = true;
+        missingVers.append(v.toString()).append(" has no edge rules configured. ");
+      }
+    }
 
-		if (isMissing) {
-			return missingVers.toString();
-		} else {
-			return "";
-		}
-	}
+    if (isMissing) {
+      return missingVers.toString();
+    } else {
+      return "";
+    }
+  }
 
 }

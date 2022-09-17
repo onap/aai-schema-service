@@ -29,29 +29,29 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
 public @interface Metadata {
 
-	boolean isKey() default false;
-	String description() default "";
-	String nameProps() default "";
-	String indexedProps() default "";
-	String dependentOn() default "";
-	String container() default "";
-	String namespace() default "";
-	String defaultValue() default "";
-	String searchable() default "";
-	String uniqueProps() default "";
-	String requiredProps() default "";
-	String uriTemplate() default "";
-	String extendsFrom() default "";
-	String isAbstract() default "";
-	String alternateKeys1() default "";
-	String maximumDepth() default "";
-	String crossEntityReference() default "";
-	String requires() default "";
-	String dbAlias() default ""; 
-	String dataLocation() default "";
-	String containsSuggestibleProps() default "";
-	String suggestionAliases() default "";
-	String sourceOfTruthType() default "";
+  boolean isKey() default false;
+  String description() default "";
+  String nameProps() default "";
+  String indexedProps() default "";
+  String dependentOn() default "";
+  String container() default "";
+  String namespace() default "";
+  String defaultValue() default "";
+  String searchable() default "";
+  String uniqueProps() default "";
+  String requiredProps() default "";
+  String uriTemplate() default "";
+  String extendsFrom() default "";
+  String isAbstract() default "";
+  String alternateKeys1() default "";
+  String maximumDepth() default "";
+  String crossEntityReference() default "";
+  String requires() default "";
+  String dbAlias() default ""; 
+  String dataLocation() default "";
+  String containsSuggestibleProps() default "";
+  String suggestionAliases() default "";
+  String sourceOfTruthType() default "";
     String dslStartNodeProps() default "";
 
 }

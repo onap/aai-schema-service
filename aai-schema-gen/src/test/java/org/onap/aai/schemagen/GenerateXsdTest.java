@@ -51,98 +51,98 @@ import static org.junit.Assert.assertThat;
         TestUtilConfigTranslatorforBusiness.class,
         EdgeIngestor.class,
         NodeIngestor.class,
-		SwaggerGenerationConfiguration.class,
-		SchemaVersions.class
+    SwaggerGenerationConfiguration.class,
+    SchemaVersions.class
 })
 @TestPropertySource(properties = {
-		"schema.uri.base.path = /aai",
-		"schema.xsd.maxoccurs = 5000"
+    "schema.uri.base.path = /aai",
+    "schema.xsd.maxoccurs = 5000"
 })
 public class GenerateXsdTest {
-	private static final Logger logger = LoggerFactory.getLogger("GenerateXsd.class");
-	private static final String OXMFILENAME = "src/test/resources/oxm/business_oxm_v11.xml";
-	private static final String EDGEFILENAME = "src/test/resources/dbedgerules/DbEdgeBusinessRules_test.json";
-	public static AnnotationConfigApplicationContext ctx = null;
-	private static String testXML;
+  private static final Logger logger = LoggerFactory.getLogger("GenerateXsd.class");
+  private static final String OXMFILENAME = "src/test/resources/oxm/business_oxm_v11.xml";
+  private static final String EDGEFILENAME = "src/test/resources/dbedgerules/DbEdgeBusinessRules_test.json";
+  public static AnnotationConfigApplicationContext ctx = null;
+  private static String testXML;
 
-	@Autowired
+  @Autowired
     YAMLfromOXM yamlFromOxm;
 
-	@Autowired
+  @Autowired
     HTMLfromOXM htmlFromOxm;
 
-	@Autowired
+  @Autowired
     SchemaVersions schemaVersions;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		XSDElementTest x = new XSDElementTest();
-		x.setUp();
-		testXML = x.getTestXML();
-		logger.debug(testXML);
-		BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
-		bw.write(testXML);
-		bw.close();
-		BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
-		bw1.write(YAMLfromOXMTest.EdgeDefs());
-		bw1.close();
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception {
+    XSDElementTest x = new XSDElementTest();
+    x.setUp();
+    testXML = x.getTestXML();
+    logger.debug(testXML);
+    BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
+    bw.write(testXML);
+    bw.close();
+    BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
+    bw1.write(YAMLfromOXMTest.EdgeDefs());
+    bw1.close();
 
-	}
+  }
 
-	@Before
-	public void setUp() throws Exception {
-		//PowerMockito.mockStatic(GenerateXsd.class);
-		XSDElementTest x = new XSDElementTest();
-		x.setUp();
-		testXML = x.getTestXML();
-//		logger.info(testXML);
-	}
+  @Before
+  public void setUp() throws Exception {
+    //PowerMockito.mockStatic(GenerateXsd.class);
+    XSDElementTest x = new XSDElementTest();
+    x.setUp();
+    testXML = x.getTestXML();
+//    logger.info(testXML);
+  }
 
-	@Test
-	public void test_generateSwaggerFromOxmFile( ) {
+  @Test
+  public void test_generateSwaggerFromOxmFile( ) {
 
-		SchemaVersion v = schemaVersions.getAppRootVersion();
-		String apiVersion = v.toString();
-		String fileContent = null;
-		try {
+    SchemaVersion v = schemaVersions.getAppRootVersion();
+    String apiVersion = v.toString();
+    String fileContent = null;
+    try {
 
-			yamlFromOxm.setXmlVersion(testXML, v);
-			fileContent = yamlFromOxm.process();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		assertThat(fileContent, is(new YAMLfromOXMTest().YAMLresult()));
-	}
+      yamlFromOxm.setXmlVersion(testXML, v);
+      fileContent = yamlFromOxm.process();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+    assertThat(fileContent, is(new YAMLfromOXMTest().YAMLresult()));
+  }
 
-	@Test
-	public void test_generateXSDFromOxmFile( ) {
+  @Test
+  public void test_generateXSDFromOxmFile( ) {
 
-		SchemaVersion v = schemaVersions.getAppRootVersion();
-		String fileContent = null;
-		try {
-			htmlFromOxm.setXmlVersion(testXML, v);
-			fileContent = htmlFromOxm.process();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-//		logger.debug(fileContent);
-		assertThat(fileContent, is(new HTMLfromOXMTest().HTMLresult()));
-	}
+    SchemaVersion v = schemaVersions.getAppRootVersion();
+    String fileContent = null;
+    try {
+      htmlFromOxm.setXmlVersion(testXML, v);
+      fileContent = htmlFromOxm.process();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+//    logger.debug(fileContent);
+    assertThat(fileContent, is(new HTMLfromOXMTest().HTMLresult()));
+  }
 
-	@Test
-	public void testGetAPIVersion() {
-		GenerateXsd.apiVersion = schemaVersions.getAppRootVersion().toString();
-		assertThat(GenerateXsd.getAPIVersion(),is("v11"));
-	}
+  @Test
+  public void testGetAPIVersion() {
+    GenerateXsd.apiVersion = schemaVersions.getAppRootVersion().toString();
+    assertThat(GenerateXsd.getAPIVersion(),is("v11"));
+  }
 
-	@Test
-	public void testGetYamlDir() {
-		assertThat(GenerateXsd.getYamlDir(),is("aai-schema/src/main/resources/onap/aai_swagger_yaml"));
-	}
+  @Test
+  public void testGetYamlDir() {
+    assertThat(GenerateXsd.getYamlDir(),is("aai-schema/src/main/resources/onap/aai_swagger_yaml"));
+  }
 
-	@Test
-	public void testGetResponsesUrl() {
-		assertNull(GenerateXsd.getResponsesUrl());
-	}
+  @Test
+  public void testGetResponsesUrl() {
+    assertNull(GenerateXsd.getResponsesUrl());
+  }
 }
 

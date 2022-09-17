@@ -33,34 +33,34 @@ import java.util.Map;
  *
  */
 public abstract class ConfigTranslator {
-	protected SchemaLocationsBean bean;
-	protected SchemaVersions schemaVersions;
+  protected SchemaLocationsBean bean;
+  protected SchemaVersions schemaVersions;
 
-	@Autowired
-	public ConfigTranslator(SchemaLocationsBean schemaLocationbean, SchemaVersions schemaVersions) {
-		this.bean = schemaLocationbean;
-		this.schemaVersions = schemaVersions;
-	}
+  @Autowired
+  public ConfigTranslator(SchemaLocationsBean schemaLocationbean, SchemaVersions schemaVersions) {
+    this.bean = schemaLocationbean;
+    this.schemaVersions = schemaVersions;
+  }
 
-	/**
-	 * Translates the contents of the schema config file
-	 * into the input for the NodeIngestor
-	 *
-	 * @return Map of Version to the list of (string) filenames to be
-	 * ingested for that version
-	 */
-	public abstract Map<SchemaVersion, List<String>> getNodeFiles();
+  /**
+   * Translates the contents of the schema config file
+   * into the input for the NodeIngestor
+   *
+   * @return Map of Version to the list of (string) filenames to be
+   * ingested for that version
+   */
+  public abstract Map<SchemaVersion, List<String>> getNodeFiles();
 
-	/**
-	 * Translates the contents of the schema config file
-	 * into the input for the EdgeIngestor
-	 *
-	 * @return Map of Version to the List of (String) filenames to be
-	 * ingested for that version
-	 */
-	public abstract Map<SchemaVersion, List<String>> getEdgeFiles();
+  /**
+   * Translates the contents of the schema config file
+   * into the input for the EdgeIngestor
+   *
+   * @return Map of Version to the List of (String) filenames to be
+   * ingested for that version
+   */
+  public abstract Map<SchemaVersion, List<String>> getEdgeFiles();
 
-	public SchemaVersions getSchemaVersions(){
-		return schemaVersions;
-	}
+  public SchemaVersions getSchemaVersions(){
+    return schemaVersions;
+  }
 }

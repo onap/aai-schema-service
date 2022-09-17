@@ -131,9 +131,9 @@ public class XSDElement implements Element {
                 .equals(this.xmlElementElement.getAttribute("name"))) {
                 continue;
             }
-//			This stopped working, replaced with above - should figure out why...
-//			if ( !xmlPropElement.getParentNode().isSameNode(this.xmlElementElement))
-//				continue;
+//      This stopped working, replaced with above - should figure out why...
+//      if ( !xmlPropElement.getParentNode().isSameNode(this.xmlElementElement))
+//        continue;
             NodeList childNodes = xmlPropElement.getElementsByTagName("xml-property");
 
             for (int j = 0; j < childNodes.getLength(); ++j) {
@@ -370,7 +370,7 @@ public class XSDElement implements Element {
             sbElement.append("/>").append(OxmFileProcessor.LINE_SEPARATOR);
         }
         return this.getHTMLElementWrapper(sbElement.toString(), v, useAnnotation);
-//		return sbElement.toString();
+//    return sbElement.toString();
     }
 
     public String getHTMLElementWrapper(String unwrappedElement, SchemaVersion v,

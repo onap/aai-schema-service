@@ -80,9 +80,9 @@ import static org.mockito.Mockito.when;
 
 @RunWith(Parameterized.class)
 @ContextConfiguration(classes = {
-	SchemaLocationsBean.class,
+  SchemaLocationsBean.class,
     SchemaConfigVersions.class,
-	AAIConfigTranslator.class,
+  AAIConfigTranslator.class,
     EdgeIngestor.class,
     EdgeSerializer.class,
     NodeIngestor.class,
@@ -91,48 +91,48 @@ import static org.mockito.Mockito.when;
     IntrospectionConfig.class
 })
 @TestPropertySource(properties = {
-	"schema.uri.base.path = /aai",
+  "schema.uri.base.path = /aai",
     "schema.source.name = onap",
     "schema.ingest.file = src/test/resources/application-test.properties"
 })
 public abstract class OnapQueryTest {
 
-	@ClassRule
+  @ClassRule
     public static final SpringClassRule springClassRule = new SpringClassRule();
 
     @Rule
     public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
-	protected Logger logger;
-	protected Graph graph;
-	protected GremlinGroovyShell shell;
-	@Mock protected TransactionalGraphEngine dbEngine;
-	protected final List<Vertex> expectedResult = new ArrayList<>();
+  protected Logger logger;
+  protected Graph graph;
+  protected GremlinGroovyShell shell;
+  @Mock protected TransactionalGraphEngine dbEngine;
+  protected final List<Vertex> expectedResult = new ArrayList<>();
 
-	@Autowired
-	protected EdgeIngestor edgeRules;
+  @Autowired
+  protected EdgeIngestor edgeRules;
 
-	@Autowired
-	protected EdgeSerializer rules;
+  @Autowired
+  protected EdgeSerializer rules;
 
-	@Autowired
-	protected LoaderFactory loaderFactory;
+  @Autowired
+  protected LoaderFactory loaderFactory;
 
-	@Autowired
-	protected SchemaVersions schemaVersions;
+  @Autowired
+  protected SchemaVersions schemaVersions;
 
-	protected Loader loader;
-	protected GraphTraversalSource gts;
+  protected Loader loader;
+  protected GraphTraversalSource gts;
 
-	@Autowired
-	protected GremlinServerSingleton gremlinServerSingleton;
+  @Autowired
+  protected GremlinServerSingleton gremlinServerSingleton;
 
-	@Parameterized.Parameter(value = 0)
-	public SchemaVersion version;
+  @Parameterized.Parameter(value = 0)
+  public SchemaVersion version;
 
-	@Parameterized.Parameters(name = "Version.{0}")
-	public static Collection<Object[]> data() {
-		return Arrays.asList(new Object[][]{
+  @Parameterized.Parameters(name = "Version.{0}")
+  public static Collection<Object[]> data() {
+    return Arrays.asList(new Object[][]{
             {new SchemaVersion("v11")},
             {new SchemaVersion("v12")},
             {new SchemaVersion("v13")},
@@ -143,89 +143,89 @@ public abstract class OnapQueryTest {
             {new SchemaVersion("v18")},
             {new SchemaVersion("v19")},
             {new SchemaVersion("v20")}
-		});
-	}
+    });
+  }
 
-	protected String query;
+  protected String query;
 
-	LinkedHashMap <String, Object> params;
+  LinkedHashMap <String, Object> params;
 
-	@Autowired
-	private Environment env;
+  @Autowired
+  private Environment env;
 
-	@BeforeClass
-	public static void setupBundleconfig() {
-		System.setProperty("AJSC_HOME", "./");
-		System.setProperty("BUNDLECONFIG_DIR", "src/main/resources/");
-	}
+  @BeforeClass
+  public static void setupBundleconfig() {
+    System.setProperty("AJSC_HOME", "./");
+    System.setProperty("BUNDLECONFIG_DIR", "src/main/resources/");
+  }
 
-	@Before
-	public void setUp() throws AAIException, NoEdgeRuleFoundException, EdgeRuleNotFoundException, AmbiguousRuleChoiceException, IOException {
-		System.setProperty("AJSC_HOME", ".");
-		System.setProperty("BUNDLECONFIG_DIR", "src/main/resources");
-		logger = LoggerFactory.getLogger(getClass());
-		MockitoAnnotations.initMocks(this);
-		graph = TinkerGraph.open();
-		gts = graph.traversal();
-		createGraph();
-		shell = new GremlinGroovyShell();
-		loader = loaderFactory.createLoaderForVersion(ModelType.MOXY, version);
+  @Before
+  public void setUp() throws AAIException, NoEdgeRuleFoundException, EdgeRuleNotFoundException, AmbiguousRuleChoiceException, IOException {
+    System.setProperty("AJSC_HOME", ".");
+    System.setProperty("BUNDLECONFIG_DIR", "src/main/resources");
+    logger = LoggerFactory.getLogger(getClass());
+    MockitoAnnotations.initMocks(this);
+    graph = TinkerGraph.open();
+    gts = graph.traversal();
+    createGraph();
+    shell = new GremlinGroovyShell();
+    loader = loaderFactory.createLoaderForVersion(ModelType.MOXY, version);
         setUpQuery();
-	}
+  }
 
 
-	protected void setUpQuery() {
-		query = gremlinServerSingleton.getStoredQueryFromConfig(getQueryName());
-		params = new LinkedHashMap <>();
-		addParam(params);
-		when(dbEngine.getQueryBuilder(any(QueryStyle.class))).thenReturn(new GremlinTraversal<>(loader, graph.traversal()));
-		logger.info("Stored query in abstraction form {}", query);
-		query = new GroovyQueryBuilder().executeTraversal(dbEngine, query, params);
-		logger.info("After converting to gremlin query {}", query);
-		query = "g" + query;
-		GraphTraversal<Vertex, Vertex> g = graph.traversal().V();
-		addStartNode(g);
-		params.put("g", g);
-	}
+  protected void setUpQuery() {
+    query = gremlinServerSingleton.getStoredQueryFromConfig(getQueryName());
+    params = new LinkedHashMap <>();
+    addParam(params);
+    when(dbEngine.getQueryBuilder(any(QueryStyle.class))).thenReturn(new GremlinTraversal<>(loader, graph.traversal()));
+    logger.info("Stored query in abstraction form {}", query);
+    query = new GroovyQueryBuilder().executeTraversal(dbEngine, query, params);
+    logger.info("After converting to gremlin query {}", query);
+    query = "g" + query;
+    GraphTraversal<Vertex, Vertex> g = graph.traversal().V();
+    addStartNode(g);
+    params.put("g", g);
+  }
 
-	public void run() {
+  public void run() {
 
-		GraphTraversal<Vertex, Vertex> result = (GraphTraversal<Vertex, Vertex>)shell.executeTraversal(query, params);
+    GraphTraversal<Vertex, Vertex> result = (GraphTraversal<Vertex, Vertex>)shell.executeTraversal(query, params);
 
-		List<Vertex> vertices = result.toList();
+    List<Vertex> vertices = result.toList();
 
-		logger.info("Expected result set of vertexes [{}]", convert(expectedResult));
-		logger.info("Actual Result set of vertexes [{}]", convert(vertices));
+    logger.info("Expected result set of vertexes [{}]", convert(expectedResult));
+    logger.info("Actual Result set of vertexes [{}]", convert(vertices));
 
-		List<Vertex> nonDuplicateExpectedResult = new ArrayList<>(new HashSet<>(expectedResult));
-		vertices = new ArrayList<>(new HashSet<>(vertices));
+    List<Vertex> nonDuplicateExpectedResult = new ArrayList<>(new HashSet<>(expectedResult));
+    vertices = new ArrayList<>(new HashSet<>(vertices));
 
-		nonDuplicateExpectedResult.sort(Comparator.comparing(vertex -> vertex.id().toString()));
-		vertices.sort(Comparator.comparing(vertex -> vertex.id().toString()));
+    nonDuplicateExpectedResult.sort(Comparator.comparing(vertex -> vertex.id().toString()));
+    vertices.sort(Comparator.comparing(vertex -> vertex.id().toString()));
 
 
-		// Use this instead of the assertTrue as this provides more useful
-		// debugging information such as this when expected and actual differ:
-		// java.lang.AssertionError: Expected all the vertices to be found
-		// Expected :[v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
-		// Actual   :[v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
-		assertEquals("Expected all the vertices to be found", nonDuplicateExpectedResult, vertices);
+    // Use this instead of the assertTrue as this provides more useful
+    // debugging information such as this when expected and actual differ:
+    // java.lang.AssertionError: Expected all the vertices to be found
+    // Expected :[v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
+    // Actual   :[v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
+    assertEquals("Expected all the vertices to be found", nonDuplicateExpectedResult, vertices);
 
-	}
+  }
 
-	protected String convert(List<Vertex> vertices){
-		return vertices
-				.stream()
-				.map(vertex -> vertex.property("aai-node-type").value().toString())
-				.collect(Collectors.joining(","));
-	}
+  protected String convert(List<Vertex> vertices){
+    return vertices
+        .stream()
+        .map(vertex -> vertex.property("aai-node-type").value().toString())
+        .collect(Collectors.joining(","));
+  }
 
-	protected abstract void createGraph() throws AAIException, NoEdgeRuleFoundException, EdgeRuleNotFoundException, AmbiguousRuleChoiceException;
+  protected abstract void createGraph() throws AAIException, NoEdgeRuleFoundException, EdgeRuleNotFoundException, AmbiguousRuleChoiceException;
 
-	protected abstract String getQueryName();
+  protected abstract String getQueryName();
 
-	protected abstract void addStartNode(GraphTraversal<Vertex, Vertex> g);
+  protected abstract void addStartNode(GraphTraversal<Vertex, Vertex> g);
 
-	protected abstract void addParam(Map<String, Object> params);
+  protected abstract void addParam(Map<String, Object> params);
 
 }

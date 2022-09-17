@@ -50,16 +50,16 @@ public class GetOperation {
         this.tag = tag;
         this.path = path;
         this.pathParams = pathParams;
-//			StringBuilder p = new StringBuilder();
+//      StringBuilder p = new StringBuilder();
 
         if (containers.get(xmlRootElementName) == null) {
             this.queryParams = "";
         } else {
             this.queryParams = String.join("", containers.get(xmlRootElementName));
-//				for(String param : containers.get(xmlRootElementName)) {
-//					p.append(param);
-//				}
-//				this.queryParams = p.toString();
+//        for(String param : containers.get(xmlRootElementName)) {
+//          p.append(param);
+//        }
+//        this.queryParams = p.toString();
         }
     }
 
@@ -68,11 +68,11 @@ public class GetOperation {
         StringTokenizer st;
         st = new StringTokenizer(path, "/");
         //Path has to be longer than one element
-			/*
-			if ( st.countTokens() <= 1) {
-				return "";
-			}
-			*/
+      /*
+      if ( st.countTokens() <= 1) {
+        return "";
+      }
+      */
         //a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
@@ -116,9 +116,9 @@ public class GetOperation {
         if (StringUtils.isNotEmpty(pathParams)) {
             pathSb.append(pathParams);
         }
-//			if ( StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
-//				pathSb.append("\n");
-//			}
+//      if ( StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
+//        pathSb.append("\n");
+//      }
         if (StringUtils.isNotEmpty(queryParams)) {
             pathSb.append(queryParams);
         }

@@ -90,11 +90,11 @@ public class NodeGetOperation {
         StringTokenizer st;
         st = new StringTokenizer(CRUDpath, "/");
         //Path has to be longer than one element
-			/*
-			if ( st.countTokens() <= 1) {
-				return "";
-			}
-			*/
+      /*
+      if ( st.countTokens() <= 1) {
+        return "";
+      }
+      */
         //a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";

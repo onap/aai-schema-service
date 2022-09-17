@@ -311,68 +311,68 @@ public class ValidateOXMTest {
      * @throws ParserConfigurationException
      */
     @Test
-	public void verifyAllUriTemplateHaveNamespace()
-			throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
-		boolean foundIssue = false;
-		List<File> fileList = getOxmSchemaFiles();
-		fileList.addAll(getOnapOxmSchemaFiles());
-		StringBuilder msg = new StringBuilder();
-		for (File file : fileList) {
-			msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
-			msg.append("\n");
-			Document xmlDocument = getDocument(file);
-			XPath xPath = XPathFactory.newInstance().newXPath();
-			String expression = "/xml-bindings/java-types/java-type["
-					+ "count(xml-properties/xml-property[@name='namespace']) > 0 " + "]";
-			NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+  public void verifyAllUriTemplateHaveNamespace()
+      throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    boolean foundIssue = false;
+    List<File> fileList = getOxmSchemaFiles();
+    fileList.addAll(getOnapOxmSchemaFiles());
+    StringBuilder msg = new StringBuilder();
+    for (File file : fileList) {
+      msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+      msg.append("\n");
+      Document xmlDocument = getDocument(file);
+      XPath xPath = XPathFactory.newInstance().newXPath();
+      String expression = "/xml-bindings/java-types/java-type["
+          + "count(xml-properties/xml-property[@name='namespace']) > 0 " + "]";
+      NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+      for (int i = 0; i < nodeList.getLength(); i++) {
+        String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
 
-				NodeList childNodeList = (NodeList) nodeList.item(i).getChildNodes();
-				for (int j = 0; j < childNodeList.getLength(); j++) {
+        NodeList childNodeList = (NodeList) nodeList.item(i).getChildNodes();
+        for (int j = 0; j < childNodeList.getLength(); j++) {
 
-					String nodeName = childNodeList.item(j).getNodeName();
-					NodeList xmlPropertyNodeList = childNodeList.item(j).getChildNodes();
-					if (XMLPROPERTIES.equals(nodeName)) {
+          String nodeName = childNodeList.item(j).getNodeName();
+          NodeList xmlPropertyNodeList = childNodeList.item(j).getChildNodes();
+          if (XMLPROPERTIES.equals(nodeName)) {
 
-						String namespaceVal = "";
-						String uriTemplateVal = "";
-						for (int k = 0; k < xmlPropertyNodeList.getLength(); k++) {
+            String namespaceVal = "";
+            String uriTemplateVal = "";
+            for (int k = 0; k < xmlPropertyNodeList.getLength(); k++) {
 
-							if ("xml-property".equals(xmlPropertyNodeList.item(k).getNodeName())) {
+              if ("xml-property".equals(xmlPropertyNodeList.item(k).getNodeName())) {
 
-								NamedNodeMap attributes = xmlPropertyNodeList.item(k).getAttributes();
+                NamedNodeMap attributes = xmlPropertyNodeList.item(k).getAttributes();
 
-								if ("namespace".equals(attributes.getNamedItem("name").getNodeValue())) {
-									namespaceVal = attributes.getNamedItem("value").getNodeValue();
-								}
-								if ("uriTemplate".equals(attributes.getNamedItem("name").getNodeValue())) {
-									uriTemplateVal = attributes.getNamedItem("value").getNodeValue();
-								}
+                if ("namespace".equals(attributes.getNamedItem("name").getNodeValue())) {
+                  namespaceVal = attributes.getNamedItem("value").getNodeValue();
+                }
+                if ("uriTemplate".equals(attributes.getNamedItem("name").getNodeValue())) {
+                  uriTemplateVal = attributes.getNamedItem("value").getNodeValue();
+                }
 
-							}
+              }
 
-						}
+            }
 
-						if (!uriTemplateVal.startsWith("/" + namespaceVal + "/")) {
-							foundIssue = true;
-							msg.append("\t");
-							msg.append(uriTemplateVal);
-							msg.append("\n");
-						}
+            if (!uriTemplateVal.startsWith("/" + namespaceVal + "/")) {
+              foundIssue = true;
+              msg.append("\t");
+              msg.append(uriTemplateVal);
+              msg.append("\n");
+            }
 
-					}
-				}
+          }
+        }
 
-			}
-		}
-		if (foundIssue) {
-			System.out.println(msg.toString());
-			fail("uriTemplate doesnt start with /namespace/.");
-		}
+      }
+    }
+    if (foundIssue) {
+      System.out.println(msg.toString());
+      fail("uriTemplate doesnt start with /namespace/.");
+    }
 
-	}
+  }
 
 
     /**

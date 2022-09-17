@@ -34,13 +34,13 @@ import java.util.List;
  * etc.
  */
 public interface DuplicateNodeDefinitionValidationModule {
-	/**
-	 * Finds any duplicates according to the defined rules
-	 *
-	 * @param files - the OXM files to use with full directory
-	 * @return empty String if none found, else a String
-	 * 	with appropriate information about what node types
-	 *  were found
-	 */
-	String findDuplicates(List<String> files, SchemaVersion v);
+  /**
+   * Finds any duplicates according to the defined rules
+   *
+   * @param files - the OXM files to use with full directory
+   * @return empty String if none found, else a String
+   *   with appropriate information about what node types
+   *  were found
+   */
+  String findDuplicates(List<String> files, SchemaVersion v);
 }

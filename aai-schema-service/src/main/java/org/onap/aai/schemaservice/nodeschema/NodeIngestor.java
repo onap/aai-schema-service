@@ -286,12 +286,12 @@ public class NodeIngestor {
         String source = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org." +
             v.toString().toLowerCase() + "\" xml-mapping-metadata-complete=\"true\">\n" +
-            "	<xml-schema element-form-default=\"QUALIFIED\">\n" +
-            "		<xml-ns namespace-uri=\"http://org.onap.aai.inventory/" +
+            "  <xml-schema element-form-default=\"QUALIFIED\">\n" +
+            "    <xml-ns namespace-uri=\"http://org.onap.aai.inventory/" +
             v.toString().toLowerCase() + "\" />\n" +
-            "	</xml-schema>\n" +
-            "	<java-types>\n" +
-            "	</java-types>\n" +
+            "  </xml-schema>\n" +
+            "  <java-types>\n" +
+            "  </java-types>\n" +
             "</xml-bindings>";
         return new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8));
     }
