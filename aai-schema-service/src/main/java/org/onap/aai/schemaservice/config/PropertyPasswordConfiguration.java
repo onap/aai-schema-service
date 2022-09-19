@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,9 +69,8 @@ public class PropertyPasswordConfiguration
                     logger.warn("Keystore password is null in AAF Certman password file");
                 }
             } catch (IOException e) {
-                logger.warn(
-                    "Not using AAF Certman password file " + passwordFile.getName() + " e=" +
-                        e.getMessage());
+                logger.warn("Not using AAF Certman password file " + passwordFile.getName() + " e="
+                    + e.getMessage());
             }
 
             File passphrasesFile = new File(certPath + ".passphrases");
@@ -86,9 +86,8 @@ public class PropertyPasswordConfiguration
                     logger.warn("Truststore password is null in AAF Certman passphrases file");
                 }
             } catch (IOException e) {
-                logger.warn(
-                    "Not using AAF Certman passphrases file " + passphrasesFile.getName() + " e=" +
-                        e.getMessage());
+                logger.warn("Not using AAF Certman passphrases file " + passphrasesFile.getName()
+                    + " e=" + e.getMessage());
             }
         }
         for (PropertySource<?> propertySource : environment.getPropertySources()) {
@@ -97,8 +96,8 @@ public class PropertyPasswordConfiguration
             if (!propertyOverrides.isEmpty()) {
                 PropertySource<?> decodedProperties =
                     new MapPropertySource("decoded " + propertySource.getName(), propertyOverrides);
-                environment.getPropertySources()
-                    .addBefore(propertySource.getName(), decodedProperties);
+                environment.getPropertySources().addBefore(propertySource.getName(),
+                    decodedProperties);
             }
 
         }

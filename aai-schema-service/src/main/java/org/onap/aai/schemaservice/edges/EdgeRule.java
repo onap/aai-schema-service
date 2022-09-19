@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,7 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.edges;
 
 import com.google.gson.annotations.SerializedName;
@@ -36,19 +37,11 @@ public class EdgeRule {
 
     @Override
     public String toString() {
-        return "EdgeRule{" +
-            "from='" + from + '\'' +
-            ", to='" + to + '\'' +
-            ", label='" + label + '\'' +
-            ", direction='" + direction + '\'' +
-            ", multiplicity='" + multiplicity + '\'' +
-            ", description='" + description + '\'' +
-            ", containsOtherV='" + containsOtherV + '\'' +
-            ", deleteOtherV='" + deleteOtherV + '\'' +
-            ", preventDelete='" + preventDelete + '\'' +
-            ", privateEdge=" + privateEdge +
-            ", isDefaultEdge=" + defaultEdge +
-            '}';
+        return "EdgeRule{" + "from='" + from + '\'' + ", to='" + to + '\'' + ", label='" + label
+            + '\'' + ", direction='" + direction + '\'' + ", multiplicity='" + multiplicity + '\''
+            + ", description='" + description + '\'' + ", containsOtherV='" + containsOtherV + '\''
+            + ", deleteOtherV='" + deleteOtherV + '\'' + ", preventDelete='" + preventDelete + '\''
+            + ", privateEdge=" + privateEdge + ", isDefaultEdge=" + defaultEdge + '}';
     }
 
     @SerializedName("delete-other-v")

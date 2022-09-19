@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
@@ -31,8 +32,7 @@ public class GetOperation {
     static Map<String, Vector<String>> containers = new HashMap<String, Vector<String>>();
 
     public static void addContainerProps(String container, Vector<String> containerProps) {
-        containers.put(container, containerProps);
-        ;
+        containers.put(container, containerProps);;
     }
 
     private String useOpId;
@@ -43,23 +43,23 @@ public class GetOperation {
     private String queryParams;
 
     public GetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-                        String pathParams) {
+        String pathParams) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
         this.pathParams = pathParams;
-//      StringBuilder p = new StringBuilder();
+        // StringBuilder p = new StringBuilder();
 
         if (containers.get(xmlRootElementName) == null) {
             this.queryParams = "";
         } else {
             this.queryParams = String.join("", containers.get(xmlRootElementName));
-//        for(String param : containers.get(xmlRootElementName)) {
-//          p.append(param);
-//        }
-//        this.queryParams = p.toString();
+            // for(String param : containers.get(xmlRootElementName)) {
+            // p.append(param);
+            // }
+            // this.queryParams = p.toString();
         }
     }
 
@@ -67,13 +67,13 @@ public class GetOperation {
     public String toString() {
         StringTokenizer st;
         st = new StringTokenizer(path, "/");
-        //Path has to be longer than one element
-      /*
-      if ( st.countTokens() <= 1) {
-        return "";
-      }
-      */
-        //a valid tag is necessary
+        // Path has to be longer than one element
+        /*
+         * if ( st.countTokens() <= 1) {
+         * return "";
+         * }
+         */
+        // a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
         }
@@ -116,9 +116,9 @@ public class GetOperation {
         if (StringUtils.isNotEmpty(pathParams)) {
             pathSb.append(pathParams);
         }
-//      if ( StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
-//        pathSb.append("\n");
-//      }
+        // if ( StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
+        // pathSb.append("\n");
+        // }
         if (StringUtils.isNotEmpty(queryParams)) {
             pathSb.append(queryParams);
         }

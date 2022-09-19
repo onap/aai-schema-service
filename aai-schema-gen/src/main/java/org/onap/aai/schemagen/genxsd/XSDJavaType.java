@@ -30,14 +30,15 @@ public class XSDJavaType extends XSDElement {
     }
 
     /*
-        public XSDJavaType(XSDElement javaTypeElement, StringBuffer pathSb, StringBuffer definitionsSb,
-                StringBuffer pathParams) {
-            super(javaTypeElement);
-            this.pathSb = pathSb;
-            this.definitionsSb = definitionsSb;
-            this.pathParams = pathParams;
-        }
-    */
+     * public XSDJavaType(XSDElement javaTypeElement, StringBuffer pathSb, StringBuffer
+     * definitionsSb,
+     * StringBuffer pathParams) {
+     * super(javaTypeElement);
+     * this.pathSb = pathSb;
+     * this.definitionsSb = definitionsSb;
+     * this.pathParams = pathParams;
+     * }
+     */
     public String getItemName() {
         NodeList parentNodes = this.getElementsByTagName("java-attributes");
         if (parentNodes.getLength() == 0) {
@@ -57,8 +58,8 @@ public class XSDJavaType extends XSDElement {
         Element parentElement = (Element) parentNodes.item(0);
         NodeList xmlElementNodes = parentElement.getElementsByTagName("xml-element");
         XSDElement xmlElementElement = new XSDElement((Element) xmlElementNodes.item(0));
-        if (xmlElementElement.hasAttribute("container-type") &&
-            xmlElementElement.getAttribute("container-type").equals("java.util.ArrayList")) {
+        if (xmlElementElement.hasAttribute("container-type")
+            && xmlElementElement.getAttribute("container-type").equals("java.util.ArrayList")) {
             return xmlElementElement.getAttribute("name");
         }
         return null;

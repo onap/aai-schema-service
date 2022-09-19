@@ -37,7 +37,7 @@ public class PutOperation {
     private String basePath;
 
     public PutOperation(String useOpId, String xmlRootElementName, String tag, String path,
-                        String pathParams, SchemaVersion v, String basePath) {
+        String pathParams, SchemaVersion v, String basePath) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
@@ -50,13 +50,13 @@ public class PutOperation {
 
     @Override
     public String toString() {
-        //a valid tag is necessary
+        // a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
         }
-        //All Put operation paths end with "relationship"
-        //or there is a parameter at the end of the path
-        //and there is a parameter in the path
+        // All Put operation paths end with "relationship"
+        // or there is a parameter at the end of the path
+        // and there is a parameter in the path
         if (path.contains("/" + RELATIONSHIP + "/")) { // filter paths with relationship-list
             return "";
         }
@@ -81,11 +81,11 @@ public class PutOperation {
         if (path.endsWith("/" + RELATIONSHIP)) {
             pathSb.append("      summary: see node definition for valid relationships\n");
         } else {
-            pathSb.append("      summary: create or update an existing ")
-                .append(xmlRootElementName).append("\n");
+            pathSb.append("      summary: create or update an existing ").append(xmlRootElementName)
+                .append("\n");
             pathSb.append("      description: |\n        Create or update an existing ")
                 .append(xmlRootElementName).append(
-                ".\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
+                    ".\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
         }
         relationshipExamplesSb.append("[Valid relationship examples shown here](apidocs")
             .append(basePath).append("/relations/").append(version.toString()).append("/")

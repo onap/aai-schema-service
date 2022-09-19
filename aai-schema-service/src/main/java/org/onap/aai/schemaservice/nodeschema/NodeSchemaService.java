@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,23 +17,25 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.nodeschema;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.onap.aai.logging.LogFormatTools;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.annotation.PostConstruct;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.onap.aai.logging.LogFormatTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 @Service
 public class NodeSchemaService {
@@ -62,8 +64,8 @@ public class NodeSchemaService {
             try {
                 transformer = tf.newTransformer();
             } catch (TransformerConfigurationException e) {
-                LOGGER.warn("Encountered an transformer configuration exception" +
-                    "during node schema service startup ", LogFormatTools.getStackTop(e));
+                LOGGER.warn("Encountered an transformer configuration exception"
+                    + "during node schema service startup ", LogFormatTools.getStackTop(e));
             }
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
@@ -74,12 +76,13 @@ public class NodeSchemaService {
             try {
                 DOMSource domSource = new DOMSource(nodeIngestor.getSchema(schemaVersion));
 
-                StreamResult streamResult = new StreamResult(new OutputStreamWriter(buffer, "UTF-8"));
+                StreamResult streamResult =
+                    new StreamResult(new OutputStreamWriter(buffer, "UTF-8"));
                 transformer.transform(domSource, streamResult);
                 versionMap.put(schemaVersion.toString(), buffer.toString("UTF-8"));
             } catch (TransformerException | UnsupportedEncodingException e) {
-                LOGGER.warn("Encountered an transformer or unsupported encoding exception " +
-                    "during node schema service startup ", LogFormatTools.getStackTop(e));
+                LOGGER.warn("Encountered an transformer or unsupported encoding exception "
+                    + "during node schema service startup ", LogFormatTools.getStackTop(e));
             }
 
         }));

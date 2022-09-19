@@ -46,12 +46,11 @@ public class DefinitionTest {
      */
     @Parameters
     public static Collection<String[]> testConditions() {
-        String inputs[][] = {
-            {"name1", "desc1", 
-                "Definition{definitionName='name1', definitionDescription='desc1', propertyList=[]}"},
-            {"name2", "desc2", 
+        String inputs[][] = {{"name1", "desc1",
+            "Definition{definitionName='name1', definitionDescription='desc1', propertyList=[]}"},
+            {"name2", "desc2",
                 "Definition{definitionName='name2', definitionDescription='desc2', propertyList=[]}"},
-            {"fake", "random", 
+            {"fake", "random",
                 "Definition{definitionName='fake', definitionDescription='random', propertyList=[]}"}};
         return (Arrays.asList(inputs));
     }

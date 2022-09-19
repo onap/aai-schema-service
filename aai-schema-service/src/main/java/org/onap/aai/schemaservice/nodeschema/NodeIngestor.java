@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,9 @@ package org.onap.aai.schemaservice.nodeschema;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+
 import jakarta.xml.bind.JAXBException;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,10 +44,12 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContext;
 import org.eclipse.persistence.jaxb.dynamic.DynamicJAXBContextFactory;
@@ -74,13 +78,12 @@ public class NodeIngestor {
     private Map<SchemaVersion, Document> schemaPerVersion = new TreeMap<>();
     private ConfigTranslator translator;
 
-
     @Autowired
     /**
      * Instantiates the NodeIngestor bean.
      *
      * @param translator - ConfigTranslator autowired in by Spring framework which
-     * contains the configuration information needed to ingest the desired files.
+     *        contains the configuration information needed to ingest the desired files.
      */
     public NodeIngestor(ConfigTranslator translator) {
         this.translator = translator;
@@ -106,7 +109,7 @@ public class NodeIngestor {
      * @param files - List<String> of full filenames (ie including the path) to be ingested
      * @return DynamicJAXBContext including schema information from all given files
      * @throws FileNotFoundException if an OXM file can't be found
-     * @throws JAXBException         if there's an error creating the DynamicJAXBContext
+     * @throws JAXBException if there's an error creating the DynamicJAXBContext
      */
     private DynamicJAXBContext ingest(List<String> files)
         throws FileNotFoundException, JAXBException {
@@ -118,10 +121,9 @@ public class NodeIngestor {
 
         Map<String, Object> properties = new HashMap<>();
         properties.put(JAXBContextProperties.OXM_METADATA_SOURCE, streams);
-        return DynamicJAXBContextFactory
-            .createContextFromOXM(this.getClass().getClassLoader(), properties);
+        return DynamicJAXBContextFactory.createContextFromOXM(this.getClass().getClassLoader(),
+            properties);
     }
-
 
     private Set<String> getAllNodeTypes(List<String> files)
         throws ParserConfigurationException, SAXException, IOException {
@@ -141,7 +143,6 @@ public class NodeIngestor {
 
             final Document doc = docBuilder.parse(inputStream);
             final NodeList list = doc.getElementsByTagName("java-type");
-
 
             for (int i = 0; i < list.getLength(); i++) {
                 String type = list.item(i).getAttributes().getNamedItem("name").getNodeValue();
@@ -194,7 +195,7 @@ public class NodeIngestor {
     }
 
     private void createNode(Document combinedDoc, Node javaTypesContainer,
-                            Map<String, Collection<Node>> map) {
+        Map<String, Collection<Node>> map) {
 
         for (Entry<String, Collection<Node>> entry : map.entrySet()) {
 
@@ -212,9 +213,8 @@ public class NodeIngestor {
                             Element element = (Element) copyOfFirstElement;
                             NodeList javaAttributesList =
                                 element.getElementsByTagName("java-attributes");
-                            for (int javaAttributeIndex = 0;
-                                 javaAttributeIndex < javaAttributesList.getLength();
-                                 javaAttributeIndex++) {
+                            for (int javaAttributeIndex = 0; javaAttributeIndex < javaAttributesList
+                                .getLength(); javaAttributeIndex++) {
                                 javaAttributeElement = javaAttributesList.item(javaAttributeIndex);
                             }
                         }
@@ -225,14 +225,12 @@ public class NodeIngestor {
                             Element element = (Element) copyOfCurrentElement;
                             NodeList javaAttributesList =
                                 element.getElementsByTagName("java-attributes");
-                            for (int javaAttributeIndex = 0;
-                                 javaAttributeIndex < javaAttributesList.getLength();
-                                 javaAttributeIndex++) {
+                            for (int javaAttributeIndex = 0; javaAttributeIndex < javaAttributesList
+                                .getLength(); javaAttributeIndex++) {
                                 Node jaElement = javaAttributesList.item(javaAttributeIndex);
                                 NodeList xmlElementList = jaElement.getChildNodes();
-                                for (int xmlElementIndex = 0;
-                                     xmlElementIndex < xmlElementList.getLength();
-                                     xmlElementIndex++) {
+                                for (int xmlElementIndex = 0; xmlElementIndex < xmlElementList
+                                    .getLength(); xmlElementIndex++) {
                                     if (javaAttributeElement != null) {
                                         Node curElem = xmlElementList.item(xmlElementIndex);
                                         if (curElem != null) {
@@ -267,7 +265,7 @@ public class NodeIngestor {
      * Determines if the given version contains the given node type
      *
      * @param nodeType - node type to check, must be in lower hyphen form (ie "type-name")
-     * @param v        - schema version to check against
+     * @param v - schema version to check against
      * @return
      */
     public boolean hasNodeType(String nodeType, SchemaVersion v) {
@@ -283,19 +281,15 @@ public class NodeIngestor {
     }
 
     private InputStream getShell(SchemaVersion v) {
-        String source = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org." +
-            v.toString().toLowerCase() + "\" xml-mapping-metadata-complete=\"true\">\n" +
-            "  <xml-schema element-form-default=\"QUALIFIED\">\n" +
-            "    <xml-ns namespace-uri=\"http://org.onap.aai.inventory/" +
-            v.toString().toLowerCase() + "\" />\n" +
-            "  </xml-schema>\n" +
-            "  <java-types>\n" +
-            "  </java-types>\n" +
-            "</xml-bindings>";
+        String source = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<xml-bindings xmlns=\"http://www.eclipse.org/eclipselink/xsds/persistence/oxm\" package-name=\"inventory.aai.onap.org."
+            + v.toString().toLowerCase() + "\" xml-mapping-metadata-complete=\"true\">\n"
+            + "  <xml-schema element-form-default=\"QUALIFIED\">\n"
+            + "    <xml-ns namespace-uri=\"http://org.onap.aai.inventory/"
+            + v.toString().toLowerCase() + "\" />\n" + "  </xml-schema>\n" + "  <java-types>\n"
+            + "  </java-types>\n" + "</xml-bindings>";
         return new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8));
     }
-
 
     public SchemaVersion getVersionFromClassName(String classname) {
         Matcher m = classNamePattern.matcher(classname);
@@ -308,4 +302,3 @@ public class NodeIngestor {
         }
     }
 }
-

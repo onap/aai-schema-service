@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,17 +17,8 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.queries;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.onap.aai.aaf.auth.FileWatcher;
-import org.onap.aai.logging.LogFormatTools;
-import org.onap.aai.util.AAIConstants;
-
-import org.springframework.beans.factory.annotation.Value;
-import javax.annotation.PostConstruct;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +28,15 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.annotation.PostConstruct;
+
+import org.onap.aai.aaf.auth.FileWatcher;
+import org.onap.aai.logging.LogFormatTools;
+import org.onap.aai.util.AAIConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 public class GremlinServerSingleton {
 
@@ -62,56 +62,57 @@ public class GremlinServerSingleton {
     @PostConstruct
     public void init() {
 
-    try {
-      String filepath = storedQueriesLocation + AAIConstants.AAI_FILESEP + "stored-queries.json";
-      Path path = Paths.get(filepath);
-      String customQueryConfigJson = new String(Files.readAllBytes(path));
+        try {
+            String filepath =
+                storedQueriesLocation + AAIConstants.AAI_FILESEP + "stored-queries.json";
+            Path path = Paths.get(filepath);
+            String customQueryConfigJson = new String(Files.readAllBytes(path));
 
-
-      queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
-    } catch (IOException e) {
-      logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
-    }
-
+            queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
+        } catch (IOException e) {
+            logger.error("Error occurred during the processing of query json file: "
+                + LogFormatTools.getStackTop(e));
+        }
 
         TimerTask task = new FileWatcher(new File(storedQueriesLocation)) {
             @Override
             protected void onChange(File file) {
-            try {
-              String filepath = storedQueriesLocation;
-              Path path = Paths.get(filepath);
-              String customQueryConfigJson = new String(Files.readAllBytes(path));
-              queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
-            } catch (IOException e) {
-              logger.error("Error occurred during the processing of query json file: " + LogFormatTools.getStackTop(e));
-            }
+                try {
+                    String filepath = storedQueriesLocation;
+                    Path path = Paths.get(filepath);
+                    String customQueryConfigJson = new String(Files.readAllBytes(path));
+                    queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
+                } catch (IOException e) {
+                    logger.error("Error occurred during the processing of query json file: "
+                        + LogFormatTools.getStackTop(e));
+                }
             }
         };
 
         if (!timerSet) {
             timerSet = true;
             timer = new Timer();
-            timer.schedule( task , new Date(), 10000 );
+            timer.schedule(task, new Date(), 10000);
         }
 
     }
 
     /**
      * Gets the query using CustomQueryConfig
+     * 
      * @param key
      * @return
      */
-    public String getStoredQueryFromConfig(String key){
-      CustomQueryConfig customQueryConfig = queryConfig.getStoredQuery(key);
-      if ( customQueryConfig == null ) {
-        return null;
-      }
-      return customQueryConfig.getQuery();
+    public String getStoredQueryFromConfig(String key) {
+        CustomQueryConfig customQueryConfig = queryConfig.getStoredQuery(key);
+        if (customQueryConfig == null) {
+            return null;
+        }
+        return customQueryConfig.getQuery();
     }
 
     public CustomQueryConfig getCustomQueryConfig(String key) {
-      return queryConfig.getStoredQuery(key);
+        return queryConfig.getStoredQuery(key);
     }
-
 
 }

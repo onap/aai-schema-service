@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.interceptors.pre;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.Priority;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.container.PreMatching;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
@@ -26,17 +39,6 @@ import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
 import org.onap.aai.schemaservice.service.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-
-import javax.annotation.Priority;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.PreMatching;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Profile(Profiles.ONE_WAY_SSL)
 @PreMatching
@@ -49,7 +51,8 @@ public class OneWaySslAuthorization extends AAIContainerFilter implements Contai
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
 
-        if (containerRequestContext.getUriInfo().getRequestUri().getPath().matches("^.*/util/echo$")) {
+        if (containerRequestContext.getUriInfo().getRequestUri().getPath()
+            .matches("^.*/util/echo$")) {
             return;
         }
 
@@ -75,7 +78,8 @@ public class OneWaySslAuthorization extends AAIContainerFilter implements Contai
     private Optional<Response> errorResponse(String errorCode, List<MediaType> acceptHeaderValues) {
         AAIException aaie = new AAIException(errorCode);
         return Optional.of(Response.status(aaie.getErrorObject().getHTTPResponseCode())
-            .entity(ErrorLogHelper.getRESTAPIErrorResponse(acceptHeaderValues, aaie, new ArrayList<>()))
+            .entity(
+                ErrorLogHelper.getRESTAPIErrorResponse(acceptHeaderValues, aaie, new ArrayList<>()))
             .build());
 
     }

@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,13 +17,14 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.aai.schemaservice.query;
 
-import org.springframework.beans.factory.annotation.Autowired;
+package org.onap.aai.schemaservice.query;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path("/v1")
 public class QueryResource {
@@ -31,13 +32,13 @@ public class QueryResource {
     private QueryService queryService;
 
     @Autowired
-    public QueryResource(QueryService queryService){
+    public QueryResource(QueryService queryService) {
         this.queryService = queryService;
     }
 
     @GET
     @Path("/stored-queries")
-    public Response retrieveStoredQueries(){
+    public Response retrieveStoredQueries() {
         return Response.ok().entity(queryService.getStoredQueries()).build();
     }
 

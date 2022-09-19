@@ -23,11 +23,13 @@ package org.onap.aai.schemaservice.config;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
+
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.logging.ErrorObject;
@@ -61,8 +63,8 @@ public class ErrorHandler extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
-                                    HttpServletResponse httpServletResponse,
-                                    FilterChain filterChain) throws ServletException, IOException {
+        HttpServletResponse httpServletResponse, FilterChain filterChain)
+        throws ServletException, IOException {
 
         String uri = httpServletRequest.getRequestURI();
 
@@ -104,8 +106,8 @@ public class ErrorHandler extends OncePerRequestFilter {
 
                 ArrayList<String> templateVars = new ArrayList<>();
                 AAIException aaiException = (AAIException) e;
-                String message = ErrorLogHelper
-                    .getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
+                String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException,
+                    templateVars);
                 ErrorObject object = null;
                 try {
                     object = ErrorLogHelper.getErrorObject(aaiException.getCode());
@@ -128,8 +130,8 @@ public class ErrorHandler extends OncePerRequestFilter {
                 ArrayList<String> templateVars = new ArrayList<>();
                 AAIException aaiException = new AAIException("AAI_4000", e);
                 LOGGER.error("Encountered an internal exception {}", LogFormatTools.getStackTop(e));
-                String message = ErrorLogHelper
-                    .getRESTAPIErrorResponse(mediaTypeList, aaiException, templateVars);
+                String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException,
+                    templateVars);
                 ErrorObject object = null;
                 try {
                     object = ErrorLogHelper.getErrorObject(aaiException.getCode());

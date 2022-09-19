@@ -21,6 +21,7 @@
 package org.onap.aai.schemagen.genxsd;
 
 import com.google.common.collect.Multimap;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.EdgeRule;
@@ -61,9 +63,8 @@ public class PutRelationPathSet {
         this.opId = opId;
         this.version = v;
         objectName = DeleteOperation.deletePaths.get(apiPath);
-        logger.debug(
-            "II-apiPath: " + apiPath + "\nPath: " + path + "\nopId=" + opId + "\nobjectName=" +
-                objectName);
+        logger.debug("II-apiPath: " + apiPath + "\nPath: " + path + "\nopId=" + opId
+            + "\nobjectName=" + objectName);
     }
 
     private void process(EdgeIngestor edgeIngestor) {
@@ -140,15 +141,15 @@ public class PutRelationPathSet {
     }
 
     private void writeRelationsFile() {
-        File examplefilePath = new File(
-            GenerateXsd.getYamlDir() + "/relations/" + version.toString() + "/" +
-                opId.replace("RelationshipListRelationship", "") + ".json");
+        File examplefilePath =
+            new File(GenerateXsd.getYamlDir() + "/relations/" + version.toString() + "/"
+                + opId.replace("RelationshipListRelationship", "") + ".json");
 
         logger.debug(String.join("exampleFilePath: ", examplefilePath.toString()));
         try {
             if (!examplefilePath.exists()) {
                 examplefilePath.getParentFile().mkdirs();
-                if(!examplefilePath.createNewFile()) {
+                if (!examplefilePath.createNewFile()) {
                     logger.debug("examplefilePath create file error");
                 }
             }
@@ -199,12 +200,14 @@ public class PutRelationPathSet {
         int targetMaxScore = 0;
         for (Map.Entry<String, String> p : DeleteOperation.deletePaths.entrySet()) {
             if (p.getValue().equals(obj)) {
-                targetScore = (targetScore >= proximity.apply(apiPath, p.getKey())) ?
-                    proximity.apply(apiPath, p.getKey()) : targetScore;
+                targetScore = (targetScore >= proximity.apply(apiPath, p.getKey()))
+                    ? proximity.apply(apiPath, p.getKey())
+                    : targetScore;
                 targetPath =
                     (targetScore >= proximity.apply(apiPath, p.getKey())) ? p.getKey() : targetPath;
-                targetMaxScore = (targetMaxScore <= proximity.apply(apiPath, p.getKey())) ?
-                    proximity.apply(apiPath, p.getKey()) : targetScore;
+                targetMaxScore = (targetMaxScore <= proximity.apply(apiPath, p.getKey()))
+                    ? proximity.apply(apiPath, p.getKey())
+                    : targetScore;
                 logger.trace(proximity.apply(apiPath, p.getKey()) + ":" + p.getKey());
                 logger.trace(proximity.apply(apiPath, p.getKey()) + ":" + apiPath);
             }
@@ -238,4 +241,3 @@ public class PutRelationPathSet {
     }
 
 }
-

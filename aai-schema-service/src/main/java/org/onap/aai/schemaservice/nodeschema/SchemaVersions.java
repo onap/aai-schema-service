@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,16 +17,18 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.nodeschema;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 
 import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @PropertySource(value = "classpath:schema-ingest.properties", ignoreResourceNotFound = true)
@@ -67,59 +69,53 @@ public class SchemaVersions {
     public void initialize() {
         versions = apiVersions.stream().map(SchemaVersion::new).collect(Collectors.toList());
 
-        edgeLabelVersion       = new SchemaVersion(edgeLabelStartVersion);
-        defaultVersion         = new SchemaVersion(defaultApiVersion);
-        depthVersion           = new SchemaVersion(depthStartVersion);
-        appRootVersion         = new SchemaVersion(appRootStartVersion);
-        relatedLinkVersion     = new SchemaVersion(relatedLinkStartVersion);
+        edgeLabelVersion = new SchemaVersion(edgeLabelStartVersion);
+        defaultVersion = new SchemaVersion(defaultApiVersion);
+        depthVersion = new SchemaVersion(depthStartVersion);
+        appRootVersion = new SchemaVersion(appRootStartVersion);
+        relatedLinkVersion = new SchemaVersion(relatedLinkStartVersion);
         namespaceChangeVersion = new SchemaVersion(namespaceChangeStartVersion);
 
         if (!versions.contains(edgeLabelVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, edge label version is not in the api versions list"
+                "Invalid, edge label version is not in the api versions list"
                     + ", please check schema.version.list and ensure that the"
-                    + " schema.version.edge.label.start is in that list"
-            );
+                    + " schema.version.edge.label.start is in that list");
         }
 
         if (!versions.contains(defaultVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, default version is not in the api versions list"
-                            + ", please check schema.version.list and ensure that the"
-                            + " schema.version.api.default is in that list"
-            );
+                "Invalid, default version is not in the api versions list"
+                    + ", please check schema.version.list and ensure that the"
+                    + " schema.version.api.default is in that list");
         }
 
         if (!versions.contains(depthVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, depth version is not in the api versions list"
-                            + ", please check schema.version.list and ensure that the"
-                            + " schema.version.depth.start is in that list"
-            );
+                "Invalid, depth version is not in the api versions list"
+                    + ", please check schema.version.list and ensure that the"
+                    + " schema.version.depth.start is in that list");
         }
 
-        if(!versions.contains(appRootVersion)){
+        if (!versions.contains(appRootVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, app root version is not in the api versions list"
-                            + ", please check schema.version.list and ensure that the"
-                            + " schema.version.app.root.start is in that list"
-            );
+                "Invalid, app root version is not in the api versions list"
+                    + ", please check schema.version.list and ensure that the"
+                    + " schema.version.app.root.start is in that list");
         }
 
-        if(!versions.contains(relatedLinkVersion)){
+        if (!versions.contains(relatedLinkVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, related link version is not in the api versions list"
-                            + ", please check schema.version.list and ensure that the"
-                            + " schema.version.related.link.start is in that list"
-            );
+                "Invalid, related link version is not in the api versions list"
+                    + ", please check schema.version.list and ensure that the"
+                    + " schema.version.related.link.start is in that list");
         }
 
-        if(!versions.contains(namespaceChangeVersion)){
+        if (!versions.contains(namespaceChangeVersion)) {
             throw new AAISchemaValidationException(
-                    "Invalid, namespace change start version is not in the api versions list"
-                            + ", please check schema.version.list and ensure that the"
-                            + " schema.version.related.link.start is in that list"
-            );
+                "Invalid, namespace change start version is not in the api versions list"
+                    + ", please check schema.version.list and ensure that the"
+                    + " schema.version.related.link.start is in that list");
         }
     }
 
@@ -139,11 +135,11 @@ public class SchemaVersions {
         return depthVersion;
     }
 
-    public SchemaVersion getAppRootVersion(){
+    public SchemaVersion getAppRootVersion() {
         return appRootVersion;
     }
 
-    public SchemaVersion getRelatedLinkVersion(){
+    public SchemaVersion getRelatedLinkVersion() {
         return relatedLinkVersion;
     }
 

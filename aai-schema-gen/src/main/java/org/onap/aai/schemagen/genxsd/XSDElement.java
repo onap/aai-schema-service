@@ -21,10 +21,12 @@
 package org.onap.aai.schemagen.genxsd;
 
 import com.google.common.base.Joiner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.setup.SchemaVersion;
 import org.w3c.dom.Attr;
@@ -131,9 +133,9 @@ public class XSDElement implements Element {
                 .equals(this.xmlElementElement.getAttribute("name"))) {
                 continue;
             }
-//      This stopped working, replaced with above - should figure out why...
-//      if ( !xmlPropElement.getParentNode().isSameNode(this.xmlElementElement))
-//        continue;
+            // This stopped working, replaced with above - should figure out why...
+            // if ( !xmlPropElement.getParentNode().isSameNode(this.xmlElementElement))
+            // continue;
             NodeList childNodes = xmlPropElement.getElementsByTagName("xml-property");
 
             for (int j = 0; j < childNodes.getLength(); ++j) {
@@ -158,7 +160,7 @@ public class XSDElement implements Element {
             }
         }
         if (pathDescriptionProperty != null) {
-            //suppress non-printable characters in a description
+            // suppress non-printable characters in a description
             String replaceDescription = pathDescriptionProperty.replaceAll("[^\\p{ASCII}]", "");
             return replaceDescription;
         }
@@ -189,8 +191,8 @@ public class XSDElement implements Element {
                     }
                     if (needValue == VALUE_INDEXED_PROPS && attrValue.equals("indexedProps")) {
                         useValue = VALUE_INDEXED_PROPS;
-                    } else if (needValue == VALUE_DSLSTARTNODE &&
-                        attrValue.equals("dslStartNodeProps")) {
+                    } else if (needValue == VALUE_DSLSTARTNODE
+                        && attrValue.equals("dslStartNodeProps")) {
                         useValue = VALUE_DSLSTARTNODE;
                     }
                     if (useValue != VALUE_NONE && attrName.equals("value")) {
@@ -262,8 +264,8 @@ public class XSDElement implements Element {
         StringBuilder sbParameter = new StringBuilder();
         sbParameter.append("        - name: ").append(this.getAttribute("name")).append("\n");
         sbParameter.append(("          in: query\n"));
-        if (this.getAttribute("description") != null &&
-            this.getAttribute("description").length() > 0) {
+        if (this.getAttribute("description") != null
+            && this.getAttribute("description").length() > 0) {
             sbParameter.append("          description: ").append(this.getAttribute("description"))
                 .append("\n");
         } else {
@@ -330,8 +332,9 @@ public class XSDElement implements Element {
         String elementType = this.getAttribute("type");
         String elementContainerType = this.getAttribute("container-type");
         String elementIsRequired = this.getAttribute("required");
-        String addType = elementType.contains("." + v.toString() + ".") ?
-            elementType.substring(elementType.lastIndexOf('.') + 1) : null;
+        String addType = elementType.contains("." + v.toString() + ".")
+            ? elementType.substring(elementType.lastIndexOf('.') + 1)
+            : null;
 
         if (addType != null) {
             sbElement.append("        <xs:element ref=\"tns:")
@@ -363,18 +366,18 @@ public class XSDElement implements Element {
             sbElement.append(
                 StringUtils.isNotEmpty(annotation) ? ">" + OxmFileProcessor.LINE_SEPARATOR : "");
             sbElement.append(annotation);
-            sbElement.append(StringUtils.isNotEmpty(annotation) ?
-                "        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR :
-                "/>" + OxmFileProcessor.LINE_SEPARATOR);
+            sbElement.append(StringUtils.isNotEmpty(annotation)
+                ? "        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR
+                : "/>" + OxmFileProcessor.LINE_SEPARATOR);
         } else {
             sbElement.append("/>").append(OxmFileProcessor.LINE_SEPARATOR);
         }
         return this.getHTMLElementWrapper(sbElement.toString(), v, useAnnotation);
-//    return sbElement.toString();
+        // return sbElement.toString();
     }
 
     public String getHTMLElementWrapper(String unwrappedElement, SchemaVersion v,
-                                        boolean useAnnotation) {
+        boolean useAnnotation) {
 
         NodeList childNodes = this.getElementsByTagName("xml-element-wrapper");
 
@@ -392,8 +395,9 @@ public class XSDElement implements Element {
         sbElement.append("        <xs:element name=\"").append(xmlElementWrapper).append("\"");
         String elementType = xmlElementElement.getAttribute("type");
         String elementIsRequired = this.getAttribute("required");
-        String addType = elementType.contains("." + v.toString() + ".") ?
-            elementType.substring(elementType.lastIndexOf('.') + 1) : null;
+        String addType = elementType.contains("." + v.toString() + ".")
+            ? elementType.substring(elementType.lastIndexOf('.') + 1)
+            : null;
 
         if (elementIsRequired == null || !elementIsRequired.equals("true") || addType != null) {
             sbElement.append(" minOccurs=\"0\"");
@@ -798,6 +802,5 @@ public class XSDElement implements Element {
     public void setIdAttributeNode(Attr idAttr, boolean isId) throws DOMException {
         xmlElementElement.setIdAttributeNode(idAttr, isId);
     }
-
 
 }

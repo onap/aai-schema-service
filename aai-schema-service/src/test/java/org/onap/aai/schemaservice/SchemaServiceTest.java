@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,15 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
+import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,14 +44,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Base64;
-import java.util.Collections;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SchemaServiceApp.class)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = SchemaServiceApp.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(initializers = PropertyPasswordConfiguration.class)
 @Import(SchemaServiceTestConfiguration.class)
@@ -91,7 +94,7 @@ public class SchemaServiceTest {
     }
 
     @Test
-    public void testGetSchemaAndEdgeRules(){
+    public void testGetSchemaAndEdgeRules() {
 
         headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
@@ -104,30 +107,23 @@ public class SchemaServiceTest {
 
         ResponseEntity responseEntity;
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/nodes?version=v20",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
+        responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=v20",
+            HttpMethod.GET, httpEntity, String.class);
         assertThat(responseEntity.getStatusCodeValue(), is(200));
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         httpEntity = new HttpEntity(headers);
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/edgerules?version=v20",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
+        responseEntity =
+            restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=v20",
+                HttpMethod.GET, httpEntity, String.class);
 
         assertThat(responseEntity.getStatusCodeValue(), is(200));
     }
 
     @Test
-    public void testInvalidSchemaAndEdges(){
+    public void testInvalidSchemaAndEdges() {
 
         headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
@@ -140,56 +136,41 @@ public class SchemaServiceTest {
 
         ResponseEntity responseEntity;
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/nodes?version=blah",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
-        System.out.println("  "+responseEntity.getBody());
+        responseEntity =
+            restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=blah",
+                HttpMethod.GET, httpEntity, String.class);
+        System.out.println("  " + responseEntity.getBody());
         assertThat(responseEntity.getStatusCodeValue(), is(400));
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
         httpEntity = new HttpEntity(headers);
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/edgerules?version=blah",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
+        responseEntity =
+            restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=blah",
+                HttpMethod.GET, httpEntity, String.class);
 
         assertThat(responseEntity.getStatusCodeValue(), is(400));
     }
 
     @Test
-    public void testVersions(){
+    public void testVersions() {
 
         ResponseEntity responseEntity;
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/versions",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
+        responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/versions",
+            HttpMethod.GET, httpEntity, String.class);
         assertThat(responseEntity.getStatusCodeValue(), is(200));
-
 
     }
 
     @Test
-    public void testGetStoredQueriesSuccess(){
+    public void testGetStoredQueriesSuccess() {
 
         ResponseEntity responseEntity;
 
-        responseEntity = restTemplate.exchange(
-            baseUrl + "/aai/schema-service/v1/stored-queries",
-            HttpMethod.GET,
-            httpEntity,
-            String.class
-        );
+        responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/stored-queries",
+            HttpMethod.GET, httpEntity, String.class);
         assertThat(responseEntity.getStatusCodeValue(), is(200));
 
     }

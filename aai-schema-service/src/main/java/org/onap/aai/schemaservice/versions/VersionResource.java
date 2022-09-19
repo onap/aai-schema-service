@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,10 +17,10 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.versions;
 
 import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,20 +28,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Path("/v1")
 public class VersionResource {
 
     private VersionService versionService;
 
     @Autowired
-    public VersionResource(VersionService versionService){
+    public VersionResource(VersionService versionService) {
         this.versionService = versionService;
     }
 
     @GET
     @Path("/versions")
-    @Produces({ MediaType.APPLICATION_JSON })
-    public Response getVersions(){
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getVersions() {
         Gson gson = new Gson();
         return Response.ok(gson.toJson(versionService.getVersionInfo())).build();
     }

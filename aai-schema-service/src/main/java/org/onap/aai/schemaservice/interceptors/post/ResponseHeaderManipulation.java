@@ -21,11 +21,13 @@
 package org.onap.aai.schemaservice.interceptors.post;
 
 import java.io.IOException;
+
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MediaType;
+
 import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
 import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
 
@@ -38,15 +40,14 @@ public class ResponseHeaderManipulation extends AAIContainerFilter
 
     @Override
     public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext)
-        throws IOException {
+        ContainerResponseContext responseContext) throws IOException {
 
         updateResponseHeaders(requestContext, responseContext);
 
     }
 
     private void updateResponseHeaders(ContainerRequestContext requestContext,
-                                       ContainerResponseContext responseContext) {
+        ContainerResponseContext responseContext) {
 
         responseContext.getHeaders().add(AAIHeaderProperties.AAI_TX_ID,
             requestContext.getProperty(AAIHeaderProperties.AAI_TX_ID));

@@ -21,6 +21,7 @@
 package org.onap.aai.schemagen.genxsd;
 
 import java.util.StringTokenizer;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 import org.onap.aai.setup.SchemaVersion;
@@ -36,7 +37,7 @@ public class PatchOperation {
     private String basePath;
 
     public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path,
-                          String pathParams, SchemaVersion v, String basePath) {
+        String pathParams, SchemaVersion v, String basePath) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
@@ -55,7 +56,7 @@ public class PatchOperation {
     public String toString() {
         StringTokenizer st;
         st = new StringTokenizer(path, "/");
-        //a valid tag is necessary
+        // a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
         }
@@ -68,7 +69,7 @@ public class PatchOperation {
         if (path.startsWith("/search")) {
             return "";
         }
-        //No Patch operation paths end with "relationship"
+        // No Patch operation paths end with "relationship"
 
         if (path.endsWith("/relationship")) {
             return "";
@@ -95,8 +96,7 @@ public class PatchOperation {
             pathSb.append("      summary: update an existing ").append(xmlRootElementName)
                 .append("\n");
             pathSb.append("      description: |\n");
-            pathSb.append("        Update an existing ").append(xmlRootElementName)
-                .append("\n");
+            pathSb.append("        Update an existing ").append(xmlRootElementName).append("\n");
             pathSb.append("        #\n");
             pathSb.append(
                 "        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.\n");
@@ -126,8 +126,8 @@ public class PatchOperation {
         pathSb.append("        - name: body\n");
         pathSb.append("          in: body\n");
         pathSb.append("          description: ").append(xmlRootElementName)
-            .append(" object that needs to be updated.")
-            .append(relationshipExamplesSb.toString()).append("\n");
+            .append(" object that needs to be updated.").append(relationshipExamplesSb.toString())
+            .append("\n");
         pathSb.append("          required: true\n");
         pathSb.append("          schema:\n");
         pathSb.append("            $ref: \"#/definitions/").append(prefixForPatch)

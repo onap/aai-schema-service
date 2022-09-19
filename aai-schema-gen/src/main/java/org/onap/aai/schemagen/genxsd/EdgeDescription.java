@@ -40,17 +40,17 @@ public class EdgeDescription {
 
     public EdgeDescription(EdgeRule ed) {
         super();
-        if (ed.getDirection().toString().equals(ed.getContains()) &&
-            AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getDirection()))) {
+        if (ed.getDirection().toString().equals(ed.getContains())
+            && AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getDirection()))) {
             this.lineageType = LineageType.PARENT;
-        } else if (AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getContains())) &&
-            ed.getDirection().toString().equals(ed.getContains())) {
+        } else if (AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getContains()))
+            && ed.getDirection().toString().equals(ed.getContains())) {
             this.lineageType = LineageType.CHILD;
-        } else if (AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getContains())) &&
-            AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getDirection()))) {
+        } else if (AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getContains()))
+            && AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getDirection()))) {
             this.lineageType = LineageType.PARENT;
-        } else if (AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getContains())) &&
-            AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getDirection()))) {
+        } else if (AAIDirection.getValue("IN").equals(AAIDirection.getValue(ed.getContains()))
+            && AAIDirection.getValue("OUT").equals(AAIDirection.getValue(ed.getDirection()))) {
             this.lineageType = LineageType.PARENT;
         } else {
             this.lineageType = LineageType.UNRELATED;
@@ -153,21 +153,18 @@ public class EdgeDescription {
                 }
             }
             if (result.length() == 0) {
-                result = String
-                    .join(" ", "(", ed.getFrom(), this.getShortLabel(), ed.getTo() + ",",
-                        this.getMultiplicity());
+                result = String.join(" ", "(", ed.getFrom(), this.getShortLabel(), ed.getTo() + ",",
+                    this.getMultiplicity());
             }
         } else {
             if (LineageType.PARENT == lineageType) {
                 result = " (PARENT of " + otherNodeName;
-                result = String
-                    .join(" ", result + ",", ed.getFrom(), this.getShortLabel(), ed.getTo() + ",",
-                        this.getMultiplicity());
+                result = String.join(" ", result + ",", ed.getFrom(), this.getShortLabel(),
+                    ed.getTo() + ",", this.getMultiplicity());
             }
             if (result.length() == 0) {
-                result = String
-                    .join(" ", "(", ed.getFrom(), this.getShortLabel(), ed.getTo() + ",",
-                        this.getMultiplicity());
+                result = String.join(" ", "(", ed.getFrom(), this.getShortLabel(), ed.getTo() + ",",
+                    this.getMultiplicity());
             }
         }
 
@@ -187,8 +184,8 @@ public class EdgeDescription {
      */
 
     public boolean hasDelTarget() {
-        return StringUtils.isNotEmpty(ed.getDeleteOtherV()) &&
-            (!"NONE".equalsIgnoreCase(ed.getDeleteOtherV()));
+        return StringUtils.isNotEmpty(ed.getDeleteOtherV())
+            && (!"NONE".equalsIgnoreCase(ed.getDeleteOtherV()));
     }
 
     /**

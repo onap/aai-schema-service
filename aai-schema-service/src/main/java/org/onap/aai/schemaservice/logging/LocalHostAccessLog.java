@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,9 +17,13 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.logging;
 
 import ch.qos.logback.access.jetty.RequestLogImpl;
+
+import java.util.Arrays;
+
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
@@ -30,16 +34,13 @@ import org.springframework.boot.web.servlet.server.AbstractServletWebServerFacto
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-
 @Configuration
 public class LocalHostAccessLog {
 
     @Bean
     public AbstractServletWebServerFactory jettyConfigBean(
         @Value("${jetty.threadPool.maxThreads:200}") final String maxThreads,
-        @Value("${jetty.threadPool.minThreads:8}") final String minThreads
-    ) {
+        @Value("${jetty.threadPool.minThreads:8}") final String minThreads) {
 
         JettyServletWebServerFactory jef = new JettyServletWebServerFactory();
         jef.addServerCustomizers((JettyServerCustomizer) server -> {

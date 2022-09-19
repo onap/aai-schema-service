@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,13 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.interceptors.pre;
 
-import org.onap.aai.exceptions.AAIException;
-import org.onap.aai.logging.ErrorLogHelper;
-import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
-import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
-import org.onap.logging.filter.base.Constants;
-import org.onap.logging.ref.slf4j.ONAPLogConstants;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -32,10 +31,13 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import org.onap.aai.exceptions.AAIException;
+import org.onap.aai.logging.ErrorLogHelper;
+import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
+import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
+import org.onap.logging.filter.base.Constants;
+import org.onap.logging.ref.slf4j.ONAPLogConstants;
 
 @PreMatching
 @Priority(AAIRequestFilterPriority.HEADER_VALIDATION)
@@ -62,18 +64,21 @@ public class HeaderValidation extends AAIContainerFilter implements ContainerReq
     }
 
     private Optional<Response> validateHeaderValuePresence(String value, String errorCode,
-                                                           List<MediaType> acceptHeaderValues) {
+        List<MediaType> acceptHeaderValues) {
         Response response = null;
         AAIException aaie;
         if (value == null || value.isEmpty()) {
             aaie = new AAIException(errorCode);
-            return Optional.of(Response.status(aaie.getErrorObject().getHTTPResponseCode())
-                .entity(ErrorLogHelper.getRESTAPIErrorResponse(acceptHeaderValues, aaie, new ArrayList<>()))
-                .build());
+            return Optional
+                .of(Response
+                    .status(aaie.getErrorObject().getHTTPResponseCode()).entity(ErrorLogHelper
+                        .getRESTAPIErrorResponse(acceptHeaderValues, aaie, new ArrayList<>()))
+                    .build());
         }
 
         return Optional.ofNullable(response);
     }
+
     public String getRequestId(ContainerRequestContext requestContext) {
         String requestId = requestContext.getHeaderString(ONAPLogConstants.Headers.REQUEST_ID);
         if (requestId == null || requestId.isEmpty()) {
@@ -81,7 +86,8 @@ public class HeaderValidation extends AAIContainerFilter implements ContainerReq
             if (requestId == null || requestId.isEmpty()) {
                 requestId = requestContext.getHeaderString(Constants.HttpHeaders.TRANSACTION_ID);
                 if (requestId == null || requestId.isEmpty()) {
-                    requestId = requestContext.getHeaderString(Constants.HttpHeaders.ECOMP_REQUEST_ID);
+                    requestId =
+                        requestContext.getHeaderString(Constants.HttpHeaders.ECOMP_REQUEST_ID);
                     if (requestId == null || requestId.isEmpty()) {
                         return requestId;
                     }

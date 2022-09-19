@@ -22,6 +22,7 @@ package org.onap.aai.schemagen.genxsd;
 
 import java.util.HashMap;
 import java.util.StringTokenizer;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
@@ -35,7 +36,7 @@ public class DeleteOperation {
     public static HashMap<String, String> deletePaths = new HashMap<String, String>();
 
     public DeleteOperation(String useOpId, String xmlRootElementName, String tag, String path,
-                           String pathParams) {
+        String pathParams) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
@@ -48,7 +49,7 @@ public class DeleteOperation {
     public String toString() {
         StringTokenizer st;
         st = new StringTokenizer(path, "/");
-        //a valid tag is necessary
+        // a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
         }
@@ -61,9 +62,9 @@ public class DeleteOperation {
         if (path.startsWith("/search")) {
             return "";
         }
-        //All Delete operation paths end with "relationship"
-        //or there is a parameter at the end of the path
-        //and there is a parameter in the path
+        // All Delete operation paths end with "relationship"
+        // or there is a parameter at the end of the path
+        // and there is a parameter in the path
 
         if (!path.endsWith("/relationship") && !path.endsWith("}")) {
             return "";
@@ -72,8 +73,7 @@ public class DeleteOperation {
         pathSb.append("    delete:\n");
         pathSb.append("      tags:\n");
         pathSb.append("        - ").append(tag).append("\n");
-        pathSb.append("      summary: delete an existing ").append(xmlRootElementName)
-            .append("\n");
+        pathSb.append("      summary: delete an existing ").append(xmlRootElementName).append("\n");
 
         pathSb.append("      description: delete an existing ").append(xmlRootElementName)
             .append("\n");

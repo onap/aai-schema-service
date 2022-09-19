@@ -10,7 +10,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,15 +19,15 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
-package org.onap.aai.schemagen;
 
+package org.onap.aai.schemagen;
 
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
-import org.onap.aai.setup.SchemaVersions;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
 import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
+import org.onap.aai.setup.SchemaVersions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -45,19 +45,22 @@ public class SwaggerGenerationConfiguration {
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public NodesYAMLfromOXM nodesYamlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
+    public NodesYAMLfromOXM nodesYamlFromOXM(SchemaVersions schemaVersions,
+        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
         return new NodesYAMLfromOXM(basePath, schemaVersions, nodeIngestor, edgeIngestor);
     }
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public HTMLfromOXM htmlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
+    public HTMLfromOXM htmlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor,
+        EdgeIngestor edgeIngestor) {
         return new HTMLfromOXM(maxOccurs, schemaVersions, nodeIngestor, edgeIngestor);
     }
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public YAMLfromOXM yamlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
+    public YAMLfromOXM yamlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor,
+        EdgeIngestor edgeIngestor) {
         return new YAMLfromOXM(basePath, schemaVersions, nodeIngestor, edgeIngestor);
     }
 

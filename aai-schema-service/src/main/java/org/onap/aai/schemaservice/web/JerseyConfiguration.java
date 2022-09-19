@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,15 +17,18 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.web;
 
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
@@ -38,7 +41,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class JerseyConfiguration extends ResourceConfig {
@@ -58,7 +60,7 @@ public class JerseyConfiguration extends ResourceConfig {
         register(QueryResource.class);
         register(EdgeResource.class);
 
-        //Request Filters
+        // Request Filters
         registerFilters(ContainerRequestFilter.class);
         registerFilters(ContainerResponseFilter.class);
         registerFilters(AuditLogContainerFilter.class);
@@ -73,31 +75,30 @@ public class JerseyConfiguration extends ResourceConfig {
         Set<Class<? extends T>> filters = loggingReflections.getSubTypesOf(type);
         filters.addAll(reflections.getSubTypesOf(type));
 
-        // Check to ensure that each of the filter has the @Priority annotation and if not throw exception
+        // Check to ensure that each of the filter has the @Priority annotation and if not throw
+        // exception
         for (Class filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
-                throw new RuntimeException("Container filter " + filterClass.getName() + " does not have @Priority annotation");
+                throw new RuntimeException("Container filter " + filterClass.getName()
+                    + " does not have @Priority annotation");
             }
         }
 
         // Turn the set back into a list
-        List<Class<? extends T>> filtersList = filters
-                .stream()
-                .filter(f -> {
-                    if (f.isAnnotationPresent(Profile.class)
-                            && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
-                        return false;
-                    }
-                    return true;
-                })
-                .collect(Collectors.toList());
+        List<Class<? extends T>> filtersList = filters.stream().filter(f -> {
+            if (f.isAnnotationPresent(Profile.class)
+                && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
+                return false;
+            }
+            return true;
+        }).collect(Collectors.toList());
 
         // Sort them by their priority levels value
-        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value()).compareTo(c2.getAnnotation(Priority.class).value()));
+        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value())
+            .compareTo(c2.getAnnotation(Priority.class).value()));
 
         // Then register this to the jersey application
         filtersList.forEach(this::register);
     }
-
 
 }

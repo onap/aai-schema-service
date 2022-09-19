@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,14 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.queries;
+
+import static org.junit.Assert.assertNotNull;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
@@ -43,58 +50,43 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-
-import static org.junit.Assert.assertNotNull;
-
-@ContextConfiguration(classes = {
-    SchemaLocationsBean.class,
-        SchemaVersions.class,
-    AAIConfigTranslator.class,
-        EdgeIngestor.class,
-        EdgeSerializer.class,
-        NodeIngestor.class,
-        SpringContextAware.class,
-        IntrospectionConfig.class ,
-        RestBeanConfig.class,
-    GremlinServerSingleton.class
-})
-@TestPropertySource(properties = {
-    "schema.uri.base.path = /aai",
-    "schema.ingest.file = src/test/resources/application-test.properties"
-})
+@ContextConfiguration(
+    classes = {SchemaLocationsBean.class, SchemaVersions.class, AAIConfigTranslator.class,
+        EdgeIngestor.class, EdgeSerializer.class, NodeIngestor.class, SpringContextAware.class,
+        IntrospectionConfig.class, RestBeanConfig.class, GremlinServerSingleton.class})
+@TestPropertySource(
+    properties = {"schema.uri.base.path = /aai",
+        "schema.ingest.file = src/test/resources/application-test.properties"})
 public abstract class AAISetup {
-  @Autowired
-  protected NodeIngestor nodeIngestor;
+    @Autowired
+    protected NodeIngestor nodeIngestor;
 
-  @Autowired
-  protected LoaderFactory loaderFactory;
+    @Autowired
+    protected LoaderFactory loaderFactory;
 
-  @Autowired
-  protected  Map<SchemaVersion, MoxyLoader>  moxyLoaderInstance;
+    @Autowired
+    protected Map<SchemaVersion, MoxyLoader> moxyLoaderInstance;
 
-  @Autowired
-  protected HttpEntry traversalHttpEntry;
+    @Autowired
+    protected HttpEntry traversalHttpEntry;
 
-  @Autowired
-  protected HttpEntry traversalUriHttpEntry;
+    @Autowired
+    protected HttpEntry traversalUriHttpEntry;
 
-  @Autowired
-  protected EdgeSerializer edgeSer;
+    @Autowired
+    protected EdgeSerializer edgeSer;
 
-  @Autowired
-  protected EdgeIngestor edgeIngestor;
+    @Autowired
+    protected EdgeIngestor edgeIngestor;
 
-  @Autowired
-  protected SchemaVersions schemaVersions;
+    @Autowired
+    protected SchemaVersions schemaVersions;
 
-  @Autowired
-  protected GremlinServerSingleton gremlinServerSingleton;
+    @Autowired
+    protected GremlinServerSingleton gremlinServerSingleton;
 
-  @Value("${schema.uri.base.path}")
-  protected String basePath;
+    @Value("${schema.uri.base.path}")
+    protected String basePath;
 
     @ClassRule
     public static final SpringClassRule springClassRule = new SpringClassRule();
@@ -111,9 +103,7 @@ public abstract class AAISetup {
 
     public String getPayload(String filename) throws IOException {
 
-        InputStream inputStream = getClass()
-                .getClassLoader()
-                .getResourceAsStream(filename);
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
 
         String message = String.format("Unable to find the %s in src/test/resources", filename);
         assertNotNull(message, inputStream);
@@ -122,11 +112,3 @@ public abstract class AAISetup {
         return resource;
     }
 }
-
-
-
-
-
-
-
-

@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,12 +17,13 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.versions;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class VersionService {
@@ -48,8 +49,7 @@ public class VersionService {
     @Value("${schema.version.api.default}")
     private String defaultApi;
 
-
-    public Version getVersionInfo(){
+    public Version getVersionInfo() {
 
         Version schemaVersion = new Version();
         schemaVersion.setVersions(schemaVersionList);

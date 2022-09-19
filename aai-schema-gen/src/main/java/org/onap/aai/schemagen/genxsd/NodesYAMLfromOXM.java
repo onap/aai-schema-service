@@ -21,6 +21,7 @@
 package org.onap.aai.schemagen.genxsd;
 
 import com.google.common.collect.Multimap;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +40,9 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
+
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.EdgeRule;
@@ -69,7 +72,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
     private final String basePath;
 
     public NodesYAMLfromOXM(String basePath, SchemaVersions schemaVersions, NodeIngestor ni,
-                            EdgeIngestor ei) {
+        EdgeIngestor ei) {
         super(schemaVersions, ni, ei);
         this.basePath = basePath;
     }
@@ -95,14 +98,18 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             sb.append("\n\n    [Differences versus the previous schema version](" + "apidocs")
                 .append(basePath).append("/aai_swagger_").append(v.toString()).append(".diff)");
         }
-        sb.append(DOUBLE_LINE_SEPARATOR).append(
-            "    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved.")
-            .append(OxmFileProcessor.DOUBLE_LINE_SEPARATOR).append(
-            "    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License.")
-            .append(DOUBLE_LINE_SEPARATOR).append(
-            "    You may obtain a copy of the License at\n\n    (https://creativecommons.org/licenses/by/4.0/)")
-            .append(DOUBLE_LINE_SEPARATOR).append(
-            "    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.")
+        sb.append(DOUBLE_LINE_SEPARATOR)
+            .append(
+                "    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved.")
+            .append(OxmFileProcessor.DOUBLE_LINE_SEPARATOR)
+            .append(
+                "    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License.")
+            .append(DOUBLE_LINE_SEPARATOR)
+            .append(
+                "    You may obtain a copy of the License at\n\n    (https://creativecommons.org/licenses/by/4.0/)")
+            .append(DOUBLE_LINE_SEPARATOR)
+            .append(
+                "    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.")
             .append(OxmFileProcessor.DOUBLE_LINE_SEPARATOR)
             .append("    This document is best viewed with Firefox or Chrome. ");
         sb.append(
@@ -201,9 +208,8 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             if (namespaceFilter != null && (!namespaceFilter.contains(entry.getKey()))) {
                 continue;
             }
-            logger.debug(
-                "Key: " + entry.getKey() + "Test: " +
-                    ("relationship-dict".equals(entry.getKey()) ? "true" : "false"));
+            logger.debug("Key: " + entry.getKey() + "Test: "
+                + ("relationship-dict".equals(entry.getKey()) ? "true" : "false"));
             if (entry.getKey().matches("relationship-dict")) {
                 String jb = entry.getValue();
                 logger.debug("Value: " + jb);
@@ -235,8 +241,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         return dictSb.toString();
     }
 
-    private String processJavaTypeElementSwagger(
-        String javaTypeName, Element javaTypeElement,
+    private String processJavaTypeElementSwagger(String javaTypeName, Element javaTypeElement,
         StringBuilder pathSb, StringBuilder definitionsSb, String path, String tag, String opId,
         String getItemName, StringBuilder pathParams, String validEdges) {
 
@@ -650,18 +655,16 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
 
     private void writeYAMLfile(String outfileName, String fileContent) {
         outfileName = (StringUtils.isEmpty(outfileName)) ? "aai_swagger" : outfileName;
-        outfileName = (outfileName.lastIndexOf(File.separator) == -1)
-            ? YAML_DIR + File.separator + outfileName + "_" + v.toString() + "." +
-            GENERATE_TYPE_YAML
-            : outfileName;
+        outfileName = (outfileName.lastIndexOf(File.separator) == -1) ? YAML_DIR + File.separator
+            + outfileName + "_" + v.toString() + "." + GENERATE_TYPE_YAML : outfileName;
         File outfile = new File(outfileName);
         File parentDir = outfile.getParentFile();
         if (parentDir != null && !parentDir.exists()) {
             parentDir.mkdirs();
         }
         try {
-            if(!outfile.createNewFile()) {
-                logger.error( "File {} already exist", outfileName);
+            if (!outfile.createNewFile()) {
+                logger.error("File {} already exist", outfileName);
             }
         } catch (IOException e) {
             logger.error("Exception creating output file " + outfileName, e);

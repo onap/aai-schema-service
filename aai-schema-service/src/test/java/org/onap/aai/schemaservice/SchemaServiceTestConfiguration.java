@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,13 +17,22 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+
+import javax.net.ssl.SSLContext;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -36,17 +45,11 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
-import javax.net.ssl.SSLContext;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-
 @TestConfiguration
 public class SchemaServiceTestConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(SchemaServiceTestConfiguration.class);
+    private static final Logger logger =
+        LoggerFactory.getLogger(SchemaServiceTestConfiguration.class);
 
     @Autowired
     private Environment env;
@@ -58,38 +61,34 @@ public class SchemaServiceTestConfiguration {
     @Bean
     RestTemplate restTemplate(RestTemplateBuilder builder) throws Exception {
 
-
-
         RestTemplate restTemplate = null;
 
-        if(env.acceptsProfiles("one-way-ssl", "two-way-ssl")) {
-            char[] trustStorePassword = env.getProperty("server.ssl.trust-store-password").toCharArray();
-            char[] keyStorePassword = env.getProperty("server.ssl.key-store-password").toCharArray();
+        if (env.acceptsProfiles("one-way-ssl", "two-way-ssl")) {
+            char[] trustStorePassword =
+                env.getProperty("server.ssl.trust-store-password").toCharArray();
+            char[] keyStorePassword =
+                env.getProperty("server.ssl.key-store-password").toCharArray();
 
             String keyStore = env.getProperty("server.ssl.key-store");
             String trustStore = env.getProperty("server.ssl.trust-store");
             SSLContextBuilder sslContextBuilder = SSLContextBuilder.create();
 
             if (env.acceptsProfiles("two-way-ssl")) {
-                sslContextBuilder = sslContextBuilder.loadKeyMaterial(loadPfx(keyStore, keyStorePassword), keyStorePassword);
+                sslContextBuilder = sslContextBuilder
+                    .loadKeyMaterial(loadPfx(keyStore, keyStorePassword), keyStorePassword);
             }
 
             SSLContext sslContext = sslContextBuilder
-                .loadTrustMaterial(ResourceUtils.getFile(trustStore), trustStorePassword)
-                .build();
+                .loadTrustMaterial(ResourceUtils.getFile(trustStore), trustStorePassword).build();
 
-            HttpClient client = HttpClients.custom()
-                .setSSLContext(sslContext)
-                .setSSLHostnameVerifier((s, sslSession) -> true)
-                .build();
+            HttpClient client = HttpClients.custom().setSSLContext(sslContext)
+                .setSSLHostnameVerifier((s, sslSession) -> true).build();
 
             restTemplate = builder
-                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client))
-                .build();
-        }else {
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client)).build();
+        } else {
             restTemplate = builder.build();
         }
-
 
         restTemplate.setErrorHandler(new ResponseErrorHandler() {
             @Override
@@ -103,7 +102,7 @@ public class SchemaServiceTestConfiguration {
                         return true;
                     }
 
-                    if(clientHttpResponse.getRawStatusCode() % 100 == 5){
+                    if (clientHttpResponse.getRawStatusCode() % 100 == 5) {
                         logger.debug("Call returned a error " + clientHttpResponse.getStatusText());
                         return true;
                     }

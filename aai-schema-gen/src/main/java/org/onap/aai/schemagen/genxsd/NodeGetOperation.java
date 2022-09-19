@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
@@ -55,7 +56,7 @@ public class NodeGetOperation {
     private String queryParams;
 
     public NodeGetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-                            String pathParams) {
+        String pathParams) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
@@ -89,13 +90,13 @@ public class NodeGetOperation {
     public String toString() {
         StringTokenizer st;
         st = new StringTokenizer(CRUDpath, "/");
-        //Path has to be longer than one element
-      /*
-      if ( st.countTokens() <= 1) {
-        return "";
-      }
-      */
-        //a valid tag is necessary
+        // Path has to be longer than one element
+        /*
+         * if ( st.countTokens() <= 1) {
+         * return "";
+         * }
+         */
+        // a valid tag is necessary
         if (StringUtils.isEmpty(tag)) {
             return "";
         }

@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,15 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.config;
+
+import java.util.List;
+import java.util.Map;
 
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Converts the contents of the schema config file
@@ -33,34 +34,34 @@ import java.util.Map;
  *
  */
 public abstract class ConfigTranslator {
-  protected SchemaLocationsBean bean;
-  protected SchemaVersions schemaVersions;
+    protected SchemaLocationsBean bean;
+    protected SchemaVersions schemaVersions;
 
-  @Autowired
-  public ConfigTranslator(SchemaLocationsBean schemaLocationbean, SchemaVersions schemaVersions) {
-    this.bean = schemaLocationbean;
-    this.schemaVersions = schemaVersions;
-  }
+    @Autowired
+    public ConfigTranslator(SchemaLocationsBean schemaLocationbean, SchemaVersions schemaVersions) {
+        this.bean = schemaLocationbean;
+        this.schemaVersions = schemaVersions;
+    }
 
-  /**
-   * Translates the contents of the schema config file
-   * into the input for the NodeIngestor
-   *
-   * @return Map of Version to the list of (string) filenames to be
-   * ingested for that version
-   */
-  public abstract Map<SchemaVersion, List<String>> getNodeFiles();
+    /**
+     * Translates the contents of the schema config file
+     * into the input for the NodeIngestor
+     *
+     * @return Map of Version to the list of (string) filenames to be
+     *         ingested for that version
+     */
+    public abstract Map<SchemaVersion, List<String>> getNodeFiles();
 
-  /**
-   * Translates the contents of the schema config file
-   * into the input for the EdgeIngestor
-   *
-   * @return Map of Version to the List of (String) filenames to be
-   * ingested for that version
-   */
-  public abstract Map<SchemaVersion, List<String>> getEdgeFiles();
+    /**
+     * Translates the contents of the schema config file
+     * into the input for the EdgeIngestor
+     *
+     * @return Map of Version to the List of (String) filenames to be
+     *         ingested for that version
+     */
+    public abstract Map<SchemaVersion, List<String>> getEdgeFiles();
 
-  public SchemaVersions getSchemaVersions(){
-    return schemaVersions;
-  }
+    public SchemaVersions getSchemaVersions() {
+        return schemaVersions;
+    }
 }

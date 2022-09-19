@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,12 +17,20 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.onap.aai.aailog.logs.AaiDebugLog;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.schemaservice.config.PropertyPasswordConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -33,12 +41,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
-import org.onap.aai.aailog.logs.AaiDebugLog;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.util.Map;
-import java.util.UUID;
 import org.springframework.web.context.request.RequestContextListener;
 
 @SpringBootApplication
@@ -46,15 +48,10 @@ import org.springframework.web.context.request.RequestContextListener;
 // It only searches beans in the following packages
 // Any method annotated with @Bean annotation or any class
 // with @Component, @Configuration, @Service will be picked up
-@EnableAutoConfiguration(exclude = {
-    DataSourceAutoConfiguration.class,
-    DataSourceTransactionManagerAutoConfiguration.class,
-    HibernateJpaAutoConfiguration.class
-})
-@ComponentScan(basePackages = {
-    "org.onap.aai.schemaservice",
-    "org.onap.aai.aaf"
-})
+@EnableAutoConfiguration(
+    exclude = {DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@ComponentScan(basePackages = {"org.onap.aai.schemaservice", "org.onap.aai.aaf"})
 public class SchemaServiceApp {
 
     private static final Logger logger = LoggerFactory.getLogger(SchemaServiceApp.class.getName());
@@ -79,11 +76,8 @@ public class SchemaServiceApp {
 
         Environment env = app.run(args).getEnvironment();
 
-        logger.debug(
-            "Application '{}' is running on {}!",
-            env.getProperty("spring.application.name"),
-            env.getProperty("server.port")
-        );
+        logger.debug("Application '{}' is running on {}!",
+            env.getProperty("spring.application.name"), env.getProperty("server.port"));
 
         logger.debug("SchemaService MicroService Started");
 
@@ -125,8 +119,8 @@ public class SchemaServiceApp {
         // This is only needed for tomcat keeping this as temporary
         System.setProperty("org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH", "true");
 
-
-        if (env.acceptsProfiles(Profiles.TWO_WAY_SSL) && env.acceptsProfiles(Profiles.ONE_WAY_SSL)) {
+        if (env.acceptsProfiles(Profiles.TWO_WAY_SSL)
+            && env.acceptsProfiles(Profiles.ONE_WAY_SSL)) {
             logger.warn("You have seriously misconfigured your application");
         }
 

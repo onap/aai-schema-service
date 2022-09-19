@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,20 +17,24 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemaservice.interceptors.pre;
 
 import com.google.gson.JsonObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
+
 import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.MediaType;
+
 import org.glassfish.jersey.message.internal.ReaderWriter;
 import org.glassfish.jersey.server.ContainerException;
 import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
@@ -42,7 +46,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @PreMatching
 @Priority(AAIRequestFilterPriority.REQUEST_TRANS_LOGGING)
-public class RequestTransactionLogging extends AAIContainerFilter implements ContainerRequestFilter {
+public class RequestTransactionLogging extends AAIContainerFilter
+    implements ContainerRequestFilter {
 
     private static final String DEFAULT_CONTENT_TYPE = MediaType.APPLICATION_JSON;
     private static final String DEFAULT_RESPONSE_TYPE = MediaType.APPLICATION_XML;
@@ -56,12 +61,15 @@ public class RequestTransactionLogging extends AAIContainerFilter implements Con
         String currentTimeStamp = genDate();
         String fullId = this.getAAITxIdToHeader();
         this.addToRequestContext(requestContext, AAIHeaderProperties.AAI_TX_ID, fullId);
-        this.addToRequestContext(requestContext, AAIHeaderProperties.AAI_REQUEST, this.getRequest(requestContext, fullId));
-        this.addToRequestContext(requestContext, AAIHeaderProperties.AAI_REQUEST_TS, currentTimeStamp);
+        this.addToRequestContext(requestContext, AAIHeaderProperties.AAI_REQUEST,
+            this.getRequest(requestContext, fullId));
+        this.addToRequestContext(requestContext, AAIHeaderProperties.AAI_REQUEST_TS,
+            currentTimeStamp);
         this.addDefaultContentType(requestContext);
     }
 
-    private void addToRequestContext(ContainerRequestContext requestContext, String name, String aaiTxIdToHeader) {
+    private void addToRequestContext(ContainerRequestContext requestContext, String name,
+        String aaiTxIdToHeader) {
         requestContext.setProperty(name, aaiTxIdToHeader);
     }
 
@@ -87,7 +95,8 @@ public class RequestTransactionLogging extends AAIContainerFilter implements Con
     private String getHttpServletRequestContentType() {
         final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+            HttpServletRequest request =
+                ((ServletRequestAttributes) requestAttributes).getRequest();
             return request.getContentType();
         }
         return null;

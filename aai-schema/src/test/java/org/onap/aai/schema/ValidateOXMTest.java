@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,21 +17,18 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schema;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.FileFileFilter;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.RegexFileFilter;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,15 +37,20 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.FileFileFilter;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 public class ValidateOXMTest {
 
@@ -66,7 +68,8 @@ public class ValidateOXMTest {
     private String ONAP = "onap";
 
     @Test
-    public void testFindXmlPropContainingSpace() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    public void testFindXmlPropContainingSpace()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
         boolean foundIssue = false;
         List<File> fileList = getLatestFiles();
 
@@ -76,13 +79,16 @@ public class ValidateOXMTest {
             msg.append("\n");
             Document xmlDocument = getDocument(file);
             XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "/xml-bindings/java-types/java-type/xml-properties/xml-property[@name!='description' and contains(@value,' ')]";
-            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+            String expression =
+                "/xml-bindings/java-types/java-type/xml-properties/xml-property[@name!='description' and contains(@value,' ')]";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 foundIssue = true;
                 msg.append("\t");
-                msg.append(nodeList.item(i).getParentNode().getParentNode().getAttributes().getNamedItem("name").getNodeValue());
+                msg.append(nodeList.item(i).getParentNode().getParentNode().getAttributes()
+                    .getNamedItem("name").getNodeValue());
                 msg.append("\n");
                 msg.append("\t");
                 msg.append("\n");
@@ -99,13 +105,15 @@ public class ValidateOXMTest {
 
     /**
      * Verifies that all of the node types in the oxm's have their uri templates.
+     * 
      * @throws XPathExpressionException
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      */
     @Test
-    public void allNodeTypesHaveAAIUriTemplate() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    public void allNodeTypesHaveAAIUriTemplate()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
         boolean foundIssue = false;
         List<File> fileList = getFiles();
 
@@ -115,18 +123,17 @@ public class ValidateOXMTest {
             msg.append("\n");
             Document xmlDocument = getDocument(file);
             XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "/xml-bindings/java-types/java-type[" +
-                "(" +
-                "count(xml-properties/xml-property[@name='container']) > 0 " +
-                "or count(xml-properties/xml-property[@name='dependentOn']) > 0" +
-                ") " +
-                "and count(xml-properties/xml-property[@name='uriTemplate']) = 0 " +
-                "]";
-            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+            String expression = "/xml-bindings/java-types/java-type[" + "("
+                + "count(xml-properties/xml-property[@name='container']) > 0 "
+                + "or count(xml-properties/xml-property[@name='dependentOn']) > 0" + ") "
+                + "and count(xml-properties/xml-property[@name='uriTemplate']) = 0 " + "]";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                if (name.equals("InstanceFilter") || name.equals("InventoryResponseItems") || name.equals("InventoryResponseItem")) {
+                if (name.equals("InstanceFilter") || name.equals("InventoryResponseItems")
+                    || name.equals("InventoryResponseItem")) {
                     continue;
                 }
                 foundIssue = true;
@@ -153,41 +160,49 @@ public class ValidateOXMTest {
         for (File file : fileList) {
             Document xmlDocument = getDocument(file);
             XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='indexedProps']) > 0]";
-            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+            String expression =
+                "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='indexedProps']) > 0]";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
             Map<String, List<String>> nodeTypeBadIndexProps = new HashMap<>();
-            for(int i = 0; i < nodeList.getLength(); i++){
+            for (int i = 0; i < nodeList.getLength(); i++) {
                 String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
 
-                NodeList javaAttributesList = ((Element)nodeList.item(i)).getElementsByTagName("java-attributes");
+                NodeList javaAttributesList =
+                    ((Element) nodeList.item(i)).getElementsByTagName("java-attributes");
 
                 Set<String> properties = new HashSet<>();
 
-                for(int j = 0; j < javaAttributesList.getLength(); j++){
-                    NodeList elementList = ((Element)javaAttributesList.item(j)).getElementsByTagName("xml-element");
-                    for(int k = 0; k < elementList.getLength(); k++){
-                        properties.add(elementList.item(k).getAttributes().getNamedItem("name").getNodeValue());
+                for (int j = 0; j < javaAttributesList.getLength(); j++) {
+                    NodeList elementList =
+                        ((Element) javaAttributesList.item(j)).getElementsByTagName("xml-element");
+                    for (int k = 0; k < elementList.getLength(); k++) {
+                        properties.add(elementList.item(k).getAttributes().getNamedItem("name")
+                            .getNodeValue());
                     }
                 }
 
-                NodeList xmlPropertiesList = ((Element)nodeList.item(i)).getElementsByTagName("xml-properties");
+                NodeList xmlPropertiesList =
+                    ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
                 List<String> badIndexedProps = new ArrayList<>();
                 boolean foundIssueInNodeType = false;
 
-                for(int j = 0; j < xmlPropertiesList.getLength(); j++){
-                    NodeList xmlProperties = ((Element)xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
-                    for(int k = 0; k < xmlProperties.getLength(); k++){
-                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
-                        if("indexedProps".equals(xmlProp)){
-                            String xmlPropValue = xmlProperties.item(k).getAttributes().getNamedItem("value").getNodeValue();
+                for (int j = 0; j < xmlPropertiesList.getLength(); j++) {
+                    NodeList xmlProperties =
+                        ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+                    for (int k = 0; k < xmlProperties.getLength(); k++) {
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name")
+                            .getNodeValue();
+                        if ("indexedProps".equals(xmlProp)) {
+                            String xmlPropValue = xmlProperties.item(k).getAttributes()
+                                .getNamedItem("value").getNodeValue();
 
-                            List<String> indexProps = Arrays
-                                .stream(xmlPropValue.split(","))
-                                .collect(Collectors.toList());
+                            List<String> indexProps =
+                                Arrays.stream(xmlPropValue.split(",")).collect(Collectors.toList());
 
-                            for(String indexProp : indexProps){
-                                if(!properties.contains(indexProp)){
+                            for (String indexProp : indexProps) {
+                                if (!properties.contains(indexProp)) {
                                     foundIssueInNodeType = true;
                                     badIndexedProps.add(indexProp);
                                 }
@@ -197,19 +212,21 @@ public class ValidateOXMTest {
                     }
                 }
 
-                if(foundIssueInNodeType){
-                    foundIssue =true;
+                if (foundIssueInNodeType) {
+                    foundIssue = true;
                     nodeTypeBadIndexProps.put(name, badIndexedProps);
                 }
             }
 
-            if(!nodeTypeBadIndexProps.isEmpty()){
+            if (!nodeTypeBadIndexProps.isEmpty()) {
                 msg.append("\n");
                 msg.append("File: " + file.getAbsolutePath().replaceAll(".*aai-schema", ""));
                 msg.append("\n");
-                for (Map.Entry<String, List<String>> nodeTypeBadIndex : nodeTypeBadIndexProps.entrySet()) {
+                for (Map.Entry<String, List<String>> nodeTypeBadIndex : nodeTypeBadIndexProps
+                    .entrySet()) {
                     msg.append("NodeType: " + nodeTypeBadIndex.getKey());
-                    msg.append(" contains following indexed props that are not properties in object: ");
+                    msg.append(
+                        " contains following indexed props that are not properties in object: ");
                     msg.append(String.join(",", nodeTypeBadIndex.getValue()));
                     msg.append("\n");
                 }
@@ -233,38 +250,46 @@ public class ValidateOXMTest {
         for (File file : fileList) {
             Document xmlDocument = getDocument(file);
             XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='uniqueProps']) > 0]";
-            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+            String expression =
+                "/xml-bindings/java-types/java-type[count(xml-properties/xml-property[@name='uniqueProps']) > 0]";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
             Map<String, List<String>> nodeTypeBadUniqueProps = new HashMap<>();
             for (int i = 0; i < nodeList.getLength(); i++) {
                 String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
 
-                NodeList javaAttributesList = ((Element) nodeList.item(i)).getElementsByTagName("java-attributes");
+                NodeList javaAttributesList =
+                    ((Element) nodeList.item(i)).getElementsByTagName("java-attributes");
 
                 Set<String> properties = new HashSet<>();
 
                 for (int j = 0; j < javaAttributesList.getLength(); j++) {
-                    NodeList elementList = ((Element) javaAttributesList.item(j)).getElementsByTagName("xml-element");
+                    NodeList elementList =
+                        ((Element) javaAttributesList.item(j)).getElementsByTagName("xml-element");
                     for (int k = 0; k < elementList.getLength(); k++) {
-                        properties.add(elementList.item(k).getAttributes().getNamedItem("name").getNodeValue());
+                        properties.add(elementList.item(k).getAttributes().getNamedItem("name")
+                            .getNodeValue());
                     }
                 }
 
-                NodeList xmlPropertiesList = ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
+                NodeList xmlPropertiesList =
+                    ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
                 List<String> badUniqueProps = new ArrayList<>();
                 boolean foundIssueInNodeType = false;
 
                 for (int j = 0; j < xmlPropertiesList.getLength(); j++) {
-                    NodeList xmlProperties = ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+                    NodeList xmlProperties =
+                        ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
                     for (int k = 0; k < xmlProperties.getLength(); k++) {
-                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name")
+                            .getNodeValue();
                         if ("uniqueProps".equals(xmlProp)) {
-                            String xmlPropValue = xmlProperties.item(k).getAttributes().getNamedItem("value").getNodeValue();
+                            String xmlPropValue = xmlProperties.item(k).getAttributes()
+                                .getNamedItem("value").getNodeValue();
 
-                            List<String> uniqueProps = Arrays
-                                .stream(xmlPropValue.split(","))
-                                .collect(Collectors.toList());
+                            List<String> uniqueProps =
+                                Arrays.stream(xmlPropValue.split(",")).collect(Collectors.toList());
 
                             for (String uniqueProp : uniqueProps) {
                                 if (!properties.contains(uniqueProp)) {
@@ -287,9 +312,11 @@ public class ValidateOXMTest {
                 msg.append("\n");
                 msg.append("File: " + file.getAbsolutePath().replaceAll(".*aai-schema", ""));
                 msg.append("\n");
-                for (Map.Entry<String, List<String>> nodeTypeBadUnique : nodeTypeBadUniqueProps.entrySet()) {
+                for (Map.Entry<String, List<String>> nodeTypeBadUnique : nodeTypeBadUniqueProps
+                    .entrySet()) {
                     msg.append("NodeType: " + nodeTypeBadUnique.getKey());
-                    msg.append(" contains following unique props that are not properties in object: ");
+                    msg.append(
+                        " contains following unique props that are not properties in object: ");
                     msg.append(String.join(",", nodeTypeBadUnique.getValue()));
                     msg.append("\n");
                 }
@@ -302,91 +329,99 @@ public class ValidateOXMTest {
         }
     }
 
-
     /**
-     * Verifies that all of the top level node types in the oxm's have their namespace in uri templates.
+     * Verifies that all of the top level node types in the oxm's have their namespace in uri
+     * templates.
+     * 
      * @throws XPathExpressionException
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      */
     @Test
-  public void verifyAllUriTemplateHaveNamespace()
-      throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
-    boolean foundIssue = false;
-    List<File> fileList = getOxmSchemaFiles();
-    fileList.addAll(getOnapOxmSchemaFiles());
-    StringBuilder msg = new StringBuilder();
-    for (File file : fileList) {
-      msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
-      msg.append("\n");
-      Document xmlDocument = getDocument(file);
-      XPath xPath = XPathFactory.newInstance().newXPath();
-      String expression = "/xml-bindings/java-types/java-type["
-          + "count(xml-properties/xml-property[@name='namespace']) > 0 " + "]";
-      NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+    public void verifyAllUriTemplateHaveNamespace()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+        boolean foundIssue = false;
+        List<File> fileList = getOxmSchemaFiles();
+        fileList.addAll(getOnapOxmSchemaFiles());
+        StringBuilder msg = new StringBuilder();
+        for (File file : fileList) {
+            msg.append(file.getAbsolutePath().replaceAll(".*aai-schema", ""));
+            msg.append("\n");
+            Document xmlDocument = getDocument(file);
+            XPath xPath = XPathFactory.newInstance().newXPath();
+            String expression = "/xml-bindings/java-types/java-type["
+                + "count(xml-properties/xml-property[@name='namespace']) > 0 " + "]";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
-      for (int i = 0; i < nodeList.getLength(); i++) {
-        String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
 
-        NodeList childNodeList = (NodeList) nodeList.item(i).getChildNodes();
-        for (int j = 0; j < childNodeList.getLength(); j++) {
+                NodeList childNodeList = (NodeList) nodeList.item(i).getChildNodes();
+                for (int j = 0; j < childNodeList.getLength(); j++) {
 
-          String nodeName = childNodeList.item(j).getNodeName();
-          NodeList xmlPropertyNodeList = childNodeList.item(j).getChildNodes();
-          if (XMLPROPERTIES.equals(nodeName)) {
+                    String nodeName = childNodeList.item(j).getNodeName();
+                    NodeList xmlPropertyNodeList = childNodeList.item(j).getChildNodes();
+                    if (XMLPROPERTIES.equals(nodeName)) {
 
-            String namespaceVal = "";
-            String uriTemplateVal = "";
-            for (int k = 0; k < xmlPropertyNodeList.getLength(); k++) {
+                        String namespaceVal = "";
+                        String uriTemplateVal = "";
+                        for (int k = 0; k < xmlPropertyNodeList.getLength(); k++) {
 
-              if ("xml-property".equals(xmlPropertyNodeList.item(k).getNodeName())) {
+                            if ("xml-property".equals(xmlPropertyNodeList.item(k).getNodeName())) {
 
-                NamedNodeMap attributes = xmlPropertyNodeList.item(k).getAttributes();
+                                NamedNodeMap attributes =
+                                    xmlPropertyNodeList.item(k).getAttributes();
 
-                if ("namespace".equals(attributes.getNamedItem("name").getNodeValue())) {
-                  namespaceVal = attributes.getNamedItem("value").getNodeValue();
+                                if ("namespace"
+                                    .equals(attributes.getNamedItem("name").getNodeValue())) {
+                                    namespaceVal = attributes.getNamedItem("value").getNodeValue();
+                                }
+                                if ("uriTemplate"
+                                    .equals(attributes.getNamedItem("name").getNodeValue())) {
+                                    uriTemplateVal =
+                                        attributes.getNamedItem("value").getNodeValue();
+                                }
+
+                            }
+
+                        }
+
+                        if (!uriTemplateVal.startsWith("/" + namespaceVal + "/")) {
+                            foundIssue = true;
+                            msg.append("\t");
+                            msg.append(uriTemplateVal);
+                            msg.append("\n");
+                        }
+
+                    }
                 }
-                if ("uriTemplate".equals(attributes.getNamedItem("name").getNodeValue())) {
-                  uriTemplateVal = attributes.getNamedItem("value").getNodeValue();
-                }
-
-              }
 
             }
-
-            if (!uriTemplateVal.startsWith("/" + namespaceVal + "/")) {
-              foundIssue = true;
-              msg.append("\t");
-              msg.append(uriTemplateVal);
-              msg.append("\n");
-            }
-
-          }
+        }
+        if (foundIssue) {
+            System.out.println(msg.toString());
+            fail("uriTemplate doesnt start with /namespace/.");
         }
 
-      }
     }
-    if (foundIssue) {
-      System.out.println(msg.toString());
-      fail("uriTemplate doesnt start with /namespace/.");
-    }
-
-  }
-
 
     /**
      * Verifies that all specified properties are indexed
-     * Currently set to check that "model-invariant-id","model-version-id" which are aliased are indexed
+     * Currently set to check that "model-invariant-id","model-version-id" which are aliased are
+     * indexed
+     * 
      * @throws XPathExpressionException
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException
      */
     @Test
-    public void aliasedIndexedPropsAreInIndexedListWithPropName() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
+    public void aliasedIndexedPropsAreInIndexedListWithPropName()
+        throws XPathExpressionException, IOException, SAXException, ParserConfigurationException {
 
-        final List<String> props = Arrays.asList("model-invariant-id","model-version-id");
+        final List<String> props = Arrays.asList("model-invariant-id", "model-version-id");
 
         boolean foundIssue = false;
         List<File> fileList = getLatestFiles();
@@ -398,31 +433,32 @@ public class ValidateOXMTest {
             for (String prop : props) {
                 Document xmlDocument = getDocument(file);
                 XPath xPath = XPathFactory.newInstance().newXPath();
-                String expression = "/xml-bindings/java-types/java-type[" +
-                    "(" +
-                    "count(xml-properties/xml-property[@name='container']) > 0 " +
-                    "or count(xml-properties/xml-property[@name='dependentOn']) > 0" +
-                    ") " +
-                    "and count(xml-properties/xml-property[@name='indexedProps' and not(contains(@value,'" + prop + "'))]) > 0 " + //prop is not in indexed props list
-                    "and count(java-attributes/xml-element[@name='" + prop + "']) > 0 " + // prop is a property on obj
+                String expression = "/xml-bindings/java-types/java-type[" + "("
+                    + "count(xml-properties/xml-property[@name='container']) > 0 "
+                    + "or count(xml-properties/xml-property[@name='dependentOn']) > 0" + ") "
+                    + "and count(xml-properties/xml-property[@name='indexedProps' and not(contains(@value,'"
+                    + prop + "'))]) > 0 " + // prop is not in indexed props list
+                    "and count(java-attributes/xml-element[@name='" + prop + "']) > 0 " + // prop is
+                                                                                          // a
+                                                                                          // property
+                                                                                          // on obj
                     "]";
 
-                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument,
+                    XPathConstants.NODESET);
 
                 if (nodeList.getLength() > 0) {
-                    msg.append("\t")
-                        .append(prop)
-                        .append("\n");
+                    msg.append("\t").append(prop).append("\n");
                 }
                 for (int i = 0; i < nodeList.getLength(); i++) {
-                    String name = nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                    if (name.equals("InstanceFilter") || name.equals("InventoryResponseItems") || name.equals("InventoryResponseItem")) {
+                    String name =
+                        nodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                    if (name.equals("InstanceFilter") || name.equals("InventoryResponseItems")
+                        || name.equals("InventoryResponseItem")) {
                         continue;
                     }
                     foundIssue = true;
-                    msg.append("\t\t")
-                        .append(name)
-                        .append("\n");
+                    msg.append("\t\t").append(name).append("\n");
                 }
             }
         }
@@ -441,9 +477,11 @@ public class ValidateOXMTest {
      */
     @Ignore
     @Test
-    public void testSchemaValidationAgainstEdgeRules() throws  XPathExpressionException, IOException, SAXException, ParserConfigurationException, ParseException {
+    public void testSchemaValidationAgainstEdgeRules() throws XPathExpressionException, IOException,
+        SAXException, ParserConfigurationException, ParseException {
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        List<File> subDirs = Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
+        List<File> subDirs =
+            Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
         boolean success = true;
         for (File subDir : subDirs) {
             List<String> oxmSchemaList = new ArrayList<>();
@@ -474,33 +512,27 @@ public class ValidateOXMTest {
                 }
             }).ifPresent(dbEdgeRulesList::add);
 
-
             List<File> oxmSchemaFileList = new ArrayList<>();
             List<File> dbEdgeRulesFileList = new ArrayList<>();
-            oxmSchemaList.forEach(s ->
-                FileUtils.listFiles(
-                    new File(s),
-                    new RegexFileFilter(".*\\.xml"),
+            oxmSchemaList.forEach(s -> FileUtils
+                .listFiles(new File(s), new RegexFileFilter(".*\\.xml"),
                     DirectoryFileFilter.DIRECTORY)
-                    .stream()
-                    .filter(file -> file.getAbsolutePath().contains("oxm"))
-                    .forEach(oxmSchemaFileList::add));
+                .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+                .forEach(oxmSchemaFileList::add));
 
-            dbEdgeRulesList.forEach(s ->
-                FileUtils.listFiles(
-                    new File(s),
-                    new RegexFileFilter(".*\\.json"),
+            dbEdgeRulesList.forEach(s -> FileUtils
+                .listFiles(new File(s), new RegexFileFilter(".*\\.json"),
                     DirectoryFileFilter.DIRECTORY)
-                    .stream()
-                    .filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
-                    .forEach(dbEdgeRulesFileList::add));
+                .stream().filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
+                .forEach(dbEdgeRulesFileList::add));
 
             // Map the dbEdgeRules json file into a HashMap for reference
             Map<String, Set<String>> dbEdgeRules = new HashMap<>();
             JSONParser jsonParser = new JSONParser();
             for (File file : dbEdgeRulesFileList) {
                 FileReader reader = new FileReader(file);
-                // Read JSON file. Expecting JSON file to read an object with a JSONArray names "rules"
+                // Read JSON file. Expecting JSON file to read an object with a JSONArray names
+                // "rules"
                 JSONObject jsonObj = (JSONObject) jsonParser.parse(reader);
                 JSONArray rules = (JSONArray) jsonObj.get(DBEDGERULES_RULES);
                 for (int i = 0; i < rules.size(); i++) {
@@ -534,25 +566,30 @@ public class ValidateOXMTest {
             for (File file : oxmSchemaFileList) {
                 Document xmlDocument = getDocument(file);
                 XPath xPath = XPathFactory.newInstance().newXPath();
-                String parentNodeExpression = "/xml-bindings/java-types/java-type/xml-properties/xml-property[@name='dependentOn']";
-                NodeList parentNodeList = (NodeList) xPath.compile(parentNodeExpression).evaluate(xmlDocument, XPathConstants.NODESET);
-                String childNodeExpression = "/xml-bindings/java-types/java-type[" +
-                    "(" +
-                    "count(xml-properties/xml-property[@name='dependentOn']) > 0" +
-                    ")]";
-                NodeList childNodeList = (NodeList) xPath.compile(childNodeExpression).evaluate(xmlDocument, XPathConstants.NODESET);
+                String parentNodeExpression =
+                    "/xml-bindings/java-types/java-type/xml-properties/xml-property[@name='dependentOn']";
+                NodeList parentNodeList = (NodeList) xPath.compile(parentNodeExpression)
+                    .evaluate(xmlDocument, XPathConstants.NODESET);
+                String childNodeExpression = "/xml-bindings/java-types/java-type[" + "("
+                    + "count(xml-properties/xml-property[@name='dependentOn']) > 0" + ")]";
+                NodeList childNodeList = (NodeList) xPath.compile(childNodeExpression)
+                    .evaluate(xmlDocument, XPathConstants.NODESET);
 
                 for (int i = 0; i < parentNodeList.getLength(); i++) {
 
-                    // Obtain the xml-root-element field by tracing the childNodes from the java-type parent node
+                    // Obtain the xml-root-element field by tracing the childNodes from the
+                    // java-type parent node
                     for (int j = 0; j < childNodeList.item(i).getChildNodes().getLength(); j++) {
-                        if (childNodeList.item(i).getChildNodes().item(j).getNodeName().equals(XMLROOTELEMENT)) {
+                        if (childNodeList.item(i).getChildNodes().item(j).getNodeName()
+                            .equals(XMLROOTELEMENT)) {
 
                             // The parent node
-                            String dependentOn = parentNodeList.item(i).getAttributes().getNamedItem("value").getNodeValue();
+                            String dependentOn = parentNodeList.item(i).getAttributes()
+                                .getNamedItem("value").getNodeValue();
 
                             // The child node
-                            String xmlRootElement = childNodeList.item(i).getChildNodes().item(j).getAttributes().getNamedItem("name").getNodeValue();
+                            String xmlRootElement = childNodeList.item(i).getChildNodes().item(j)
+                                .getAttributes().getNamedItem("name").getNodeValue();
 
                             Set<String> childSet;
                             String[] parents = dependentOn.split(",");
@@ -572,7 +609,8 @@ public class ValidateOXMTest {
                 }
             }
 
-            // Compare the OXM file against the dbEdgeRules file. check what is missing in dbEdgeRules from the oxm files.
+            // Compare the OXM file against the dbEdgeRules file. check what is missing in
+            // dbEdgeRules from the oxm files.
             Set<String> oxmKeySet = oxmSchemaFile.keySet();
             for (String key : oxmKeySet) {
                 Set<String> oxmChildren = oxmSchemaFile.get(key);
@@ -581,7 +619,9 @@ public class ValidateOXMTest {
                 // Check if the parent vertex exists at all in the dbEdgeRules file
                 if (dbEdgeRulesChildren == null || dbEdgeRulesChildren.isEmpty()) {
                     for (String oxmChild : oxmChildren) {
-                        System.out.println("ERROR: dbEdgeRules under directory '" + subDir.toString() + "' does not contain parent '" + key + "' and child '" + oxmChild + "' relationship");
+                        System.out.println("ERROR: dbEdgeRules under directory '"
+                            + subDir.toString() + "' does not contain parent '" + key
+                            + "' and child '" + oxmChild + "' relationship");
                     }
                     success = false;
                     continue;
@@ -591,7 +631,9 @@ public class ValidateOXMTest {
                 if (!oxmChildren.equals(dbEdgeRulesChildren)) {
                     for (String oxmChild : oxmChildren) {
                         if (!dbEdgeRulesChildren.contains(oxmChild)) {
-                            System.out.println("ERROR: dbEdgeRules under directory '" + subDir.toString() + "' does not contain parent '" + key + "' and child '" + oxmChild + "' relationship");
+                            System.out.println("ERROR: dbEdgeRules under directory '"
+                                + subDir.toString() + "' does not contain parent '" + key
+                                + "' and child '" + oxmChild + "' relationship");
                             success = false;
                         }
                     }
@@ -607,7 +649,9 @@ public class ValidateOXMTest {
                 // Check if the parent vertex exists at all in the dbEdgeRules file
                 if (oxmChildren == null || oxmChildren.isEmpty()) {
                     for (String dbEdgeRuleChild : dbEdgeRulesChildren) {
-                        System.out.println("ERROR: oxms under directory '" + subDir.toString() + "' do not contain parent '" + key + "' and child '" + dbEdgeRuleChild + "' relationship");
+                        System.out.println("ERROR: oxms under directory '" + subDir.toString()
+                            + "' do not contain parent '" + key + "' and child '" + dbEdgeRuleChild
+                            + "' relationship");
                     }
                     success = false;
                     continue;
@@ -617,7 +661,9 @@ public class ValidateOXMTest {
                 if (!dbEdgeRulesChildren.equals(oxmChildren)) {
                     for (String dbEdgeRuleChild : dbEdgeRulesChildren) {
                         if (!oxmChildren.contains(dbEdgeRuleChild)) {
-                            System.out.println("ERROR: oxms under directory '" + subDir.toString() + "' do not contain parent '" + key + "' and child '" + dbEdgeRuleChild + "' relationship");
+                            System.out.println("ERROR: oxms under directory '" + subDir.toString()
+                                + "' do not contain parent '" + key + "' and child '"
+                                + dbEdgeRuleChild + "' relationship");
                             success = false;
                         }
                     }
@@ -632,27 +678,34 @@ public class ValidateOXMTest {
      *
      */
     @Test
-    public void testDataOwnerWithOwnerCheck() throws XPathExpressionException, IOException, SAXException, ParserConfigurationException, ParseException {
+    public void testDataOwnerWithOwnerCheck() throws XPathExpressionException, IOException,
+        SAXException, ParserConfigurationException, ParseException {
         List<File> fileList = getLatestFiles();
 
         for (File file : fileList) {
             Document xmlDocument = getDocument(file);
             XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "/xml-bindings/java-types/java-type/java-attributes/xml-element[@name='data-owner']";
-            NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+            String expression =
+                "/xml-bindings/java-types/java-type/java-attributes/xml-element[@name='data-owner']";
+            NodeList nodeList =
+                (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
             List<String> typeMissingOwnerCheck = new ArrayList<>();
 
             for (int i = 0; i < nodeList.getLength(); i++) {
-                String type = nodeList.item(i).getParentNode().getParentNode().getAttributes().getNamedItem("name").getNodeValue();
-                NodeList xmlPropertiesList = ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
+                String type = nodeList.item(i).getParentNode().getParentNode().getAttributes()
+                    .getNamedItem("name").getNodeValue();
+                NodeList xmlPropertiesList =
+                    ((Element) nodeList.item(i)).getElementsByTagName("xml-properties");
 
                 boolean missingOwnerCheck = true;
                 for (int j = 0; j < xmlPropertiesList.getLength(); j++) {
-                    NodeList xmlProperties = ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
+                    NodeList xmlProperties =
+                        ((Element) xmlPropertiesList.item(j)).getElementsByTagName("xml-property");
 
                     for (int k = 0; k < xmlProperties.getLength(); k++) {
-                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name").getNodeValue();
+                        String xmlProp = xmlProperties.item(k).getAttributes().getNamedItem("name")
+                            .getNodeValue();
 
                         if ("ownerCheck".equals(xmlProp)) {
                             missingOwnerCheck = false;
@@ -671,13 +724,15 @@ public class ValidateOXMTest {
             }
 
             if (!typeMissingOwnerCheck.isEmpty()) {
-                fail(file.getAbsolutePath().replaceAll(".*aai-schema", "") + ": " + String.join(", ", typeMissingOwnerCheck));
+                fail(file.getAbsolutePath().replaceAll(".*aai-schema", "") + ": "
+                    + String.join(", ", typeMissingOwnerCheck));
             }
         }
     }
 
     /**
      * Null check for strings
+     * 
      * @param s
      * @return
      */
@@ -687,13 +742,17 @@ public class ValidateOXMTest {
 
     /**
      * Creating a hashmap to map what child nodes are associated to which parent nodes
-     * according to the dbEdgeRules json files. A HashMap was chosen for the value of the map for O(1) lookup time.
+     * according to the dbEdgeRules json files. A HashMap was chosen for the value of the map for
+     * O(1) lookup time.
+     * 
      * @param from this variable will act as the key or value depending on the direction
      * @param to this variable will act as the key or value depending on the direction
      * @param direction dictates the direction of which vertex is dependent on which
-     * @return The map returned will act as a dictionary to keep track of the parent nodes. Value of the map is a hashmap to help handle collision of multiple children to one parent
+     * @return The map returned will act as a dictionary to keep track of the parent nodes. Value of
+     *         the map is a hashmap to help handle collision of multiple children to one parent
      */
-    private Map<String, Set<String>> dbEdgeRulesMapPut(Map<String, Set<String>> dbEdgeRules, String from, String to, String direction) {
+    private Map<String, Set<String>> dbEdgeRulesMapPut(Map<String, Set<String>> dbEdgeRules,
+        String from, String to, String direction) {
         if (isStringEmpty(from) || isStringEmpty(to) || isStringEmpty(direction))
             return dbEdgeRules;
 
@@ -722,12 +781,10 @@ public class ValidateOXMTest {
 
     private List<File> getFiles() {
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        return FileUtils.listFiles(
-            currentRelativePath.toFile(),
-            new RegexFileFilter(".*\\.xml"),
-            DirectoryFileFilter.DIRECTORY)
-            .stream()
-            .filter(file -> file.getAbsolutePath().contains("oxm"))
+        return FileUtils
+            .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
+                DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
             .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
             .collect(Collectors.toList());
     }
@@ -735,68 +792,64 @@ public class ValidateOXMTest {
     private List<File> getOxmSchemaFiles() {
 
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        return FileUtils.listFiles(
-                currentRelativePath.toFile(),
-                new RegexFileFilter(".*\\.xml"),
+        return FileUtils
+            .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
-                .stream()
-                .filter(file -> file.getAbsolutePath().contains("oxm"))
-                .filter(file -> file.getAbsolutePath().contains("aai_schema_oxm"))
-                .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
-                .collect(Collectors.toList());
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+            .filter(file -> file.getAbsolutePath().contains("aai_schema_oxm"))
+            .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
+            .collect(Collectors.toList());
 
     }
 
     private List<File> getOnapOxmSchemaFiles() {
 
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        return FileUtils.listFiles(
-                currentRelativePath.toFile(),
-                new RegexFileFilter(".*\\.xml"),
+        return FileUtils
+            .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
-                .stream()
-                .filter(file -> file.getAbsolutePath().contains("oxm"))
-                .filter(file -> file.getAbsolutePath().contains("aai_oxm"))
-                .collect(Collectors.toList());
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+            .filter(file -> file.getAbsolutePath().contains("aai_oxm"))
+            .collect(Collectors.toList());
 
     }
 
     private List<File> getAaiSchemaOxmFiles() {
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        return FileUtils.listFiles(
-            currentRelativePath.toFile(),
-            new RegexFileFilter(".*\\.xml"),
-            DirectoryFileFilter.DIRECTORY)
-            .stream()
-            .filter(file -> file.getAbsolutePath().contains("oxm"))
+        return FileUtils
+            .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
+                DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
             .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
             .collect(Collectors.toList());
     }
 
     private List<File> getDbEdgeRulesFiles() {
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        return FileUtils.listFiles(
-            currentRelativePath.toFile(),
-            new RegexFileFilter(".*\\.json"),
-            DirectoryFileFilter.DIRECTORY)
-            .stream()
-            .filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
+        return FileUtils
+            .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.json"),
+                DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
             .filter(file -> !file.getAbsolutePath().contains("onap")) // skips onap for checks
             .collect(Collectors.toList());
     }
 
     /**
      * Finds all of the oxm files for the latest version.
+     * 
      * @return list of the latest version of the oxm files.
      */
     private List<File> getLatestDbEdgeRulesFiles(String fileDirectory) {
         List<String> latest = new ArrayList<>();
-        String currentRelativePath = Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/dbedgerules").toAbsolutePath().toString();
+        String currentRelativePath =
+            Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/dbedgerules")
+                .toAbsolutePath().toString();
         File[] oxms = new File(currentRelativePath).listFiles(File::isDirectory);
         Arrays.stream(oxms).map(File::getAbsolutePath).max(new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return extractInt(o1) - extractInt(o2);
             }
+
             int extractInt(String s) {
                 String num = s.replaceAll("\\D", "");
                 return num.isEmpty() ? 0 : Integer.parseInt(num);
@@ -804,26 +857,24 @@ public class ValidateOXMTest {
         }).ifPresent(latest::add);
 
         List<File> latestFiles = new ArrayList<>();
-        latest.forEach(s ->
-            FileUtils.listFiles(
-                new File(s),
-                new RegexFileFilter(".*\\.json"),
-                DirectoryFileFilter.DIRECTORY)
-                .stream()
-                .filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
-                .forEach(latestFiles::add));
+        latest.forEach(s -> FileUtils
+            .listFiles(new File(s), new RegexFileFilter(".*\\.json"), DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("DbEdgeRules"))
+            .forEach(latestFiles::add));
 
         return latestFiles;
     }
 
     /**
      * Finds all of the oxm files for the latest version.
+     * 
      * @return list of the latest version of the oxm files.
      */
     private List<File> getLatestFiles() {
         List<String> latest = new ArrayList<>();
         Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
-        List<File> subDirs = Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
+        List<File> subDirs =
+            Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
         for (File subDir : subDirs) {
             String oxm = subDir.getAbsolutePath() + "/oxm";
             File[] oxms = new File(oxm).listFiles(File::isDirectory);
@@ -831,6 +882,7 @@ public class ValidateOXMTest {
                 public int compare(String o1, String o2) {
                     return extractInt(o1) - extractInt(o2);
                 }
+
                 int extractInt(String s) {
                     String num = s.replaceAll("\\D", "");
                     return num.isEmpty() ? 0 : Integer.parseInt(num);
@@ -839,30 +891,30 @@ public class ValidateOXMTest {
         }
 
         List<File> latestFiles = new ArrayList<>();
-        latest.forEach(s ->
-            FileUtils.listFiles(
-                new File(s),
-                new RegexFileFilter(".*\\.xml"),
-                DirectoryFileFilter.DIRECTORY)
-                .stream()
-                .filter(file -> file.getAbsolutePath().contains("oxm"))
-                .forEach(latestFiles::add));
+        latest.forEach(s -> FileUtils
+            .listFiles(new File(s), new RegexFileFilter(".*\\.xml"), DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+            .forEach(latestFiles::add));
 
         return latestFiles;
     }
 
     /**
      * Finds all of the oxm files for the latest version.
+     * 
      * @return list of the latest version of the oxm files.
      */
     private List<File> getLatestFiles(String fileDirectory) {
         List<String> latest = new ArrayList<>();
-        String currentRelativePath = Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/oxm").toAbsolutePath().toString();
+        String currentRelativePath =
+            Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/oxm").toAbsolutePath()
+                .toString();
         File[] oxms = new File(currentRelativePath).listFiles(File::isDirectory);
         Arrays.stream(oxms).map(File::getAbsolutePath).max(new Comparator<String>() {
             public int compare(String o1, String o2) {
                 return extractInt(o1) - extractInt(o2);
             }
+
             int extractInt(String s) {
                 String num = s.replaceAll("\\D", "");
                 return num.isEmpty() ? 0 : Integer.parseInt(num);
@@ -870,21 +922,15 @@ public class ValidateOXMTest {
         }).ifPresent(latest::add);
 
         List<File> latestFiles = new ArrayList<>();
-        latest.forEach(s ->
-            FileUtils.listFiles(
-                new File(s),
-                new RegexFileFilter(".*\\.xml"),
-                DirectoryFileFilter.DIRECTORY)
-                .stream()
-                .filter(file -> file.getAbsolutePath().contains("oxm"))
-                .forEach(latestFiles::add));
+        latest.forEach(s -> FileUtils
+            .listFiles(new File(s), new RegexFileFilter(".*\\.xml"), DirectoryFileFilter.DIRECTORY)
+            .stream().filter(file -> file.getAbsolutePath().contains("oxm"))
+            .forEach(latestFiles::add));
 
         return latestFiles;
     }
 
-    //TODO test that all oxm xml are valid xml
-
-
+    // TODO test that all oxm xml are valid xml
 
     public String printNodeList(NodeList nodeList, Document doc) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -900,7 +946,8 @@ public class ValidateOXMTest {
 
     }
 
-    private Document getDocument(File file) throws ParserConfigurationException, SAXException, IOException {
+    private Document getDocument(File file)
+        throws ParserConfigurationException, SAXException, IOException {
         InputStream fileIS = new FileInputStream(file);
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = builderFactory.newDocumentBuilder();
