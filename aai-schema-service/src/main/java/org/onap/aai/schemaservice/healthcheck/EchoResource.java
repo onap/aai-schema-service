@@ -48,6 +48,7 @@ public class EchoResource extends RESTAPI {
      *
      * @param headers the headers
      * @param req the req
+     * @param uriInfo uri information
      * @return the response
      */
     @GET

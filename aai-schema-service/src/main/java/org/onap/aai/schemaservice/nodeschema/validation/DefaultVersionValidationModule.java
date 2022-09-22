@@ -29,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * By default, A&AI must have schema files for all current
+ * By default, A&amp;AI must have schema files for all current
  * supported Versions in the Version enum
  *
  */

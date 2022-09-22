@@ -21,7 +21,7 @@
 package org.onap.aai.schemaservice.nodeschema.validation;
 
 /**
- * Indicates that a fatal error in the A&AI schema has been found.
+ * Indicates that a fatal error in the A&amp;AI schema has been found.
  */
 public class AAISchemaValidationException extends IllegalStateException {
     public AAISchemaValidationException(String msg) {

@@ -27,7 +27,7 @@ public interface SchemaErrorStrategy {
     /**
      * Gives if it is OK to proceed with whatever process
      * invoked the validation (probably the installation of
-     * the A&AI instance).
+     * the A&amp;AI instance).
      *
      * @return boolean
      */

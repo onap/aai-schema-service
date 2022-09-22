@@ -99,9 +99,9 @@ public class GremlinServerSingleton {
 
     /**
      * Gets the query using CustomQueryConfig
-     * 
-     * @param key
-     * @return
+     *
+     * @param key the config key
+     * @return the stored query
      */
     public String getStoredQueryFromConfig(String key) {
         CustomQueryConfig customQueryConfig = queryConfig.getStoredQuery(key);

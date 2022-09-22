@@ -40,7 +40,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Default duplicate rules for A&AI -
+ * Default duplicate rules for A&amp;AI -
  * node types may never have a duplicate definition
  * within the same Version's file set.
  *

@@ -39,6 +39,7 @@ public interface DuplicateNodeDefinitionValidationModule {
      * Finds any duplicates according to the defined rules
      *
      * @param files - the OXM files to use with full directory
+     * @param v - the schema version
      * @return empty String if none found, else a String
      *         with appropriate information about what node types
      *         were found
