@@ -20,7 +20,11 @@
 
 package org.onap.aai.queries;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -38,16 +42,12 @@ public class GetCustomQueryConfig {
     private final static String STORED_QUERIES_CONFIG = "stored-queries";
     private final static String STORED_QUERY_CONFIG = "stored-query";
 
-    // public static final String AAI_HOME_ETC_QUERY_JSON = AAIConstants.AAI_HOME_ETC + "query" +
-    // AAIConstants.AAI_FILESEP + "stored-queries.json";
-
     public GetCustomQueryConfig(String customQueryJson) {
         init(customQueryJson);
     }
 
     private void init(String customQueryJson) {
-        JsonParser parser = new JsonParser();
-        JsonObject queriesObject = parser.parse(customQueryJson).getAsJsonObject();
+        JsonObject queriesObject = JsonParser.parseString(customQueryJson).getAsJsonObject();
         if (queriesObject.has(STORED_QUERIES_CONFIG)) {
 
             storedQueries = queriesObject.getAsJsonArray(STORED_QUERIES_CONFIG);

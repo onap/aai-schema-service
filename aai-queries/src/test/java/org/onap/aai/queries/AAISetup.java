@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -108,7 +109,7 @@ public abstract class AAISetup {
         String message = String.format("Unable to find the %s in src/test/resources", filename);
         assertNotNull(message, inputStream);
 
-        String resource = IOUtils.toString(inputStream);
+        String resource = IOUtils.toString(inputStream, Charset.defaultCharset());
         return resource;
     }
 }

@@ -20,7 +20,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import com.google.common.base.CharMatcher;
 import com.google.common.collect.Multimap;
 
 import java.io.BufferedWriter;
@@ -153,7 +152,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
         StringBuilder definitionsSb = new StringBuilder();
         Element elem;
         String javaTypeName;
-        combinedJavaTypes = new HashMap();
+        combinedJavaTypes = new HashMap<>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             elem = (Element) javaTypeNodes.item(i);
             javaTypeName = elem.getAttribute("name");

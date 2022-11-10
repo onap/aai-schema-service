@@ -25,12 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Priority;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;

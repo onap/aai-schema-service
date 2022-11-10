@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,7 +71,7 @@ public abstract class OxmFileProcessor {
     protected Document doc = null;
     protected String apiVersion = null;
     protected SchemaVersions schemaVersions;
-    protected Map combinedJavaTypes;
+    protected Map<String, Integer> combinedJavaTypes;
     protected String apiVersionFmt = null;
     protected List<String> topLevelPaths = new ArrayList<String>();
     protected HashMap<String, String> generatedJavaType = new HashMap<String, String>();
@@ -299,11 +298,11 @@ public abstract class OxmFileProcessor {
         return null;
     }
 
-    public Map getCombinedJavaTypes() {
+    public Map<String, Integer> getCombinedJavaTypes() {
         return combinedJavaTypes;
     }
 
-    public void setCombinedJavaTypes(Map combinedJavaTypes) {
+    public void setCombinedJavaTypes(Map<String, Integer> combinedJavaTypes) {
         this.combinedJavaTypes = combinedJavaTypes;
     }
 
@@ -479,7 +478,7 @@ public abstract class OxmFileProcessor {
 
         int useElement = -1;
         if (combinedJavaTypes.containsKey(javaTypeName)) {
-            return combineElementList.get((int) combinedJavaTypes.get(javaTypeName));
+            return combineElementList.get(combinedJavaTypes.get(javaTypeName));
         }
         for (int i = 0; i < combineElementList.size(); ++i) {
             javaTypeElement = combineElementList.get(i);

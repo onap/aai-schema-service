@@ -28,7 +28,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
@@ -37,12 +41,13 @@ import org.onap.aai.setup.SchemaVersion;
 import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.w3c.dom.NodeList;
 
 public class GenerateXsd {
 
-    private static final Logger logger = LoggerFactory.getLogger("GenerateXsd.class");
+    private static final Logger logger = LoggerFactory.getLogger(GenerateXsd.class);
     protected static String apiVersion = null;
     public static AnnotationConfigApplicationContext ctx = null;
     static String apiVersionFmt = null;
@@ -149,170 +154,174 @@ public class GenerateXsd {
             fileTypeToGen = fileTypeToGen.toLowerCase();
         }
 
-        AnnotationConfigApplicationContext ctx =
-            new AnnotationConfigApplicationContext("org.onap.aai.setup", "org.onap.aai.schemagen");
+        try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
+            "org.onap.aai.setup", "org.onap.aai.schemagen")) {
+            SchemaVersions schemaVersions = ctx.getBean(SchemaVersions.class);
 
-        SchemaVersions schemaVersions = ctx.getBean(SchemaVersions.class);
-
-        if (!fileTypeToGen.equals(GENERATE_TYPE_XSD) && !fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
-            System.err.println("Invalid gen_type passed. " + fileTypeToGen);
-            System.exit(1);
-        }
-
-        String responsesLabel = System.getProperty("yamlresponses_url");
-        responsesUrl = responsesLabel;
-
-        List<SchemaVersion> versionsToGen = new ArrayList<>();
-        if (!"ALL".equalsIgnoreCase(versionToGen) && !versionToGen.matches("v\\d+")
-            && !validVersion(versionToGen)) {
-            System.err.println("Invalid version passed. " + versionToGen);
-            System.exit(1);
-        } else if ("ALL".equalsIgnoreCase(versionToGen)) {
-            versionsToGen = schemaVersions.getVersions();
-            Collections.sort(versionsToGen);
-            Collections.reverse(versionsToGen);
-        } else {
-            versionsToGen.add(new SchemaVersion(versionToGen));
-        }
-
-        // process file type System property
-        if (fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
-            if (responsesUrl == null || responsesUrl.length() < 1 || responsesLabel == null
-                || responsesLabel.length() < 1) {
-                System.err.println(
-                    "generating swagger yaml file requires yamlresponses_url and yamlresponses_label properties");
+            if (!fileTypeToGen.equals(GENERATE_TYPE_XSD)
+                && !fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
+                System.err.println("Invalid gen_type passed. " + fileTypeToGen);
                 System.exit(1);
-            } else {
-                responsesUrl = "description: " + "Response codes found in [response codes]("
-                    + responsesLabel + ").\n";
             }
-        }
-        /*
-         * TODO: Oxm Path is config driveb
-         */
-        String oxmPath;
-        if (System.getProperty("user.dir") != null
-            && !System.getProperty("user.dir").contains(NORMAL_START_DIR)) {
-            oxmPath = BASE_AUTO_GEN_ROOT + NODE_DIR;
-        } else {
-            oxmPath = BASE_ROOT + NODE_DIR;
-        }
 
-        String outfileName = null;
-        File outfile;
-        String nodesfileName = null;
-        File nodesfile;
-        String fileContent = null;
-        String nodesContent = null;
+            String responsesLabel = System.getProperty("yamlresponses_url");
+            responsesUrl = responsesLabel;
 
-        for (SchemaVersion v : versionsToGen) {
-            apiVersion = v.toString();
-            logger.debug("YAMLdir = " + YAML_DIR);
-            logger.debug("Generating " + apiVersion + " " + fileTypeToGen);
-            apiVersionFmt = "." + apiVersion + ".";
-            generatedJavaType = new HashMap<String, String>();
-            appliedPaths = new HashMap<String, String>();
-            File edgeRuleFile = null;
-            String fileName = EDGE_DIR + "DbEdgeRules_" + apiVersion + ".json";
-            logger.debug("user.dir = " + System.getProperty("user.dir"));
+            List<SchemaVersion> versionsToGen = new ArrayList<>();
+            if (!"ALL".equalsIgnoreCase(versionToGen) && versionToGen != null
+                && !versionToGen.matches("v\\d+") && !validVersion(versionToGen)) {
+                System.err.println("Invalid version passed. " + versionToGen);
+                System.exit(1);
+            } else if ("ALL".equalsIgnoreCase(versionToGen)) {
+                versionsToGen = schemaVersions.getVersions();
+                Collections.sort(versionsToGen);
+                Collections.reverse(versionsToGen);
+            } else {
+                versionsToGen.add(new SchemaVersion(versionToGen));
+            }
+
+            // process file type System property
+            if (fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
+                if (responsesUrl == null || responsesUrl.length() < 1 || responsesLabel == null
+                    || responsesLabel.length() < 1) {
+                    System.err.println(
+                        "generating swagger yaml file requires yamlresponses_url and yamlresponses_label properties");
+                    System.exit(1);
+                } else {
+                    responsesUrl = "description: " + "Response codes found in [response codes]("
+                        + responsesLabel + ").\n";
+                }
+            }
+            /*
+             * TODO: Oxm Path is config driven
+             */
+            String oxmPath;
             if (System.getProperty("user.dir") != null
                 && !System.getProperty("user.dir").contains(NORMAL_START_DIR)) {
-                fileName = BASE_AUTO_GEN_ROOT + fileName;
-
+                oxmPath = BASE_AUTO_GEN_ROOT + NODE_DIR;
             } else {
-                fileName = BASE_ROOT + fileName;
-
+                oxmPath = BASE_ROOT + NODE_DIR;
             }
-            edgeRuleFile = new File(fileName);
-            // Document doc = ni.getSchema(translateVersion(v));
 
-            if (fileTypeToGen.equals(GENERATE_TYPE_XSD)) {
-                outfileName = XSD_DIR + "/aai_schema_" + apiVersion + "." + GENERATE_TYPE_XSD;
-                try {
-                    HTMLfromOXM swagger = ctx.getBean(HTMLfromOXM.class);
-                    swagger.setVersion(v);
-                    fileContent = swagger.process();
-                    if (fileContent.startsWith("Schema format issue")) {
-                        throw new Exception(fileContent);
+            String outfileName = null;
+            File outfile;
+            String nodesfileName = null;
+            File nodesfile;
+            String fileContent = null;
+            String nodesContent = null;
+
+            for (SchemaVersion v : versionsToGen) {
+                apiVersion = v.toString();
+                logger.debug("YAMLdir = " + YAML_DIR);
+                logger.debug("Generating " + apiVersion + " " + fileTypeToGen);
+                apiVersionFmt = "." + apiVersion + ".";
+                generatedJavaType = new HashMap<String, String>();
+                appliedPaths = new HashMap<String, String>();
+                File edgeRuleFile = null;
+                String fileName = EDGE_DIR + "DbEdgeRules_" + apiVersion + ".json";
+                logger.debug("user.dir = " + System.getProperty("user.dir"));
+                if (System.getProperty("user.dir") != null
+                    && !System.getProperty("user.dir").contains(NORMAL_START_DIR)) {
+                    fileName = BASE_AUTO_GEN_ROOT + fileName;
+
+                } else {
+                    fileName = BASE_ROOT + fileName;
+
+                }
+                edgeRuleFile = new File(fileName);
+                // Document doc = ni.getSchema(translateVersion(v));
+
+                if (fileTypeToGen.equals(GENERATE_TYPE_XSD)) {
+                    outfileName = XSD_DIR + "/aai_schema_" + apiVersion + "." + GENERATE_TYPE_XSD;
+                    try {
+                        HTMLfromOXM swagger = ctx.getBean(HTMLfromOXM.class);
+                        swagger.setVersion(v);
+                        fileContent = swagger.process();
+                        if (fileContent.startsWith("Schema format issue")) {
+                            throw new Exception(fileContent);
+                        }
+                    } catch (Exception e) {
+                        logger.error("Exception creating output file " + outfileName);
+                        logger.error(e.getMessage());
+                        System.exit(-1);
                     }
-                } catch (Exception e) {
-                    logger.error("Exception creating output file " + outfileName);
-                    logger.error(e.getMessage());
-                    System.exit(-1);
+                } else if (versionSupportsSwagger(apiVersion)) {
+                    outfileName =
+                        YAML_DIR + "/aai_swagger_" + apiVersion + "." + GENERATE_TYPE_YAML;
+                    nodesfileName = YAML_DIR + "/aai_swagger_" + apiVersion + "." + "nodes" + "."
+                        + GENERATE_TYPE_YAML;
+                    try {
+                        YAMLfromOXM swagger = (YAMLfromOXM) ctx.getBean(YAMLfromOXM.class);
+                        swagger.setVersion(v);
+                        fileContent = swagger.process();
+                        Map<String, Integer> combinedJavaTypes = swagger.getCombinedJavaTypes();
+                        NodesYAMLfromOXM nodesSwagger = ctx.getBean(NodesYAMLfromOXM.class);
+                        nodesSwagger.setVersion(v);
+                        nodesSwagger.setCombinedJavaTypes(combinedJavaTypes);
+                        nodesContent = nodesSwagger.process();
+                    } catch (Exception e) {
+                        logger.error("Exception creating output file " + outfileName, e);
+                    }
+                } else {
+                    continue;
                 }
-            } else if (versionSupportsSwagger(apiVersion)) {
-                outfileName = YAML_DIR + "/aai_swagger_" + apiVersion + "." + GENERATE_TYPE_YAML;
-                nodesfileName = YAML_DIR + "/aai_swagger_" + apiVersion + "." + "nodes" + "."
-                    + GENERATE_TYPE_YAML;
-                try {
-                    YAMLfromOXM swagger = (YAMLfromOXM) ctx.getBean(YAMLfromOXM.class);
-                    swagger.setVersion(v);
-                    fileContent = swagger.process();
-                    Map combinedJavaTypes = swagger.getCombinedJavaTypes();
-                    NodesYAMLfromOXM nodesSwagger = ctx.getBean(NodesYAMLfromOXM.class);
-                    nodesSwagger.setVersion(v);
-                    nodesSwagger.setCombinedJavaTypes(combinedJavaTypes);
-                    nodesContent = nodesSwagger.process();
-                } catch (Exception e) {
-                    logger.error("Exception creating output file " + outfileName, e);
-                }
-            } else {
-                continue;
-            }
-            outfile = new File(outfileName);
-            File parentDir = outfile.getParentFile();
-            if (!parentDir.exists()) {
-                parentDir.mkdirs();
-            }
-            if (nodesfileName != null) {
-                BufferedWriter nodesBW = null;
-                nodesfile = new File(nodesfileName);
-                parentDir = nodesfile.getParentFile();
+                outfile = new File(outfileName);
+                File parentDir = outfile.getParentFile();
                 if (!parentDir.exists()) {
                     parentDir.mkdirs();
                 }
+                if (nodesfileName != null) {
+                    BufferedWriter nodesBW = null;
+                    nodesfile = new File(nodesfileName);
+                    parentDir = nodesfile.getParentFile();
+                    if (!parentDir.exists()) {
+                        parentDir.mkdirs();
+                    }
+                    try {
+                        if (!nodesfile.createNewFile()) {
+                            logger.error("File {} already exist", nodesfileName);
+                        }
+                    } catch (IOException e) {
+                        logger.error("Exception creating output file " + nodesfileName, e);
+                    }
+                    try {
+                        Charset charset = StandardCharsets.UTF_8;
+                        Path path = Paths.get(nodesfileName);
+                        nodesBW = Files.newBufferedWriter(path, charset);
+                        nodesBW.write(nodesContent);
+                    } catch (IOException e) {
+                        logger.error("Exception writing output file " + outfileName, e);
+                    } finally {
+                        if (nodesBW != null) {
+                            nodesBW.close();
+                        }
+                    }
+                }
+
                 try {
-                    if (!nodesfile.createNewFile()) {
-                        logger.error("File {} already exist", nodesfileName);
+                    if (!outfile.createNewFile()) {
+                        logger.error("File {} already exist", outfileName);
                     }
                 } catch (IOException e) {
-                    logger.error("Exception creating output file " + nodesfileName, e);
+                    logger.error("Exception creating output file " + outfileName, e);
                 }
+                BufferedWriter bw = null;
                 try {
                     Charset charset = StandardCharsets.UTF_8;
-                    Path path = Paths.get(nodesfileName);
-                    nodesBW = Files.newBufferedWriter(path, charset);
-                    nodesBW.write(nodesContent);
+                    Path path = Paths.get(outfileName);
+                    bw = Files.newBufferedWriter(path, charset);
+                    bw.write(fileContent);
                 } catch (IOException e) {
                     logger.error("Exception writing output file " + outfileName, e);
                 } finally {
-                    if (nodesBW != null) {
-                        nodesBW.close();
+                    if (bw != null) {
+                        bw.close();
                     }
                 }
+                logger.debug("GeneratedXSD successful, saved in " + outfileName);
             }
-
-            try {
-                if (!outfile.createNewFile()) {
-                    logger.error("File {} already exist", outfileName);
-                }
-            } catch (IOException e) {
-                logger.error("Exception creating output file " + outfileName, e);
-            }
-            BufferedWriter bw = null;
-            try {
-                Charset charset = StandardCharsets.UTF_8;
-                Path path = Paths.get(outfileName);
-                bw = Files.newBufferedWriter(path, charset);
-                bw.write(fileContent);
-            } catch (IOException e) {
-                logger.error("Exception writing output file " + outfileName, e);
-            } finally {
-                if (bw != null) {
-                    bw.close();
-                }
-            }
-            logger.debug("GeneratedXSD successful, saved in " + outfileName);
+        } catch (BeansException e) {
+            logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
         }
 
     }

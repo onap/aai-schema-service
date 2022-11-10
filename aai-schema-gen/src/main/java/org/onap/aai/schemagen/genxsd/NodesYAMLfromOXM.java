@@ -461,7 +461,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             }
             pathParams.append(sbParameters);
         }
-        if (indexedProps.isEmpty() && containerProps.isEmpty()) {
+        if (indexedProps != null && indexedProps.isEmpty() && containerProps.isEmpty()) {
             NodeGetOperation get =
                 new NodeGetOperation(useOpId, xmlRootElementName, tag, path, null);
             String operation = get.toString();

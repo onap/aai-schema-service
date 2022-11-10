@@ -77,7 +77,7 @@ public class JerseyConfiguration extends ResourceConfig {
 
         // Check to ensure that each of the filter has the @Priority annotation and if not throw
         // exception
-        for (Class filterClass : filters) {
+        for (Class<?> filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
                 throw new RuntimeException("Container filter " + filterClass.getName()
                     + " does not have @Priority annotation");

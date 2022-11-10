@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -61,7 +62,7 @@ public class PropertyPasswordConfiguration
             try (InputStream passwordStream = new FileInputStream(passwordFile)) {
                 String keystorePassword = null;
 
-                keystorePassword = IOUtils.toString(passwordStream);
+                keystorePassword = IOUtils.toString(passwordStream, Charset.defaultCharset());
                 if (keystorePassword != null) {
                     keystorePassword = keystorePassword.trim();
                     sslProps.put("server.ssl.key-store-password", keystorePassword);

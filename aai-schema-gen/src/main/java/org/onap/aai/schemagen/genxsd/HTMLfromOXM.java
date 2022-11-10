@@ -106,7 +106,7 @@ public class HTMLfromOXM extends OxmFileProcessor {
         StringBuilder sbInventory = new StringBuilder();
         Element elem;
         String javaTypeName;
-        combinedJavaTypes = new HashMap();
+        combinedJavaTypes = new HashMap<>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             elem = (Element) javaTypeNodes.item(i);
             javaTypeName = elem.getAttribute("name");

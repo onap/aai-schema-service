@@ -38,7 +38,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -56,7 +60,7 @@ public class SchemaServiceTest {
 
     private HttpHeaders headers;
 
-    private HttpEntity httpEntity;
+    private HttpEntity<String> httpEntity;
 
     private String baseUrl;
 
@@ -89,7 +93,7 @@ public class SchemaServiceTest {
         headers.add("X-FromAppId", "JUNIT");
         headers.add("X-TransactionId", "JUNIT");
         headers.add("Authorization", "Basic " + authorization);
-        httpEntity = new HttpEntity(headers);
+        httpEntity = new HttpEntity<String>(headers);
         baseUrl = "http://localhost:" + randomPort;
     }
 
@@ -103,9 +107,9 @@ public class SchemaServiceTest {
         headers.add("X-FromAppId", "JUNIT");
         headers.add("X-TransactionId", "JUNIT");
         headers.add("Authorization", "Basic " + authorization);
-        httpEntity = new HttpEntity(headers);
+        httpEntity = new HttpEntity<String>(headers);
 
-        ResponseEntity responseEntity;
+        ResponseEntity<String> responseEntity;
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=v20",
             HttpMethod.GET, httpEntity, String.class);
@@ -113,7 +117,7 @@ public class SchemaServiceTest {
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        httpEntity = new HttpEntity(headers);
+        httpEntity = new HttpEntity<String>(headers);
 
         responseEntity =
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=v20",
@@ -132,9 +136,9 @@ public class SchemaServiceTest {
         headers.add("X-FromAppId", "JUNIT");
         headers.add("X-TransactionId", "JUNIT");
         headers.add("Authorization", "Basic " + authorization);
-        httpEntity = new HttpEntity(headers);
+        httpEntity = new HttpEntity<String>(headers);
 
-        ResponseEntity responseEntity;
+        ResponseEntity<String> responseEntity;
 
         responseEntity =
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=blah",
@@ -144,7 +148,7 @@ public class SchemaServiceTest {
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        httpEntity = new HttpEntity(headers);
+        httpEntity = new HttpEntity<String>(headers);
 
         responseEntity =
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=blah",
@@ -156,7 +160,7 @@ public class SchemaServiceTest {
     @Test
     public void testVersions() {
 
-        ResponseEntity responseEntity;
+        ResponseEntity<String> responseEntity;
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/versions",
             HttpMethod.GET, httpEntity, String.class);
@@ -167,7 +171,7 @@ public class SchemaServiceTest {
     @Test
     public void testGetStoredQueriesSuccess() {
 
-        ResponseEntity responseEntity;
+        ResponseEntity<String> responseEntity;
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/stored-queries",
             HttpMethod.GET, httpEntity, String.class);

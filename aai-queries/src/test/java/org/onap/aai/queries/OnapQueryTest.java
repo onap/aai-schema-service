@@ -24,16 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.jayway.jsonpath.JsonPath;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,7 +33,6 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSo
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -61,7 +51,6 @@ import org.onap.aai.introspection.Loader;
 import org.onap.aai.introspection.LoaderFactory;
 import org.onap.aai.introspection.ModelType;
 import org.onap.aai.nodes.NodeIngestor;
-import org.onap.aai.queries.GremlinServerSingleton;
 import org.onap.aai.query.builder.GremlinTraversal;
 import org.onap.aai.restcore.search.GremlinGroovyShell;
 import org.onap.aai.restcore.search.GroovyQueryBuilder;
