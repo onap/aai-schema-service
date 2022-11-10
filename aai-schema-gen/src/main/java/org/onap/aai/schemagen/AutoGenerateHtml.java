@@ -22,8 +22,6 @@
 
 package org.onap.aai.schemagen;
 
-import freemarker.template.TemplateException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -31,12 +29,14 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.onap.aai.schemagen.swagger.GenerateSwagger;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import freemarker.template.TemplateException;
 
 public class AutoGenerateHtml {
 
@@ -53,31 +53,32 @@ public class AutoGenerateHtml {
 
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
             "org.onap.aai.setup", "org.onap.aai.schemagen")) {
-            SchemaVersions schemaVersions = ctx.getBean(SchemaVersions.class);
 
-            List<SchemaVersion> versionsToGen = schemaVersions.getVersions();
-            Collections.sort(versionsToGen);
-            Collections.reverse(versionsToGen);
-            ListIterator<SchemaVersion> versionIterator = versionsToGen.listIterator();
-            String schemaDir;
-            if (System.getProperty("user.dir") != null
-                && !System.getProperty("user.dir").contains(DEFAULT_RUN_DIR)) {
-                schemaDir = ALT_SCHEMA_DIR;
-            } else {
-                schemaDir = DEFAULT_SCHEMA_DIR;
+        SchemaConfigVersions schemaConfigVersions = ctx.getBean(SchemaConfigVersions.class);
+
+        List<SchemaVersion> versionsToGen = schemaConfigVersions.getVersions();
+        Collections.sort(versionsToGen);
+        Collections.reverse(versionsToGen);
+        ListIterator<SchemaVersion> versionIterator = versionsToGen.listIterator();
+        String schemaDir;
+        if (System.getProperty("user.dir") != null
+            && !System.getProperty("user.dir").contains(DEFAULT_RUN_DIR)) {
+            schemaDir = ALT_SCHEMA_DIR;
+        } else {
+            schemaDir = DEFAULT_SCHEMA_DIR;
+        }
+        String release = System.getProperty("aai.release", "onap");
+        while (versionIterator.hasNext()) {
+            System.setProperty(AAI_GENERATE_VERSION, versionIterator.next().toString());
+            String yamlFile =
+                schemaDir + "/src/main/resources/" + release + "/aai_swagger_yaml/aai_swagger_"
+                    + System.getProperty(AAI_GENERATE_VERSION) + ".yaml";
+            File swaggerYamlFile = new File(yamlFile);
+            if (swaggerYamlFile.exists()) {
+                GenerateSwagger.schemaConfigVersions = schemaConfigVersions;
+                GenerateSwagger.main(args);
             }
-            String release = System.getProperty("aai.release", "onap");
-            while (versionIterator.hasNext()) {
-                System.setProperty(AAI_GENERATE_VERSION, versionIterator.next().toString());
-                String yamlFile =
-                    schemaDir + "/src/main/resources/" + release + "/aai_swagger_yaml/aai_swagger_"
-                        + System.getProperty(AAI_GENERATE_VERSION) + ".yaml";
-                File swaggerYamlFile = new File(yamlFile);
-                if (swaggerYamlFile.exists()) {
-                    GenerateSwagger.schemaVersions = schemaVersions;
-                    GenerateSwagger.main(args);
-                }
-            }
+        }
         } catch (BeansException e) {
             logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
         }

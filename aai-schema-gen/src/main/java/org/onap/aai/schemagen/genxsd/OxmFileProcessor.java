@@ -40,8 +40,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,7 +70,7 @@ public abstract class OxmFileProcessor {
     protected SchemaVersion v;
     protected Document doc = null;
     protected String apiVersion = null;
-    protected SchemaVersions schemaVersions;
+    protected SchemaConfigVersions schemaConfigVersions;
     protected Map<String, Integer> combinedJavaTypes;
     protected String apiVersionFmt = null;
     protected List<String> topLevelPaths = new ArrayList<String>();
@@ -81,8 +81,9 @@ public abstract class OxmFileProcessor {
     EdgeIngestor ei;
     NodeIngestor ni;
 
-    public OxmFileProcessor(SchemaVersions schemaVersions, NodeIngestor ni, EdgeIngestor ei) {
-        this.schemaVersions = schemaVersions;
+    public OxmFileProcessor(SchemaConfigVersions schemaConfigVersions, NodeIngestor ni,
+        EdgeIngestor ei) {
+        this.schemaConfigVersions = schemaConfigVersions;
         this.ni = ni;
         this.ei = ei;
     }
@@ -137,12 +138,12 @@ public abstract class OxmFileProcessor {
         this.ei = ei;
     }
 
-    public SchemaVersions getSchemaVersions() {
-        return schemaVersions;
+    public SchemaConfigVersions getSchemaConfigVersions() {
+        return schemaConfigVersions;
     }
 
-    public void setSchemaVersions(SchemaVersions schemaVersions) {
-        this.schemaVersions = schemaVersions;
+    public void setSchemaConfigVersions(SchemaConfigVersions schemaConfigVersions) {
+        this.schemaConfigVersions = schemaConfigVersions;
     }
 
     protected void getTopLevelPaths(XSDElement elem) {

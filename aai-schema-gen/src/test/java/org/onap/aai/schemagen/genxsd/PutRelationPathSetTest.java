@@ -35,15 +35,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.schemagen.GenerateXsd;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SchemaVersions.class, EdgeIngestor.class})
+@ContextConfiguration(classes = {SchemaConfigVersions.class, EdgeIngestor.class})
 @TestPropertySource(properties = {"schema.uri.base.path = /aai"})
 @Ignore("This test needs to get major rework done as it is written very poorly")
 public class PutRelationPathSetTest {
@@ -61,14 +61,14 @@ public class PutRelationPathSetTest {
         "/cloud-infrastructure/cloud-regions/cloud-region/{cloud-owner}/{cloud-region-id}/availability-zones/availability-zone/{availability-zone-name}/relationship-list/relationship";
     PutRelationPathSet prp = null;
     @Autowired
-    SchemaVersions schemaVersions;
+    SchemaConfigVersions schemaConfigVersions;
 
     @Autowired
     EdgeIngestor edgeIngestor;
 
     @Before
     public void setUpBeforeClass() throws Exception {
-        v = schemaVersions.getDefaultVersion();
+        v = schemaConfigVersions.getDefaultVersion();
 
         relationsFile = new File(GenerateXsd.getYamlDir() + "/relations/" + v.toString()
             + "/createOrUpdateCloudInfrastructureCloudRegionsCloudRegionAvailabilityZonesAvailabilityZone.json");
