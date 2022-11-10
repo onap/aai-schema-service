@@ -32,8 +32,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -48,9 +48,9 @@ public class HTMLfromOXM extends OxmFileProcessor {
 
     private String maxOccurs;
 
-    public HTMLfromOXM(String maxOccurs, SchemaVersions schemaVersions, NodeIngestor ni,
+    public HTMLfromOXM(String maxOccurs, SchemaConfigVersions schemaConfigVersions, NodeIngestor ni,
         EdgeIngestor ei) {
-        super(schemaVersions, ni, ei);
+        super(schemaConfigVersions, ni, ei);
         this.maxOccurs = maxOccurs;
     }
 
@@ -76,7 +76,7 @@ public class HTMLfromOXM extends OxmFileProcessor {
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
             .append(LINE_SEPARATOR);
         String namespace = "org.onap";
-        if (v.compareTo(getSchemaVersions().getNamespaceChangeVersion()) < 0) {
+        if (v.compareTo(getSchemaConfigVersions().getNamespaceChangeVersion()) < 0) {
             namespace = "org.openecomp";
         }
         sb.append(

@@ -33,11 +33,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
-import org.onap.aai.schemagen.genxsd.*;
+import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
+import org.onap.aai.schemagen.genxsd.HTMLfromOXMTest;
+import org.onap.aai.schemagen.genxsd.XSDElementTest;
+import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
+import org.onap.aai.schemagen.genxsd.YAMLfromOXMTest;
 import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforBusiness;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +54,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(
     classes = {SchemaLocationsBean.class, TestUtilConfigTranslatorforBusiness.class,
         EdgeIngestor.class, NodeIngestor.class, SwaggerGenerationConfiguration.class,
-        SchemaVersions.class})
+        SchemaConfigVersions.class})
 @TestPropertySource(properties = {"schema.uri.base.path = /aai", "schema.xsd.maxoccurs = 5000"})
 public class GenerateXsdTest {
     private static final Logger logger = LoggerFactory.getLogger("GenerateXsd.class");
@@ -67,7 +71,7 @@ public class GenerateXsdTest {
     HTMLfromOXM htmlFromOxm;
 
     @Autowired
-    SchemaVersions schemaVersions;
+    SchemaConfigVersions schemaConfigVersions;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -96,7 +100,7 @@ public class GenerateXsdTest {
     @Test
     public void test_generateSwaggerFromOxmFile() {
 
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String fileContent = null;
         try {
@@ -112,7 +116,7 @@ public class GenerateXsdTest {
     @Test
     public void test_generateXSDFromOxmFile() {
 
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String fileContent = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);
@@ -126,7 +130,7 @@ public class GenerateXsdTest {
 
     @Test
     public void testGetAPIVersion() {
-        GenerateXsd.apiVersion = schemaVersions.getAppRootVersion().toString();
+        GenerateXsd.apiVersion = schemaConfigVersions.getAppRootVersion().toString();
         assertThat(GenerateXsd.getAPIVersion(), is("v11"));
     }
 

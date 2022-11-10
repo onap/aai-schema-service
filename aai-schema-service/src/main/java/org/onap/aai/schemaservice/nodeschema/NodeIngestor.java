@@ -20,6 +20,12 @@
 
 package org.onap.aai.schemaservice.nodeschema;
 
+import com.google.common.base.CaseFormat;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
+import jakarta.xml.bind.JAXBException;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,12 +63,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import com.google.common.base.CaseFormat;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-
-import jakarta.xml.bind.JAXBException;
 
 /**
  * NodeIngestor - ingests A&amp;AI OXM files per given config, serves DynamicJAXBContext per version

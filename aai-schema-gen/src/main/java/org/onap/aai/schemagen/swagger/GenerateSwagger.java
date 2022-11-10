@@ -27,11 +27,25 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import org.onap.aai.setup.SchemaVersions;
+import org.onap.aai.setup.SchemaConfigVersions;
 
 public class GenerateSwagger {
 
@@ -44,16 +58,16 @@ public class GenerateSwagger {
     // used to check to see if program is run from aai-schema-gen
     public static final String DEFAULT_RUN_DIR = "aai-schema-gen";
 
-    public static SchemaVersions schemaVersions;
+    public static SchemaConfigVersions schemaConfigVersions;
 
-    public SchemaVersions getSchemaVersions() {
-        return schemaVersions;
+    public SchemaConfigVersions getSchemaConfigVersions() {
+        return schemaConfigVersions;
     }
 
     public static void main(String[] args) throws IOException, TemplateException {
 
         // SchemaVersions schemaVersions = SpringContextAware.getBean(SchemaVersions.class);
-        String CURRENT_VERSION = schemaVersions.getDefaultVersion().toString();
+        String CURRENT_VERSION = schemaConfigVersions.getDefaultVersion().toString();
         String schemaDir = System.getProperty("aai.schema.dir");
         String versionToGenerate = System.getProperty("aai.generate.version");
         String wikiLink = System.getProperty("aai.wiki.link");

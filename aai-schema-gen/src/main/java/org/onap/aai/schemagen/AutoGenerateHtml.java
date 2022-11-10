@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.onap.aai.schemagen.swagger.GenerateSwagger;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AutoGenerateHtml {
@@ -50,9 +50,9 @@ public class AutoGenerateHtml {
         AnnotationConfigApplicationContext ctx =
             new AnnotationConfigApplicationContext("org.onap.aai.setup", "org.onap.aai.schemagen");
 
-        SchemaVersions schemaVersions = ctx.getBean(SchemaVersions.class);
+        SchemaConfigVersions schemaConfigVersions = ctx.getBean(SchemaConfigVersions.class);
 
-        List<SchemaVersion> versionsToGen = schemaVersions.getVersions();
+        List<SchemaVersion> versionsToGen = schemaConfigVersions.getVersions();
         Collections.sort(versionsToGen);
         Collections.reverse(versionsToGen);
         ListIterator<SchemaVersion> versionIterator = versionsToGen.listIterator();
@@ -71,7 +71,7 @@ public class AutoGenerateHtml {
                     + System.getProperty(AAI_GENERATE_VERSION) + ".yaml";
             File swaggerYamlFile = new File(yamlFile);
             if (swaggerYamlFile.exists()) {
-                GenerateSwagger.schemaVersions = schemaVersions;
+                GenerateSwagger.schemaConfigVersions = schemaConfigVersions;
                 GenerateSwagger.main(args);
             }
         }

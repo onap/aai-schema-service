@@ -29,7 +29,11 @@ import com.google.common.collect.Multimap;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,9 +45,9 @@ import org.onap.aai.edges.EdgeRule;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforEdges;
 import org.onap.aai.setup.ConfigTranslator;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -51,7 +55,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-    classes = {SchemaVersions.class, SchemaLocationsBean.class,
+    classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
         TestUtilConfigTranslatorforEdges.class, EdgeIngestor.class})
 @TestPropertySource(
     properties = {
