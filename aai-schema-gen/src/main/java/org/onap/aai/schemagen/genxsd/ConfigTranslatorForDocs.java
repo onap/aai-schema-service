@@ -22,17 +22,21 @@ package org.onap.aai.schemagen.genxsd;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.onap.aai.setup.ConfigTranslator;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 
 public class ConfigTranslatorForDocs extends ConfigTranslator {
 
-    public ConfigTranslatorForDocs(SchemaLocationsBean bean, SchemaVersions schemaVersions) {
-        super(bean, schemaVersions);
+    public ConfigTranslatorForDocs(SchemaLocationsBean bean, SchemaConfigVersions schemaConfigVersions) {
+        super(bean, schemaConfigVersions);
     }
 
     @Override
