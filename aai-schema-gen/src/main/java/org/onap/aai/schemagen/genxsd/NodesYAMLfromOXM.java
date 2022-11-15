@@ -49,8 +49,8 @@ import org.onap.aai.edges.EdgeRule;
 import org.onap.aai.edges.EdgeRuleQuery;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -71,9 +71,9 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
 
     private final String basePath;
 
-    public NodesYAMLfromOXM(String basePath, SchemaVersions schemaVersions, NodeIngestor ni,
-        EdgeIngestor ei) {
-        super(schemaVersions, ni, ei);
+    public NodesYAMLfromOXM(String basePath, SchemaConfigVersions schemaConfigVersions,
+        NodeIngestor ni, EdgeIngestor ei) {
+        super(schemaConfigVersions, ni, ei);
         this.basePath = basePath;
     }
 

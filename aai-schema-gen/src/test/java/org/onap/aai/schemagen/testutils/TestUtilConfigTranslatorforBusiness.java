@@ -25,16 +25,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.onap.aai.setup.ConfigTranslator;
+import org.onap.aai.setup.AAIConfigTranslator;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 
-public class TestUtilConfigTranslatorforBusiness extends ConfigTranslator {
+public class TestUtilConfigTranslatorforBusiness extends AAIConfigTranslator {
 
     public TestUtilConfigTranslatorforBusiness(SchemaLocationsBean bean,
-        SchemaVersions schemaVersions) {
-        super(bean, schemaVersions);
+        SchemaConfigVersions schemaConfigVersions) {
+        super(bean, schemaConfigVersions);
     }
 
     @Override

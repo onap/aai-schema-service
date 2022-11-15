@@ -37,8 +37,8 @@ import java.util.Map;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
 import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -109,11 +109,12 @@ public class GenerateXsd {
             return true;
         }
 
-        SchemaVersions schemaVersions = SpringContextAware.getBean(SchemaVersions.class);
-        if (schemaVersions == null) {
+        SchemaConfigVersions schemaConfigVersions =
+            SpringContextAware.getBean(SchemaConfigVersions.class);
+        if (schemaConfigVersions == null) {
             return false;
         }
-        for (SchemaVersion v : schemaVersions.getVersions()) {
+        for (SchemaVersion v : schemaConfigVersions.getVersions()) {
             if (v.toString().equals(versionToGen)) {
                 return true;
             }
@@ -156,7 +157,7 @@ public class GenerateXsd {
 
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
             "org.onap.aai.setup", "org.onap.aai.schemagen")) {
-            SchemaVersions schemaVersions = ctx.getBean(SchemaVersions.class);
+            SchemaConfigVersions schemaConfigVersions = ctx.getBean(SchemaConfigVersions.class);
 
             if (!fileTypeToGen.equals(GENERATE_TYPE_XSD)
                 && !fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
@@ -173,7 +174,7 @@ public class GenerateXsd {
                 System.err.println("Invalid version passed. " + versionToGen);
                 System.exit(1);
             } else if ("ALL".equalsIgnoreCase(versionToGen)) {
-                versionsToGen = schemaVersions.getVersions();
+                versionsToGen = schemaConfigVersions.getVersions();
                 Collections.sort(versionsToGen);
                 Collections.reverse(versionsToGen);
             } else {

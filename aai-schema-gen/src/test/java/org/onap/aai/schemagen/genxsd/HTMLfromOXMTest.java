@@ -40,9 +40,9 @@ import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.SwaggerGenerationConfiguration;
 import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforBusiness;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ import org.w3c.dom.Element;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-    classes = {SchemaVersions.class, SchemaLocationsBean.class,
+    classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
         TestUtilConfigTranslatorforBusiness.class, EdgeIngestor.class, NodeIngestor.class,
         SwaggerGenerationConfiguration.class
 
@@ -71,7 +71,7 @@ public class HTMLfromOXMTest {
     HTMLfromOXM htmlFromOxm;
 
     @Autowired
-    SchemaVersions schemaVersions;
+    SchemaConfigVersions schemaConfigVersions;
 
     @BeforeClass
     public static void setUpContext() throws Exception {
@@ -102,11 +102,11 @@ public class HTMLfromOXMTest {
 
     @Test
     public void testGetDocumentHeader() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String header = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);
-            htmlFromOxm.setSchemaVersions(schemaVersions);
+            htmlFromOxm.setSchemaConfigVersions(schemaConfigVersions);
             header = htmlFromOxm.getDocumentHeader();
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class HTMLfromOXMTest {
 
     @Test
     public void testProcess() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String fileContent = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);
@@ -133,7 +133,7 @@ public class HTMLfromOXMTest {
 
     @Test
     public void testProcessWithCombiningJavaTypes() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String fileContent = null;
         try {
             setUp(1);
@@ -158,7 +158,7 @@ public class HTMLfromOXMTest {
         bw = Files.newBufferedWriter(path, charset);
         bw.write(testXML);
         bw.close();
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String fileContent = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);
@@ -174,7 +174,7 @@ public class HTMLfromOXMTest {
 
     @Test
     public void testHTMLfromOXMStringVersion() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String fileContent = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);
@@ -190,7 +190,7 @@ public class HTMLfromOXMTest {
     @Test
     public void testProcessJavaTypeElement() {
         String target = "Element=java-type/Customer";
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         Element customer = null;
         try {
             htmlFromOxm.setXmlVersion(testXML, v);

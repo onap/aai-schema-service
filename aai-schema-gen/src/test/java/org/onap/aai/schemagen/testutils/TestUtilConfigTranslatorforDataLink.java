@@ -26,15 +26,15 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.onap.aai.setup.ConfigTranslator;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 
 public class TestUtilConfigTranslatorforDataLink extends ConfigTranslator {
 
     public TestUtilConfigTranslatorforDataLink(SchemaLocationsBean bean,
-        SchemaVersions schemaVersions) {
-        super(bean, schemaVersions);
+        SchemaConfigVersions schemaConfigVersions) {
+        super(bean, schemaConfigVersions);
     }
 
     @Override

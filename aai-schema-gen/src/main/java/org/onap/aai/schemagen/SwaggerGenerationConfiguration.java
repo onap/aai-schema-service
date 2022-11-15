@@ -27,7 +27,7 @@ import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
 import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
-import org.onap.aai.setup.SchemaVersions;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
@@ -45,23 +45,23 @@ public class SwaggerGenerationConfiguration {
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public NodesYAMLfromOXM nodesYamlFromOXM(SchemaVersions schemaVersions,
+    public NodesYAMLfromOXM nodesYamlFromOXM(SchemaConfigVersions schemaConfigVersions,
         NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
-        return new NodesYAMLfromOXM(basePath, schemaVersions, nodeIngestor, edgeIngestor);
+        return new NodesYAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor);
     }
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public HTMLfromOXM htmlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor,
-        EdgeIngestor edgeIngestor) {
-        return new HTMLfromOXM(maxOccurs, schemaVersions, nodeIngestor, edgeIngestor);
+    public HTMLfromOXM htmlFromOXM(SchemaConfigVersions schemaConfigVersions,
+        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
+        return new HTMLfromOXM(maxOccurs, schemaConfigVersions, nodeIngestor, edgeIngestor);
     }
 
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public YAMLfromOXM yamlFromOXM(SchemaVersions schemaVersions, NodeIngestor nodeIngestor,
-        EdgeIngestor edgeIngestor) {
-        return new YAMLfromOXM(basePath, schemaVersions, nodeIngestor, edgeIngestor);
+    public YAMLfromOXM yamlFromOXM(SchemaConfigVersions schemaConfigVersions,
+        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
+        return new YAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor);
     }
 
 }

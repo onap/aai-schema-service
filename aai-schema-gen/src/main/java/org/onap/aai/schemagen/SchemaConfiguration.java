@@ -22,12 +22,15 @@
 
 package org.onap.aai.schemagen;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.setup.AAIConfigTranslator;
-import org.onap.aai.setup.ConfigTranslator;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
-import org.onap.aai.setup.SchemaVersions;
+import org.onap.aai.setup.Translator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -36,19 +39,23 @@ public class SchemaConfiguration {
 
     @Bean
     public EdgeIngestor edgeIngestor(SchemaLocationsBean schemaLocationsBean,
-        SchemaVersions schemaVersions) {
-        return new EdgeIngestor(configTranslator(schemaLocationsBean, schemaVersions),
-            schemaVersions);
+        SchemaConfigVersions schemaConfigVersions) {
+        return new EdgeIngestor(configTranslators(schemaLocationsBean, schemaConfigVersions));
     }
 
     @Bean(name = "nodeIngestor")
-    public NodeIngestor nodeIngestor(ConfigTranslator configTranslator) {
-        return new NodeIngestor(configTranslator);
+    public NodeIngestor nodeIngestor(SchemaLocationsBean schemaLocationsBean,
+        SchemaConfigVersions schemaConfigVersions) {
+        return new NodeIngestor(configTranslators(schemaLocationsBean, schemaConfigVersions));
     }
 
     @Bean(name = "configTranslator")
-    public ConfigTranslator configTranslator(SchemaLocationsBean schemaLocationsBean,
-        SchemaVersions schemaVersions) {
-        return new AAIConfigTranslator(schemaLocationsBean, schemaVersions);
+    public Set<Translator> configTranslators(SchemaLocationsBean schemaLocationsBean,
+        SchemaConfigVersions schemaConfigVersions) {
+        Set<Translator> translators = new HashSet<>();
+        AAIConfigTranslator translator =
+            new AAIConfigTranslator(schemaLocationsBean, schemaConfigVersions);
+        translators.add(translator);
+        return translators;
     }
 }

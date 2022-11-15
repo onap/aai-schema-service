@@ -48,9 +48,9 @@ import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.SwaggerGenerationConfiguration;
 import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforBusiness;
+import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
-import org.onap.aai.setup.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +63,9 @@ import org.w3c.dom.Element;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-    classes = {SchemaVersions.class, SchemaLocationsBean.class,
-        TestUtilConfigTranslatorforBusiness.class, SchemaVersions.class, EdgeIngestor.class,
-        NodeIngestor.class, SwaggerGenerationConfiguration.class
+    classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
+        TestUtilConfigTranslatorforBusiness.class, EdgeIngestor.class, NodeIngestor.class,
+        SwaggerGenerationConfiguration.class
 
     })
 @TestPropertySource(properties = {"schema.uri.base.path = /aai", "schema.xsd.maxoccurs = 5000"})
@@ -88,7 +88,7 @@ public class YAMLfromOXMTest {
     YAMLfromOXM yamlFromOxm;
 
     @Autowired
-    SchemaVersions schemaVersions;
+    SchemaConfigVersions schemaConfigVersions;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -131,7 +131,7 @@ public class YAMLfromOXMTest {
     @Test
     public void AtestIngestors() throws EdgeRuleNotFoundException {
         Multimap<String, EdgeRule> results =
-            edgeIngestor.getAllRules(schemaVersions.getDefaultVersion());
+            edgeIngestor.getAllRules(schemaConfigVersions.getDefaultVersion());
         SortedSet<String> ss = new TreeSet<String>(results.keySet());
         for (String key : ss) {
             results.get(key).stream().filter((i) -> ((!i.isPrivateEdge()))).forEach((i) -> {
@@ -139,13 +139,13 @@ public class YAMLfromOXMTest {
                 System.out.println(ed.getRuleKey());
             });
         }
-        Document doc = nodeIngestor.getSchema(schemaVersions.getDefaultVersion());
+        Document doc = nodeIngestor.getSchema(schemaConfigVersions.getDefaultVersion());
         assertNotNull(doc);
     }
 
     @Test
     public void testGetDocumentHeader() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String header = null;
         try {
@@ -160,7 +160,7 @@ public class YAMLfromOXMTest {
 
     @Test
     public void testProcess() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String fileContent = null;
         try {
@@ -183,7 +183,7 @@ public class YAMLfromOXMTest {
         bw = Files.newBufferedWriter(path, charset);
         bw.write(testXML);
         bw.close();
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String fileContent = null;
         try {
@@ -199,7 +199,7 @@ public class YAMLfromOXMTest {
 
     @Test
     public void testYAMLfromOXMStringVersionFile() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String fileContent = null;
         try {
@@ -220,7 +220,7 @@ public class YAMLfromOXMTest {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String fileContent = null;
         try {
@@ -235,7 +235,7 @@ public class YAMLfromOXMTest {
 
     @Test
     public void testAppendDefinitions() {
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String definitions = null;
         try {
@@ -252,7 +252,7 @@ public class YAMLfromOXMTest {
     @Test
     public void testGetXMLRootElementName() {
         String target = "RootElement=customer";
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         Element customer = null;
         String root = null;
@@ -270,7 +270,7 @@ public class YAMLfromOXMTest {
     @Test
     public void testGetXmlRootElementName() {
         String target = "RootElement=customer";
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         String root = null;
         try {
@@ -286,7 +286,7 @@ public class YAMLfromOXMTest {
     @Test
     public void testGetJavaTypeElementSwagger() {
         String target = "Element=java-type/Customer";
-        SchemaVersion v = schemaVersions.getAppRootVersion();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         String apiVersion = v.toString();
         Element customer = null;
         try {
