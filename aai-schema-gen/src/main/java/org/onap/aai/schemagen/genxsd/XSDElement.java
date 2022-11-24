@@ -283,6 +283,10 @@ public class XSDElement implements Element {
             sbParameter.append("          type: integer\n");
             sbParameter.append("          format: int32\n");
         }
+        if (("java.lang.Float").equals(this.getAttribute("type"))) {
+            sbParameter.append("          type: number\n");
+            sbParameter.append("          format: float\n");
+        }
         if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
             sbParameter.append("          type: boolean\n");
         }
@@ -350,6 +354,12 @@ public class XSDElement implements Element {
         }
         if (elementType.equals("java.lang.Integer")) {
             sbElement.append(" type=\"xs:int\"");
+        }
+        if (elementType.equals("java.lang.Float")) {
+            sbElement.append(" type=\"xs:float\"");
+        }
+        if (elementType.equals("java.lang.Double")) {
+            sbElement.append(" type=\"xs:double\"");
         }
         if (elementType.equals("java.lang.Boolean")) {
             sbElement.append(" type=\"xs:boolean\"");
