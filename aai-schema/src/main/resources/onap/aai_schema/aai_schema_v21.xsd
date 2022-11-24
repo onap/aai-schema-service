@@ -4769,7 +4769,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="availability" minOccurs="0">
+        <xs:element name="availability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This parameter specifies the availability requirement, expressed as a percentage.")</annox:annotate>
@@ -4954,7 +4954,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cs-availability-target" minOccurs="0">
+        <xs:element name="cs-availability-target" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Communication service availability target value.")</annox:annotate>
@@ -8450,7 +8450,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="reliability" minOccurs="0">
+        <xs:element name="reliability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>

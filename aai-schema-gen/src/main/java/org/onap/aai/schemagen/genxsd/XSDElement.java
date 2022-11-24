@@ -283,6 +283,14 @@ public class XSDElement implements Element {
             sbParameter.append("          type: integer\n");
             sbParameter.append("          format: int32\n");
         }
+        if (("java.lang.Float").equals(this.getAttribute("type"))) {
+            sbParameter.append("          type: number\n");
+            sbParameter.append("          format: float\n");
+        }
+        if (("java.lang.Double").equals(this.getAttribute("type"))) {
+            sbParameter.append("          type: number\n");
+            sbParameter.append("          format: double\n");
+        }
         if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
             sbParameter.append("          type: boolean\n");
         }
@@ -315,6 +323,14 @@ public class XSDElement implements Element {
         if (("java.lang.Integer").equals(this.getAttribute("type"))) {
             sbParameter.append("          type: integer\n");
             sbParameter.append("          format: int32\n");
+        }
+        if (("java.lang.Float").equals(this.getAttribute("type"))) {
+            sbParameter.append("          type: number\n");
+            sbParameter.append("          format: float\n");
+        }
+        if (("java.lang.Double").equals(this.getAttribute("type"))) {
+            sbParameter.append("          type: number\n");
+            sbParameter.append("          format: double\n");
         }
         if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
             sbParameter.append("          type: boolean\n");
@@ -350,6 +366,12 @@ public class XSDElement implements Element {
         }
         if (elementType.equals("java.lang.Integer")) {
             sbElement.append(" type=\"xs:int\"");
+        }
+        if (elementType.equals("java.lang.Float")) {
+            sbElement.append(" type=\"xs:float\"");
+        }
+        if (elementType.equals("java.lang.Double")) {
+            sbElement.append(" type=\"xs:double\"");
         }
         if (elementType.equals("java.lang.Boolean")) {
             sbElement.append(" type=\"xs:boolean\"");
@@ -473,6 +495,12 @@ public class XSDElement implements Element {
         } else if (("java.lang.Integer").equals(this.getAttribute("type"))) {
             sbProperties.append("integer\n");
             sbProperties.append("        format: int32\n");
+        } else if (("java.lang.Float").equals(this.getAttribute("type"))) {
+            sbProperties.append("number\n");
+            sbProperties.append("        format: float\n");
+        } else if (("java.lang.Double").equals(this.getAttribute("type"))) {
+            sbProperties.append("number\n");
+            sbProperties.append("        format: double\n");
         } else if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
             sbProperties.append("boolean\n");
         }
@@ -507,6 +535,8 @@ public class XSDElement implements Element {
             case "java.lang.String":
             case "java.lang.Long":
             case "java.lang.Integer":
+            case "java.lang.Float":
+            case "java.lang.Double":
             case "java.lang.Boolean":
                 return true;
         }
