@@ -4073,14 +4073,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cs-availability" minOccurs="0">
+        <xs:element name="cs-availability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="reliability" minOccurs="0">
+        <xs:element name="reliability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice instance, expressed as a percentage.")</annox:annotate>
@@ -4237,14 +4237,14 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cs-availability" minOccurs="0">
+        <xs:element name="cs-availability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The availability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="reliability" minOccurs="0">
+        <xs:element name="reliability" type="xs:float" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The reliability requirement for an network slice subnet instance, expressed as a percentage.")</annox:annotate>
