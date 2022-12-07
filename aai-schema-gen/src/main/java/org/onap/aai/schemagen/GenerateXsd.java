@@ -189,8 +189,8 @@ public class GenerateXsd {
                         "generating swagger yaml file requires yamlresponses_url and yamlresponses_label properties");
                     System.exit(1);
                 } else {
-                    responsesUrl = "description: " + "Response codes found in [response codes]("
-                        + responsesLabel + ").\n";
+                    responsesUrl =
+                        "description: " + "Response codes are uniform across all endpoints.\n";
                 }
             }
             /*

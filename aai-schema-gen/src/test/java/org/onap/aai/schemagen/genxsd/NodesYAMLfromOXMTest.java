@@ -245,25 +245,47 @@ public class NodesYAMLfromOXMTest {
 
     public String YAMLheader() {
         StringBuilder sb = new StringBuilder(1500);
+        sb.append("#").append(OxmFileProcessor.LINE_SEPARATOR).append(
+            "# ============LICENSE_START=======================================================")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append("# org.onap.aai")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append(
+                "# ================================================================================")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append(
+                "# ================================================================================")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append(
+                "# Licensed under the Creative Commons License, Attribution 4.0 Intl. (the \"License\");")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# you may not use this file except in compliance with the License.")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# You may obtain a copy of the License at")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append("# <p>")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# https://creativecommons.org/licenses/by/4.0/")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append("# <p>")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# Unless required by applicable law or agreed to in writing, software")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# distributed under the License is distributed on an \"AS IS\" BASIS,")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append("# See the License for the specific language governing permissions and")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append("# limitations under the License.")
+            .append(OxmFileProcessor.LINE_SEPARATOR)
+            .append(
+                "# ============LICENSE_END=========================================================")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append("#")
+            .append(OxmFileProcessor.LINE_SEPARATOR).append(OxmFileProcessor.LINE_SEPARATOR);
         sb.append("swagger: \"2.0\"\n");
         sb.append("info:" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("  description: |\n");
-        sb.append("\n");
         sb.append(
             "    [Differences versus the previous schema version](apidocs/aai/aai_swagger_v11.diff)"
-                + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-        sb.append(
-            "    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved."
-                + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-        sb.append(
-            "    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License."
-                + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-        sb.append("    You may obtain a copy of the License at\n");
-        sb.append("\n");
-        sb.append("    (https://creativecommons.org/licenses/by/4.0/)"
-            + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-        sb.append(
-            "    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License."
                 + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         sb.append(
             "    This document is best viewed with Firefox or Chrome. Nodes can be found by opening the models link below and finding the node-type. Edge definitions can be found with the node definitions."
@@ -275,11 +297,7 @@ public class NodesYAMLfromOXMTest {
         sb.append("    name: Apache 2.0" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("    url: http://www.apache.org/licenses/LICENSE-2.0.html"
             + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  contact:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    name: n/a" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    url: n/a" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    email: n/a" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("host: n/a" + OxmFileProcessor.LINE_SEPARATOR);
+        sb.append("host: localhost" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("basePath: /aai/v11" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("schemes:" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("  - https\n");
@@ -312,7 +330,6 @@ public class NodesYAMLfromOXMTest {
             "          description: Global customer id used across to uniquely identify customer.\n");
         sb.append("          required: true\n");
         sb.append("          type: string\n");
-        sb.append("          example: __GLOBAL-CUSTOMER-ID__\n");
         sb.append("  /nodes/customers?parameter=value[&parameter2=value2]:\n");
         sb.append("    get:\n");
         sb.append("      tags:\n");
@@ -369,7 +386,6 @@ public class NodesYAMLfromOXMTest {
             "          description: Value defined by orchestration to identify this service.\n");
         sb.append("          required: true\n");
         sb.append("          type: string\n");
-        sb.append("          example: __SERVICE-TYPE__\n");
         sb.append("  /nodes/service-subscriptions?parameter=value[&parameter2=value2]:\n");
         sb.append("    get:\n");
         sb.append("      tags:\n");
