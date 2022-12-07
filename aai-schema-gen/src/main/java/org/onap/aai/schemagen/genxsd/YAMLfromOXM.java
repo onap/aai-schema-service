@@ -93,25 +93,44 @@ public class YAMLfromOXM extends OxmFileProcessor {
     @Override
     public String getDocumentHeader() {
         StringBuilder sb = new StringBuilder();
+        sb.append("#").append(LINE_SEPARATOR).append(
+            "# ============LICENSE_START=======================================================")
+            .append(LINE_SEPARATOR).append("# org.onap.aai").append(LINE_SEPARATOR)
+            .append(
+                "# ================================================================================")
+            .append(LINE_SEPARATOR)
+            .append("# Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.")
+            .append(LINE_SEPARATOR)
+            .append(
+                "# ================================================================================")
+            .append(LINE_SEPARATOR)
+            .append(
+                "# Licensed under the Creative Commons License, Attribution 4.0 Intl. (the \"License\");")
+            .append(LINE_SEPARATOR)
+            .append("# you may not use this file except in compliance with the License.")
+            .append(LINE_SEPARATOR).append("# You may obtain a copy of the License at")
+            .append(LINE_SEPARATOR).append("# <p>").append(LINE_SEPARATOR)
+            .append("# https://creativecommons.org/licenses/by/4.0/").append(LINE_SEPARATOR)
+            .append("# <p>").append(LINE_SEPARATOR)
+            .append("# Unless required by applicable law or agreed to in writing, software")
+            .append(LINE_SEPARATOR)
+            .append("# distributed under the License is distributed on an \"AS IS\" BASIS,")
+            .append(LINE_SEPARATOR)
+            .append("# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
+            .append(LINE_SEPARATOR)
+            .append("# See the License for the specific language governing permissions and")
+            .append(LINE_SEPARATOR).append("# limitations under the License.")
+            .append(LINE_SEPARATOR)
+            .append(
+                "# ============LICENSE_END=========================================================")
+            .append(LINE_SEPARATOR).append("#").append(LINE_SEPARATOR).append(LINE_SEPARATOR);
         sb.append("swagger: \"2.0\"\ninfo:").append(LINE_SEPARATOR).append("  ");
         sb.append("description: |");
         if (versionSupportsSwaggerDiff(v.toString())) {
-            sb.append("\n\n    [Differences versus the previous schema version](" + "apidocs"
+            sb.append("\n    [Differences versus the previous schema version](" + "apidocs"
                 + basePath + "/aai_swagger_" + v.toString() + ".diff)");
         }
         sb.append(DOUBLE_LINE_SEPARATOR)
-            .append(
-                "    Copyright &copy; 2017-18 AT&amp;T Intellectual Property. All rights reserved.")
-            .append(OxmFileProcessor.DOUBLE_LINE_SEPARATOR)
-            .append(
-                "    Licensed under the Creative Commons License, Attribution 4.0 Intl. (the &quot;License&quot;); you may not use this documentation except in compliance with the License.")
-            .append(DOUBLE_LINE_SEPARATOR)
-            .append(
-                "    You may obtain a copy of the License at\n\n    (https://creativecommons.org/licenses/by/4.0/)")
-            .append(DOUBLE_LINE_SEPARATOR)
-            .append(
-                "    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.")
-            .append(OxmFileProcessor.DOUBLE_LINE_SEPARATOR)
             .append("    This document is best viewed with Firefox or Chrome. ");
         sb.append(
             "Nodes can be found by opening the models link below and finding the node-type. ");
@@ -122,10 +141,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
             .append(
                 "    name: Apache 2.0\n    url: http://www.apache.org/licenses/LICENSE-2.0.html")
             .append(LINE_SEPARATOR);
-        sb.append("  contact:").append(LINE_SEPARATOR).append("    name: n/a")
-            .append(LINE_SEPARATOR).append("    url: n/a").append(LINE_SEPARATOR)
-            .append("    email: n/a").append(LINE_SEPARATOR);
-        sb.append("host: n/a").append(LINE_SEPARATOR).append("basePath: ").append(basePath)
+        sb.append("host: localhost").append(LINE_SEPARATOR).append("basePath: ").append(basePath)
             .append("/").append(v.toString()).append(LINE_SEPARATOR);
         sb.append("schemes:").append(LINE_SEPARATOR).append("  - https\npaths:")
             .append(LINE_SEPARATOR);
