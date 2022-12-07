@@ -202,7 +202,7 @@
                                         </systemProperty>
                                         <systemProperty>
                                             <key>yamlresponses_label</key>
-                                            <value>Response codes found in [response codes]</value>
+                                            <value>Response codes are uniform across all endpoints.</value>
                                         </systemProperty>
                                         <systemProperty>
                                             <key>schema.configuration.location</key>
@@ -472,7 +472,7 @@
                                         </systemProperty>
                                         <systemProperty>
                                             <key>yamlresponses_label</key>
-                                            <value>Response codes found in [response codes]</value>
+                                            <value>Response codes are uniform across all endpoints.</value>
                                         </systemProperty>
                                         <systemProperty>
                                             <key>schema.configuration.location</key>

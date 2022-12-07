@@ -20,7 +20,9 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.both;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsIn.in;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.core.Every.everyItem;
@@ -29,7 +31,11 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -592,11 +598,11 @@ public class XSDElementTest {
     public void testGetQueryParamYAML() {
         ArrayList<String> target = new ArrayList<String>();
         target.add(
-            "        - name: global-customer-id\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
+            "        - name: global-customer-id\n          in: query\n          required: false\n          type: string\n");
         target.add(
-            "        - name: subscriber-name\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
+            "        - name: subscriber-name\n          in: query\n          required: false\n          type: string\n");
         target.add(
-            "        - name: subscriber-type\n          in: query\n          description: n/a\n          required: false\n          type: string\n");
+            "        - name: subscriber-type\n          in: query\n          required: false\n          type: string\n");
         Vector<String> indexedProps = new Vector<String>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
@@ -628,17 +634,17 @@ public class XSDElementTest {
     public void testGetPathParamYAML() {
         ArrayList<String> target = new ArrayList<String>();
         target.add(
-            "        - name: Inventory\n          in: path\n          description: Inventory\n          required: true\n          example: __INVENTORY__\n");
+            "        - name: Inventory\n          in: path\n          description: Inventory\n          required: true\n");
         target.add(
-            "        - name: Business\n          in: path\n          description: Business\n          required: true\n          example: __BUSINESS__\n");
+            "        - name: Business\n          in: path\n          description: Business\n          required: true\n");
         target.add(
-            "        - name: Customers\n          in: path\n          description: Customers\n          required: true\n          example: __CUSTOMERS__\n");
+            "        - name: Customers\n          in: path\n          description: Customers\n          required: true\n");
         target.add(
-            "        - name: Customer\n          in: path\n          description: Customer\n          required: true\n          example: __CUSTOMER__\n");
+            "        - name: Customer\n          in: path\n          description: Customer\n          required: true\n");
         target.add(
-            "        - name: ServiceSubscriptions\n          in: path\n          description: ServiceSubscriptions\n          required: true\n          example: __SERVICESUBSCRIPTIONS__\n");
+            "        - name: ServiceSubscriptions\n          in: path\n          description: ServiceSubscriptions\n          required: true\n");
         target.add(
-            "        - name: ServiceSubscription\n          in: path\n          description: ServiceSubscription\n          required: true\n          example: __SERVICESUBSCRIPTION__\n");
+            "        - name: ServiceSubscription\n          in: path\n          description: ServiceSubscription\n          required: true\n");
         List<String> pathParams = new ArrayList<String>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));

@@ -268,8 +268,6 @@ public class XSDElement implements Element {
             && this.getAttribute("description").length() > 0) {
             sbParameter.append("          description: ").append(this.getAttribute("description"))
                 .append("\n");
-        } else {
-            sbParameter.append(("          description: n/a\n"));
         }
         sbParameter.append(("          required: false\n"));
         if (("java.lang.String").equals(this.getAttribute("type"))) {
@@ -334,10 +332,6 @@ public class XSDElement implements Element {
         }
         if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
             sbParameter.append("          type: boolean\n");
-        }
-        if (StringUtils.isNotBlank(this.getAttribute("name"))) {
-            sbParameter.append("          example: " + "__")
-                .append(this.getAttribute("name").toUpperCase()).append("__").append("\n");
         }
         return sbParameter.toString();
     }
@@ -521,11 +515,6 @@ public class XSDElement implements Element {
                 sbProperties.append(
                     "          *This property can be used as a filter to find the start node for a dsl query\n");
             }
-        }
-        String elementAlsoRequiresProperty = this.getRequiresProperty();
-        if (StringUtils.isNotEmpty(elementAlsoRequiresProperty)) {
-            sbProperties.append("        also requires: ").append(elementAlsoRequiresProperty)
-                .append("\n");
         }
         return sbProperties.toString();
     }
