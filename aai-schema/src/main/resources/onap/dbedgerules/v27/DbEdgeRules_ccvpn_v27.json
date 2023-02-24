@@ -1,4 +1,3 @@
-
 {
   "rules": [
 	{
@@ -170,6 +169,19 @@
 		"description":"For CCVPN Usecase"
 	},
 	{
+		"from": "site-resource",
+		"to": "site-resource",
+		"label": "org.onap.relationships.inventory.Supports",
+		"direction": "OUT",
+		"multiplicity": "MANY2MANY",
+		"contains-other-v": "NONE",
+		"delete-other-v": "NONE",
+		"SVC-INFRA": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description": "For Cell Usecase"
+	},
+	{
 		"from": "sdwan-vpn",
 		"to": "service-instance",
 		"label": "org.onap.relationships.inventory.PartOf",
@@ -276,6 +288,18 @@
 		"prevent-delete": "NONE",
 		"default": "true",
 		"description":"For CCVPN Usecase"
+	},
+	{
+		"from": "site-resource",
+		"to": "pnf",
+		"label": "org.onap.relationships.inventory.PartOf",
+		"direction": "OUT",
+		"multiplicity": "MANY2MANY",
+		"contains-other-v": "NONE",
+		"delete-other-v": "NONE",
+		"prevent-delete": "NONE",
+		"default": "true",
+		"description":"For Cell Usecase"
 	},
 	{
 		"from": "wan-port-config",
