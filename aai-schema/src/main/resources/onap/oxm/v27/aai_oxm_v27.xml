@@ -5384,6 +5384,7 @@
                 <xml-element java-attribute="l3Networks" name="l3-networks" type="inventory.aai.onap.org.v27.L3Networks"/>
                 <xml-element java-attribute="networkPolicies" name="network-policies" type="inventory.aai.onap.org.v27.NetworkPolicies"/>
                 <xml-element java-attribute="genericVnfs" name="generic-vnfs" type="inventory.aai.onap.org.v27.GenericVnfs"/>
+                <xml-element java-attribute="cells" name="cells" type="inventory.aai.onap.org.v27.Cells"/>
                 <xml-element java-attribute="lagLinks" name="lag-links" type="inventory.aai.onap.org.v27.LagLinks"/>
                 <xml-element java-attribute="newvces" name="newvces" type="inventory.aai.onap.org.v27.Newvces"/>
                 <xml-element java-attribute="pnfs" name="pnfs" type="inventory.aai.onap.org.v27.Pnfs"/>
@@ -7241,6 +7242,186 @@
                 <xml-property name="requiredProps" value="subnet-id,dhcp-enabled"/>
             </xml-properties>
         </java-type>
+
+        <java-type name="Cells">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Cells"/>
+            </xml-properties>
+            <xml-root-element name="cells"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="cell" name="cell" type="inventory.aai.onap.org.v27.Cell"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="maximumDepth" value="0"/>
+            </xml-properties>
+        </java-type>
+        <java-type name="Cell">
+            <xml-root-element name="cell"/>
+            <java-attributes>
+                <xml-element java-attribute="cellId" name="cell-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique id of Cell.  This is unique across the graph."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="cellName" name="cell-name" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of Cell."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="radioAccessTechnology" name="radio-access-technology" required="true" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Radio access technology of the Cell, i.e. 5G."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="cellType" name="cell-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Type of Cell."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="cellLocalId" name="cell-local-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Local id of Cell."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="mnoId" name="mno-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Operator specific Cell identifier."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="nodeId" name="node-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Cell's node id (like gNodeb id, eNodeb id)."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="coverageArea" name="coverage-area" type="java.lang.String"/>
+                <xml-element java-attribute="frequencyBand" name="frequency-band" type="java.lang.String"/>
+                <xml-element java-attribute="latitude" name="latitude" type="java.lang.Float"/>
+                <xml-element java-attribute="longitude" name="longitude" type="java.lang.Float"/>
+                <xml-element java-attribute="mcc" name="mcc" type="java.lang.String"/>
+                <xml-element java-attribute="mnc" name="mnc" type="java.lang.String"/>
+                <xml-element java-attribute="height" name="height" type="java.lang.Float"/>
+                <xml-element java-attribute="azimuth" name="azimuth" type="java.lang.Integer"/>
+                <xml-element java-attribute="beamwidth" name="beamwidth" type="java.lang.Float"/>
+                <xml-element java-attribute="mechanicalTilt" name="mechanical-tilt" type="java.lang.Float"/>
+                <xml-element java-attribute="electricalTilt" name="electrical-tilt" type="java.lang.Float"/>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Path to the extended object properties."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v27.RelationshipList"/>
+                <xml-element java-attribute="neighbours" name="neighbours" type="inventory.aai.onap.org.v27.Neighbours"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="General purpose Cell object"/>
+                <xml-property name="nameProps" value="cell-name"/>
+                <xml-property name="indexedProps" value="cell-id,cell-name,radio-access-technology,cell-type,mno-id,cell-local-id,node-id,mnc,mcc,longitude,latitude,frequency-band,coverage-area,data-owner,data-source,data-source-version"/>
+                <xml-property name="searchable" value="cell-id,cell-name,cell-local-id,mno-id,node-id,radio-access-technology"/>
+                <xml-property name="uniqueProps" value="cell-id"/>
+                <xml-property name="container" value="cells"/>
+                <xml-property name="namespace" value="network"/>
+                <xml-property name="containsSuggestibleProps" value="true"/>
+                <xml-property name="uriTemplate" value="/network/cells/cell/{cell-id}"/>
+                <xml-property name="requiredProps" value="cell-id,cell-name,radio-access-technology"/>
+            </xml-properties>
+        </java-type>
+        <java-type name="Neighbours">
+            <xml-properties>
+                <xml-property name="description" value="Collection of Cell Neighbours"/>
+            </xml-properties>
+            <xml-root-element name="neighbours"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="neighbour" name="neighbour" type="inventory.aai.onap.org.v27.Neighbour"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="maximumDepth" value="0"/>
+            </xml-properties>
+        </java-type>
+        <java-type name="Neighbour">
+            <xml-root-element name="neighbour"/>
+            <java-attributes>
+                <xml-element java-attribute="neighbourId" name="neighbour-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique id of Neighbour.  This is unique across the graph."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="neighbourCellId" name="neighbour-cell-id" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique id of Neighbour Cell."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="neighbourCellName" name="neighbour-cell-name" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Name of Neighbour Cell."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="selflink" name="selflink" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Path to the extended object properties."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v27.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="General purpose Neighbour Cell object"/>
+                <xml-property name="indexedProps" value="neighbour-id,neighbour-cell-id,neighbour-cell-name,data-owner,data-source,data-source-version"/>
+                <xml-property name="searchable" value="neighbour-id,neighbour-cell-id,neighbour-cell-name"/>
+                <xml-property name="uniqueProps" value="neighbour-id"/>
+                <xml-property name="container" value="neighbours"/>
+                <xml-property name="dependentOn" value="cell"/>
+                <xml-property name="uriTemplate" value="/neighbours/neighbour/{neighbour-id}"/>
+                <xml-property name="requiredProps" value="neighbour-id,neighbour-cell-id,neighbour-cell-name"/>
+            </xml-properties>
+        </java-type>
+
 
         <java-type name="GenericVnfs">
             <xml-properties>
@@ -17004,4 +17185,3 @@
 
     </java-types>
 </xml-bindings>
-
