@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Lukasz Rajewski <lukasz.rajewski@t-mobile.pl>
+Submitted-by: Lukasz Rajewski <lukasz.rajewski@t-mobile.pl>
+Submitted-at: Fri, 17 Mar 2023 10:24:56 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/133409
+Project: aai/schema-service
+Branch: refs/heads/master
