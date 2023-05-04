@@ -482,7 +482,7 @@
         },
 	{
             "from": "cell",
-            "to": "object-groups",
+            "to": "object-group",
             "label": "org.onap.relationships.inventory.MemberOf",
             "direction": "OUT",
             "multiplicity": "MANY2MANY",
