@@ -12831,6 +12831,13 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
+        <xs:element name="relation-type" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the relation type of the data.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="data-source-version" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -12865,7 +12872,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General purpose Cell object",nameProps="cell-name",indexedProps="cell-id,cell-name,radio-access-technology,cell-type,mno-id,cell-local-id,node-id,mnc,mcc,longitude,latitude,frequency-band,coverage-area,data-owner,data-source,data-source-version",searchable="cell-id,cell-name,cell-local-id,mno-id,node-id,radio-access-technology",uniqueProps="cell-id",container="cells",namespace="network",containsSuggestibleProps="true",uriTemplate="/network/cells/cell/{cell-id}",requiredProps="cell-id,cell-name,radio-access-technology")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="General purpose Cell object",nameProps="cell-name",indexedProps="cell-id,cell-name,radio-access-technology,cell-type,mno-id,cell-local-id,node-id,mnc,mcc,longitude,latitude,frequency-band,band,coverage-area,data-owner,data-source,data-source-version",searchable="cell-id,cell-name,cell-local-id,mno-id,node-id,radio-access-technology",uniqueProps="cell-id",container="cells",namespace="network",containsSuggestibleProps="true",uriTemplate="/network/cells/cell/{cell-id}",requiredProps="cell-id,cell-name,radio-access-technology")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -12920,6 +12927,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         </xs:element>
         <xs:element name="coverage-area" type="xs:string" minOccurs="0"/>
         <xs:element name="frequency-band" type="xs:string" minOccurs="0"/>
+        <xs:element name="band" type="xs:string" minOccurs="0"/>
         <xs:element name="latitude" type="xs:float" minOccurs="0"/>
         <xs:element name="longitude" type="xs:float" minOccurs="0"/>
         <xs:element name="mcc" type="xs:string" minOccurs="0"/>

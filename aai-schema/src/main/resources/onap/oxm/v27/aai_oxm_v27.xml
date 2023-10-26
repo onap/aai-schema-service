@@ -7301,6 +7301,7 @@
                 </xml-element>
                 <xml-element java-attribute="coverageArea" name="coverage-area" type="java.lang.String"/>
                 <xml-element java-attribute="frequencyBand" name="frequency-band" type="java.lang.String"/>
+                <xml-element java-attribute="band" name="band" type="java.lang.String"/>
                 <xml-element java-attribute="latitude" name="latitude" type="java.lang.Float"/>
                 <xml-element java-attribute="longitude" name="longitude" type="java.lang.Float"/>
                 <xml-element java-attribute="mcc" name="mcc" type="java.lang.String"/>
@@ -7342,7 +7343,7 @@
             <xml-properties>
                 <xml-property name="description" value="General purpose Cell object"/>
                 <xml-property name="nameProps" value="cell-name"/>
-                <xml-property name="indexedProps" value="cell-id,cell-name,radio-access-technology,cell-type,mno-id,cell-local-id,node-id,mnc,mcc,longitude,latitude,frequency-band,coverage-area,data-owner,data-source,data-source-version"/>
+                <xml-property name="indexedProps" value="cell-id,cell-name,radio-access-technology,cell-type,mno-id,cell-local-id,node-id,mnc,mcc,longitude,latitude,frequency-band,band,coverage-area,data-owner,data-source,data-source-version"/>
                 <xml-property name="searchable" value="cell-id,cell-name,cell-local-id,mno-id,node-id,radio-access-technology"/>
                 <xml-property name="uniqueProps" value="cell-id"/>
                 <xml-property name="container" value="cells"/>
@@ -7396,6 +7397,11 @@
                 <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationType" name="relation-type" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the relation type of the data."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
