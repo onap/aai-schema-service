@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0910a926_1d6645c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2023-10-27T13:51:03Z",
+      "side": 1,
+      "message": "stage-maven-release",
+      "revId": "758700078caeafd394588514351f5ba59d8acab4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
