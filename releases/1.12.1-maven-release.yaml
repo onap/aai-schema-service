@@ -1,4 +1,8 @@
 distribution_type: 'maven'
 version: '1.12.1'
 project: 'aai-schema-service'
+<<<<<<< PATCH SET (86d737 [AAI] Schema changes for Cell and Neighbour and Fix package )
+log_dir: 'aai-schema-service-maven-stage-master/1429'
+=======
 log_dir: 'aai-schema-service-maven-stage-master/1431'
+>>>>>>> BASE      (55fa0c [AAI] Update and release maven artifacts 1.12.1 for aai/sche)
