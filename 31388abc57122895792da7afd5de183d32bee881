@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6e7d2c92_9ac589c8",
         "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/XSDElement.java",
@@ -20,10 +21,34 @@
         "endChar": 37
       },
       "revId": "31388abc57122895792da7afd5de183d32bee881",
-      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
-      "unresolved": true
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0344bc31_5fdef7fa",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/XSDElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2023-11-02T12:47:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e7d2c92_9ac589c8",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "31388abc57122895792da7afd5de183d32bee881",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "32ca3d37_47367a0d",
         "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/XSDElement.java",
@@ -43,8 +68,31 @@
         "endChar": 9
       },
       "revId": "31388abc57122895792da7afd5de183d32bee881",
-      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
-      "unresolved": true
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26ecc3dc_43907fce",
+        "filename": "aai-schema-gen/src/main/java/org/onap/aai/schemagen/genxsd/XSDElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2023-11-02T12:47:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32ca3d37_47367a0d",
+      "range": {
+        "startLine": 286,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 9
+      },
+      "revId": "31388abc57122895792da7afd5de183d32bee881",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
