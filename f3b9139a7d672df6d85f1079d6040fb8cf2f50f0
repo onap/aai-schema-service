@@ -16,6 +16,24 @@
       "message": "Leftover?",
       "revId": "f3b9139a7d672df6d85f1079d6040fb8cf2f50f0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1c71cb_55c88a20",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v29/aai_oxm_v29.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16440,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-05-03T12:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "429cff85_13fc0421",
+      "revId": "f3b9139a7d672df6d85f1079d6040fb8cf2f50f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
