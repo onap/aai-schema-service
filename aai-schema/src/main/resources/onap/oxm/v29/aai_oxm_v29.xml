@@ -5147,10 +5147,21 @@
                         <xml-property name="suggestibleOnSearch" value="true"/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="administrativeState" name="administrative-state" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="It indicates the administrative state of the network slice or network slice subnet. Allowed value are LOCKED,UNLOCKED,SHUTTINGDOWN."/>
+                        <xml-property name="suggestibleOnSearch" value="true"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="priorityLabel" name="priority-label" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute specifies a label that consumer would assign a value on an instance of network slice subnet."/>
+                    </xml-properties>
+                </xml-element>
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Instance of a service"/>
-                <xml-property name="indexedProps" value="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,data-owner,data-source,data-source-version"/>
+                <xml-property name="indexedProps" value="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,operational-status,administrative-state,priority-label,data-owner,data-source,data-source-version"/>
                 <xml-property name="nameProps" value="service-instance-name"/>
                 <xml-property name="searchable" value="service-instance-id,service-instance-name,operational-status"/>
                 <xml-property name="uniqueProps" value="service-instance-id"/>
@@ -16129,27 +16140,97 @@
                         <xml-property name="description" value="An attribute specfies the percentage value of the amount of simultaneous active UEs to the total number of UEs where active means the UEs are exchanging data with the network."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="dlThptPerSliceSubnet" name="dl-thpt-per-slice-subnet" type="java.lang.Float">
+                <xml-element java-attribute="dlThptPerSliceSubnets" name="dl-thpt-per-slice-subnets" type="inventory.aai.onap.org.v29.DlThptPerSliceSubnets">
                     <xml-properties>
                         <xml-property name="description" value="This attribute defines required data rate of the network slice subnet in downlink that should be available ubiquitously across the coverage area of the slice."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="ulThptPerSliceSubnet" name="ul-thpt-per-slice-subnet" type="java.lang.Float">
+                <xml-element java-attribute="ulThptPerSliceSubnets" name="ul-thpt-per-slice-subnets" type="inventory.aai.onap.org.v29.UlThptPerSliceSubnets">
                     <xml-properties>
                         <xml-property name="description" value="This attribute defines required data rate of the network slice subnet in uplink that should be available ubiquitously across the coverage area of the slice."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="dlThptPerUE" name="dl-thpt-per-ue" type="java.lang.Float">
+                <xml-element java-attribute="dlThptPerUes" name="dl-thpt-per-ues" type="inventory.aai.onap.org.v29.DlThptPerUes">
                     <xml-properties>
                         <xml-property name="description" value="This attribute defines data rate supported by the network slice per UE."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="ulThptPerUE" name="ul-thpt-per-ue" type="java.lang.Float">
+                <xml-element java-attribute="ulThptPerUes" name="ul-thpt-per-ues" type="inventory.aai.onap.org.v29.UlThptPerUes">
                     <xml-properties>
                         <xml-property name="description" value="This attribute defines data rate supported by the network slice per UE."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="coverageArea" name="coverage-area" type="java.lang.String">
+				<xml-element java-attribute="dLMaxPktSize" name="dl-max-pkt-size" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the maximum packet size supported by the network slice or the network slice subnet in downlink."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="nROperatingBands" name="nr-operating-bands" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents which 5G NR frequency bands can be used to access the network slice."/>
+                    </xml-properties>
+                </xml-element>				
+				<xml-element java-attribute="uLMaxPktSize" name="ul-max-pkt-size" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the maximum packet size supported by the network slice or the network slice subnet in uplink."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="uESpeed" name="ue-speed" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the maximum speed (in km/hour) supported by the network slice or network slice subnet at which a defined QoS can be achieved."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dLReliability" name="dl-reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies in the context of network layer DL packet transmissions,percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="uLReliability" name="ul-reliability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies in the context of network layer UL packet transmissions,percentage value of the amount of sent network layer packets successfully delivered to a given system entity within the time constraint required by the targeted service, divided by the total number of sent network layer packets."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="delayTolerances" name="delay-tolerances" type="inventory.aai.onap.org.v29.DelayTolerances">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the properties of service delivery flexibility, especially for the vertical services that are not chasing a high system performance."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="positionings" name="positionings" type="inventory.aai.onap.org.v29.Positionings">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies whether the RAN domain of the network slice provides geo-localization methods or supporting methods."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="termDensities" name="term-densities" type="inventory.aai.onap.org.v29.TermDensities">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute Specifies the overall user density over the coverage area of the network slice."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="sliceSimultaneousUse" name="slice-simultaneous-use" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Describes whether a network slice can be simultaneously used by a device together with other classes of network slices.Allowed values are 0,1,2,3,4"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="energyEfficiency" name="energy-efficiency" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Describes the energy efficiency through RAN domain of the network slice i.e. the ratio between the performance and the energy consumption (EC) when assessed during the same time frame."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="availability" name="availability" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the required communication service availability (percentage) through the RAN domain of a network slice. ie,RAN slice subnet."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxDLDataVolume" name="max-dl-data-volume" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the maximum DL PDCP data volume supported by the network slice instance.The unit is MByte/day."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxULDataVolume" name="max-ul-data-volume" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the maximum UL PDCP data volume supported by the network slice instance.The unit is MByte/day."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="coverageArea" name="coverage-area" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="This attribute can be used as an alternative to coverage-area-TA-list when the coverage area is not specified as a list of TAs, but as a custom object (JSON string)."/>
                     </xml-properties>
@@ -16162,6 +16243,26 @@
                 <xml-element java-attribute="survivalTime" name="survival-time" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="Survival time for network slice subnet."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="synchronicities" name="synchronicities" type="inventory.aai.onap.org.v29.Synchronicities">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies whether synchronicity of communication devices is supported in the RAN domain, Two cases are most important in this context-Synchronicity between a base station and a mobile device,Synchronicity between mobile devices."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="kpiMonitorings" name="kpi-monitorings" type="inventory.aai.onap.org.v29.KpiMonitorings">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the name list of KPIs, related to the RAN domain network slice subnet, available for performance monitoring."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="dlDeterministicComms" name="dl-deterministic-comms" type="inventory.aai.onap.org.v29.DlDeterministicComms">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the properties of the deterministic communication in downlink for periodic user traffic."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="ulDeterministicComms" name="ul-deterministic-comms" type="inventory.aai.onap.org.v29.UlDeterministicComms">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the properties of the deterministic communication in uplink for periodic user traffic."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="csAvailabilityTarget" name="cs-availability-target" type="java.lang.Float">
@@ -16230,11 +16331,769 @@
             <xml-properties>
                 <xml-property name="description" value="Requirement of network slice subnet service."/>
                 <xml-property name="uniqueProps" value="profile-id"/>
-                <xml-property name="indexedProps" value="profile-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="indexedProps" value="profile-id,slice-profile-id,dl-latency,ul-latency,ue-mobility-level,resource-sharing-level,max-number-of-UEs,activity-factor,dl-max-pkt-size,ul-max-pkt-size,ue-speed,dl-reliability,ul-reliability,slice-simultaneous-use,energy-efficiency,survival-time,availability,max-dl-data-volume,max-ul-data-volume,coverage-area,data-owner,data-source,data-source-version"/>
                 <xml-property name="container" value="slice-profiles"/>
                 <xml-property name="dependentOn" value="service-instance"/>
                 <xml-property name="uriTemplate" value="/service-instances/service-instance/{service-instance-id}/slice-profiles/slice-profile/{profile-id}"/>
                 <xml-property name="searcheable" value="profile-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="DelayTolerances">
+			<xml-properties>
+                <xml-property name="description" value="Collection of DelayTolerance object."/>
+            </xml-properties>
+            <xml-root-element name="delay-tolerances"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="delayTolerance" name="delay-tolerance" type="inventory.aai.onap.org.v29.DelayTolerance"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="DelayTolerance">
+            <xml-root-element name="delay-tolerance"/>
+            <java-attributes>
+                <xml-element java-attribute="delayToleranceId" name="delay-tolerance-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="support" name="support" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute specifies Specifies whether or not the network slice supports service delivery flexibility, especially for the vertical services that are not chasing a high system performance."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Delay Tolerance info of slice profile"/>
+                <xml-property name="indexedProps" value="delay-tolerance-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="delay-tolerance-id"/>
+                <xml-property name="container" value="delay-tolerances"/>
+                <xml-property name="uriTemplate" value="/delay-tolerances/delay-tolerance/{delay-tolerance-id}"/>
+                <xml-property name="requiredProps" value="delay-tolerance-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="TermDensities">
+			<xml-properties>
+                <xml-property name="description" value="Collection of TermDensities object."/>
+            </xml-properties>
+            <xml-root-element name="term-densities"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="termDensity" name="term-density" type="inventory.aai.onap.org.v29.TermDensity"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="TermDensity">
+            <xml-root-element name="term-density"/>
+            <java-attributes>
+                <xml-element java-attribute="termDensityId" name="term-density-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="density" name="density" type="java.lang.Integer">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the overall user density over the coverage area of the network slice."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Term Density info of slice profile"/>
+                <xml-property name="indexedProps" value="term-density-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="term-density-id"/>
+                <xml-property name="container" value="term-densities"/>
+                <xml-property name="uriTemplate" value="/term-densities/term-density/{term-density-id}"/>
+                <xml-property name="requiredProps" value="term-density-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="Synchronicities">
+			<xml-properties>
+                <xml-property name="description" value="Collection of synchronicity object."/>
+            </xml-properties>
+            <xml-root-element name="synchronicities"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="synchronicity" name="synchronicity" type="inventory.aai.onap.org.v29.Synchronicity"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="Synchronicity">
+            <xml-root-element name="synchronicity"/>
+            <java-attributes>
+                <xml-element java-attribute="synchronicityId" name="synchronicity-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="synAvailablility" name="availability" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="NOT_SUPPORTED, BETWEEN_BS_AND_UE, BETWEEN_BS_AND_UE_AND_UE_AND_UE."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="accuracy" name="accuracy" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the accuracy of the synchronicity"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Synchronicity info of slice profile"/>
+                <xml-property name="indexedProps" value="synchronicity-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="synchronicity-id"/>
+                <xml-property name="container" value="synchronicities"/>
+                <xml-property name="uriTemplate" value="/synchronicities/synchronicity/{synchronicity-id}"/>
+                <xml-property name="requiredProps" value="synchronicity-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="Positionings">
+			<xml-properties>
+                <xml-property name="description" value="Collection of Positioning object."/>
+            </xml-properties>
+            <xml-root-element name="positionings"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="Positioning" name="positioning" type="inventory.aai.onap.org.v29.Positioning"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="Positioning">
+            <xml-root-element name="positioning"/>
+            <java-attributes>
+                <xml-element java-attribute="positioningId" name="positioning-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="positioningAvailability" name="availability" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies if this attribute is provided by the RAN domain of the network slice and contains a list of positioning methods provided by the RAN domain - CIDE_CID,OTDOA,RF_FINGERPRINTING,AECID,HYBRID_POSITIONING,NET_RTK."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="predictionFrequency" name="prediction-frequency" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies how often location information is provided. This parameter simply defines how often the customer is allowed to request location information.Values-PERSEC,PERMIN,PERHOUR"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="accuracy" name="accuracy" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the accuracy of the location information. Accuracy depends on the respective positioning solution applied in the RAN domain of the network slice, measurement unit is meter"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="Positioning info of slice profile"/>
+                <xml-property name="indexedProps" value="positioning-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="positioning-id"/>
+                <xml-property name="container" value="positionings"/>
+                <xml-property name="uriTemplate" value="/positionings/positioning/{positioning-id}"/>
+                <xml-property name="requiredProps" value="positioning-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="KpiMonitorings">
+			<xml-properties>
+                <xml-property name="description" value="Collection of kpi-monitoring object."/>
+            </xml-properties>
+            <xml-root-element name="kpi-monitorings"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="kpiMonitoring" name="kpi-monitoring" type="inventory.aai.onap.org.v29.KpiMonitoring"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="KpiMonitoring">
+            <xml-root-element name="kpi-monitoring"/>
+            <java-attributes>
+                <xml-element java-attribute="kpiMonitoringId" name="kpi-monitoring-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="support" name="kpi-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies the name list of KQIs and KPIs available for performance monitoring."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="kpi-monitoring value info of slice profile"/>
+                <xml-property name="indexedProps" value="kpi-monitoring-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="kpi-monitoring-id"/>
+                <xml-property name="container" value="kpi-monitorings"/>
+                <xml-property name="uriTemplate" value="/kpi-monitorings/kpi-monitoring/{kpi-monitoring-id}"/>
+                <xml-property name="requiredProps" value="kpi-monitoring-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="DlDeterministicComms">
+			<xml-properties>
+                <xml-property name="description" value="Collection of downlink deterministic-comms object."/>
+            </xml-properties>
+            <xml-root-element name="dl-deterministic-comms"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="dlDeterministicComm" name="dl-deterministic-comm" type="inventory.aai.onap.org.v29.DlDeterministicComm"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="DlDeterministicComm">
+            <xml-root-element name="dl-deterministic-comm"/>
+            <java-attributes>
+                <xml-element java-attribute="deterministicCommId" name="deterministic-comm-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" required="true" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="detAvailability" name="availability" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="This parameter describes if the network slice supports deterministic communication,values:NOT_SUPPORTED,SUPPORTED"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="periodicityList" name="periodicity-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies a list of periodicities supported by the network slice for deterministic communication. Each instance of periodicity is expressed in seconds."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="downlink deterministic comm value info of slice profile"/>
+                <xml-property name="indexedProps" value="deterministic-comm-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="deterministic-comm-id"/>
+                <xml-property name="container" value="dl-deterministic-comms"/>
+                <xml-property name="uriTemplate" value="/dl-deterministic-comms/dl-deterministic-comm/{deterministic-comm-id}"/>
+                <xml-property name="requiredProps" value="deterministic-comm-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="UlDeterministicComms">
+			<xml-properties>
+                <xml-property name="description" value="Collection of uplink deterministic-comms object."/>
+            </xml-properties>
+            <xml-root-element name="ul-deterministic-comms"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="ulDeterministicComm" name="ul-deterministic-comm" type="inventory.aai.onap.org.v29.UlDeterministicComm"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="UlDeterministicComm">
+            <xml-root-element name="ul-deterministic-comm"/>
+            <java-attributes>
+                <xml-element java-attribute="deterministicCommId" name="deterministic-comm-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" required="true" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="detAvailability" name="availability" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="This parameter describes if the network slice supports deterministic communication,values:NOT_SUPPORTED,SUPPORTED"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="periodicityList" name="periodicity-list" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Specifies a list of periodicities supported by the network slice for deterministic communication. Each instance of periodicity is expressed in seconds."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="uplink deterministic comm value info of slice profile"/>
+                <xml-property name="indexedProps" value="deterministic-comm-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="deterministic-comm-id"/>
+                <xml-property name="container" value="ul-deterministic-comms"/>
+                <xml-property name="uriTemplate" value="/ul-deterministic-comms/ul-deterministic-comm/{deterministic-comm-id}"/>
+                <xml-property name="requiredProps" value="deterministic-comm-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="DlThptPerSliceSubnets">
+			<xml-properties>
+                <xml-property name="description" value="Collection of Dl Throughput per slice subnet object."/>
+            </xml-properties>
+            <xml-root-element name="dl-thpt-per-slice-subnets"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="dlThptPerSliceSubnet" name="dl-thpt-per-slice-subnet" type="inventory.aai.onap.org.v29.DlThptPerSliceSubnet"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="DlThptPerSliceSubnet">
+            <xml-root-element name="dl-thpt-per-slice-subnet"/>
+            <java-attributes>
+                <xml-element java-attribute="xlThptId" name="xl-thpt-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="guaThpt" name="gua-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the guaranteed data rate."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxThpt" name="max-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the maximum data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="dl-thpt-per-slice-subnet value info of slice profile"/>
+                <xml-property name="indexedProps" value="xl-thpt-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="xl-thpt-id"/>
+                <xml-property name="container" value="dl-thpt-per-slice-subnets"/>
+                <xml-property name="uriTemplate" value="/dl-thpt-per-slice-subnets/dl-thpt-per-slice-subnet/{xl-thpt-id}"/>
+                <xml-property name="requiredProps" value="xl-thpt-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="UlThptPerSliceSubnets">
+			<xml-properties>
+                <xml-property name="description" value="Collection of Ul Throughput per slice subnet object."/>
+            </xml-properties>
+            <xml-root-element name="ul-thpt-per-slice-subnets"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="ulThptPerSliceSubnet" name="ul-thpt-per-slice-subnet" type="inventory.aai.onap.org.v29.UlThptPerSliceSubnet"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="UlThptPerSliceSubnet">
+            <xml-root-element name="ul-thpt-per-slice-subnet"/>
+            <java-attributes>
+                <xml-element java-attribute="xlThptId" name="xl-thpt-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="guaThpt" name="gua-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the guaranteed data rate."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxThpt" name="max-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the maximum data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="ul-thpt-per-slice-subnet value info of slice profile"/>
+                <xml-property name="indexedProps" value="xl-thpt-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="xl-thpt-id"/>
+                <xml-property name="container" value="ul-thpt-per-slice-subnets"/>
+                <xml-property name="uriTemplate" value="/ul-thpt-per-slice-subnets/ul-thpt-per-slice-subnet/{xl-thpt-id}"/>
+                <xml-property name="requiredProps" value="xl-thpt-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="DlThptPerUes">
+			<xml-properties>
+                <xml-property name="description" value="Collection of DL Throughput per UE."/>
+            </xml-properties>
+            <xml-root-element name="dl-thpt-per-ues"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="dlThptPerUe" name="dl-thpt-per-ue" type="inventory.aai.onap.org.v29.DlThptPerUe"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="DlThptPerUe">
+            <xml-root-element name="dl-thpt-per-ue"/>
+            <java-attributes>
+                <xml-element java-attribute="xlThptId" name="xl-thpt-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="guaThpt" name="gua-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the guaranteed data rate."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxThpt" name="max-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the maximum data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="dl-thpt-per-ue value info of slice profile"/>
+                <xml-property name="indexedProps" value="xl-thpt-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="xl-thpt-id"/>
+                <xml-property name="container" value="dl-thpt-per-ues"/>
+                <xml-property name="uriTemplate" value="/dl-thpt-per-ues/dl-thpt-per-ue/{xl-thpt-id}"/>
+                <xml-property name="requiredProps" value="xl-thpt-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="UlThptPerUes">
+			<xml-properties>
+                <xml-property name="description" value="Collection of UL Throughput per UE."/>
+            </xml-properties>
+            <xml-root-element name="ul-thpt-per-ues"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="ulThptPerUe" name="ul-thpt-per-ue" type="inventory.aai.onap.org.v29.UlThptPerUe"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="UlThptPerUe">
+            <xml-root-element name="ul-thpt-per-ue"/>
+            <java-attributes>
+                <xml-element java-attribute="xlThptId" name="xl-thpt-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="servAttrComs" name="serv-attr-coms" type="inventory.aai.onap.org.v29.ServAttrComs">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the common properties of service requirement related attributes."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="guaThpt" name="gua-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the guaranteed data rate."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="maxThpt" name="max-thpt" type="java.lang.Float">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute describes the maximum data rate."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="ul-thpt-per-ue value info of slice profile"/>
+                <xml-property name="indexedProps" value="xl-thpt-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="xl-thpt-id"/>
+                <xml-property name="container" value="ul-thpt-per-ues"/>
+                <xml-property name="uriTemplate" value="/ul-thpt-per-ues/ul-thpt-per-ue/{xl-thpt-id}"/>
+                <xml-property name="requiredProps" value="xl-thpt-id"/>
+            </xml-properties>
+        </java-type>
+		<java-type name="ServAttrComs">
+			<xml-properties>
+                <xml-property name="description" value="Collection of ServAttrCom object."/>
+            </xml-properties>
+            <xml-root-element name="serv-attr-coms"/>
+            <java-attributes>
+                <xml-element container-type="java.util.ArrayList" java-attribute="ServAttrCom" name="serv-attr-com" type="inventory.aai.onap.org.v29.ServAttrCom"/>
+            </java-attributes>
+		</java-type>
+		<java-type name="ServAttrCom">
+            <xml-root-element name="serv-attr-com"/>
+            <java-attributes>
+                <xml-element java-attribute="servAttrComId" name="serv-attr-com-id" required="true" type="java.lang.String" xml-key="true">
+                    <xml-properties>
+                        <xml-property name="description" value="Unique ID for the object."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="category" name="category" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="This attribute Represents the category - CHARACTER, SCALABILITY."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="exposure" name="exposure" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the exposure - This attribute specifies exposure mode of a service requirement/attribute of GST."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="tagging" name="tagging" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Represents the tagging- PERFORMANCE, FUNCTION, OPERATION."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataOwner" name="data-owner" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the entity that is responsible managing this inventory object."/>
+                        <xml-property name="ownerCheck" value="N/A"/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSource" name="data-source" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the upstream source of the data."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="dataSourceVersion" name="data-source-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Identifies the version of the upstream source."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="resourceVersion" name="resource-version" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="Used for optimistic concurrency.  Must be empty on create, valid on update and delete."/>
+                    </xml-properties>
+                </xml-element>
+                <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
+            </java-attributes>
+            <xml-properties>
+                <xml-property name="description" value="ServAttrCom info of slice profile"/>
+                <xml-property name="indexedProps" value="serv-attr-com-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="serv-attr-com-id"/>
+                <xml-property name="container" value="serv-attr-coms"/>
+                <xml-property name="uriTemplate" value="/serv-attr-coms/serv-attr-com/{serv-attr-com-id}"/>
+                <xml-property name="requiredProps" value="serv-attr-com-id"/>
             </xml-properties>
         </java-type>
         <java-type name="PlmnInfoList">
@@ -16437,6 +17296,26 @@
                         <xml-property name="description" value="Name of the feasibility service job (We will use the slice service instance name received in the order request)."/>
                     </xml-properties>
                 </xml-element>
+				<xml-element java-attribute="resourceReservation" name="resource-reservation" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute represents MnS consumer's requirements for resource reservation."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="creationTime" name="creation-time" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute to Indicate the time when the job is created."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="recommendationRequest" name="recommendation-request" type="java.lang.Boolean">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute represents MnS consumer's request for recommended network slice related requirements.."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="requestedReservationExpiration" name="requested-reservation-expiration" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute which specifies MnS consuner's requirements for the validity period of the resource reservation."/>
+                    </xml-properties>
+                </xml-element>
                 <xml-element java-attribute="feasibilityTimeWindows" name="feasibility-time-windows" type="inventory.aai.onap.org.v29.FeasibilityTimeWindows">
                     <xml-properties>
                         <xml-property name="description" value="Time windows when the slice should be available"/>
@@ -16450,6 +17329,26 @@
                 <xml-element java-attribute="infeasibleReason" name="infeasible-reason" type="java.lang.String">
                     <xml-properties>
                         <xml-property name="description" value="An attribute that specifies the additional reason information if the feasibility check result is infeasible.The detailed ENUM value is FFS."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="resourceReservationStatus" name="resource-reservation-status" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute which specifies the resource reservation result for the feasibility check job.Allowed values -RESERVED,UNRESERVED,USED"/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="reservationFailureReason" name="reservation-failure-reason" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute that specifies the additional reason information if the reservation is failed."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="reservationExpiration" name="reservation-expiration" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute which specifies the actual validity period of the resource reservation."/>
+                    </xml-properties>
+                </xml-element>
+				<xml-element java-attribute="recommendedRequirements" name="recommended-requirements" type="java.lang.String">
+                    <xml-properties>
+                        <xml-property name="description" value="An attribute that specifies the recommended network slicing related requirements which can be supported by the MnS producer."/>
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="feasibilityDetails" name="feasibility-details" type="java.lang.String">
@@ -16479,6 +17378,7 @@
                     </xml-properties>
                 </xml-element>
                 <xml-element java-attribute="sliceProfiles" name="slice-profiles" type="inventory.aai.onap.org.v29.SliceProfiles"/>
+				<xml-element java-attribute="serviceProfiles" name="service-profiles" type="inventory.aai.onap.org.v29.ServiceProfiles"/>
                 <xml-element java-attribute="relationshipList" name="relationship-list" type="inventory.aai.onap.org.v29.RelationshipList"/>
             </java-attributes>
             <xml-properties>
