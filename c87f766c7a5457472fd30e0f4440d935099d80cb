@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5d0d3c7_2b6d00fc",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7207,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-03T11:24:53Z",
+      "side": 1,
+      "message": "Why this change to !${direction}? Is if for delete?",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f966f121_eec92a16",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7213,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-03T11:24:53Z",
+      "side": 1,
+      "message": "I see there are \u003e\u003e characters on multiple line, please remove the characters and do the proper indentation.",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14588565_29e346ea",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7489,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-03T11:24:53Z",
+      "side": 1,
+      "message": "Have you reviewed all edge rules and labels from Sangeeta?",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320aac19_1e60259d",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7499,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-03T11:24:53Z",
+      "side": 1,
+      "message": "Till this line",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d594d29_53bd7751",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v29/aai_oxm_v29.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-03T11:24:53Z",
+      "side": 1,
+      "message": "This \u003e\u003e character i can see here as well, is it like required? or by mistakenly added",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
