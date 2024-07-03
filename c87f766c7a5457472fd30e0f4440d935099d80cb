@@ -35,6 +35,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b36556a4_9b6c22e7",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7213,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-03T11:48:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f966f121_eec92a16",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14588565_29e346ea",
@@ -82,6 +100,24 @@
       "writtenOn": "2024-07-03T11:24:53Z",
       "side": 1,
       "message": "This \u003e\u003e character i can see here as well, is it like required? or by mistakenly added",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66fdc4c6_5b2d1fa5",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v29/aai_oxm_v29.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-03T11:48:31Z",
+      "side": 1,
+      "message": "Not sure, how this is getting added. Will check",
+      "parentUuid": "7d594d29_53bd7751",
       "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
