@@ -138,6 +138,24 @@
       "parentUuid": "66fdc4c6_5b2d1fa5",
       "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffbdde13_d9567154",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v29/aai_oxm_v29.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2024-07-08T06:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e4eaad_5163e635",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
