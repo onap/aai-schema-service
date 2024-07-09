@@ -18,6 +18,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa8782c_9fc28f26",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7207,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-09T09:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5d0d3c7_2b6d00fc",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f966f121_eec92a16",
@@ -83,6 +101,24 @@
       "writtenOn": "2024-07-03T11:24:53Z",
       "side": 1,
       "message": "Till this line",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28f17ee7_78e01699",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7499,
+      "author": {
+        "id": 8221
+      },
+      "writtenOn": "2024-07-09T09:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320aac19_1e60259d",
       "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
