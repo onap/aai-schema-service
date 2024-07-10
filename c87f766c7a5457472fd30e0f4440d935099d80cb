@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdfd9264_cca02a7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-10T03:51:02Z",
+      "side": 1,
+      "message": "I had shared all the dbedge rules and labels with Sangeetha. She hasnt come back with any concerns/queries.",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5d0d3c7_2b6d00fc",
@@ -31,6 +48,24 @@
       "writtenOn": "2024-07-09T09:38:23Z",
       "side": 1,
       "message": "Done",
+      "parentUuid": "c5d0d3c7_2b6d00fc",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aec5823_ad721bf7",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7207,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-10T03:51:02Z",
+      "side": 1,
+      "message": "Yes, to delete the child object when parent is deleted",
       "parentUuid": "c5d0d3c7_2b6d00fc",
       "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
@@ -106,6 +141,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "125876b2_6082304d",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7489,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-10T03:51:02Z",
+      "side": 1,
+      "message": "yes.I did",
+      "parentUuid": "14588565_29e346ea",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "320aac19_1e60259d",
@@ -134,6 +187,24 @@
         "id": 8221
       },
       "writtenOn": "2024-07-09T09:38:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "320aac19_1e60259d",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b73cc219_8c7b78a9",
+        "filename": "aai-schema/src/main/resources/onap/dbedgerules/v29/DbEdgeRules_v29.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 7499,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-10T03:51:02Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "320aac19_1e60259d",
@@ -208,6 +279,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "99e4eaad_5163e635",
+      "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e376a68_59ec801b",
+        "filename": "aai-schema/src/main/resources/onap/oxm/v29/aai_oxm_v29.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5150,
+      "author": {
+        "id": 8412
+      },
+      "writtenOn": "2024-07-10T03:51:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66fdc4c6_5b2d1fa5",
       "revId": "c87f766c7a5457472fd30e0f4440d935099d80cb",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
