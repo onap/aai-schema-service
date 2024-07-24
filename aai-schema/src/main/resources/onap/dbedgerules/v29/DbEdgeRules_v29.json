@@ -7495,7 +7495,18 @@
             "prevent-delete": "NONE",
             "default": "true",
             "description": "serv-attr-com belongsTo ul-thpt-per-ue"
+        },
+        {
+            "from": "service-instance",
+            "to": "geo-region",
+            "label": "org.onap.relationships.inventory.Uses",
+            "direction": "OUT",
+            "multiplicity": "MANY2MANY",
+            "contains-other-v": "NONE",
+            "delete-other-v": "NONE",
+            "prevent-delete": "NONE",
+            "default": "true",
+            "description": "service-instance Uses geo-region"
         }
-		
     ]
 }

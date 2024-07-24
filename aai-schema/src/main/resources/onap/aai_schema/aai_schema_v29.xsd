@@ -8933,7 +8933,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,operational-status,administrative-state,priority-label,data-owner,data-source,data-source-version",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name,operational-status",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,operational-status,service-type,administrative-state,priority-label,data-owner,data-source,data-source-version",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name,operational-status",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
