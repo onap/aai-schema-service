@@ -451,8 +451,17 @@ public class YAMLfromOXM extends OxmFileProcessor {
                                 System.out.println(
                                     v + "-relationship added as array for getItemName null");
                             }
-                            sbProperties.append("        type: array\n        items:\n");
-                            sbProperties.append("          $ref: \"#/definitions/")
+                            // https://gitlab.devops.telekom.de/tnap/development/tesla-team/portal-tnap/portal-bff/-/merge_requests/542/diffs#c00bf90500eca6b5dfcf2b014e51dace6aafeeba
+                            // type: object
+                            // properties:
+                            //   itemName:
+                            //     type: array
+                            //     items:
+                            //       $ref: "#/definitions/itemName"
+                            sbProperties.append("        type: object\n        properties:\n");
+                            sbProperties.append("          " + itemName + ":\n");
+                            sbProperties.append("            type: array\n            items:\n");
+                            sbProperties.append("              $ref: \"#/definitions/")
                                 .append("".equals(itemName) ? "inventory-item-data" : itemName)
                                 .append("\"\n");
                         }
