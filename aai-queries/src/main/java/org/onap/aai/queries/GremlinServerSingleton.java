@@ -31,7 +31,6 @@ import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
-import org.onap.aai.aaf.auth.FileWatcher;
 import org.onap.aai.logging.LogFormatTools;
 import org.onap.aai.util.AAIConstants;
 import org.slf4j.Logger;
@@ -72,27 +71,6 @@ public class GremlinServerSingleton {
         } catch (IOException e) {
             logger.error("Error occurred during the processing of query json file: "
                 + LogFormatTools.getStackTop(e));
-        }
-
-        TimerTask task = new FileWatcher(new File(storedQueriesLocation)) {
-            @Override
-            protected void onChange(File file) {
-                try {
-                    String filepath = storedQueriesLocation;
-                    Path path = Paths.get(filepath);
-                    String customQueryConfigJson = new String(Files.readAllBytes(path));
-                    queryConfig = new GetCustomQueryConfig(customQueryConfigJson);
-                } catch (IOException e) {
-                    logger.error("Error occurred during the processing of query json file: "
-                        + LogFormatTools.getStackTop(e));
-                }
-            }
-        };
-
-        if (!timerSet) {
-            timerSet = true;
-            timer = new Timer();
-            timer.schedule(task, new Date(), 10000);
         }
 
     }
