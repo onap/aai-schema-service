@@ -104,6 +104,12 @@
             <groupId>org.onap.aai.aai-common</groupId>
             <artifactId>aai-core</artifactId>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.onap.aai.aai-common</groupId>
+                    <artifactId>aai-aaf-auth</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
