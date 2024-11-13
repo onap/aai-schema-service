@@ -20,17 +20,16 @@
 
 package org.onap.aai.schemaservice;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.schemaservice.config.PropertyPasswordConfiguration;
 import org.onap.aai.util.AAIConfig;
@@ -45,7 +44,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(
@@ -54,8 +52,6 @@ import org.springframework.web.client.RestTemplate;
 @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(initializers = PropertyPasswordConfiguration.class)
 @Import(SchemaServiceTestConfiguration.class)
-
-@RunWith(SpringRunner.class)
 public class SchemaServiceTest {
 
     private HttpHeaders headers;
@@ -72,14 +68,14 @@ public class SchemaServiceTest {
     @LocalServerPort
     protected int randomPort;
 
-    @BeforeClass
+    @BeforeAll
     public static void setupConfig() throws AAIException {
         System.setProperty("AJSC_HOME", "./");
         System.setProperty("BUNDLECONFIG_DIR", "src/main/resources/");
         System.out.println("Current directory: " + System.getProperty("user.dir"));
     }
 
-    @Before
+    @BeforeEach
     public void setup() throws AAIException, UnsupportedEncodingException {
 
         AAIConfig.init();

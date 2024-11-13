@@ -30,13 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class ApiHttpVerbTest {
     Api.HttpVerb theVerb = null;
     List<String> tags;
@@ -50,7 +47,6 @@ public class ApiHttpVerbTest {
     /**
      * Parameters for the test cases all following same pattern.
      */
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"tag1,tag2", "typeA", "summaryB", "operationC", "consumesD,consumesE",
             "producesF,producesG",
@@ -64,9 +60,8 @@ public class ApiHttpVerbTest {
     /**
      * Constructor for the test cases all following same pattern.
      */
-    public ApiHttpVerbTest(String tags, String type, String summary, String operationId,
+    public void initApiHttpVerbTest(String tags, String type, String summary, String operationId,
         String consumes, String produces, String result) {
-        super();
         this.tags = Arrays.asList(tags.split(","));
         this.type = type;
         this.summary = summary;
@@ -80,7 +75,7 @@ public class ApiHttpVerbTest {
     /**
      * Initialise the test object.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         theVerb = new Api.HttpVerb();
     }
@@ -88,8 +83,10 @@ public class ApiHttpVerbTest {
     /**
      * Perform the test on the test object.
      */
-    @Test
-    public void testApiHttpVerb() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testApiHttpVerb(String tags, String type, String summary, String operationId, String consumes, String produces, String result) {
+        initApiHttpVerbTest(tags, type, summary, operationId, consumes, produces, result);
         theVerb.setTags(this.tags);
         theVerb.setType(this.type);
         theVerb.setSummary(this.summary);

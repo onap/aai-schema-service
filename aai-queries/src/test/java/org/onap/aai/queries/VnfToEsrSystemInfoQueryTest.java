@@ -20,7 +20,7 @@
 
 package org.onap.aai.queries;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.serialization.db.exceptions.NoEdgeRuleFoundException;
 

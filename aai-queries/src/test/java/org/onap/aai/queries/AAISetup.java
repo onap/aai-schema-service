@@ -20,7 +20,7 @@
 
 package org.onap.aai.queries;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,9 +28,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.onap.aai.config.IntrospectionConfig;
 import org.onap.aai.config.RestBeanConfig;
 import org.onap.aai.config.SpringContextAware;
@@ -48,13 +47,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(
     classes = {SchemaLocationsBean.class, SchemaVersions.class, AAIConfigTranslator.class,
         EdgeIngestor.class, EdgeSerializer.class, NodeIngestor.class, SpringContextAware.class,
         IntrospectionConfig.class, RestBeanConfig.class, GremlinServerSingleton.class})
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(
     properties = {"schema.uri.base.path = /aai",
         "schema.ingest.file = src/test/resources/application-test.properties"})
@@ -89,13 +88,7 @@ public abstract class AAISetup {
     @Value("${schema.uri.base.path}")
     protected String basePath;
 
-    @ClassRule
-    public static final SpringClassRule springClassRule = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
-    @BeforeClass
+    @BeforeAll
     public static void setupBundleconfig() throws Exception {
         System.setProperty("AJSC_HOME", "./");
         System.setProperty("BUNDLECONFIG_DIR", "src/main/resources/");
@@ -107,7 +100,7 @@ public abstract class AAISetup {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
 
         String message = String.format("Unable to find the %s in src/test/resources", filename);
-        assertNotNull(message, inputStream);
+        assertNotNull(inputStream, message);
 
         String resource = IOUtils.toString(inputStream, Charset.defaultCharset());
         return resource;
