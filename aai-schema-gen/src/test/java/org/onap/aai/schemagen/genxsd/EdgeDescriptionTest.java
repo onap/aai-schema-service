@@ -21,8 +21,8 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Multimap;
 
@@ -35,11 +35,10 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.EdgeRule;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
@@ -49,12 +48,10 @@ import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
+@SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
         TestUtilConfigTranslatorforEdges.class, EdgeIngestor.class})
 @TestPropertySource(
@@ -72,7 +69,7 @@ public class EdgeDescriptionTest {
     String toNode = "complex";
     SchemaVersion v10 = new SchemaVersion("v10");
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         String json = "{" + "  \"rules\": [" + "    {" + "      \"from\": \"availability-zone\","
             + "      \"to\": \"complex\","
@@ -133,13 +130,13 @@ public class EdgeDescriptionTest {
         bw.close();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() throws Exception {
         File edges = new File(EDGEFILENAME);
         edges.delete();
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
     }

@@ -22,24 +22,21 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class DeleteFootnoteSetTest {
     String targetNode;
     String flavor;
     String result;
     DeleteFootnoteSet footnotes = null;
 
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {
             {"vserver", "(1)",
@@ -57,33 +54,40 @@ public class DeleteFootnoteSetTest {
         return (Arrays.asList(inputs));
     }
 
-    public DeleteFootnoteSetTest(String targetNode, String flavor, String result) {
-        super();
+    public void initDeleteFootnoteSetTest(String targetNode, String flavor, String result) {
         this.targetNode = targetNode;
         this.flavor = flavor;
         this.result = result;
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         footnotes = new DeleteFootnoteSet(this.targetNode);
     }
 
-    @Test
-    public void testDeleteFootnoteSet() {
-        assertThat(footnotes.targetNode, is(this.targetNode));
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testDeleteFootnoteSet(String targetNode, String flavor, String result) {
+        DeleteFootnoteSet footnoteSet = new DeleteFootnoteSet(targetNode);
+        assertEquals(targetNode, footnoteSet.targetNode);
+        // initDeleteFootnoteSetTest(targetNode, flavor, result);
+        // assertThat(footnotes.targetNode, is(this.targetNode));
     }
 
-    @Test
-    public void testAdd() {
-        footnotes.add(this.flavor);
-        assertThat(footnotes.footnotes.size(), is(1));
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testAdd(String targetNode, String flavor, String result) {
+        DeleteFootnoteSet footnoteSet = new DeleteFootnoteSet(targetNode);
+        footnoteSet.add(flavor);
+        assertEquals(1, footnoteSet.footnotes.size());
     }
 
-    @Test
-    public void testToString() {
-        footnotes.add(this.flavor);
-        assertThat(footnotes.toString(), is(this.result));
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testToString(String targetNode, String flavor, String result) {
+        DeleteFootnoteSet footnoteSet = new DeleteFootnoteSet(targetNode);
+        footnoteSet.add(flavor);
+        assertEquals(result, footnoteSet.toString());
     }
 
 }

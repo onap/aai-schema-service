@@ -26,13 +26,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class ApiHttpVerbResponseTest {
     Api.HttpVerb.Response theResponse = null;
     String responseCode;
@@ -42,7 +39,6 @@ public class ApiHttpVerbResponseTest {
     /**
      * Parameters for the test cases all following same pattern.
      */
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"200", "OK", "Response{responseCode='200', description='OK'}"},
             {"400", "Bad Request", "Response{responseCode='400', description='Bad Request'}"},
@@ -56,8 +52,7 @@ public class ApiHttpVerbResponseTest {
     /**
      * Constructor for the test cases all following same pattern.
      */
-    public ApiHttpVerbResponseTest(String responseCode, String description, String result) {
-        super();
+    public void initApiHttpVerbResponseTest(String responseCode, String description, String result) {
         this.responseCode = responseCode;
         this.description = description;
         this.result = result;
@@ -66,7 +61,7 @@ public class ApiHttpVerbResponseTest {
     /**
      * Initialise the test object.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         theResponse = new Api.HttpVerb.Response();
     }
@@ -74,8 +69,10 @@ public class ApiHttpVerbResponseTest {
     /**
      * Perform the test on the test object.
      */
-    @Test
-    public void testApiHttpVerbResponse() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testApiHttpVerbResponse(String responseCode, String description, String result) {
+        initApiHttpVerbResponseTest(responseCode, description, result);
         theResponse.setResponseCode(this.responseCode);
         theResponse.setDescription(this.description);
         assertThat(theResponse.toString(), is(this.result));

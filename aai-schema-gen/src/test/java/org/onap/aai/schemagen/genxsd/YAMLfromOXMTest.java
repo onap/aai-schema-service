@@ -21,9 +21,9 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.common.collect.Multimap;
 
@@ -38,10 +38,9 @@ import java.nio.file.Paths;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.EdgeRule;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
@@ -55,14 +54,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
+@SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
         TestUtilConfigTranslatorforBusiness.class, EdgeIngestor.class, NodeIngestor.class,
         SwaggerGenerationConfiguration.class
@@ -90,14 +87,14 @@ public class YAMLfromOXMTest {
     @Autowired
     SchemaConfigVersions schemaConfigVersions;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         System.setProperty("AJSC_HOME", ".");
         System.setProperty("BUNDLECONFIG_DIR", "src/test/resources/bundleconfig-local");
         System.setProperty("aai.service.name", SERVICE_NAME);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         XSDElementTest x = new XSDElementTest();
         x.setUp();
@@ -230,7 +227,7 @@ public class YAMLfromOXMTest {
             e.printStackTrace();
         }
         boolean matchFound = fileContent.contains((YAMLRelationshipList()));
-        assertTrue("RelationshipListFormat:\n", matchFound);
+        assertTrue(matchFound, "RelationshipListFormat:\n");
     }
 
     @Test
