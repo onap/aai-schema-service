@@ -22,30 +22,27 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.schemagen.GenerateXsd;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SchemaConfigVersions.class, EdgeIngestor.class})
+@SpringJUnitConfig(classes = {SchemaConfigVersions.class, EdgeIngestor.class})
 @TestPropertySource(properties = {"schema.uri.base.path = /aai"})
-@Ignore("This test needs to get major rework done as it is written very poorly")
+@Disabled("This test needs to get major rework done as it is written very poorly")
 public class PutRelationPathSetTest {
     private static final String EDGEFILENAME =
         "src/test/resources/dbedgerules/EdgeDescriptionRules_test.json";
@@ -66,7 +63,7 @@ public class PutRelationPathSetTest {
     @Autowired
     EdgeIngestor edgeIngestor;
 
-    @Before
+    @BeforeEach
     public void setUpBeforeClass() throws Exception {
         v = schemaConfigVersions.getDefaultVersion();
 
@@ -139,7 +136,7 @@ public class PutRelationPathSetTest {
 
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         DeleteOperation.deletePaths.put("/cloud-infrastructure/pservers/pserver/{hostname}",
@@ -167,7 +164,7 @@ public class PutRelationPathSetTest {
         PutRelationPathSet.add(opId, path);
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDownAfterClass() throws Exception {
         File edges = new File(EDGEFILENAME);
         edges.delete();

@@ -21,19 +21,16 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.onap.aai.setup.SchemaVersion;
 
-@RunWith(Parameterized.class)
 public class PutOperationTest {
     private String useOpId;
     private String xmlRootElementName;
@@ -43,7 +40,6 @@ public class PutOperationTest {
     private String result;
     private static SchemaVersion v = new SchemaVersion("v14");
 
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
             "/network/generic-vnfs/generic-vnf/{vnf-id}",
@@ -69,9 +65,8 @@ public class PutOperationTest {
         return Arrays.asList(inputs);
     }
 
-    public PutOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
+    public void initPutOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams, String result) {
-        super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
@@ -80,13 +75,15 @@ public class PutOperationTest {
         this.result = result;
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
 
     }
 
-    @Test
-    public void testToString() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+        initPutOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
         PutOperation put =
             new PutOperation(useOpId, xmlRootElementName, tag, path, pathParams, v, "/aai");
         String modResult = put.toString();

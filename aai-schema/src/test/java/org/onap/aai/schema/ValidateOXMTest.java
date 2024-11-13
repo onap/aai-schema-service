@@ -20,8 +20,8 @@
 
 package org.onap.aai.schema;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -44,8 +44,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -472,7 +472,7 @@ public class ValidateOXMTest {
      * dependentOn relationship matches what is listed in the edge rules.
      *
      */
-    @Ignore
+    @Disabled
     @Test
     public void testSchemaValidationAgainstEdgeRules() throws XPathExpressionException, IOException,
         SAXException, ParserConfigurationException, ParseException {

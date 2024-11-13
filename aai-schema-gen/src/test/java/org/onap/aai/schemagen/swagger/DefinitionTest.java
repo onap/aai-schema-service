@@ -28,13 +28,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class DefinitionTest {
     Definition theDefinition = null;
     String definitionName;
@@ -44,7 +41,6 @@ public class DefinitionTest {
     /**
      * Parameters for the test cases all following same pattern.
      */
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"name1", "desc1",
             "Definition{definitionName='name1', definitionDescription='desc1', propertyList=[]}"},
@@ -58,8 +54,7 @@ public class DefinitionTest {
     /**
      * Constructor for the test cases all following same pattern.
      */
-    public DefinitionTest(String definitionName, String definitionDescription, String result) {
-        super();
+    public void initDefinitionTest(String definitionName, String definitionDescription, String result) {
         this.definitionName = definitionName;
         this.definitionDescription = definitionDescription;
         this.result = result;
@@ -68,7 +63,7 @@ public class DefinitionTest {
     /**
      * Initialise the test object.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         theDefinition = new Definition();
     }
@@ -76,8 +71,10 @@ public class DefinitionTest {
     /**
      * Perform the test on the test object.
      */
-    @Test
-    public void testDefinitionProperty() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testDefinitionProperty(String definitionName, String definitionDescription, String result) {
+        initDefinitionTest(definitionName, definitionDescription, result);
         theDefinition.setDefinitionName(this.definitionName);
         theDefinition.setDefinitionDescription(this.definitionDescription);
 

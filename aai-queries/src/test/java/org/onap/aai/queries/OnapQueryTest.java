@@ -20,8 +20,8 @@
 
 package org.onap.aai.queries;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -33,12 +33,9 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSo
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.onap.aai.config.IntrospectionConfig;
@@ -65,24 +62,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(Parameterized.class)
 @ContextConfiguration(
     classes = {SchemaLocationsBean.class, SchemaConfigVersions.class, AAIConfigTranslator.class,
         EdgeIngestor.class, EdgeSerializer.class, NodeIngestor.class, SpringContextAware.class,
         GremlinServerSingleton.class, IntrospectionConfig.class})
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(
     properties = {"schema.uri.base.path = /aai", "schema.source.name = onap",
         "schema.ingest.file = src/test/resources/application-test.properties"})
 public abstract class OnapQueryTest {
-
-    @ClassRule
-    public static final SpringClassRule springClassRule = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     protected Logger logger;
     protected Graph graph;
@@ -109,16 +99,7 @@ public abstract class OnapQueryTest {
     @Autowired
     protected GremlinServerSingleton gremlinServerSingleton;
 
-    @Parameterized.Parameter(value = 0)
     public SchemaVersion version;
-
-    @Parameterized.Parameters(name = "Version.{0}")
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {{new SchemaVersion("v11")}, {new SchemaVersion("v12")},
-            {new SchemaVersion("v13")}, {new SchemaVersion("v14")}, {new SchemaVersion("v15")},
-            {new SchemaVersion("v16")}, {new SchemaVersion("v17")}, {new SchemaVersion("v18")},
-            {new SchemaVersion("v19")}, {new SchemaVersion("v20")}});
-    }
 
     protected String query;
 
@@ -127,25 +108,24 @@ public abstract class OnapQueryTest {
     @Autowired
     private Environment env;
 
-    @BeforeClass
+    @BeforeAll
     public static void setupBundleconfig() {
         System.setProperty("AJSC_HOME", "./");
         System.setProperty("BUNDLECONFIG_DIR", "src/main/resources/");
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws AAIException, NoEdgeRuleFoundException, EdgeRuleNotFoundException,
         AmbiguousRuleChoiceException, IOException {
         System.setProperty("AJSC_HOME", ".");
         System.setProperty("BUNDLECONFIG_DIR", "src/main/resources");
         logger = LoggerFactory.getLogger(getClass());
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         graph = TinkerGraph.open();
         gts = graph.traversal();
         createGraph();
         shell = new GremlinGroovyShell();
-        loader = loaderFactory.createLoaderForVersion(ModelType.MOXY, version);
-        setUpQuery();
+
     }
 
     protected void setUpQuery() {
@@ -184,7 +164,7 @@ public abstract class OnapQueryTest {
         // java.lang.AssertionError: Expected all the vertices to be found
         // Expected :[v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
         // Actual :[v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], v[12]]
-        assertEquals("Expected all the vertices to be found", nonDuplicateExpectedResult, vertices);
+        assertEquals(nonDuplicateExpectedResult, vertices, "Expected all the vertices to be found");
 
     }
 
@@ -201,5 +181,9 @@ public abstract class OnapQueryTest {
     protected abstract void addStartNode(GraphTraversal<Vertex, Vertex> g);
 
     protected abstract void addParam(Map<String, Object> params);
+
+    public void initOnapQueryTest(SchemaVersion version) {
+        this.version = version;
+    }
 
 }

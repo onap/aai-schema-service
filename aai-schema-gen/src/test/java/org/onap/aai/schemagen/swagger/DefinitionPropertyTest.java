@@ -26,13 +26,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class DefinitionPropertyTest {
     Definition.Property theProperty = null;
     String propertyName;
@@ -43,7 +40,6 @@ public class DefinitionPropertyTest {
     /**
      * Parameters for the test cases all following same pattern.
      */
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {
             {"name1", "type1", "ref1",
@@ -58,9 +54,8 @@ public class DefinitionPropertyTest {
     /**
      * Constructor for the test cases all following same pattern.
      */
-    public DefinitionPropertyTest(String propertyName, String propertyType,
+    public void initDefinitionPropertyTest(String propertyName, String propertyType,
         String propertyReference, String result) {
-        super();
         this.propertyName = propertyName;
         this.propertyType = propertyType;
         this.propertyReference = propertyReference;
@@ -70,7 +65,7 @@ public class DefinitionPropertyTest {
     /**
      * Initialise the test object.
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         theProperty = new Definition.Property();
     }
@@ -78,8 +73,10 @@ public class DefinitionPropertyTest {
     /**
      * Perform the test on the test object.
      */
-    @Test
-    public void testDefinitionProperty() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testDefinitionProperty(String propertyName, String propertyType, String propertyReference, String result) {
+        initDefinitionPropertyTest(propertyName, propertyType, propertyReference, result);
         theProperty.setPropertyName(this.propertyName);
         theProperty.setPropertyType(this.propertyType);
         theProperty.setPropertyReference(this.propertyReference);

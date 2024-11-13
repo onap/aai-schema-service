@@ -20,25 +20,49 @@
 
 package org.onap.aai.queries;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.onap.aai.exceptions.AAIException;
+import org.onap.aai.introspection.ModelType;
 import org.onap.aai.serialization.db.exceptions.NoEdgeRuleFoundException;
+import org.onap.aai.setup.SchemaVersion;
 
 public class VnfToEsrSystemInfoQueryTest extends OnapQueryTest {
     public VnfToEsrSystemInfoQueryTest() {
         super();
     }
 
-    @Test
-    public void run() {
+    public static Stream<Arguments> data() {
+        return Stream.of(
+            Arguments.of(new SchemaVersion("v11")),
+            Arguments.of(new SchemaVersion("v12")),
+            Arguments.of(new SchemaVersion("v13")),
+            Arguments.of(new SchemaVersion("v14")),
+            Arguments.of(new SchemaVersion("v15")),
+            Arguments.of(new SchemaVersion("v16")),
+            Arguments.of(new SchemaVersion("v17")),
+            Arguments.of(new SchemaVersion("v18")),
+            Arguments.of(new SchemaVersion("v19")),
+            Arguments.of(new SchemaVersion("v20"))
+        );
+
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    public void run(SchemaVersion version) {
+        loader = loaderFactory.createLoaderForVersion(ModelType.MOXY, version);
+        setUpQuery();
         super.run();
         assertTrue(true);
     }

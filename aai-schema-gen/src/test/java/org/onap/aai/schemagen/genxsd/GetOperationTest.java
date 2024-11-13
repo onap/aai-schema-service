@@ -21,21 +21,18 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Vector;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RunWith(Parameterized.class)
 public class GetOperationTest {
     private static final Logger logger = LoggerFactory.getLogger("GetOperationTest.class");
     private String useOpId;
@@ -45,7 +42,6 @@ public class GetOperationTest {
     private String pathParams;
     private String result;
 
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
             "/network/generic-vnfs/generic-vnf/{vnf-id}",
@@ -67,9 +63,8 @@ public class GetOperationTest {
         return Arrays.asList(inputs);
     }
 
-    public GetOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
+    public void initGetOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams, String result) {
-        super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
@@ -78,7 +73,7 @@ public class GetOperationTest {
         this.result = result;
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         String container = "p-interfaces";
         String queryProps[] = {
@@ -91,8 +86,10 @@ public class GetOperationTest {
         GetOperation.addContainerProps(container, containerProps);
     }
 
-    @Test
-    public void testAddContainerProps() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testAddContainerProps(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+        initGetOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
         String container = this.xmlRootElementName;
         String prop = "        - name: " + container
             + "\n          in: query\n          description:\n          required: false\n          type: string";
@@ -106,8 +103,10 @@ public class GetOperationTest {
         assertThat(GetOperation.containers.get(container).get(0), is(prop));
     }
 
-    @Test
-    public void testToString() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+        initGetOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
         GetOperation get = new GetOperation(useOpId, xmlRootElementName, tag, path, pathParams);
         String modResult = get.toString();
         assertThat(modResult, is(this.result));

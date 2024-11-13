@@ -21,16 +21,15 @@
 package org.onap.aai.schemagen;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
@@ -46,12 +45,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
+@SpringJUnitConfig(
     classes = {SchemaLocationsBean.class, TestUtilConfigTranslatorforBusiness.class,
         EdgeIngestor.class, NodeIngestor.class, SwaggerGenerationConfiguration.class,
         SchemaConfigVersions.class})
@@ -73,7 +70,7 @@ public class GenerateXsdTest {
     @Autowired
     SchemaConfigVersions schemaConfigVersions;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         XSDElementTest x = new XSDElementTest();
         x.setUp();
@@ -88,7 +85,7 @@ public class GenerateXsdTest {
 
     }
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // PowerMockito.mockStatic(GenerateXsd.class);
         XSDElementTest x = new XSDElementTest();

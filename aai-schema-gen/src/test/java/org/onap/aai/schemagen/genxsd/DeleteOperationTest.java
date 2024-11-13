@@ -21,18 +21,15 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class DeleteOperationTest {
     private String useOpId;
     private String xmlRootElementName;
@@ -41,7 +38,6 @@ public class DeleteOperationTest {
     private String pathParams;
     private String result;
 
-    @Parameters
     public static Collection<String[]> testConditions() {
         String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
             "/network/generic-vnfs/generic-vnf/{vnf-id}",
@@ -65,9 +61,8 @@ public class DeleteOperationTest {
         return Arrays.asList(inputs);
     }
 
-    public DeleteOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
+    public void initDeleteOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams, String result) {
-        super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
@@ -76,13 +71,15 @@ public class DeleteOperationTest {
         this.result = result;
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
 
     }
 
-    @Test
-    public void testToString() {
+    @MethodSource("testConditions")
+    @ParameterizedTest
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+        initDeleteOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
         DeleteOperation delete =
             new DeleteOperation(useOpId, xmlRootElementName, tag, path, pathParams);
         String modResult = delete.toString();

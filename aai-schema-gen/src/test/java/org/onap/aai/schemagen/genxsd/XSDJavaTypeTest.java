@@ -21,17 +21,17 @@
 package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.HashMap;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 public class XSDJavaTypeTest extends XSDElementTest {
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
     }
