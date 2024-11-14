@@ -23,7 +23,7 @@ package org.onap.aai.schemaservice.nodeschema.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * When an error is found, mark that it is NOT ok to

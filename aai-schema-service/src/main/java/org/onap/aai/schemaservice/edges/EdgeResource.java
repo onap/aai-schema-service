@@ -23,6 +23,8 @@ package org.onap.aai.schemaservice.edges;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.Optional;
 
 import javax.ws.rs.GET;
@@ -40,22 +42,17 @@ import org.onap.aai.restcore.RESTAPI;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RestController;
 
 @Path("/v1")
+@RestController
+@RequiredArgsConstructor
 public class EdgeResource extends RESTAPI {
 
     private final EdgeService edgeService;
     private final SchemaVersions schemaVersions;
     private final Gson gson;
-
-    @Autowired
-    public EdgeResource(EdgeService edgeService, SchemaVersions schemaVersions) {
-        this.edgeService = edgeService;
-        this.schemaVersions = schemaVersions;
-        gson = new GsonBuilder().create();
-    }
 
     @GET
     @Path("/edgerules")
@@ -66,7 +63,7 @@ public class EdgeResource extends RESTAPI {
 
         try {
 
-            if (StringUtils.isEmpty(version)) {
+            if (ObjectUtils.isEmpty(version)) {
                 throw new AAIException("AAI_3050");
             }
 

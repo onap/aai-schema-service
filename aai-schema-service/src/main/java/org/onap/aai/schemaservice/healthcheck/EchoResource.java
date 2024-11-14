@@ -33,11 +33,13 @@ import javax.ws.rs.core.Response.Status;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.restcore.RESTAPI;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The Class EchoResponse.
  */
 @Path("/util")
+@RestController
 public class EchoResource extends RESTAPI {
 
     /**
@@ -87,7 +89,7 @@ public class EchoResource extends RESTAPI {
 
             response = Response
                 .status(Status.OK).entity(ErrorLogHelper
-                    .getRESTAPIInfoResponse(headers.getAcceptableMediaTypes(), exceptionList))
+                    .getRESTAPIInfoResponse(new ArrayList<>(headers.getAcceptableMediaTypes()), exceptionList))
                 .build();
 
         } catch (Exception e) {
