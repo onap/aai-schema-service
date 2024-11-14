@@ -33,7 +33,6 @@ import javax.ws.rs.core.MediaType;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.logging.ErrorObject;
-import org.onap.aai.logging.ErrorObjectNotFoundException;
 import org.onap.aai.logging.LogFormatTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,13 +107,8 @@ public class ErrorHandler extends OncePerRequestFilter {
                 AAIException aaiException = (AAIException) e;
                 String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException,
                     templateVars);
-                ErrorObject object = null;
-                try {
-                    object = ErrorLogHelper.getErrorObject(aaiException.getCode());
-                    httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
-                } catch (ErrorObjectNotFoundException e1) {
-                    LOGGER.error("getErrorObject exception {}", LogFormatTools.getStackTop(e1));
-                }
+                ErrorObject object = ErrorLogHelper.getErrorObject(aaiException.getCode());
+                httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 httpServletResponse.setContentType(mediaTypeList.get(0).toString());
                 httpServletResponse.getWriter().write(message);
                 httpServletResponse.getWriter().close();
@@ -132,13 +126,8 @@ public class ErrorHandler extends OncePerRequestFilter {
                 LOGGER.error("Encountered an internal exception {}", LogFormatTools.getStackTop(e));
                 String message = ErrorLogHelper.getRESTAPIErrorResponse(mediaTypeList, aaiException,
                     templateVars);
-                ErrorObject object = null;
-                try {
-                    object = ErrorLogHelper.getErrorObject(aaiException.getCode());
-                    httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
-                } catch (ErrorObjectNotFoundException e1) {
-                    LOGGER.error("getErrorObject exception {}", LogFormatTools.getStackTop(e1));
-                }
+                ErrorObject object = ErrorLogHelper.getErrorObject(aaiException.getCode());
+                httpServletResponse.setStatus(object.getHTTPResponseCode().getStatusCode());
                 httpServletResponse.setContentType(mediaTypeList.get(0).toString());
                 httpServletResponse.getWriter().write(message);
                 httpServletResponse.getWriter().close();

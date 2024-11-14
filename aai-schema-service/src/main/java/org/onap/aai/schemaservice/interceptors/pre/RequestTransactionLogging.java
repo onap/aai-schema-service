@@ -39,7 +39,7 @@ import org.glassfish.jersey.message.internal.ReaderWriter;
 import org.glassfish.jersey.server.ContainerException;
 import org.onap.aai.schemaservice.interceptors.AAIContainerFilter;
 import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -82,7 +82,7 @@ public class RequestTransactionLogging extends AAIContainerFilter
             requestContext.getHeaders().putSingle(CONTENT_TYPE, DEFAULT_CONTENT_TYPE);
         }
 
-        if (StringUtils.isEmpty(acceptType) || acceptType.contains(TEXT_PLAIN)) {
+        if (ObjectUtils.isEmpty(acceptType) || acceptType.contains(TEXT_PLAIN)) {
             requestContext.getHeaders().putSingle(ACCEPT, DEFAULT_RESPONSE_TYPE);
         }
     }

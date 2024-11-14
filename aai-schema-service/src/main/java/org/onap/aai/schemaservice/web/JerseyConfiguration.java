@@ -37,9 +37,9 @@ import org.onap.aai.schemaservice.query.QueryResource;
 import org.onap.aai.schemaservice.versions.VersionResource;
 import org.onap.logging.filter.base.AuditLogContainerFilter;
 import org.reflections.Reflections;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,7 +49,6 @@ public class JerseyConfiguration extends ResourceConfig {
 
     private Environment env;
 
-    @Autowired
     public JerseyConfiguration(Environment env) {
 
         this.env = env;
@@ -87,7 +86,7 @@ public class JerseyConfiguration extends ResourceConfig {
         // Turn the set back into a list
         List<Class<? extends T>> filtersList = filters.stream().filter(f -> {
             if (f.isAnnotationPresent(Profile.class)
-                && !env.acceptsProfiles(f.getAnnotation(Profile.class).value())) {
+                && !env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value()))) {
                 return false;
             }
             return true;

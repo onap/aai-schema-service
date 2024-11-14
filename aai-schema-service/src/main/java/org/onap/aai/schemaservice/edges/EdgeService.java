@@ -41,7 +41,6 @@ import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +56,6 @@ public class EdgeService {
 
     private Map<String, EdgeRules> rulesMap;
 
-    @Autowired
     public EdgeService(SchemaVersions schemaVersions,
         @Value("${schema.edges.location}") String edgesLocation) {
         this.schemaVersions = schemaVersions;

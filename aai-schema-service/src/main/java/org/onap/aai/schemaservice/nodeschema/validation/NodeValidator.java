@@ -25,7 +25,6 @@ import java.util.Map.Entry;
 
 import org.onap.aai.schemaservice.config.ConfigTranslator;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,7 +33,6 @@ public class NodeValidator {
     private SchemaErrorStrategy strat;
     private DuplicateNodeDefinitionValidationModule dupChecker;
 
-    @Autowired
     public NodeValidator(ConfigTranslator translator, SchemaErrorStrategy strategy,
         DuplicateNodeDefinitionValidationModule dupChecker) {
         this.translator = translator;

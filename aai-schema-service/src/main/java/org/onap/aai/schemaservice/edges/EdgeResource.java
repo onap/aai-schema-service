@@ -40,8 +40,7 @@ import org.onap.aai.restcore.RESTAPI;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 @Path("/v1")
 public class EdgeResource extends RESTAPI {
@@ -50,7 +49,6 @@ public class EdgeResource extends RESTAPI {
     private final SchemaVersions schemaVersions;
     private final Gson gson;
 
-    @Autowired
     public EdgeResource(EdgeService edgeService, SchemaVersions schemaVersions) {
         this.edgeService = edgeService;
         this.schemaVersions = schemaVersions;
@@ -66,7 +64,7 @@ public class EdgeResource extends RESTAPI {
 
         try {
 
-            if (StringUtils.isEmpty(version)) {
+            if (ObjectUtils.isEmpty(version)) {
                 throw new AAIException("AAI_3050");
             }
 

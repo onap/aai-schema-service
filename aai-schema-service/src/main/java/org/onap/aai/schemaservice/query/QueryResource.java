@@ -24,14 +24,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 @Path("/v1")
 public class QueryResource {
 
     private QueryService queryService;
 
-    @Autowired
     public QueryResource(QueryService queryService) {
         this.queryService = queryService;
     }

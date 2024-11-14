@@ -302,14 +302,6 @@
             <version>2.1</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.att.eelf</groupId>
             <artifactId>eelf-core</artifactId>
         </dependency>
@@ -342,12 +334,10 @@
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
-            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.moxy</artifactId>
-            <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -374,11 +364,12 @@
                     <groupId>org.onap.aai.aai-common</groupId>
                     <artifactId>aai-schema-ingest</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>org.onap.aai.aai-common</groupId>
-                    <artifactId>aai-aaf-auth</artifactId>
-                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <!-- <version>0.9.10</version> -->
         </dependency>
         <dependency>
             <groupId>org.onap.aai.aai-common</groupId>

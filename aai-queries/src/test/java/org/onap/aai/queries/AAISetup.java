@@ -29,7 +29,6 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.onap.aai.config.IntrospectionConfig;
 import org.onap.aai.config.RestBeanConfig;
 import org.onap.aai.config.SpringContextAware;
@@ -45,15 +44,13 @@ import org.onap.aai.setup.SchemaVersion;
 import org.onap.aai.setup.SchemaVersions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@ContextConfiguration(
+@SpringJUnitConfig(
     classes = {SchemaLocationsBean.class, SchemaVersions.class, AAIConfigTranslator.class,
         EdgeIngestor.class, EdgeSerializer.class, NodeIngestor.class, SpringContextAware.class,
         IntrospectionConfig.class, RestBeanConfig.class, GremlinServerSingleton.class})
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(
     properties = {"schema.uri.base.path = /aai",
         "schema.ingest.file = src/test/resources/application-test.properties"})

@@ -87,7 +87,7 @@ public class EchoResource extends RESTAPI {
 
             response = Response
                 .status(Status.OK).entity(ErrorLogHelper
-                    .getRESTAPIInfoResponse(headers.getAcceptableMediaTypes(), exceptionList))
+                    .getRESTAPIInfoResponse(new ArrayList<>(headers.getAcceptableMediaTypes()), exceptionList))
                 .build();
 
         } catch (Exception e) {
