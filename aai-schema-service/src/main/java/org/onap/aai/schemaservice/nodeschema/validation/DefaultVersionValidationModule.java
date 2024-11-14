@@ -25,7 +25,6 @@ import java.util.Map;
 
 import org.onap.aai.schemaservice.config.ConfigTranslator;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -37,7 +36,6 @@ import org.springframework.stereotype.Component;
 public class DefaultVersionValidationModule implements VersionValidationModule {
     private ConfigTranslator config;
 
-    @Autowired
     public DefaultVersionValidationModule(ConfigTranslator config) {
         this.config = config;
     }

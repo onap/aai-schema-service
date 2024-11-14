@@ -35,17 +35,17 @@ import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.restcore.HttpMethod;
 import org.onap.aai.restcore.RESTAPI;
 import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RestController;
 
 @Path("/v1")
+@RestController
 public class NodeSchemaResource extends RESTAPI {
 
     private final NodeSchemaService nodeSchemaService;
 
     private final SchemaVersions schemaVersions;
 
-    @Autowired
     public NodeSchemaResource(NodeSchemaService nodeSchemaService, SchemaVersions schemaVersions) {
         this.nodeSchemaService = nodeSchemaService;
         this.schemaVersions = schemaVersions;
@@ -60,7 +60,7 @@ public class NodeSchemaResource extends RESTAPI {
         Optional<String> optionalSchema = nodeSchemaService.fetch(version);
         try {
 
-            if (StringUtils.isEmpty(version)) {
+            if (ObjectUtils.isEmpty(version)) {
                 throw new AAIException("AAI_3050");
             }
 

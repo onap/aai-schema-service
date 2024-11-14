@@ -28,14 +28,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 @Path("/v1")
+@RestController
 public class VersionResource {
 
     private VersionService versionService;
 
-    @Autowired
     public VersionResource(VersionService versionService) {
         this.versionService = versionService;
     }

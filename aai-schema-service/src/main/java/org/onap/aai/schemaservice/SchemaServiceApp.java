@@ -37,6 +37,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 
 @SpringBootApplication
 // Component Scan provides a way to look for spring beans
@@ -114,8 +115,8 @@ public class SchemaServiceApp {
         // This is only needed for tomcat keeping this as temporary
         System.setProperty("org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH", "true");
 
-        if (env.acceptsProfiles(Profiles.TWO_WAY_SSL)
-            && env.acceptsProfiles(Profiles.ONE_WAY_SSL)) {
+        if (env.acceptsProfiles(Profiles.of(org.onap.aai.schemaservice.Profiles.TWO_WAY_SSL))
+            && env.acceptsProfiles(Profiles.of(org.onap.aai.schemaservice.Profiles.ONE_WAY_SSL))) {
             logger.warn("You have seriously misconfigured your application");
         }
 

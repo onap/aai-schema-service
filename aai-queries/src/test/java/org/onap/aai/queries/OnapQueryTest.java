@@ -35,7 +35,6 @@ import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.onap.aai.config.IntrospectionConfig;
@@ -60,15 +59,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-@ContextConfiguration(
+@SpringJUnitConfig(
     classes = {SchemaLocationsBean.class, SchemaConfigVersions.class, AAIConfigTranslator.class,
         EdgeIngestor.class, EdgeSerializer.class, NodeIngestor.class, SpringContextAware.class,
-        GremlinServerSingleton.class, IntrospectionConfig.class})
-@ExtendWith(SpringExtension.class)
+        GremlinServerSingleton.class, IntrospectionConfig.class, LoaderFactory.class})
 @TestPropertySource(
     properties = {"schema.uri.base.path = /aai", "schema.source.name = onap",
         "schema.ingest.file = src/test/resources/application-test.properties"})
