@@ -41,7 +41,6 @@ import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -49,27 +48,25 @@ import org.springframework.stereotype.Service;
 public class EdgeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EdgeService.class);
-
     private static final String FILESEP = System.getProperty("file.separator");
 
-    private SchemaVersions schemaVersions;
-    private String edgesLocation;
+    private final SchemaVersions schemaVersions;
+    private final String edgesLocation;
+    private final Map<String, EdgeRules> rulesMap;
+    private final Gson gson;
 
-    private Map<String, EdgeRules> rulesMap;
-
-    @Autowired
     public EdgeService(SchemaVersions schemaVersions,
         @Value("${schema.edges.location}") String edgesLocation) {
         this.schemaVersions = schemaVersions;
         this.edgesLocation = edgesLocation;
         this.rulesMap = new HashMap<>();
+        this.gson = new GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
+            .create();
     }
 
     @PostConstruct
     public void initialize() throws IOException {
-
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
-            .create();
 
         for (SchemaVersion schemaVersion : schemaVersions.getVersions()) {
 

@@ -22,29 +22,28 @@ package org.onap.aai.schemaservice.versions;
 
 import com.google.gson.Gson;
 
+import lombok.RequiredArgsConstructor;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 @Path("/v1")
+@RestController
+@RequiredArgsConstructor
 public class VersionResource {
 
-    private VersionService versionService;
-
-    @Autowired
-    public VersionResource(VersionService versionService) {
-        this.versionService = versionService;
-    }
+    private final VersionService versionService;
+    private final Gson gson;
 
     @GET
     @Path("/versions")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getVersions() {
-        Gson gson = new Gson();
         return Response.ok(gson.toJson(versionService.getVersionInfo())).build();
     }
 }

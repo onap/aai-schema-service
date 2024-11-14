@@ -24,17 +24,16 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
 
 @Path("/v1")
+@RestController
+@RequiredArgsConstructor
 public class QueryResource {
 
-    private QueryService queryService;
-
-    @Autowired
-    public QueryResource(QueryService queryService) {
-        this.queryService = queryService;
-    }
+    private final QueryService queryService;
 
     @GET
     @Path("/stored-queries")

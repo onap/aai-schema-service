@@ -37,21 +37,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class NodeSchemaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NodeSchemaResource.class);
 
-    private SchemaVersions schemaVersions;
-
-    private NodeIngestor nodeIngestor;
-
-    private Map<String, String> versionMap = new HashMap<>();
-
-    public NodeSchemaService(NodeIngestor nodeIngestor, SchemaVersions schemaVersions) {
-        this.nodeIngestor = nodeIngestor;
-        this.schemaVersions = schemaVersions;
-    }
+    private final SchemaVersions schemaVersions;
+    private final NodeIngestor nodeIngestor;
+    private final Map<String, String> versionMap = new HashMap<>();
 
     @PostConstruct
     public void initialize() {

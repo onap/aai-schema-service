@@ -25,7 +25,6 @@ import java.util.Map;
 
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Converts the contents of the schema config file
@@ -37,7 +36,6 @@ public abstract class ConfigTranslator {
     protected SchemaLocationsBean bean;
     protected SchemaVersions schemaVersions;
 
-    @Autowired
     public ConfigTranslator(SchemaLocationsBean schemaLocationbean, SchemaVersions schemaVersions) {
         this.bean = schemaLocationbean;
         this.schemaVersions = schemaVersions;
