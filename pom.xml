@@ -45,7 +45,6 @@
             Nexus Proxy Properties and Snapshot Locations
             Ideally this can be overwritten at runtime per internal environment specific values at runtime
         -->
-        <aai.common.version>1.15.2</aai.common.version>
         <nexusproxy>https://nexus.onap.org</nexusproxy>
         <site.path>/content/sites/site/org/onap/aai/resources/${project.artifactId}/${project.version}</site.path>
         <release.path>/content/repositories/releases/</release.path>
@@ -53,6 +52,8 @@
         <!-- GMaven plugin uses this property to figure out the name of the docker tag -->
         <aai.project.version>${project.version}</aai.project.version>
         <checkstyle.skip>false</checkstyle.skip>
+        <aai.common.version>1.15.2</aai.common.version>
+        <spring-cloud.version>2021.0.9</spring-cloud.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -65,6 +66,13 @@
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.moxy</artifactId>
                 <version>2.7.15</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

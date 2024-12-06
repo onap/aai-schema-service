@@ -20,8 +20,9 @@
 
 package org.onap.aai.schemagen.swagger;
 
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.constructor.SafeConstructor;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -109,7 +110,10 @@ public class GenerateSwagger {
             System.exit(1);
         }
 
-        Yaml yaml = new Yaml(new SafeConstructor());
+        LoaderOptions loaderOptions = new LoaderOptions();
+        int codePointLimit = 100 * 1024 * 1024; // 100MB
+        loaderOptions.setCodePointLimit(codePointLimit);
+        Yaml yaml = new Yaml(new Constructor(loaderOptions));
         Map<String, Object> swaggerMap = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(swaggerYamlFile))) {
