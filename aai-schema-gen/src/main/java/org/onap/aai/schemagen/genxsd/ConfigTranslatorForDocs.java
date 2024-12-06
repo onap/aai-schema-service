@@ -35,9 +35,12 @@ import org.onap.aai.setup.SchemaVersion;
 
 public class ConfigTranslatorForDocs extends AAIConfigTranslator {
 
+    private final SchemaLocationsBean bean;
+
     public ConfigTranslatorForDocs(SchemaLocationsBean bean,
         SchemaConfigVersions schemaConfigVersions) {
         super(bean, schemaConfigVersions);
+        this.bean = bean;
     }
 
     @Override
