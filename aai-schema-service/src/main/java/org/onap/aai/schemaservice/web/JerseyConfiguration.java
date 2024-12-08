@@ -32,6 +32,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
+import org.onap.aai.schemaservice.nodeschema.NodeSchemaChecksumResource;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaResource;
 import org.onap.aai.schemaservice.query.QueryResource;
 import org.onap.aai.schemaservice.versions.VersionResource;
@@ -58,6 +59,7 @@ public class JerseyConfiguration extends ResourceConfig {
         register(NodeSchemaResource.class);
         register(QueryResource.class);
         register(EdgeResource.class);
+        register(NodeSchemaChecksumResource.class);
 
         // Request Filters
         registerFilters(ContainerRequestFilter.class);
