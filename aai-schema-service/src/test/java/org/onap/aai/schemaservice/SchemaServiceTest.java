@@ -49,7 +49,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = SchemaServiceApp.class)
-@TestPropertySource(locations = "classpath:application-test.properties")
+// @TestPropertySource(locations = "classpath:application-test.properties")
 @ContextConfiguration(initializers = PropertyPasswordConfiguration.class)
 @Import(SchemaServiceTestConfiguration.class)
 public class SchemaServiceTest {
