@@ -16645,7 +16645,7 @@
 		<java-type name="MaxNumberOfUe">
             <xml-root-element name="max-number-of-ue"/>
             <java-attributes>
-                <xml-element java-attribute="maxNumberOfUEsId" name="max-number-of-UEs-id" required="true" type="java.lang.String" xml-key="true">
+                <xml-element java-attribute="maxNumberOfUesId" name="max-number-of-ues-id" required="true" type="java.lang.String" xml-key="true">
                     <xml-properties>
                         <xml-property name="description" value="Unique ID for the object."/>
                     </xml-properties>
@@ -16685,11 +16685,11 @@
             </java-attributes>
             <xml-properties>
                 <xml-property name="description" value="Max Number of UEs info of slice profile"/>
-                <xml-property name="indexedProps" value="max-number-of-UEs-id,data-owner,data-source,data-source-version"/>
-                <xml-property name="uniqueProps" value="max-number-of-UEs-id"/>
+                <xml-property name="indexedProps" value="max-number-of-ues-id,data-owner,data-source,data-source-version"/>
+                <xml-property name="uniqueProps" value="max-number-of-ues-id"/>
                 <xml-property name="container" value="max-number-of-ues/"/>
-                <xml-property name="uriTemplate" value="/max-number-of-ues/max-number-of-ue/{max-number-of-UEs-id}"/>
-                <xml-property name="requiredProps" value="max-number-of-UEs-id"/>
+                <xml-property name="uriTemplate" value="/max-number-of-ues/max-number-of-ue/{max-number-of-ues-id}"/>
+                <xml-property name="requiredProps" value="max-number-of-ues-id"/>
             </xml-properties>
         </java-type>
 		<java-type name="Synchronicities">

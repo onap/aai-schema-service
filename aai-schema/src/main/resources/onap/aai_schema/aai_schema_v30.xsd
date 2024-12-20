@@ -7380,11 +7380,11 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Max Number of UEs info of slice profile",indexedProps="max-number-of-UEs-id,data-owner,data-source,data-source-version",uniqueProps="max-number-of-UEs-id",container="max-number-of-ues/",uriTemplate="/max-number-of-ues/max-number-of-ue/{max-number-of-UEs-id}",requiredProps="max-number-of-UEs-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Max Number of UEs info of slice profile",indexedProps="max-number-of-ues-id,data-owner,data-source,data-source-version",uniqueProps="max-number-of-ues-id",container="max-number-of-ues/",uriTemplate="/max-number-of-ues/max-number-of-ue/{max-number-of-ues-id}",requiredProps="max-number-of-ues-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="max-number-of-UEs-id" type="xs:string" minOccurs="0">
+        <xs:element name="max-number-of-ues-id" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID for the object.")</annox:annotate>
