@@ -412,8 +412,11 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                             sbProperties.append("        $ref: \"#/definitions/").append(itemName)
                                 .append("\"\n");
                         } else {
-                            sbProperties.append("        type: array\n        items:\n");
-                            sbProperties.append("          $ref: \"#/definitions/")
+                            // Open API Schema definition changes
+                            sbProperties.append("        type: object\n        properties:\n");
+                            sbProperties.append("          " + itemName + ":\n");
+                            sbProperties.append("            type: array\n            items:\n");
+                            sbProperties.append("              $ref: \"#/definitions/")
                                 .append("".equals(itemName) ? "aai-internal" : itemName)
                                 .append("\"\n");
                         }
