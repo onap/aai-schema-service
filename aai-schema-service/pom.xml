@@ -272,10 +272,6 @@
     </profiles>
     <dependencies>
         <dependency>
-            <groupId>com.att.eelf</groupId>
-            <artifactId>eelf-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
@@ -415,8 +411,6 @@
             <resource>
                 <directory>${project.basedir}/src/main/resources/etc/auth/</directory>
                 <includes>
-                    <include>aai-client-cert.p12</include>
-                    <include>tomcat_keystore</include>
                     <include>aai_policy.json</include>
                 </includes>
                 <targetPath>${project.build.directory}/swm/package/nix/dist_files/opt/app/${project.artifactId}/appconfig</targetPath>

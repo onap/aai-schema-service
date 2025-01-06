@@ -25,7 +25,6 @@ import javax.annotation.PreDestroy;
 
 import org.onap.aai.aailog.logs.AaiDebugLog;
 import org.onap.aai.exceptions.AAIException;
-import org.onap.aai.schemaservice.config.PropertyPasswordConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +67,6 @@ public class SchemaServiceApp {
         SpringApplication app = new SpringApplication(SchemaServiceApp.class);
         app.setLogStartupInfo(false);
         app.setRegisterShutdownHook(true);
-        app.addInitializers(new PropertyPasswordConfiguration());
 
         Environment env = app.run(args).getEnvironment();
 
