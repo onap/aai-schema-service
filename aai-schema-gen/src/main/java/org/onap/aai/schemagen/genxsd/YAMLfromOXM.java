@@ -250,9 +250,9 @@ public class YAMLfromOXM extends OxmFileProcessor {
     private String getDictionary(String resource) {
         StringBuilder dictSb = new StringBuilder();
         dictSb.append("  ").append(resource).append(":\n");
+        dictSb.append("    type: object\n");
         dictSb.append("    description: |\n");
         dictSb.append("      dictionary of ").append(resource).append("\n");
-        dictSb.append("    type: object\n");
         dictSb.append("    properties:\n");
         dictSb.append("      ").append(resource).append(":\n");
         dictSb.append("        type: array\n");
@@ -437,7 +437,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
                         sbProperties.append("      ").append(getXmlRootElementName(addType))
                             .append(":\n");
                         if ("RelationshipList".equals(addType)) {
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/").append(itemName)
                                 .append("\"\n");
                             sbPropertiesPatch.append("      ")
@@ -553,6 +552,8 @@ public class YAMLfromOXM extends OxmFileProcessor {
         } else if (xmlRootElementName.equals("relationship")) {
             definitionsSb.append("  " + "relationship-dict" + ":\n");
             definitionsLocalSb.append("  " + "relationship-dict" + ":\n");
+            definitionsSb.append("    type: object\n");
+            definitionsLocalSb.append("    type: object\n");
             dict = getDictionary(xmlRootElementName);
         } else {
             definitionsSb.append("  ").append(xmlRootElementName).append(":\n");
