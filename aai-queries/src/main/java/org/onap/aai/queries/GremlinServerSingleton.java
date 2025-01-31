@@ -20,15 +20,11 @@
 
 package org.onap.aai.queries;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.annotation.PostConstruct;
 
 import org.onap.aai.logging.LogFormatTools;
