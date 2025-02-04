@@ -31,8 +31,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(WebClientConfiguration.class)
 public class NodeSchemaChecksumResourceTest {

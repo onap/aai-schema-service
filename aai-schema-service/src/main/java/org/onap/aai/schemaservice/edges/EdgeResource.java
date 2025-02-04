@@ -21,8 +21,6 @@
 package org.onap.aai.schemaservice.edges;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;

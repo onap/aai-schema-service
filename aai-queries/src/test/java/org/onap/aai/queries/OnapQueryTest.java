@@ -45,7 +45,6 @@ import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.introspection.Loader;
 import org.onap.aai.introspection.LoaderFactory;
-import org.onap.aai.introspection.ModelType;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.query.builder.GremlinTraversal;
 import org.onap.aai.restcore.search.GremlinGroovyShell;
