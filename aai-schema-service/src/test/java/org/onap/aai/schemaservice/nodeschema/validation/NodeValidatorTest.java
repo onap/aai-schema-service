@@ -21,7 +21,8 @@ package org.onap.aai.schemaservice.nodeschema.validation;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.onap.aai.schemaservice.config.ConfigTranslator;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import java.util.*;

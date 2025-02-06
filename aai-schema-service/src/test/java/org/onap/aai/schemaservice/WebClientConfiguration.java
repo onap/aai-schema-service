@@ -3,7 +3,7 @@ package org.onap.aai.schemaservice;
 import java.time.Duration;
 import java.util.Collections;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
