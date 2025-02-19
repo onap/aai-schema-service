@@ -34,6 +34,24 @@
       "parentUuid": "f581fc5a_3fa5390b",
       "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13590b7e_c1dc9c7e",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v30.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 8388,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-02-19T10:42:49Z",
+      "side": 1,
+      "message": "Can we change it nevertheless? I don\u0027t think that has been such a conscious decision to use `/convex-geo-polygon/`",
+      "parentUuid": "3e0b623b_eb3d2ace",
+      "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
