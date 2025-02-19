@@ -52,6 +52,24 @@
       "parentUuid": "3e0b623b_eb3d2ace",
       "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0f09a67_1c8a231b",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v30.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 8388,
+      "author": {
+        "id": 8486
+      },
+      "writtenOn": "2025-02-19T11:41:53Z",
+      "side": 1,
+      "message": "I can change, but the payload to create feasibility-check-job would need to change too. This might need a change in other components. If this agreed upon, we can do the needful.",
+      "parentUuid": "13590b7e_c1dc9c7e",
+      "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
