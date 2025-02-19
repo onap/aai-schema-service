@@ -16,6 +16,24 @@
       "message": "I think by convention `convex-geo-polygon` should be plural: `.../{geo-aread-id}/convex-geo-polygons/...`",
       "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0b623b_eb3d2ace",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v30.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 8388,
+      "author": {
+        "id": 8486
+      },
+      "writtenOn": "2025-02-19T08:42:36Z",
+      "side": 1,
+      "message": "Yes, but these names have been provided to us through the wiki -https://wiki.telekom.de/pages/viewpage.action?spaceKey\u003dONAPO\u0026title\u003dRAN+Slice+Information+Model+for+AAI+Inventory  under section \u0027Proposal for coverage-area Attribute (PI 17)\u0027",
+      "parentUuid": "f581fc5a_3fa5390b",
+      "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
