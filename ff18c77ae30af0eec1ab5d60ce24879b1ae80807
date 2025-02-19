@@ -70,6 +70,24 @@
       "parentUuid": "13590b7e_c1dc9c7e",
       "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f53f84fa_d4918580",
+        "filename": "aai-schema/src/main/resources/onap/aai_schema/aai_schema_v30.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 8388,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-02-19T11:45:21Z",
+      "side": 1,
+      "message": "Ack I see this would have more consequence than I thougth. Keep it as it is then. I\u0027ll approve :D",
+      "parentUuid": "e0f09a67_1c8a231b",
+      "revId": "ff18c77ae30af0eec1ab5d60ce24879b1ae80807",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
