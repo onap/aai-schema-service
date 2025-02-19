@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.12.8-SNAPSHOT</version>
+        <version>1.12.9-SNAPSHOT</version>
     </parent>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>aai-schema-service</artifactId>
@@ -42,7 +42,7 @@
         <docker.push.registry>localhost:5000</docker.push.registry>
         <aai.docker.version>1.0.0</aai.docker.version>
 
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.13</logback.version>
 
         <!--
              Location where assembly of our scripts, resources and main jar will be held
@@ -279,10 +279,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -331,8 +333,8 @@
                     <artifactId>aai-schema-ingest</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
+                    <groupId>org.springframework.kafka</groupId>
+                    <artifactId>spring-kafka</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
