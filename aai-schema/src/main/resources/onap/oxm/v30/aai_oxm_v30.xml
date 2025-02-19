@@ -16230,7 +16230,7 @@
                         <xml-property name="description" value="Specifies the maximum UL PDCP data volume supported by the network slice instance.The unit is MByte/day."/>
                     </xml-properties>
                 </xml-element>
-				<xml-element java-attribute="coverageArea" name="coverage-area" type="inventory.aai.onap.org.v30.GeoAreas">
+				<xml-element java-attribute="coverageArea" name="coverage-area" type="inventory.aai.onap.org.v30.CoverageArea">
                     <xml-properties>
                         <xml-property name="description" value="This attribute can be used as an alternative to coverage-area-TA-list when the coverage area is not specified as a list of TAs, but as a custom object (JSON string)."/>
                     </xml-properties>
@@ -16456,7 +16456,7 @@
                 <xml-property name="requiredProps" value="term-density-id"/>
             </xml-properties>
         </java-type>
-        <java-type name="GeoAreas">
+        <java-type name="CoverageArea">
 			<xml-properties>
                 <xml-property name="description" value="Collection of GeoArea objects."/>
             </xml-properties>
@@ -16473,12 +16473,12 @@
                         <xml-property name="description" value="Unique ID for the object."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="geoPoints" name="geo-points" required="true" type="inventory.aai.onap.org.v30.GeoCoordinates">
+                <xml-element java-attribute="geoPoints" name="geo-points" required="true" type="inventory.aai.onap.org.v30.GeoPoints">
                     <xml-properties>
                         <xml-property name="description" value="Geo Point info of the object."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="convexGeoPolygon" name="convex-geo-polygon" required="true" type="inventory.aai.onap.org.v30.AreaGeoCoordinates">
+                <xml-element java-attribute="convexGeoPolygon" name="convex-geo-polygon" required="true" type="inventory.aai.onap.org.v30.ConvexGeoPolygon">
                     <xml-properties>
                         <xml-property name="description" value="Convex Geo Polygon Info of the object."/>
                     </xml-properties>
@@ -16515,7 +16515,7 @@
                 <xml-property name="requiredProps" value="geo-area-id"/>
             </xml-properties>
         </java-type>
-        <java-type name="GeoCoordinates">
+        <java-type name="GeoPoints">
 			<xml-properties>
                 <xml-property name="description" value="Collection of GeoCoordinate objects."/>
             </xml-properties>
@@ -16575,17 +16575,17 @@
                 <xml-property name="indexedProps" value="geo-coordinate-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="uniqueProps" value="geo-coordinate-id"/>
                 <xml-property name="container" value="geo-points"/>
-                <xml-property name="uriTemplate" value="/geo-points/geo-coordinate/{geo-coordinate-id}"/>
+                <xml-property name="uriTemplate" value="/coverage-area/geo-area/{geo-area-id}/geo-points/geo-coordinate/{geo-coordinate-id}"/>
                 <xml-property name="requiredProps" value="geo-coordinate-id"/>
             </xml-properties>
         </java-type>
-        <java-type name="AreaGeoCoordinates">
+        <java-type name="ConvexGeoPolygon">
 			<xml-properties>
                 <xml-property name="description" value="Collection of GeoArea objects."/>
             </xml-properties>
             <xml-root-element name="convex-geo-polygon"/>
             <java-attributes>
-                <xml-element container-type="java.util.ArrayList" java-attribute="areagGeoCoordinate" name="area-geo-coordinate" type="inventory.aai.onap.org.v30.AreaGeoCoordinate"/>
+                <xml-element container-type="java.util.ArrayList" java-attribute="areaGeoCoordinate" name="area-geo-coordinate" type="inventory.aai.onap.org.v30.AreaGeoCoordinate"/>
             </java-attributes>
 		</java-type>
 		<java-type name="AreaGeoCoordinate">
@@ -16596,7 +16596,7 @@
                         <xml-property name="description" value="Unique ID for the object."/>
                     </xml-properties>
                 </xml-element>
-                <xml-element java-attribute="geoPoints" name="geo-points" required="true" type="inventory.aai.onap.org.v30.GeoCoordinates">
+                <xml-element java-attribute="geoPoints" name="geo-points" required="true" type="inventory.aai.onap.org.v30.GeoPoints">
                     <xml-properties>
                         <xml-property name="description" value="Unique ID for the object."/>
                     </xml-properties>
@@ -16628,8 +16628,8 @@
                 <xml-property name="description" value="Geo-Coordinate info of slice profile"/>
                 <xml-property name="indexedProps" value="area-geo-coordinate-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="uniqueProps" value="area-geo-coordinate-id"/>
-                <xml-property name="container" value="convex-geo-polygon/"/>
-                <xml-property name="uriTemplate" value="/convex-geo-polygon/area-geo-coordinate/{area-geo-coordinate-id}"/>
+                <xml-property name="container" value="convex-geo-polygon"/>
+                <xml-property name="uriTemplate" value="/coverage-area/geo-area/{geo-area-id}/convex-geo-polygon/area-geo-coordinate/{area-geo-coordinate-id}"/>
                 <xml-property name="requiredProps" value="area-geo-coordinate-id"/>
             </xml-properties>
         </java-type>
@@ -16687,7 +16687,7 @@
                 <xml-property name="description" value="Max Number of UEs info of slice profile"/>
                 <xml-property name="indexedProps" value="max-number-of-ues-id,data-owner,data-source,data-source-version"/>
                 <xml-property name="uniqueProps" value="max-number-of-ues-id"/>
-                <xml-property name="container" value="max-number-of-ues/"/>
+                <xml-property name="container" value="max-number-of-ues"/>
                 <xml-property name="uriTemplate" value="/max-number-of-ues/max-number-of-ue/{max-number-of-ues-id}"/>
                 <xml-property name="requiredProps" value="max-number-of-ues-id"/>
             </xml-properties>

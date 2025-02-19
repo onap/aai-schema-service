@@ -7380,7 +7380,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Max Number of UEs info of slice profile",indexedProps="max-number-of-ues-id,data-owner,data-source,data-source-version",uniqueProps="max-number-of-ues-id",container="max-number-of-ues/",uriTemplate="/max-number-of-ues/max-number-of-ue/{max-number-of-ues-id}",requiredProps="max-number-of-ues-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Max Number of UEs info of slice profile",indexedProps="max-number-of-ues-id,data-owner,data-source,data-source-version",uniqueProps="max-number-of-ues-id",container="max-number-of-ues",uriTemplate="/max-number-of-ues/max-number-of-ue/{max-number-of-ues-id}",requiredProps="max-number-of-ues-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8305,7 +8305,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Geo-Coordinate info of slice profile",indexedProps="geo-coordinate-id,data-owner,data-source,data-source-version",uniqueProps="geo-coordinate-id",container="geo-points",uriTemplate="/geo-points/geo-coordinate/{geo-coordinate-id}",requiredProps="geo-coordinate-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Geo-Coordinate info of slice profile",indexedProps="geo-coordinate-id,data-owner,data-source,data-source-version",uniqueProps="geo-coordinate-id",container="geo-points",uriTemplate="/coverage-area/geo-area/{geo-area-id}/geo-points/geo-coordinate/{geo-coordinate-id}",requiredProps="geo-coordinate-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
@@ -8385,7 +8385,7 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     <xs:complexType>
       <xs:annotation>
         <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Geo-Coordinate info of slice profile",indexedProps="area-geo-coordinate-id,data-owner,data-source,data-source-version",uniqueProps="area-geo-coordinate-id",container="convex-geo-polygon/",uriTemplate="/convex-geo-polygon/area-geo-coordinate/{area-geo-coordinate-id}",requiredProps="area-geo-coordinate-id")</annox:annotate>
+          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Geo-Coordinate info of slice profile",indexedProps="area-geo-coordinate-id,data-owner,data-source,data-source-version",uniqueProps="area-geo-coordinate-id",container="convex-geo-polygon",uriTemplate="/coverage-area/geo-area/{geo-area-id}/convex-geo-polygon/area-geo-coordinate/{area-geo-coordinate-id}",requiredProps="area-geo-coordinate-id")</annox:annotate>
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
