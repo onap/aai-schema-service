@@ -48,16 +48,10 @@ if [ ! -z $scriptName ]; then
     exit 0;
 fi;
 
-mkdir -p /opt/app/aai-schema-service/logs/gc
-mkdir -p /opt/app/aai-schema-service/logs/heap-dumps
-
-if [ -f ${APP_HOME}/resources/aai-schema-service-swm-vars.sh ]; then
-    source ${APP_HOME}/resources/aai-schema-service-swm-vars.sh;
-fi;
-
 JAVA_CMD="exec java";
 
 JVM_OPTS="${PRE_JVM_ARGS}";
+JVM_OPTS="${JVM_OPTS} -XX:MaxRAMPercentage=${MAX_RAM_PERCENTAGE:-70}";
 JVM_OPTS="${JVM_OPTS} -Dsun.net.inetaddr.ttl=180";
 JVM_OPTS="${JVM_OPTS} ${POST_JVM_ARGS}";
 JAVA_OPTS="${PRE_JAVA_OPTS} -DAJSC_HOME=$APP_HOME";
