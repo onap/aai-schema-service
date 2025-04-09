@@ -67,6 +67,57 @@
       "message": "We can replace this with\n```java\n@Mock\nDynamicJAXBContext context1;\n\n@Mock\nDynamicJAXBContext context2;\n```\non the class level",
       "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90b7a2c6_26d3ad3b",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:46:47Z",
+      "side": 1,
+      "message": "Please remove this test case. It is not testing any wanted property.\nAlso the description of the assertion is contrary to what is being asserted (AGAIN!)",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6efa3e_59a44c1a",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:46:47Z",
+      "side": 1,
+      "message": "Please remove this test case. It is not testing any wanted property.",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b974de8e_8209c899",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeSchemaResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:46:47Z",
+      "side": 1,
+      "message": "Please assert the response code and the response entity here",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
