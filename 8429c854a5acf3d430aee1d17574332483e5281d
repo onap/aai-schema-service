@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17bee26c_8cca9151",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/edges/EdgeResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:28:17Z",
+      "side": 1,
+      "message": "There is no need to reinitialize `Gson()` for every test case. You can just register that as a `private static final` on the class level",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e756a09f_de55dde1",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/edges/EdgeResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:28:17Z",
+      "side": 1,
+      "message": "Please also assert the response body here",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a447ac16_5485ed90",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:28:17Z",
+      "side": 1,
+      "message": "There is no need to reinitialize `version1` and `version2` for every test case. You can just register that as a private static final on the class level",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c057b39a_93a51ab3",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-09T15:28:17Z",
+      "side": 1,
+      "message": "We can replace this with\n```java\n@Mock\nDynamicJAXBContext context1;\n\n@Mock\nDynamicJAXBContext context2;\n```\non the class level",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
