@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d423ad9d_e553ab74",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/service/AuthorizationServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Please use Junit 5\u0027s equivalent here",
+      "revId": "3b9ddca76f6d40bef5eea5273afd652ede98b34e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e1d1c42_5f058b1c",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/service/AuthorizationServiceTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand this test case. All your variable names (`validObfuscatedPassword`, `alidAuthHeader`) indicate that this should likely be successfull, but you use `assertFalse` here.\nI would suggest to make it clearer what is being tested here by adjusting either the variable names, adding a comment or by adjusting the name of this test method here",
+      "revId": "3b9ddca76f6d40bef5eea5273afd652ede98b34e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}

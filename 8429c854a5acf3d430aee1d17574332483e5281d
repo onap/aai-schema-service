@@ -18,6 +18,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee0d3ef9_763e756a",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/edges/EdgeResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17bee26c_8cca9151",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e756a09f_de55dde1",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-09T15:28:17Z",
       "side": 1,
       "message": "Please also assert the response body here",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d138930a_98d7a5f8",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/edges/EdgeResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e756a09f_de55dde1",
       "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -52,6 +88,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b963e2_1d9bf985",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a447ac16_5485ed90",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c057b39a_93a51ab3",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-04-09T15:28:17Z",
       "side": 1,
       "message": "We can replace this with\n```java\n@Mock\nDynamicJAXBContext context1;\n\n@Mock\nDynamicJAXBContext context2;\n```\non the class level",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c0f2b6c_0985d913",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c057b39a_93a51ab3",
       "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -86,6 +158,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3195b4ec_5cff2e88",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90b7a2c6_26d3ad3b",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d6efa3e_59a44c1a",
@@ -103,6 +193,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cacc6c68_2d2e5d1c",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeIngestorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d6efa3e_59a44c1a",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b974de8e_8209c899",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-04-09T15:46:47Z",
       "side": 1,
       "message": "Please assert the response code and the response entity here",
+      "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95e6abc6_107aad3f",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/nodeschema/NodeSchemaResourceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-10T08:21:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b974de8e_8209c899",
       "revId": "8429c854a5acf3d430aee1d17574332483e5281d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
