@@ -169,6 +169,23 @@
       "message": "I would suggest to rename the method arg to `expectedResult` and use it here as `is(expectedResult)`.",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cae5b6f9_570cefec",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/GetOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:55:47Z",
+      "side": 1,
+      "message": "Can you use `GetOperationTest.class` instead of `\"GetOperationTest\"` here?",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
