@@ -22,11 +22,9 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Vector;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -34,42 +32,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GetOperationTest {
-    private static final Logger logger = LoggerFactory.getLogger("GetOperationTest.class");
-    private String useOpId;
+    private static final Logger logger = LoggerFactory.getLogger(GetOperationTest.class);
     private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
     private String result;
 
     public static Collection<String[]> testConditions() {
-        String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
-            "/network/generic-vnfs/generic-vnf/{vnf-id}",
-            "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
-            "  /network/generic-vnfs/generic-vnf/{vnf-id}:\n    get:\n      tags:\n        - Network\n      summary: returns generic-vnf\n      description: returns generic-vnf\n      operationId: getNetworkGenericVnfsGenericVnf\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"200\":\n          description: successful operation\n          schema:\n              $ref: \"#/definitions/generic-vnf\"\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__"},
+        String inputs[][] = {
+            // Existing test cases
+            {"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
+                "/network/generic-vnfs/generic-vnf/{vnf-id}",
+                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
+                "  /network/generic-vnfs/generic-vnf/{vnf-id}:\n    get:\n      tags:\n        - Network\n      summary: returns generic-vnf\n      description: returns generic-vnf\n      operationId: getNetworkGenericVnfsGenericVnf\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"200\":\n          description: successful operation\n          schema:\n              $ref: \"#/definitions/generic-vnf\"\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__"},
             {"GenericVnf", "generic-vnf", "", "/generic-vnf/{vnf-id}",
                 "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
                 ""},
-            {"CloudInfrastructurePserversPserverPInterfaces", "p-interfaces", "CloudInfrastructure",
-                "/cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces",
-                "        - name: hostname\n          in: path\n          description: Value from executing hostname on the compute node.\n          required: true\n          type: string\n          example: __HOSTNAME__",
-                "  /cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces:\n    get:\n      tags:\n        - CloudInfrastructure\n      summary: returns p-interfaces\n      description: returns p-interfaces\n      operationId: getCloudInfrastructurePserversPserverPInterfaces\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"200\":\n          description: successful operation\n          schema:\n              $ref: \"#/definitions/p-interfaces\"\n        \"default\":\n          null      parameters:\n        - name: hostname\n          in: path\n          description: Value from executing hostname on the compute node.\n          required: true\n          type: string\n          example: __HOSTNAME__        - name: interface-name\n          in: query\n          description:\n          required: false\n          type: string        - name: prov-status\n          in: query\n          description:\n          required: false\n          type: string"},
-            // {"","ctag-pool","","","",""},
-            // {"","pserver","","","",""},
-            // {"","oam-network","","","",""},
-            // {"","dvs-switch","","","",""},
-            // {"","availability-zone","","","",""}
+
+            // Add new test cases for path filtering conditions
+            // Test case for path ending with "/relationship"
+            {"TestOp1", "relationship", "TestTag", "/network/relationship", "", ""},
+
+            // Test case for path containing "/relationship/"
+            {"TestOp2", "relationship", "TestTag", "/network/relationship/123", "", ""},
+
+            // Test case for path ending with "/relationship-list"
+            {"TestOp3", "relationship-list", "TestTag", "/network/relationship-list", "", ""},
+
+            // Test case for path starting with "/search"
+            {"TestOp4", "search", "TestTag", "/search/records", "", ""}
         };
         return Arrays.asList(inputs);
     }
 
     public void initGetOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams, String result) {
-        this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
-        this.tag = tag;
-        this.path = path;
-        this.pathParams = pathParams;
         this.result = result;
     }
 
