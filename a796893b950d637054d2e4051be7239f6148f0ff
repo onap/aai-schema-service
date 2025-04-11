@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a646eaf7_d8988288",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f286104f_f6cbb49b",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "084c49e6_97707e03",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bee182a_171128b3",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1cd864_27b0a1a9",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb0cd88_6176eecd",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eba2d8ef_32eb50cf",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this method. It\u0027s not needed.",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0268f54_889c2c2f",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "I don\u0027t think this method is needed",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde096c3_0e129c60",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "Please remove this line",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe85c994_c04d25af",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T08:28:55Z",
+      "side": 1,
+      "message": "I would suggest to rename the method arg to `expectedResult` and use it here as `is(expectedResult)`.",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
