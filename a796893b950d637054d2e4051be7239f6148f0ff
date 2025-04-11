@@ -18,6 +18,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1a90367_2713ceb0",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a646eaf7_d8988288",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f286104f_f6cbb49b",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-11T08:28:55Z",
       "side": 1,
       "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5544d0_0110963c",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f286104f_f6cbb49b",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -52,6 +88,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25fc17a3_dc0b24ef",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "084c49e6_97707e03",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bee182a_171128b3",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-04-11T08:28:55Z",
       "side": 1,
       "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fad9f7b_1e608fe0",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bee182a_171128b3",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -86,6 +158,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab05dee_24cf216b",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1cd864_27b0a1a9",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efb0cd88_6176eecd",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-04-11T08:28:55Z",
       "side": 1,
       "message": "Please remove this variable. It is not used",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6a41ae_e8fb7341",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efb0cd88_6176eecd",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -120,6 +228,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "922ed8a8_0e64463e",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eba2d8ef_32eb50cf",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0268f54_889c2c2f",
@@ -133,6 +259,24 @@
       "writtenOn": "2025-04-11T08:28:55Z",
       "side": 1,
       "message": "I don\u0027t think this method is needed",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b646b2e_b894fe1f",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0268f54_889c2c2f",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -154,6 +298,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cd22dd5_c439e9b3",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cde096c3_0e129c60",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe85c994_c04d25af",
@@ -171,6 +333,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3ec0fd_656a6ec4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/DeleteOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe85c994_c04d25af",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cae5b6f9_570cefec",
@@ -184,6 +364,24 @@
       "writtenOn": "2025-04-11T08:55:47Z",
       "side": 1,
       "message": "Can you use `GetOperationTest.class` instead of `\"GetOperationTest\"` here?",
+      "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8510c213_345afd93",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/GetOperationTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-11T11:44:46Z",
+      "side": 1,
+      "message": "My point here was rather not to replace the content of the `string`, but rather pass in the `class` here.\nThat way, your IDE would for instance complain if you rename the class but not the `getLogger(...)` reference here",
+      "parentUuid": "cae5b6f9_570cefec",
       "revId": "a796893b950d637054d2e4051be7239f6148f0ff",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
