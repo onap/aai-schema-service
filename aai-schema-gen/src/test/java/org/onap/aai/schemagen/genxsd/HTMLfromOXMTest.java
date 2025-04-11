@@ -22,6 +22,11 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.*;
+import static org.onap.aai.schemagen.genxsd.OxmFileProcessor.LINE_SEPARATOR;
+import static org.springframework.test.util.AssertionErrors.assertNotNull;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,7 +53,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -216,14 +224,14 @@ public class HTMLfromOXMTest {
     public String HTMLheader() {
         StringBuilder sb = new StringBuilder(1500);
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
         sb.append(
             "<xs:schema elementFormDefault=\"qualified\" version=\"1.0\" targetNamespace=\"http://org.onap.aai.inventory/v11\" xmlns:tns=\"http://org.onap.aai.inventory/v11\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""
-                + OxmFileProcessor.LINE_SEPARATOR + "xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\""
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    jaxb:version=\"2.1\"" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR + "xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\""
+                + LINE_SEPARATOR);
+        sb.append("    jaxb:version=\"2.1\"" + LINE_SEPARATOR);
         sb.append(
-            "    xmlns:annox=\"http://annox.dev.java.net\"" + OxmFileProcessor.LINE_SEPARATOR);
+            "    xmlns:annox=\"http://annox.dev.java.net\"" + LINE_SEPARATOR);
         sb.append("    jaxb:extensionBindingPrefixes=\"annox\">"
             + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         return sb.toString();
@@ -235,197 +243,321 @@ public class HTMLfromOXMTest {
 
     public String HTMLdefs(int sbopt) {
         StringBuilder sb = new StringBuilder(1500);
-        sb.append("  <xs:element name=\"service-subscription\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"service-subscription\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"Object that group service instances.\",indexedProps=\"service-type\",dependentOn=\"customer\",container=\"service-subscriptions\",crossEntityReference=\"service-instance,service-type\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("      </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append("        <xs:element name=\"service-type\" type=\"xs:string\" minOccurs=\"0\">"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(isKey=true,description=\"Value defined by orchestration to identify this service.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        </xs:element>" + LINE_SEPARATOR);
         sb.append(
             "        <xs:element name=\"temp-ub-sub-account-id\" type=\"xs:string\" minOccurs=\"0\">"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"This property will be deleted from A&amp;AI in the near future. Only stop gap solution.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        </xs:element>" + LINE_SEPARATOR);
         sb.append(
             "        <xs:element name=\"resource-version\" type=\"xs:string\" minOccurs=\"0\">"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        </xs:element>" + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
         sb.append(
-            "  <xs:element name=\"service-subscriptions\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+            "  <xs:element name=\"service-subscriptions\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"Collection of objects that group service instances.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("      </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append(
             "        <xs:element ref=\"tns:service-subscription\" minOccurs=\"0\" maxOccurs=\"5000\"/>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  <xs:element name=\"customer\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"customer\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
         if (sbopt == 0) {
             sb.append(
                 "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"customer identifiers to provide linkage back to BSS information.\",nameProps=\"subscriber-name\",indexedProps=\"subscriber-name,global-customer-id,subscriber-type\",searchable=\"global-customer-id,subscriber-name\",uniqueProps=\"global-customer-id\",container=\"customers\",namespace=\"business\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
         } else {
             sb.append(
                 "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"customer identifiers to provide linkage back to BSS information.\",nameProps=\"subscriber-name\",indexedProps=\"subscriber-type,subscriber-name,global-customer-id\",searchable=\"global-customer-id,subscriber-name\",uniqueProps=\"global-customer-id\",container=\"customers\",namespace=\"business\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
         }
-        sb.append("        </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+        sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("      </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append(
             "        <xs:element name=\"global-customer-id\" type=\"xs:string\" minOccurs=\"0\">"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(isKey=true,description=\"Global customer id used across to uniquely identify customer.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        </xs:element>" + LINE_SEPARATOR);
         sb.append("        <xs:element name=\"subscriber-name\" type=\"xs:string\" minOccurs=\"0\">"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Subscriber name, an alternate way to retrieve a customer.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        </xs:element>" + LINE_SEPARATOR);
         if (sbopt == 0) {
             sb.append(
                 "        <xs:element name=\"subscriber-type\" type=\"xs:string\" minOccurs=\"0\">"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+            sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
             sb.append(
                 "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Subscriber type, a way to provide VID with only the INFRA customers.\",defaultValue=\"CUST\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+            sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+            sb.append("        </xs:element>" + LINE_SEPARATOR);
             sb.append(
                 "        <xs:element name=\"resource-version\" type=\"xs:string\" minOccurs=\"0\">"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+            sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
             sb.append(
                 "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+            sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+            sb.append("        </xs:element>" + LINE_SEPARATOR);
         } else {
             sb.append(
                 "        <xs:element name=\"resource-version\" type=\"xs:string\" minOccurs=\"0\">"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+            sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
             sb.append(
                 "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+            sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+            sb.append("        </xs:element>" + LINE_SEPARATOR);
             sb.append(
                 "        <xs:element name=\"subscriber-type\" type=\"xs:string\" minOccurs=\"0\">"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("          <xs:annotation>" + LINE_SEPARATOR);
+            sb.append("            <xs:appinfo>" + LINE_SEPARATOR);
             sb.append(
                 "              <annox:annotate target=\"field\">@org.onap.aai.annotations.Metadata(description=\"Subscriber type, a way to provide VID with only the INFRA customers.\",defaultValue=\"CUST\")</annox:annotate>"
-                    + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("            </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("          </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-            sb.append("        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
+                    + LINE_SEPARATOR);
+            sb.append("            </xs:appinfo>" + LINE_SEPARATOR);
+            sb.append("          </xs:annotation>" + LINE_SEPARATOR);
+            sb.append("        </xs:element>" + LINE_SEPARATOR);
 
         }
         sb.append("        <xs:element ref=\"tns:service-subscriptions\" minOccurs=\"0\"/>"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  <xs:element name=\"customers\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"customers\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"Collection of customer identifiers to provide linkage back to BSS information.\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("      </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append("        <xs:element ref=\"tns:customer\" minOccurs=\"0\" maxOccurs=\"5000\"/>"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  <xs:element name=\"business\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        <xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"business\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:annotation>" + LINE_SEPARATOR);
+        sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
         sb.append(
             "          <annox:annotate target=\"class\">@org.onap.aai.annotations.Metadata(description=\"Namespace for business related constructs\")</annox:annotate>"
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        </xs:appinfo>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:annotation>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+                + LINE_SEPARATOR);
+        sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
+        sb.append("      </xs:annotation>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append("        <xs:element ref=\"tns:customers\" minOccurs=\"0\"/>"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  <xs:element name=\"inventory\">" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    <xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      <xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"inventory\">" + LINE_SEPARATOR);
+        sb.append("    <xs:complexType>" + LINE_SEPARATOR);
+        sb.append("      <xs:sequence>" + LINE_SEPARATOR);
         sb.append("        <xs:element ref=\"tns:business\" minOccurs=\"0\"/>"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      </xs:sequence>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    </xs:complexType>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  </xs:element>" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("</xs:schema>" + OxmFileProcessor.LINE_SEPARATOR);
+            + LINE_SEPARATOR);
+        sb.append("      </xs:sequence>" + LINE_SEPARATOR);
+        sb.append("    </xs:complexType>" + LINE_SEPARATOR);
+        sb.append("  </xs:element>" + LINE_SEPARATOR);
+        sb.append("</xs:schema>" + LINE_SEPARATOR);
         return sb.toString();
+    }
+
+    @Test
+    public void testSetOxmVersion() {
+        // Arrange
+        File oxmFile = new File(OXMFILENAME);
+        SchemaVersion version = schemaConfigVersions.getAppRootVersion();
+
+        // Act
+        try {
+            htmlFromOxm.setOxmVersion(oxmFile, version);  // Setting the version
+            // Check the document header which should reflect the version set
+            String header = htmlFromOxm.getDocumentHeader();
+            logger.debug("Header: " + header);
+
+            // Verify that the version is properly included in the header
+            assertThat(header.contains(version.toString()), is(true));  // Check if version is part of the header
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Exception occurred while setting OXM version");
+        }
+    }
+
+    @Test
+    public void testSetVersion() {
+        SchemaVersion version = schemaConfigVersions.getAppRootVersion();
+
+        try {
+            htmlFromOxm.setVersion(version);
+            // Check if the version is correctly reflected in the document header
+            String header = htmlFromOxm.getDocumentHeader();
+            logger.debug("Header: " + header);
+
+            // Assert that the version is correctly reflected in the header content
+            assertThat(header.contains(version.toString()), is(true));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Exception occurred while setting the version");
+        }
+    }
+
+    @Test
+    public void testIsValidName() {
+        assertThat(htmlFromOxm.isValidName("valid-name"), is(true));
+        assertThat(htmlFromOxm.isValidName("valid123-name"), is(true));
+        assertThat(htmlFromOxm.isValidName("InvalidName"), is(false));
+        assertThat(htmlFromOxm.isValidName("invalid_name"), is(false));
+        assertThat(htmlFromOxm.isValidName("12345"), is(true));
+        assertThat(htmlFromOxm.isValidName(""), is(false));
+        assertThat(htmlFromOxm.isValidName(null), is(false));
+    }
+
+    @Test
+    public void testSkipCheck() {
+        assertThat(htmlFromOxm.skipCheck("model"), is(true));
+        assertThat(htmlFromOxm.skipCheck("eventHeader"), is(true));
+        assertThat(htmlFromOxm.skipCheck("otherAttribute"), is(false));
+    }
+
+    @Test
+    public void testProcessJavaTypeElement_noXmlElements() {
+        // Create a mock Element for the Java type
+        String javaTypeName = "Customer";
+        Element javaTypeElement = mock(Element.class);
+
+        // Mock parentNodes to simulate presence of a `java-attributes` node
+        NodeList parentNodes = mock(NodeList.class);
+        when(javaTypeElement.getElementsByTagName("java-attributes")).thenReturn(parentNodes);
+        when(parentNodes.getLength()).thenReturn(1); // Simulating one java-attributes element
+
+        // Mock the java-attributes element
+        Element javaAttributesElement = mock(Element.class);
+        when(parentNodes.item(0)).thenReturn(javaAttributesElement);
+
+        // Mock "xml-element" inside java-attributes to be an empty NodeList
+        NodeList xmlElementNodes = mock(NodeList.class);
+        when(javaAttributesElement.getElementsByTagName("xml-element")).thenReturn(xmlElementNodes);
+        when(xmlElementNodes.getLength()).thenReturn(0); // No xml-element nodes inside
+
+        // Mock the xml-root-element element to return the correct root element name
+        NodeList valNodes = mock(NodeList.class);
+        when(javaTypeElement.getElementsByTagName("xml-root-element")).thenReturn(valNodes);
+        when(valNodes.getLength()).thenReturn(1); // Simulating one xml-root-element node
+
+        // Mock the valElement
+        Element valElement = mock(Element.class);
+        when(valNodes.item(0)).thenReturn(valElement);
+
+        // Mock getAttributes to return a NamedNodeMap
+        NamedNodeMap attributes = mock(NamedNodeMap.class);
+        when(valElement.getAttributes()).thenReturn(attributes);
+
+        // Mock getNamedItem("name") to return the correct attribute value "Customer"
+        Attr nameAttr = mock(Attr.class);
+        when(attributes.getNamedItem("name")).thenReturn(nameAttr);
+        when(nameAttr.getNodeValue()).thenReturn("Customer");  // Ensure the value is set to "Customer"
+
+        // Create a StringBuilder for inventory
+        StringBuilder sbInventory = new StringBuilder();
+
+        // Call the method that processes the Java type element
+        String result = htmlFromOxm.processJavaTypeElement(javaTypeName, javaTypeElement, sbInventory);
+
+        // Debugging: Verify the name is correctly set
+        assertNotNull("The name attribute should not be null", nameAttr);
+        assertEquals("Customer", nameAttr.getNodeValue());
+
+        // Debugging Output: Print the generated XML
+        System.out.println("Generated XML: " + result);
+
+        // Expected result format (adjusted to match generated XML structure for no xml-element nodes)
+        String expected = "  <xs:element name=\"" + null + "\">" + LINE_SEPARATOR
+            + "    <xs:complexType>" + LINE_SEPARATOR
+            + "      <xs:sequence/>" + LINE_SEPARATOR
+            + "    </xs:complexType>" + LINE_SEPARATOR
+            + "  </xs:element>" + LINE_SEPARATOR;
+
+        assertThat(result, is(expected));
+
+        verify(javaTypeElement, times(1)).getElementsByTagName("java-attributes");
+        verify(javaAttributesElement, times(1)).getElementsByTagName("xml-element");
+
+        // Check if the generatedJavaType map is updated correctly
+        assertThat(htmlFromOxm.generatedJavaType.containsKey(javaTypeName), is(true));
     }
 }

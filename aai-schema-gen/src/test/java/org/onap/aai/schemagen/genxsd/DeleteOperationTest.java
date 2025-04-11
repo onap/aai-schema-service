@@ -20,70 +20,57 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import java.util.Arrays;
+import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-
 public class DeleteOperationTest {
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
-    private String result;
 
     public static Collection<String[]> testConditions() {
-        String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
-            "/network/generic-vnfs/generic-vnf/{vnf-id}",
-            "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
-            "    delete:\n      tags:\n        - Network\n      summary: delete an existing generic-vnf\n      description: delete an existing generic-vnf\n      operationId: deleteNetworkGenericVnfsGenericVnf\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n        - name: resource-version\n          in: query\n          description: resource-version for concurrency\n          required: true\n          type: string\n"},
-            // if ( StringUtils.isEmpty(tag) )
-            {"GenericVnf", "generic-vnf", "", "/generic-vnf/{vnf-id}",
-                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
-                ""},
-            // Test: if ( !path.endsWith("/relationship") && !path.endsWith("}") )
-            {"CloudInfrastructurePserversPserverPInterfaces", "p-interfaces", "CloudInfrastructure",
-                "/cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces",
-                "        - name: hostname\n          in: path\n          description: Value from executing hostname on the compute node.\n          required: true\n          type: string\n          example: __HOSTNAME__",
-                ""},
-            // {"","ctag-pool","","","",""},
-            // {"","pserver","","","",""},
-            // {"","oam-network","","","",""},
-            // {"","dvs-switch","","","",""},
-            // {"","availability-zone","","","",""}
+        String inputs[][] = {
+            // Case where tag is empty (tests StringUtils.isEmpty(tag))
+            {"TestEmptyTag", "generic-vnf", "", "/network/generic-vnfs/generic-vnf/{vnf-id}",
+                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
+                ""}, // Should return an empty string because tag is empty
+
+            // Case where path contains "/relationship/" (tests path.contains("/relationship/"))
+            {"TestPathContainsRelationship", "generic-vnf", "Network", "/network/relationship/xyz/{xyz-id}",
+                "        - name: xyz-id\n          in: path\n          description: Unique id of XYZ. This is a test.\n          required: true\n          type: string\n          example: __XYZ-ID__\n",
+                ""}, // Should return an empty string because path contains "/relationship/"
+
+            // Case where path ends with "/relationship-list" (tests path.endsWith("/relationship-list"))
+            {"TestPathEndsWithRelationshipList", "service", "Network", "/network/relationship-list",
+                "        - name: xyz-id\n          in: path\n          description: Unique id of XYZ. This is a test.\n          required: true\n          type: string\n          example: __XYZ-ID__\n",
+                ""}, // Should return an empty string because path ends with "/relationship-list"
+
+            // Case when path ends with /relationship (tests path.endsWith("/relationship"))
+            {"TestPathEndsWithRelationship", "relationship", "Service", "/service/xyz/relationship",
+                "        - name: xyz-id\n          in: path\n          description: Unique id of XYZ.\n          required: true\n          type: string\n          example: __XYZ-ID__\n",
+                "    delete:\n      tags:\n        - Service\n      summary: delete an existing relationship\n      description: delete an existing relationship\n      operationId: deleteTestPathEndsWithRelationship\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: xyz-id\n          in: path\n          description: Unique id of XYZ.\n          required: true\n          type: string\n          example: __XYZ-ID__\n"},
+
+            // Case where path starts with "/search" (tests path.startsWith("/search"))
+            {"TestPathStartsWithSearch", "generic-vnf", "Network", "/search/vnf/{vnf-id}",
+                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
+                ""}, // Should return an empty string because path starts with "/search"
+
+            // Additional normal case to verify overall behavior
+            {"TestValidPath", "generic-vnf", "Network", "/network/generic-vnfs/generic-vnf/{vnf-id}",
+                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
+                "    delete:\n      tags:\n        - Network\n      summary: delete an existing generic-vnf\n      description: delete an existing generic-vnf\n      operationId: deleteTestValidPath\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n        - name: resource-version\n          in: query\n          description: resource-version for concurrency\n          required: true\n          type: string\n"}
         };
         return Arrays.asList(inputs);
     }
 
-    public void initDeleteOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, String result) {
-        this.useOpId = useOpId;
-        this.xmlRootElementName = xmlRootElementName;
-        this.tag = tag;
-        this.path = path;
-        this.pathParams = pathParams;
-        this.result = result;
-    }
-
-    @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
-
-    }
-
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        initDeleteOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String expectedResult) {
         DeleteOperation delete =
             new DeleteOperation(useOpId, xmlRootElementName, tag, path, pathParams);
         String modResult = delete.toString();
-        assertThat(modResult, is(this.result));
+        assertThat(modResult, is(expectedResult));
     }
 
 }

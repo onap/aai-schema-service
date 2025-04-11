@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,22 +22,13 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.util.Arrays;
 import java.util.Collection;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.onap.aai.setup.SchemaVersion;
 
 public class PatchOperationTest {
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
-    private String result;
     private static SchemaVersion v = new SchemaVersion("v16");
 
     public static Collection<String[]> testConditions() {
@@ -63,29 +54,13 @@ public class PatchOperationTest {
         return Arrays.asList(inputs);
     }
 
-    public void initPatchOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, String result) {
-        this.useOpId = useOpId;
-        this.xmlRootElementName = xmlRootElementName;
-        this.tag = tag;
-        this.path = path;
-        this.pathParams = pathParams;
-        this.result = result;
-    }
-
-    @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
-
-    }
-
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        initPatchOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String expectedResult) {
         PatchOperation patch =
             new PatchOperation(useOpId, xmlRootElementName, tag, path, pathParams, v, "/aai");
         String modResult = patch.toString();
-        assertThat(modResult, is(this.result));
+        assertThat(modResult, is(expectedResult));
     }
 
 }
