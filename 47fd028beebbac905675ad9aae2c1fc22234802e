@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e960e7b3_f056b811",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/GetOperationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-04-14T07:18:17Z",
+      "side": 1,
+      "message": "Still not right, please use `\u003d LoggerFactory.getLogger(GetOperationTest.class);`",
+      "revId": "47fd028beebbac905675ad9aae2c1fc22234802e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
