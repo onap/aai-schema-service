@@ -4,12 +4,14 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
+ * Modifications Copyright © 2025 Deutsche Telekom.
+ * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,8 +30,16 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import java.util.HashMap;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class XSDJavaTypeTest extends XSDElementTest {
+
+    XSDJavaType xsdJavaType;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -99,4 +109,32 @@ public class XSDJavaTypeTest extends XSDElementTest {
         }
     }
 
+    @Test
+    public void testGetItemName_withEmptyNodeList() {
+        NodeList nodeListMock = mock(NodeList.class);
+        XSDElement xsdelementMock = mock(XSDElement.class);
+        // Set up mocks to simulate behavior for empty NodeList
+        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        when(nodeListMock.getLength()).thenReturn(0);
+
+        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+
+        String itemName = javaType.getItemName();
+
+        assertThat(itemName, equalTo(null));
+    }
+
+    @Test
+    public void testGetArrayType_withEmptyNodeList() {
+        NodeList nodeListMock = mock(NodeList.class);
+        XSDElement xsdelementMock = mock(XSDElement.class);
+        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        when(nodeListMock.getLength()).thenReturn(0);
+
+        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+
+        String itemName = javaType.getArrayType();
+
+        assertThat(itemName, equalTo(null));
+    }
 }

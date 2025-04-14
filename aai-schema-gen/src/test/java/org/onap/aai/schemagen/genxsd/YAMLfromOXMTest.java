@@ -4,12 +4,14 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
+ * Modifications Copyright © 2025 Deutsche Telekom.
+ * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,24 +22,7 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.google.common.collect.Multimap;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +43,24 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import lombok.SneakyThrows;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -906,4 +909,55 @@ public class YAMLfromOXMTest {
         sb.append("  ]\n" + "}\n");
         return sb.toString();
     }
+
+    @Test
+    public void testInvalidTopLevelTag_Actions_ShouldReturnFalse() {
+        String invalidTag = "Actions";
+        Boolean result = yamlFromOxm.validTag(invalidTag);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testValidTagNull() {
+        assertFalse(yamlFromOxm.validTag(null));
+    }
+
+
+    @Test
+    @SneakyThrows
+    public void testSetVersion() {
+        SchemaVersion validVersion = new SchemaVersion("v1");
+
+        Method setVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setVersion", SchemaVersion.class);
+        setVersionMethod.setAccessible(true);
+        setVersionMethod.invoke(yamlFromOxm, validVersion);
+
+        Field versionField = YAMLfromOXM.class.getSuperclass().getDeclaredField("v");
+        versionField.setAccessible(true);
+
+        Object actualVersion = versionField.get(yamlFromOxm);
+        assertEquals("v1", actualVersion.toString());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testSetOxmVersion() {
+        SchemaVersion validVersion = new SchemaVersion("v1");
+        File oxmFile = new File("path/to/oxm/file");
+
+        Method setOxmVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setOxmVersion", File.class, SchemaVersion.class);
+        setOxmVersionMethod.setAccessible(true);
+        setOxmVersionMethod.invoke(yamlFromOxm, oxmFile, validVersion);
+
+        Field versionField = YAMLfromOXM.class.getSuperclass().getDeclaredField("v");
+        versionField.setAccessible(true);
+        Object actualVersion = versionField.get(yamlFromOxm);
+        assertEquals("v1", actualVersion.toString());
+
+        Field oxmFileField = YAMLfromOXM.class.getSuperclass().getDeclaredField("oxmFile");
+        oxmFileField.setAccessible(true);
+        Object actualFile = oxmFileField.get(yamlFromOxm);
+        assertEquals(oxmFile, actualFile);
+    }
+
 }
