@@ -28,8 +28,16 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import java.util.HashMap;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class XSDJavaTypeTest extends XSDElementTest {
+
+    XSDJavaType xsdJavaType;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -99,4 +107,32 @@ public class XSDJavaTypeTest extends XSDElementTest {
         }
     }
 
+    @Test
+    public void testGetItemName_withEmptyNodeList() {
+        NodeList nodeListMock = mock(NodeList.class);
+        XSDElement xsdelementMock=mock(XSDElement.class);
+        // Set up mocks to simulate behavior for empty NodeList
+        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        when(nodeListMock.getLength()).thenReturn(0);
+
+        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+
+        String itemName = javaType.getItemName();
+
+        assertThat(itemName, equalTo(null));
+    }
+
+    @Test
+    public void testGetArrayType_withEmptyNodeList() {
+        NodeList nodeListMock = mock(NodeList.class);
+        XSDElement xsdelementMock=mock(XSDElement.class);
+        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        when(nodeListMock.getLength()).thenReturn(0);
+
+        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+
+        String itemName = javaType.getArrayType();
+
+        assertThat(itemName, equalTo(null));
+    }
 }

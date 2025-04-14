@@ -20,39 +20,35 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.both;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.collection.IsIn.in;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.hamcrest.core.Every.everyItem;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.collection.IsIn.in;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
+import static org.hamcrest.core.Every.everyItem;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.util.AssertionErrors.fail;
 
 public class XSDElementTest {
     private static final Logger logger = LoggerFactory.getLogger("XSDElementTest.class");
@@ -60,6 +56,9 @@ public class XSDElementTest {
     protected String testXML;
     protected Document doc = null;
     protected NodeList javaTypeNodes = null;
+
+    private Element xmlElementElement;
+    private XSDElement xsdelement;
 
     public String getTestXML() {
         return testXML;
@@ -72,6 +71,11 @@ public class XSDElementTest {
     @BeforeEach
     public void setUp() throws Exception {
         setUp(0);
+        // Mocking the xmlElementElement which is an instance of org.w3c.dom.Element
+        xmlElementElement = mock(Element.class);
+
+        // Create an instance of XSDElement
+        xsdelement = new XSDElement(xmlElementElement, "unbounded");
     }
 
     public void setUp(int sbopt) throws Exception {
@@ -769,6 +773,1406 @@ public class XSDElementTest {
         for (String key : map.keySet()) {
             assertThat(map.get(key), equalTo(target.get(key)));
         }
+    }
+
+    @Test
+    public void testGetHTMLElement_withoutAnnotation() {
+        // Create the mock SchemaVersion and HTMLfromOXM
+        SchemaVersion schemaVersion = new SchemaVersion("v11");  // Use version "v11"
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+
+        // Mock getXmlRootElementName() to return a custom value
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("stringElement");
+
+        // Create a dummy Element (XML Element)
+        Document document = createTestXMLDocument();  // Assuming this method creates a Document object
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.String");
+        element.setAttribute("required", "false");
+        element.setAttribute("container-type", "java.util.ArrayList");
+
+        // Initialize XSDElement with the element and maxOccurs value
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        // Mock the behavior of XSDElement's getHTMLAnnotation() to return an empty string (no annotation)
+        XSDElement mockedXSDElement = mock(XSDElement.class);
+        when(mockedXSDElement.getHTMLAnnotation("field", "          ")).thenReturn("");
+
+        // Call the method to get the actual HTML element without annotations
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, true, htmlDriver);
+
+        // Assert the generated HTML contains the expected elements and doesn't include annotation text
+        assertThat(actualHtml, containsString("<xs:element name=\"testName\""));
+        assertThat(actualHtml, containsString("type=\"xs:string\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("maxOccurs=\"unbounded\""));
+        assertThat(actualHtml, not(containsString("Some annotation text")));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Helper method to create a simple Document with a root element (can be extended as per the test needs)
+    private Document createTestXMLDocument() {
+        try {
+            // Use a simple DocumentBuilderFactory to create an empty Document
+            javax.xml.parsers.DocumentBuilderFactory factory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+            javax.xml.parsers.DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.newDocument();
+            return document;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Test getOwnerDocument
+    @Test
+    public void testGetOwnerDocument() {
+        Document ownerDocument = mock(Document.class);
+        when(xmlElementElement.getOwnerDocument()).thenReturn(ownerDocument);
+
+        Document result = xsdelement.getOwnerDocument();
+
+        assertEquals(ownerDocument, result);
+    }
+
+    // Test insertBefore
+    @Test
+    public void testInsertBefore() throws DOMException {
+        Node newChild = mock(Node.class);
+        Node refChild = mock(Node.class);
+        when(xmlElementElement.insertBefore(newChild, refChild)).thenReturn(newChild);
+
+        Node result = xsdelement.insertBefore(newChild, refChild);
+
+        assertEquals(newChild, result);
+    }
+
+    // Test replaceChild
+    @Test
+    public void testReplaceChild() throws DOMException {
+        Node newChild = mock(Node.class);
+        Node oldChild = mock(Node.class);
+        when(xmlElementElement.replaceChild(newChild, oldChild)).thenReturn(newChild);
+
+        Node result = xsdelement.replaceChild(newChild, oldChild);
+
+        assertEquals(newChild, result);
+    }
+
+    // Test removeChild
+    @Test
+    public void testRemoveChild() throws DOMException {
+        Node oldChild = mock(Node.class);
+        when(xmlElementElement.removeChild(oldChild)).thenReturn(oldChild);
+
+        Node result = xsdelement.removeChild(oldChild);
+
+        assertEquals(oldChild, result);
+    }
+
+    // Test appendChild
+    @Test
+    public void testAppendChild() throws DOMException {
+        Node newChild = mock(Node.class);
+        when(xmlElementElement.appendChild(newChild)).thenReturn(newChild);
+
+        Node result = xsdelement.appendChild(newChild);
+
+        assertEquals(newChild, result);
+    }
+
+    // Test hasChildNodes
+    @Test
+    public void testHasChildNodes() {
+        when(xmlElementElement.hasChildNodes()).thenReturn(true);
+
+        boolean result = xsdelement.hasChildNodes();
+
+        assertTrue(result);
+    }
+
+    // Test cloneNode
+    @Test
+    public void testCloneNode() {
+        Node clone = mock(Node.class);
+        when(xmlElementElement.cloneNode(true)).thenReturn(clone);
+
+        Node result = xsdelement.cloneNode(true);
+
+        assertEquals(clone, result);
+    }
+
+    // Test normalize
+    @Test
+    public void testNormalize() {
+        doNothing().when(xmlElementElement).normalize();
+
+        xsdelement.normalize();
+
+        verify(xmlElementElement, times(1)).normalize();
+    }
+
+    // Test isSupported
+    @Test
+    public void testIsSupported() {
+        when(xmlElementElement.isSupported("XML", "1.0")).thenReturn(true);
+
+        boolean result = xsdelement.isSupported("XML", "1.0");
+
+        assertTrue(result);
+    }
+
+    // Test getNamespaceURI
+    @Test
+    public void testGetNamespaceURI() {
+        when(xmlElementElement.getNamespaceURI()).thenReturn("http://example.com");
+
+        String result = xsdelement.getNamespaceURI();
+
+        assertEquals("http://example.com", result);
+    }
+
+    // Test getPrefix
+    @Test
+    public void testGetPrefix() {
+        when(xmlElementElement.getPrefix()).thenReturn("ex");
+
+        String result = xsdelement.getPrefix();
+
+        assertEquals("ex", result);
+    }
+
+    // Test setPrefix
+    @Test
+    public void testSetPrefix() throws DOMException {
+        doNothing().when(xmlElementElement).setPrefix("ex");
+
+        xsdelement.setPrefix("ex");
+
+        verify(xmlElementElement, times(1)).setPrefix("ex");
+    }
+
+    // Test getLocalName
+    @Test
+    public void testGetLocalName() {
+        when(xmlElementElement.getLocalName()).thenReturn("localName");
+
+        String result = xsdelement.getLocalName();
+
+        assertEquals("localName", result);
+    }
+
+    // Test hasAttributes
+    @Test
+    public void testHasAttributes() {
+        when(xmlElementElement.hasAttributes()).thenReturn(true);
+
+        boolean result = xsdelement.hasAttributes();
+
+        assertTrue(result);
+    }
+
+    // Test getBaseURI
+    @Test
+    public void testGetBaseURI() {
+        when(xmlElementElement.getBaseURI()).thenReturn("http://baseuri.com");
+
+        String result = xsdelement.getBaseURI();
+
+        assertEquals("http://baseuri.com", result);
+    }
+
+    // Test compareDocumentPosition
+    @Test
+    public void testCompareDocumentPosition() throws DOMException {
+        Node otherNode = mock(Node.class);
+        when(xmlElementElement.compareDocumentPosition(otherNode)).thenReturn(Node.DOCUMENT_POSITION_FOLLOWING);
+
+        short result = xsdelement.compareDocumentPosition(otherNode);
+
+        assertEquals(Node.DOCUMENT_POSITION_FOLLOWING, result);
+    }
+
+    // Test getTextContent
+    @Test
+    public void testGetTextContent() throws DOMException {
+        when(xmlElementElement.getTextContent()).thenReturn("some text content");
+
+        String result = xsdelement.getTextContent();
+
+        assertEquals("some text content", result);
+    }
+
+    // Test setTextContent
+    @Test
+    public void testSetTextContent() throws DOMException {
+        doNothing().when(xmlElementElement).setTextContent("new content");
+
+        xsdelement.setTextContent("new content");
+
+        verify(xmlElementElement, times(1)).setTextContent("new content");
+    }
+
+    // Test isSameNode
+    @Test
+    public void testIsSameNode() {
+        Node otherNode = mock(Node.class);
+        when(xmlElementElement.isSameNode(otherNode)).thenReturn(true);
+
+        boolean result = xsdelement.isSameNode(otherNode);
+
+        assertTrue(result);
+    }
+
+    // Test lookupPrefix
+    @Test
+    public void testLookupPrefix() {
+        when(xmlElementElement.lookupPrefix("http://example.com")).thenReturn("ex");
+
+        String result = xsdelement.lookupPrefix("http://example.com");
+
+        assertEquals("ex", result);
+    }
+
+    // Test isDefaultNamespace
+    @Test
+    public void testIsDefaultNamespace() {
+        when(xmlElementElement.isDefaultNamespace("http://example.com")).thenReturn(true);
+
+        boolean result = xsdelement.isDefaultNamespace("http://example.com");
+
+        assertTrue(result);
+    }
+
+    // Test lookupNamespaceURI
+    @Test
+    public void testLookupNamespaceURI() {
+        when(xmlElementElement.lookupNamespaceURI("ex")).thenReturn("http://example.com");
+
+        String result = xsdelement.lookupNamespaceURI("ex");
+
+        assertEquals("http://example.com", result);
+    }
+
+    // Test isEqualNode
+    @Test
+    public void testIsEqualNode() {
+        Node otherNode = mock(Node.class);
+        when(xmlElementElement.isEqualNode(otherNode)).thenReturn(true);
+
+        boolean result = xsdelement.isEqualNode(otherNode);
+
+        assertTrue(result);
+    }
+
+    // Test getFeature
+    @Test
+    public void testGetFeature() {
+        when(xmlElementElement.getFeature("XML", "1.0")).thenReturn("feature");
+
+        Object result = xsdelement.getFeature("XML", "1.0");
+
+        assertEquals("feature", result);
+    }
+
+    // Test setUserData
+    @Test
+    public void testSetUserData() {
+        UserDataHandler handler = mock(UserDataHandler.class);
+        when(xmlElementElement.setUserData("key", "data", handler)).thenReturn("data");
+
+        Object result = xsdelement.setUserData("key", "data", handler);
+
+        assertEquals("data", result);
+    }
+
+    // Test getUserData
+    @Test
+    public void testGetUserData() {
+        when(xmlElementElement.getUserData("key")).thenReturn("userData");
+
+        Object result = xsdelement.getUserData("key");
+
+        assertEquals("userData", result);
+    }
+
+    // Test getTagName
+    @Test
+    public void testGetTagName() {
+        when(xmlElementElement.getTagName()).thenReturn("tagName");
+
+        String result = xsdelement.getTagName();
+
+        assertEquals("tagName", result);
+    }
+
+    // Test getAttribute
+    @Test
+    public void testGetAttribute() {
+        when(xmlElementElement.getAttribute("name")).thenReturn("value");
+
+        String result = xsdelement.getAttribute("name");
+
+        assertEquals("value", result);
+    }
+
+    // Test setAttribute
+    @Test
+    public void testSetAttribute() throws DOMException {
+        doNothing().when(xmlElementElement).setAttribute("name", "value");
+
+        xsdelement.setAttribute("name", "value");
+
+        verify(xmlElementElement, times(1)).setAttribute("name", "value");
+    }
+
+    @Test
+    public void testGetNodeName() {
+        // Arrange
+        String expectedNodeName = "testElement";
+        when(xmlElementElement.getNodeName()).thenReturn(expectedNodeName);
+
+        // Act
+        String nodeName = xsdelement.getNodeName();
+
+        // Assert
+        assertEquals(expectedNodeName, nodeName);
+    }
+
+    @Test
+    public void testGetNodeValue() throws DOMException {
+        // Arrange
+        String expectedNodeValue = "testValue";
+        when(xmlElementElement.getNodeValue()).thenReturn(expectedNodeValue);
+
+        // Act
+        String nodeValue = xsdelement.getNodeValue();
+
+        // Assert
+        assertEquals(expectedNodeValue, nodeValue);
+    }
+
+    @Test
+    public void testSetNodeValue() throws DOMException {
+        // Arrange
+        String newValue = "newValue";
+        doNothing().when(xmlElementElement).setNodeValue(newValue);
+
+        // Act
+        xsdelement.setNodeValue(newValue);
+
+        // Assert
+        verify(xmlElementElement, times(1)).setNodeValue(newValue);
+    }
+
+    @Test
+    public void testGetNodeType() {
+        // Arrange
+        short expectedNodeType = Node.ELEMENT_NODE;
+        when(xmlElementElement.getNodeType()).thenReturn(expectedNodeType);
+
+        // Act
+        short nodeType = xsdelement.getNodeType();
+
+        // Assert
+        assertEquals(expectedNodeType, nodeType);
+    }
+
+    @Test
+    public void testGetParentNode() {
+        // Arrange
+        Node parentNode = mock(Node.class);
+        when(xmlElementElement.getParentNode()).thenReturn(parentNode);
+
+        // Act
+        Node parent = xsdelement.getParentNode();
+
+        // Assert
+        assertEquals(parentNode, parent);
+    }
+
+    @Test
+    public void testGetChildNodes() {
+        // Arrange
+        NodeList nodeList = mock(NodeList.class);
+        when(xmlElementElement.getChildNodes()).thenReturn(nodeList);
+
+        // Act
+        NodeList childNodes = xsdelement.getChildNodes();
+
+        // Assert
+        assertEquals(nodeList, childNodes);
+    }
+
+    @Test
+    public void testGetFirstChild() {
+        // Arrange
+        Node firstChild = mock(Node.class);
+        when(xmlElementElement.getFirstChild()).thenReturn(firstChild);
+
+        // Act
+        Node first = xsdelement.getFirstChild();
+
+        // Assert
+        assertEquals(firstChild, first);
+    }
+
+    @Test
+    public void testGetLastChild() {
+        // Arrange
+        Node lastChild = mock(Node.class);
+        when(xmlElementElement.getLastChild()).thenReturn(lastChild);
+
+        // Act
+        Node last = xsdelement.getLastChild();
+
+        // Assert
+        assertEquals(lastChild, last);
+    }
+
+    @Test
+    public void testGetPreviousSibling() {
+        // Arrange
+        Node previousSibling = mock(Node.class);
+        when(xmlElementElement.getPreviousSibling()).thenReturn(previousSibling);
+
+        // Act
+        Node previous = xsdelement.getPreviousSibling();
+
+        // Assert
+        assertEquals(previousSibling, previous);
+    }
+
+    @Test
+    public void testGetNextSibling() {
+        // Arrange
+        Node nextSibling = mock(Node.class);
+        when(xmlElementElement.getNextSibling()).thenReturn(nextSibling);
+
+        // Act
+        Node next = xsdelement.getNextSibling();
+
+        // Assert
+        assertEquals(nextSibling, next);
+    }
+
+    // Test removeAttribute
+    @Test
+    public void testRemoveAttribute() throws DOMException {
+        doNothing().when(xmlElementElement).removeAttribute("name");
+
+        xsdelement.removeAttribute("name");
+
+        verify(xmlElementElement, times(1)).removeAttribute("name");
+    }
+
+    // Test getAttributeNode
+    @Test
+    public void testGetAttributeNode() {
+        Attr attr = mock(Attr.class);
+        when(xmlElementElement.getAttributeNode("name")).thenReturn(attr);
+
+        Attr result = xsdelement.getAttributeNode("name");
+
+        assertEquals(attr, result);
+    }
+
+    // Test setAttributeNode
+    @Test
+    public void testSetAttributeNode() throws DOMException {
+        Attr newAttr = mock(Attr.class);
+        when(xmlElementElement.setAttributeNode(newAttr)).thenReturn(newAttr);
+
+        Attr result = xsdelement.setAttributeNode(newAttr);
+
+        assertEquals(newAttr, result);
+    }
+
+    // Test removeAttributeNode
+    @Test
+    public void testRemoveAttributeNode() throws DOMException {
+        Attr oldAttr = mock(Attr.class);
+        when(xmlElementElement.removeAttributeNode(oldAttr)).thenReturn(oldAttr);
+
+        Attr result = xsdelement.removeAttributeNode(oldAttr);
+
+        assertEquals(oldAttr, result);
+    }
+
+    // Test getElementsByTagName
+    @Test
+    public void testGetElementsByTagName() {
+        NodeList nodeList = mock(NodeList.class);
+        when(xmlElementElement.getElementsByTagName("name")).thenReturn(nodeList);
+
+        NodeList result = xsdelement.getElementsByTagName("name");
+
+        assertEquals(nodeList, result);
+    }
+
+    // Test getAttributeNS
+    @Test
+    public void testGetAttributeNS() throws DOMException {
+        when(xmlElementElement.getAttributeNS("namespaceURI", "localName")).thenReturn("value");
+
+        String result = xsdelement.getAttributeNS("namespaceURI", "localName");
+
+        assertEquals("value", result);
+    }
+
+    // Test setAttributeNS
+    @Test
+    public void testSetAttributeNS() throws DOMException {
+        doNothing().when(xmlElementElement).setAttributeNS("namespaceURI", "qualifiedName", "value");
+
+        xsdelement.setAttributeNS("namespaceURI", "qualifiedName", "value");
+
+        verify(xmlElementElement, times(1)).setAttributeNS("namespaceURI", "qualifiedName", "value");
+    }
+
+    // Test removeAttributeNS
+    @Test
+    public void testRemoveAttributeNS() throws DOMException {
+        doNothing().when(xmlElementElement).removeAttributeNS("namespaceURI", "localName");
+
+        xsdelement.removeAttributeNS("namespaceURI", "localName");
+
+        verify(xmlElementElement, times(1)).removeAttributeNS("namespaceURI", "localName");
+    }
+
+    // Test getAttributeNodeNS
+    @Test
+    public void testGetAttributeNodeNS() throws DOMException {
+        Attr attr = mock(Attr.class);
+        when(xmlElementElement.getAttributeNodeNS("namespaceURI", "localName")).thenReturn(attr);
+
+        Attr result = xsdelement.getAttributeNodeNS("namespaceURI", "localName");
+
+        assertEquals(attr, result);
+    }
+
+    // Test setAttributeNodeNS
+    @Test
+    public void testSetAttributeNodeNS() throws DOMException {
+        Attr newAttr = mock(Attr.class);
+        when(xmlElementElement.setAttributeNodeNS(newAttr)).thenReturn(newAttr);
+
+        Attr result = xsdelement.setAttributeNodeNS(newAttr);
+
+        assertEquals(newAttr, result);
+    }
+
+    // Test getElementsByTagNameNS
+    @Test
+    public void testGetElementsByTagNameNS() throws DOMException {
+        NodeList nodeList = mock(NodeList.class);
+        when(xmlElementElement.getElementsByTagNameNS("namespaceURI", "localName")).thenReturn(nodeList);
+
+        NodeList result = xsdelement.getElementsByTagNameNS("namespaceURI", "localName");
+
+        assertEquals(nodeList, result);
+    }
+
+    // Test hasAttribute
+    @Test
+    public void testHasAttribute() {
+        when(xmlElementElement.hasAttribute("name")).thenReturn(true);
+
+        boolean result = xsdelement.hasAttribute("name");
+
+        assertTrue(result);
+    }
+
+    // Test hasAttributeNS
+    @Test
+    public void testHasAttributeNS() throws DOMException {
+        when(xmlElementElement.hasAttributeNS("namespaceURI", "localName")).thenReturn(true);
+
+        boolean result = xsdelement.hasAttributeNS("namespaceURI", "localName");
+
+        assertTrue(result);
+    }
+
+    // Test getSchemaTypeInfo
+    @Test
+    public void testGetSchemaTypeInfo() {
+        TypeInfo typeInfo = mock(TypeInfo.class);
+        when(xmlElementElement.getSchemaTypeInfo()).thenReturn(typeInfo);
+
+        TypeInfo result = xsdelement.getSchemaTypeInfo();
+
+        assertEquals(typeInfo, result);
+    }
+
+    // Test setIdAttribute
+    @Test
+    public void testSetIdAttribute() throws DOMException {
+        doNothing().when(xmlElementElement).setIdAttribute("name", true);
+
+        xsdelement.setIdAttribute("name", true);
+
+        verify(xmlElementElement, times(1)).setIdAttribute("name", true);
+    }
+
+    // Test setIdAttributeNS
+    @Test
+    public void testSetIdAttributeNS() throws DOMException {
+        doNothing().when(xmlElementElement).setIdAttributeNS("namespaceURI", "localName", true);
+
+        xsdelement.setIdAttributeNS("namespaceURI", "localName", true);
+
+        verify(xmlElementElement, times(1)).setIdAttributeNS("namespaceURI", "localName", true);
+    }
+
+    // Test setIdAttributeNode
+    @Test
+    public void testSetIdAttributeNode() throws DOMException {
+        Attr idAttr = mock(Attr.class);
+        doNothing().when(xmlElementElement).setIdAttributeNode(idAttr, true);
+
+        xsdelement.setIdAttributeNode(idAttr, true);
+
+        verify(xmlElementElement, times(1)).setIdAttributeNode(idAttr, true);
+    }
+
+    // Test getRequiresProperty
+    @Test
+    public void testGetRequiresProperty() {
+        // Mocking the XML element containing the <xml-property name="requires"> element
+        String xmlString =
+            "<xml-bindings>" +
+                "<java-type name=\"Business\">" +
+                "<xml-properties>" +
+                "<xml-property name=\"description\" value=\"Namespace for business related constructs\" />" +
+                "<xml-property name=\"requires\" value=\"some-required-property\" />" + // This is what we're looking for
+                "</xml-properties>" +
+                "</java-type>" +
+                "</xml-bindings>";
+
+        try {
+            // Parse the XML string into a Document object
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(xmlString)));
+
+            // Find the <java-type> element and pass it into XSDElement
+            Element javaTypeElement = (Element) doc.getElementsByTagName("java-type").item(0);
+            XSDElement xsdelement = new XSDElement(javaTypeElement);
+
+            // Call getRequiresProperty and assert the result
+            String requiresProperty = xsdelement.getRequiresProperty();
+            assertEquals("some-required-property", requiresProperty, "The requires property should match the expected value.");
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+            fail("An error occurred while parsing the XML or executing the test.");
+        }
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withDescription() {
+        // Mock Element with description
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
+        Mockito.when(element.getAttribute("description")).thenReturn("Customer ID description");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: global-customer-id\n"
+            + "          in: query\n"
+            + "          description: Customer ID description\n"
+            + "          required: false\n"
+            + "          type: string\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withoutDescription() {
+        // Mock Element without description (empty description)
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
+        Mockito.when(element.getAttribute("description")).thenReturn(""); // Empty description
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: global-customer-id\n"
+            + "          in: query\n"
+            + "          required: false\n"
+            + "          type: string\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withNullDescription() {
+        // Mock Element with null description
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
+        Mockito.when(element.getAttribute("description")).thenReturn(null); // Null description
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: global-customer-id\n"
+            + "          in: query\n"
+            + "          required: false\n"
+            + "          type: string\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withLongType() {
+        // Mock Element with Long type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("customer-id");
+        Mockito.when(element.getAttribute("description")).thenReturn("Customer ID");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Long");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: customer-id\n"
+            + "          in: query\n"
+            + "          description: Customer ID\n"
+            + "          required: false\n"
+            + "          type: integer\n"
+            + "          format: int64\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withIntegerType() {
+        // Mock Element with Integer type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("order-id");
+        Mockito.when(element.getAttribute("description")).thenReturn("Order ID");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Integer");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: order-id\n"
+            + "          in: query\n"
+            + "          description: Order ID\n"
+            + "          required: false\n"
+            + "          type: integer\n"
+            + "          format: int32\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withFloatType() {
+        // Mock Element with Float type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("price");
+        Mockito.when(element.getAttribute("description")).thenReturn("Price of the product");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Float");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: price\n"
+            + "          in: query\n"
+            + "          description: Price of the product\n"
+            + "          required: false\n"
+            + "          type: number\n"
+            + "          format: float\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withDoubleType() {
+        // Mock Element with Double type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("amount");
+        Mockito.when(element.getAttribute("description")).thenReturn("Amount in dollars");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Double");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: amount\n"
+            + "          in: query\n"
+            + "          description: Amount in dollars\n"
+            + "          required: false\n"
+            + "          type: number\n"
+            + "          format: double\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetQueryParamYAML_withBooleanType() {
+        // Mock Element with Boolean type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("active");
+        Mockito.when(element.getAttribute("description")).thenReturn("Active status of user");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Boolean");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: active\n"
+            + "          in: query\n"
+            + "          description: Active status of user\n"
+            + "          required: false\n"
+            + "          type: boolean\n";
+
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    // Add a test for when type is unrecognized, to ensure the method handles unexpected types correctly
+    @Test
+    public void testGetQueryParamYAML_withUnrecognizedType() {
+        // Mock Element with an unrecognized type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("some-id");
+        Mockito.when(element.getAttribute("description")).thenReturn("Some ID");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Unknown");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String expectedYAML = "        - name: some-id\n"
+            + "          in: query\n"
+            + "          description: Some ID\n"
+            + "          required: false\n";
+        String result = xsdElement.getQueryParamYAML();
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withDescription() {
+        // Mock Element with description
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Inventory";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: Inventory\n"
+            + "          in: path\n"
+            + "          description: Inventory\n"
+            + "          required: true\n"
+            + "          type: string\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withoutDescription() {
+        // Mock Element without description
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: Inventory\n"
+            + "          in: path\n"
+            + "          required: true\n"
+            + "          type: string\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withOverrideName() {
+        // Mock Element with override name
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Inventory";
+        String overrideName = "CustomInventory";
+        String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
+
+        String expectedYAML = "        - name: CustomInventory\n"
+            + "          in: path\n"
+            + "          description: Inventory\n"
+            + "          required: true\n"
+            + "          type: string\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withLongType() {
+        // Mock Element with Long type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("customer-id");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Long");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Customer ID";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: customer-id\n"
+            + "          in: path\n"
+            + "          description: Customer ID\n"
+            + "          required: true\n"
+            + "          type: integer\n"
+            + "          format: int64\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withIntegerType() {
+        // Mock Element with Integer type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("order-id");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Integer");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Order ID";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: order-id\n"
+            + "          in: path\n"
+            + "          description: Order ID\n"
+            + "          required: true\n"
+            + "          type: integer\n"
+            + "          format: int32\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withFloatType() {
+        // Mock Element with Float type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("price");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Float");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Price of the product";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: price\n"
+            + "          in: path\n"
+            + "          description: Price of the product\n"
+            + "          required: true\n"
+            + "          type: number\n"
+            + "          format: float\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withDoubleType() {
+        // Mock Element with Double type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("amount");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Double");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Amount in dollars";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: amount\n"
+            + "          in: path\n"
+            + "          description: Amount in dollars\n"
+            + "          required: true\n"
+            + "          type: number\n"
+            + "          format: double\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withBooleanType() {
+        // Mock Element with Boolean type
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("active");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Boolean");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Active status of user";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: active\n"
+            + "          in: path\n"
+            + "          description: Active status of user\n"
+            + "          required: true\n"
+            + "          type: boolean\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withNullOverrideName() {
+        // Mock Element with null override name
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("inventory-id");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Inventory ID";
+        String result = xsdElement.getPathParamYAML(elementDescription, null);
+
+        String expectedYAML = "        - name: inventory-id\n"
+            + "          in: path\n"
+            + "          description: Inventory ID\n"
+            + "          required: true\n"
+            + "          type: string\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetPathParamYAML_withEmptyOverrideName() {
+        // Mock Element with empty override name
+        Element element = Mockito.mock(Element.class);
+        Mockito.when(element.getAttribute("name")).thenReturn("inventory-id");
+        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+
+        XSDElement xsdElement = new XSDElement(element);
+
+        String elementDescription = "Inventory ID";
+        String overrideName = "";
+        String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
+
+        String expectedYAML = "        - name: \n"
+            + "          in: path\n"
+            + "          description: Inventory ID\n"
+            + "          required: true\n"
+            + "          type: string\n";
+        assertEquals(expectedYAML, result);
+    }
+
+    // TestCases for getHTMLElement
+    // Test for String type without annotation
+    @Test
+    public void testGetHTMLElement_withStringType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");  // Use version "v11"
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("stringElement");
+
+        // Create a dummy Element (XML Element)
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.String");
+        element.setAttribute("required", "false");
+
+        // Initialize XSDElement with the element
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        // Call the method to get the actual HTML element without annotations
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        // Assert the generated HTML contains the expected elements and doesn't include annotation text
+        assertThat(actualHtml, containsString("<xs:element name=\"testName\""));
+        assertThat(actualHtml, containsString("type=\"xs:string\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for Long type without annotation
+    @Test
+    public void testGetHTMLElement_withLongType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("longElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.Long");
+        element.setAttribute("required", "false");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("type=\"xs:unsignedInt\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for Integer type without annotation
+    @Test
+    public void testGetHTMLElement_withIntegerType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("intElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.Integer");
+        element.setAttribute("required", "false");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("type=\"xs:int\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for Float type without annotation
+    @Test
+    public void testGetHTMLElement_withFloatType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("floatElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.Float");
+        element.setAttribute("required", "false");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("type=\"xs:float\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for Double type without annotation
+    @Test
+    public void testGetHTMLElement_withDoubleType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("doubleElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.Double");
+        element.setAttribute("required", "false");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("type=\"xs:double\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for Boolean type without annotation
+    @Test
+    public void testGetHTMLElement_withBooleanType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("booleanElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.Boolean");
+        element.setAttribute("required", "false");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("type=\"xs:boolean\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    // Test for ArrayList container type without annotation
+    @Test
+    public void testGetHTMLElement_withArrayListContainerType_withoutAnnotation() {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("listElement");
+
+        Document document = createTestXMLDocument();
+        Element element = document.createElement("testElement");
+        element.setAttribute("name", "testName");
+        element.setAttribute("type", "java.lang.String");
+        element.setAttribute("required", "false");
+        element.setAttribute("container-type", "java.util.ArrayList");
+
+        XSDElement xsdelement = new XSDElement(element, "unbounded");
+
+        String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actualHtml, containsString("maxOccurs=\"unbounded\""));
+        assertThat(actualHtml, containsString("minOccurs=\"0\""));
+        assertThat(actualHtml, containsString("/>"));
+    }
+
+    //Test Cases for getTypePropertyYAML (EachIfBlock)
+
+    @Test
+    public void testGetTypePropertyYAML_withStringType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.String");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: string\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withLongType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Long");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: integer\n"
+            + "        format: int64\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withIntegerType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Integer");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: integer\n"
+            + "        format: int32\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withFloatType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Float");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: number\n"
+            + "        format: float\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withDoubleType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Double");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: number\n"
+            + "        format: double\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withBooleanType() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Boolean");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        String result = xsdelement.getTypePropertyYAML(false);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: boolean\n";
+
+        assertEquals(expectedYAML, result);
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withDslStartNode_noDescription() {
+        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+
+        // Mock the getAttribute method for the type
+        when(xsdelement.getAttribute("type")).thenReturn("java.lang.String");
+
+        // Mock the getElementsByTagName method to return a NodeList
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
+
+        // Call the method with isDslStartNode set to true
+        String result = xsdelement.getTypePropertyYAML(true);
+
+        String expectedYAML = "      property-name:\n"
+            + "        type: string\n"
+            + "        description: |\n"
+            + "          \n"
+            + "          *This property can be used as a filter to find the start node for a dsl query\n";
+
+        assertEquals(expectedYAML, result);
     }
 
 }

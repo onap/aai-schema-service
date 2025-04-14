@@ -20,24 +20,7 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.google.common.collect.Multimap;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +41,23 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -906,4 +906,63 @@ public class YAMLfromOXMTest {
         sb.append("  ]\n" + "}\n");
         return sb.toString();
     }
+
+    @Test
+    public void testValidTag() {
+        String validTag = "Actions";
+        Boolean result = yamlFromOxm.validTag(validTag);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testValidTagNull() {
+        assertFalse(yamlFromOxm.validTag(null));
+    }
+
+
+    @Test
+    public void testSetVersion() {
+        SchemaVersion validVersion = new SchemaVersion("v1");
+
+        try {
+            Method setVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setVersion", SchemaVersion.class);
+            setVersionMethod.setAccessible(true);
+
+            setVersionMethod.invoke(yamlFromOxm, validVersion);
+
+            Field versionField = YAMLfromOXM.class.getDeclaredField("version");  // Replace with the actual field name if necessary
+            versionField.setAccessible(true);
+
+            Object actualVersion = versionField.get(yamlFromOxm);
+
+            assertEquals("v1", actualVersion.toString());
+
+        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | java.lang.reflect.InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSetOxmVersion() {
+        SchemaVersion validVersion = new SchemaVersion("v1");
+        File oxmFile = new File("path/to/oxm/file");
+
+        try {
+            Method setOxmVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setOxmVersion", File.class, SchemaVersion.class);
+            setOxmVersionMethod.setAccessible(true);
+
+            setOxmVersionMethod.invoke(yamlFromOxm, oxmFile, validVersion);
+
+            Field oxmVersionField = YAMLfromOXM.class.getDeclaredField("oxmVersion");
+            oxmVersionField.setAccessible(true);
+
+            Object actualOxmVersion = oxmVersionField.get(yamlFromOxm);
+
+            assertEquals("v1", actualOxmVersion.toString());
+
+        } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | java.lang.reflect.InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
