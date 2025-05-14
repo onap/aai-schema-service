@@ -3,6 +3,125 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e6fb5619_29bd8007",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "Please remove this `try catch`. It is only useful for debugging purposes and can be added should the test fail, but it should not be in the regular test code",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f41694c_d99735fb",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "Same comment here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "304a83f8_98d2de4a",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "I don\u0027t think this test is adding any value. This is likely not testing an intentional property of the method",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba3f420_ca244700",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "Please use `assertTrue` here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a175919_6a32cb4c",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79613033_e6824484",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d731da3f_e1a3338e",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:17:03Z",
+      "side": 1,
+      "message": "and here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be2ba56e_d8ceba5b",
         "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/SpringContextAwareTest.java",
         "patchSetId": 1
