@@ -3,6 +3,91 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be2ba56e_d8ceba5b",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/SpringContextAwareTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:16:00Z",
+      "side": 1,
+      "message": "Please add a license header here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac018304_ab5bea1d",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:16:00Z",
+      "side": 1,
+      "message": "Please add a Modifications Copyright here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "007e9e2b_4ee422b4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:16:00Z",
+      "side": 1,
+      "message": "Please use `assertTrue` here to be more consistent with what is being used in other places",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63fa1be4_1e73f92f",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:16:00Z",
+      "side": 1,
+      "message": "Please remove this try catch block here. It is not necessary, since the test will fail when there is an unexpected exception anyways",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abbd3b07_44bc09bf",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/TestEdgeDescription.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:16:00Z",
+      "side": 1,
+      "message": "Please add a license header here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "badaa1ae_542c74d6",
         "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
         "patchSetId": 1
