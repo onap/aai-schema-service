@@ -71,6 +71,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79a3e20b_2514d91c",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:08:52Z",
+      "side": 1,
+      "message": "Here too",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4fbabb9_96d23d34",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:08:52Z",
+      "side": 1,
+      "message": "Please remove the `try catch` here too (same comment as for `testVersionSupportsSwaggerDiff_invalidVersionFormat`",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e98f89d3_6b9d52e4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:08:52Z",
+      "side": 1,
+      "message": "Please remove this try catch bullshit here. Please sanity check before using Chatgpt to generate tests please.\nSorry to be so frank, but reviews take a lot of energy and I expect at least a bit of effort that went into writing the code in the first place",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "abbd3b07_44bc09bf",
         "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/TestEdgeDescription.java",
         "patchSetId": 1
