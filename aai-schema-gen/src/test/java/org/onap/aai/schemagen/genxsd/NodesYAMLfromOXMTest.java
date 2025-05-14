@@ -4,12 +4,14 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
+ * Modifications Copyright © 2025 Deutsche Telekom.
+ * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,21 +22,10 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.SwaggerGenerationConfiguration;
@@ -42,13 +33,30 @@ import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforEdges;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
+import org.onap.aai.setup.Translator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.w3c.dom.Element;
+import org.w3c.dom.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -412,12 +420,9 @@ public class NodesYAMLfromOXMTest {
         sb.append("      Namespace for business related constructs\n");
         sb.append("    properties:\n");
         sb.append("      customers:\n");
-        sb.append("        type: object\n");
-        sb.append("        properties:\n");
-        sb.append("          customer:\n");
-        sb.append("            type: array\n");
-        sb.append("            items:\n");
-        sb.append("              $ref: \"#/definitions/customer\"\n");
+        sb.append("        type: array\n");
+        sb.append("        items:\n");
+        sb.append("          $ref: \"#/definitions/customer\"\n");
         sb.append("  customer:\n");
         sb.append("    description: |\n");
         sb.append("      customer identifiers to provide linkage back to BSS information.\n");
@@ -448,12 +453,9 @@ public class NodesYAMLfromOXMTest {
         sb.append(
             "        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
         sb.append("      service-subscriptions:\n");
-        sb.append("        type: object\n");
-        sb.append("        properties:\n");
-        sb.append("          service-subscription:\n");
-        sb.append("            type: array\n");
-        sb.append("            items:\n");
-        sb.append("              $ref: \"#/definitions/service-subscription\"\n");
+        sb.append("        type: array\n");
+        sb.append("        items:\n");
+        sb.append("          $ref: \"#/definitions/service-subscription\"\n");
         sb.append("  customers:\n");
         sb.append("    description: |\n");
         sb.append(
@@ -513,5 +515,304 @@ public class NodesYAMLfromOXMTest {
         sb.append("        items:          \n");
         sb.append("          $ref: \"#/definitions/service-subscription\"\n");
         return sb.toString();
+    }
+
+    @Test
+    public void testSetOxmVersion() {
+        File oxmFile = new File(OXMFILENAME);
+        SchemaVersion version = schemaConfigVersions.getAppRootVersion();
+
+        nodesYamlFromOxm.setOxmVersion(oxmFile, version);
+        String header = nodesYamlFromOxm.getDocumentHeader();
+        logger.debug("Header: " + header);
+
+        assertTrue(header.contains(version.toString()));
+    }
+
+    @Test
+    public void testSetVersion() {
+        SchemaVersion version = schemaConfigVersions.getAppRootVersion();
+
+        nodesYamlFromOxm.setVersion(version);
+        String header = nodesYamlFromOxm.getDocumentHeader();
+        logger.debug("Header: " + header);
+
+        assertTrue(header.contains(version.toString()));
+    }
+
+
+    @Test
+    public void testGetDictionary() throws Exception {
+        String resource = "business";
+        Method getDictionaryMethod = NodesYAMLfromOXM.class.getDeclaredMethod("getDictionary", String.class);
+        getDictionaryMethod.setAccessible(true);
+
+        String result = (String) getDictionaryMethod.invoke(nodesYamlFromOxm, resource);
+
+        String expectedResult = "  business:\n"
+            + "    description: |\n"
+            + "      dictionary of business\n"
+            + "    type: object\n"
+            + "    properties:\n"
+            + "      business:\n"
+            + "        type: array\n"
+            + "        items:\n"
+            + "          $ref: \"#/definitions/business-dict\"\n";
+
+        // Verify that the result matches the expected output
+        assertThat(result, is(expectedResult));
+    }
+
+    @Test
+    public void testAppendDefinitions_WithFilter() {
+        Map<String, String> mockJavaTypeDefinitions = new HashMap<>();
+
+        mockJavaTypeDefinitions.put("namespace1", "definition1");
+        mockJavaTypeDefinitions.put("namespace2", "definition2");
+        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+
+        nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
+
+        Set<String> namespaceFilter = new HashSet<>();
+        namespaceFilter.add("namespace1");
+
+        String definitions = nodesYamlFromOxm.appendDefinitions(namespaceFilter);
+
+        String expectedDefinitions = "definitions:\ndefinition1";
+
+        assertThat("Definitions (with filter):\n" + definitions, definitions, is(expectedDefinitions));
+    }
+
+    @Test
+    public void testAppendDefinitions_EmptyDefinitions() {
+        Map<String, String> mockJavaTypeDefinitions = new HashMap<>();
+
+        nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
+
+        String definitions = nodesYamlFromOxm.appendDefinitions(); // This calls appendDefinitions(null)
+
+        String expectedDefinitions = "definitions:\n";
+
+        assertThat("Definitions (empty map):\n" + definitions, definitions, is(expectedDefinitions));
+    }
+
+    @Test
+    public void testAppendDefinitions_RelationshipDictProcessing() {
+        Map<String, String> mockJavaTypeDefinitions = new HashMap<>();
+
+        mockJavaTypeDefinitions.put("namespace1", "definition1");
+        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+
+        nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
+
+        String definitions = nodesYamlFromOxm.appendDefinitions();
+
+        String expectedDefinitions = "definitions:\ndefinition1definition-for-relationship-dict";
+
+        assertEquals(expectedDefinitions,definitions);
+    }
+
+    @Test
+    public void testAppendDefinitions_NoFilter() {
+        Map<String, String> mockJavaTypeDefinitions = new HashMap<>();
+
+        mockJavaTypeDefinitions.put("namespace1", "definition1");
+        mockJavaTypeDefinitions.put("namespace2", "definition2");
+        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+
+        nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
+
+        String definitions = nodesYamlFromOxm.appendDefinitions();
+
+        String expectedDefinitions = "definitions:\ndefinition1definition2definition-for-relationship-dict";
+
+        assertEquals( expectedDefinitions,definitions);
+    }
+
+    @Test
+    public void testSetNodeIngestor() {
+
+        Set<Translator> translatorSet = new HashSet<>();
+        Translator mockTranslator = Mockito.mock(Translator.class);
+        translatorSet.add(mockTranslator);
+
+        NodeIngestor mockNodeIngestor = new NodeIngestor(translatorSet);
+
+        nodesYamlFromOxm.setNodeIngestor(mockNodeIngestor);
+
+        NodeIngestor result = nodesYamlFromOxm.ni;
+        assertEquals(mockNodeIngestor, result, "NodeIngestor should be set correctly.");
+    }
+
+    @Test
+    public void testSetEdgeIngestor() {
+
+        Set<Translator> translatorSet = new HashSet<>();
+        Translator mockTranslator = Mockito.mock(Translator.class);
+        translatorSet.add(mockTranslator);
+
+        EdgeIngestor mockEdgeIngestor = new EdgeIngestor(translatorSet);
+
+        nodesYamlFromOxm.setEdgeIngestor(mockEdgeIngestor);
+
+        EdgeIngestor result = nodesYamlFromOxm.ei;
+
+        assertEquals(mockEdgeIngestor, result, "EdgeIngestor should be set correctly.");
+    }
+
+    @Test
+    public void testGetCombinedJavaTypes() {
+        Map<String, Integer> mockJavaTypes = new HashMap<>();
+        mockJavaTypes.put("String", 1);
+        mockJavaTypes.put("Integer", 2);
+        nodesYamlFromOxm.setCombinedJavaTypes(mockJavaTypes);
+
+        Map<String, Integer> result = nodesYamlFromOxm.getCombinedJavaTypes();
+
+        assertEquals(mockJavaTypes, result, "The combinedJavaTypes should match.");
+    }
+
+    @Test
+    public void testSetCombinedJavaTypes() {
+        Map<String, Integer> mockJavaTypes = new HashMap<>();
+        mockJavaTypes.put("String", 1);
+        mockJavaTypes.put("Integer", 2);
+
+        nodesYamlFromOxm.setCombinedJavaTypes(mockJavaTypes);
+
+        Map<String, Integer> result = nodesYamlFromOxm.getCombinedJavaTypes();
+        assertEquals(mockJavaTypes, result, "The combinedJavaTypes map should be set correctly.");
+    }
+
+    // Adding the test cases for `versionSupportsBasePathProperty`
+
+    @Test
+    public void testVersionSupportsBasePathProperty_versionBeforeMinBasepath() {
+        // Act: Test with a version before the base path property support (e.g., v5)
+        String version = "v5";
+        boolean result = nodesYamlFromOxm.versionSupportsBasePathProperty(version);
+
+        assertTrue(result, "Version v5 should support the base path property.");
+    }
+
+    @Test
+    public void testVersionSupportsBasePathProperty_versionEqualToMinBasepath() {
+        String version = "v6";
+        boolean result = nodesYamlFromOxm.versionSupportsBasePathProperty(version);
+
+        assertTrue(result, "Version v6 should support the base path property.");
+    }
+
+    @Test
+    public void testVersionSupportsBasePathProperty_versionAfterMinBasepath() {
+        String version = "v7";
+        boolean result = nodesYamlFromOxm.versionSupportsBasePathProperty(version);
+
+        assertFalse(result, "Version v7 should NOT support the base path property.");
+    }
+
+    @Test
+    public void testVersionSupportsBasePathProperty_invalidVersionFormat() {
+        String version = "v";
+
+        assertThrows(NumberFormatException.class, () -> {
+            nodesYamlFromOxm.versionSupportsBasePathProperty(version);
+        });
+    }
+
+    // Adding test cases for `versionSupportsSwaggerDiff`
+
+    @Test
+    public void testVersionSupportsSwaggerDiff_versionEqualToSwaggerDiffStartVersion() {
+        String version = "v6";
+        boolean result = nodesYamlFromOxm.versionSupportsSwaggerDiff(version);
+
+        assertTrue(result, "Version v6 should support Swagger Diff.");
+    }
+
+    @Test
+    public void testVersionSupportsSwaggerDiff_invalidVersionFormat() {
+        String version = "v";
+
+        assertThrows(NumberFormatException.class, () -> {
+            nodesYamlFromOxm.versionSupportsSwaggerDiff(version);
+        });
+    }
+
+    @Test
+    public void testGetTopLevelPathsCheckForFalse(){
+        // Arrange: Mock XML structure and expected paths
+        String xmlContent = "<root>" +
+            "<java-attributes>" +
+            "<xml-element type=\"com.example.TopLevel1\"/>" +
+            "<xml-element type=\"com.example.TopLevel2\"/>" +
+            "</java-attributes>" +
+            "</root>";
+
+        // Set the XML content (this assumes the setXmlVersion method processes the XML)
+        nodesYamlFromOxm.setXmlVersion(xmlContent, schemaConfigVersions.getAppRootVersion());
+
+        XSDElement mockElement = Mockito.mock(XSDElement.class);
+
+        NodeList mockJavaAttributesNodeList = mockJavaAttributesNodeList();
+
+        Mockito.when(mockElement.getElementsByTagName("java-attributes")).thenReturn(mockJavaAttributesNodeList);
+
+        nodesYamlFromOxm.getTopLevelPaths(mockElement);
+
+        assertFalse(nodesYamlFromOxm.topLevelPaths.contains("TopLevel1"));
+        assertFalse(nodesYamlFromOxm.topLevelPaths.contains("TopLevel2"));
+    }
+
+    private NodeList mockJavaAttributesNodeList() {
+        NodeList mockNodeList = Mockito.mock(NodeList.class);
+
+        // Create and return the mocked NodeList containing the <xml-element> nodes
+        Element mockJavaAttributesElement = Mockito.mock(Element.class);
+
+        XSDElement mockParentElement = Mockito.mock(XSDElement.class);
+
+        Mockito.when(mockNodeList.getLength()).thenReturn(1);
+        Mockito.when(mockNodeList.item(0)).thenReturn(mockJavaAttributesElement);
+
+        // Mock behavior for the getElementsByTagName("xml-element") for the <java-attributes> node
+        NodeList mockXmlElementNodes = mockXmlElementNodes(mockJavaAttributesElement);
+        Mockito.when(mockJavaAttributesElement.getElementsByTagName("xml-element")).thenReturn(mockXmlElementNodes);
+
+        Mockito.when(mockJavaAttributesElement.getParentNode()).thenReturn(mockParentElement);
+
+        return mockNodeList;
+    }
+
+    private NodeList mockXmlElementNodes(Element parentElement) {
+        NodeList mockNodeList = Mockito.mock(NodeList.class);
+
+        Element mockElement1 = Mockito.mock(Element.class);
+        NamedNodeMap mockAttributes1 = Mockito.mock(NamedNodeMap.class);
+        Attr mockAttr1 = Mockito.mock(Attr.class);
+        Mockito.when(mockAttr1.getValue()).thenReturn("com.example.TopLevel1");
+        Mockito.when(mockAttributes1.getNamedItem("type")).thenReturn(mockAttr1);
+        Mockito.when(mockElement1.getAttributes()).thenReturn(mockAttributes1);
+        Mockito.when(mockElement1.getNodeName()).thenReturn("xml-element");
+
+        // Set the parent node for mockElement1
+        Mockito.when(mockElement1.getParentNode()).thenReturn(parentElement);
+
+        // Create and mock the second <xml-element> (TopLevel2)
+        Element mockElement2 = Mockito.mock(Element.class);
+        NamedNodeMap mockAttributes2 = Mockito.mock(NamedNodeMap.class);
+        Attr mockAttr2 = Mockito.mock(Attr.class);
+        Mockito.when(mockAttr2.getValue()).thenReturn("com.example.TopLevel2");
+        Mockito.when(mockAttributes2.getNamedItem("type")).thenReturn(mockAttr2);
+        Mockito.when(mockElement2.getAttributes()).thenReturn(mockAttributes2);
+        Mockito.when(mockElement2.getNodeName()).thenReturn("xml-element");
+
+        Mockito.when(mockElement2.getParentNode()).thenReturn(parentElement);
+
+        Mockito.when(mockNodeList.getLength()).thenReturn(2);  // Ensure that getLength() returns 2
+        Mockito.when(mockNodeList.item(0)).thenReturn(mockElement1);
+        Mockito.when(mockNodeList.item(1)).thenReturn(mockElement2);
+
+        return mockNodeList;
     }
 }
