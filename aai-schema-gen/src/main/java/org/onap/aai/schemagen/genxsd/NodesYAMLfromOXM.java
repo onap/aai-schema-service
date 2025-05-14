@@ -246,9 +246,9 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
     private String getDictionary(String resource) {
         StringBuilder dictSb = new StringBuilder();
         dictSb.append("  ").append(resource).append(":\n");
-        dictSb.append("    type: object\n");
         dictSb.append("    description: |\n");
         dictSb.append("      dictionary of ").append(resource).append("\n");
+        dictSb.append("    type: object\n");
         dictSb.append("    properties:\n");
         dictSb.append("      ").append(resource).append(":\n");
         dictSb.append("        type: array\n");
@@ -408,14 +408,12 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                         sbProperties.append("      ").append(getXmlRootElementName(addType))
                             .append(":\n");
                         if ("RelationshipList".equals(addType)) {
+                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/").append(itemName)
                                 .append("\"\n");
                         } else {
-                            // Open API Schema definition changes
-                            sbProperties.append("        type: object\n        properties:\n");
-                            sbProperties.append("          " + itemName + ":\n");
-                            sbProperties.append("            type: array\n            items:\n");
-                            sbProperties.append("              $ref: \"#/definitions/")
+                            sbProperties.append("        type: array\n        items:\n");
+                            sbProperties.append("          $ref: \"#/definitions/")
                                 .append("".equals(itemName) ? "aai-internal" : itemName)
                                 .append("\"\n");
                         }
@@ -514,8 +512,6 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         } else if (xmlRootElementName.equals("relationship")) {
             definitionsSb.append("  " + "relationship-dict" + ":\n");
             definitionsLocalSb.append("  " + "relationship-dict" + ":\n");
-            definitionsSb.append("    type: object\n");
-            definitionsLocalSb.append("    type: object\n");
             dict = getDictionary(xmlRootElementName);
         } else {
             definitionsSb.append("  ").append(xmlRootElementName).append(":\n");
