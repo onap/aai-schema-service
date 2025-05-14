@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "badaa1ae_542c74d6",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:08:12Z",
+      "side": 1,
+      "message": "Please adjust (all) the license headers you are newly defining with this CR to have a `Copyright © 2025`",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ebf13cb_93f44cd5",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:08:12Z",
+      "side": 1,
+      "message": "This method is not used anywhere, please remove it",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d62fa3_cc17d7be",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T09:08:12Z",
+      "side": 1,
+      "message": "Can you elaborate why you are using `assertFalse` here?",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
