@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ba769ed_86977ac4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/AutoGenerateHtmlTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:22:03Z",
+      "side": 1,
+      "message": "Please add a license header here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f503b24_d4020ce7",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/AutoGenerateHtmlTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-14T13:22:03Z",
+      "side": 1,
+      "message": "I don\u0027t see the value of the test. Could you maybe explain what you are asserting here?\n\n`assertTrue` will always be true here when you are doing it in the try catch.\nThis is likely chatgpt again, right?",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e6fb5619_29bd8007",
         "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
         "patchSetId": 1
