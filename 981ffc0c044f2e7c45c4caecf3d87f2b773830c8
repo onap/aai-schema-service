@@ -473,6 +473,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abeb7669_f901ed0e",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79a3e20b_2514d91c",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4fbabb9_96d23d34",
@@ -490,6 +508,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ccee1f_c0e11998",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4fbabb9_96d23d34",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e98f89d3_6b9d52e4",
@@ -503,6 +539,24 @@
       "writtenOn": "2025-05-14T13:08:52Z",
       "side": 1,
       "message": "Please remove this try catch bullshit here. Please sanity check before using Chatgpt to generate tests please.\nSorry to be so frank, but reviews take a lot of energy and I expect at least a bit of effort that went into writing the code in the first place",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc3b1fa1_82512be8",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e98f89d3_6b9d52e4",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
