@@ -18,6 +18,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f1b369_91053ab4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/AutoGenerateHtmlTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ba769ed_86977ac4",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f503b24_d4020ce7",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-14T13:22:03Z",
       "side": 1,
       "message": "I don\u0027t see the value of the test. Could you maybe explain what you are asserting here?\n\n`assertTrue` will always be true here when you are doing it in the try catch.\nThis is likely chatgpt again, right?",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8623fd8_de35573c",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/AutoGenerateHtmlTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f503b24_d4020ce7",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -52,6 +88,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b64298fb_01f37593",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6fb5619_29bd8007",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f41694c_d99735fb",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-05-14T13:17:03Z",
       "side": 1,
       "message": "Same comment here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1db4a083_4ad9ce39",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f41694c_d99735fb",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -86,6 +158,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b41eb4_beb0ee04",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "304a83f8_98d2de4a",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ba3f420_ca244700",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-05-14T13:17:03Z",
       "side": 1,
       "message": "Please use `assertTrue` here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34ec8a21_1d93e479",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ba3f420_ca244700",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -120,6 +228,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4296b74_9d076e9e",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a175919_6a32cb4c",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79613033_e6824484",
@@ -133,6 +259,24 @@
       "writtenOn": "2025-05-14T13:17:03Z",
       "side": 1,
       "message": "and here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06dd4948_3d21d127",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79613033_e6824484",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -154,6 +298,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fad3805_8e448ddb",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d731da3f_e1a3338e",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be2ba56e_d8ceba5b",
@@ -167,6 +329,24 @@
       "writtenOn": "2025-05-14T09:16:00Z",
       "side": 1,
       "message": "Please add a license header here",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44f47d49_e1abeb10",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/SpringContextAwareTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be2ba56e_d8ceba5b",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -188,6 +368,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6ac07d7_4996c6b0",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac018304_ab5bea1d",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "007e9e2b_4ee422b4",
@@ -205,6 +403,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a15140f8_b2850270",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "007e9e2b_4ee422b4",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63fa1be4_1e73f92f",
@@ -218,6 +434,24 @@
       "writtenOn": "2025-05-14T09:16:00Z",
       "side": 1,
       "message": "Please remove this try catch block here. It is not necessary, since the test will fail when there is an unexpected exception anyways",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d50183_f2555c08",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodesYAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63fa1be4_1e73f92f",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -290,6 +524,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9793e1d8_539e74e4",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/TestEdgeDescription.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abbd3b07_44bc09bf",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "badaa1ae_542c74d6",
@@ -307,6 +559,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cc1345_dc33bf03",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "badaa1ae_542c74d6",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ebf13cb_93f44cd5",
@@ -320,6 +590,24 @@
       "writtenOn": "2025-05-14T09:08:12Z",
       "side": 1,
       "message": "This method is not used anywhere, please remove it",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d5dbb8_09df9ef3",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ebf13cb_93f44cd5",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },

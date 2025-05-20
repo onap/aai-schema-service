@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b498291f_c5106ec2",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/GenerateXsdTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-20T13:53:55Z",
+      "side": 1,
+      "message": "You should be able to use Lombok\u0027s `@SneakyThrows` to avoid declaring all those exceptions",
+      "revId": "cc4edfd8e042f943682b43f0241e5da54e77cbb5",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
