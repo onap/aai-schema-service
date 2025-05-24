@@ -681,6 +681,24 @@
       "message": "Can you elaborate why you are using `assertFalse` here?",
       "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e176ad71_8ae8e959",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/swagger/GenerateSwaggerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-24T09:37:54Z",
+      "side": 1,
+      "message": "I\u0027ll close this for now to proceed here, but for me this testing logic does not make sense",
+      "parentUuid": "66d62fa3_cc17d7be",
+      "revId": "981ffc0c044f2e7c45c4caecf3d87f2b773830c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
