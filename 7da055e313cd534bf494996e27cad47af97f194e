@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b2b6e30_ebaffba1",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/YAMLfromOXMTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-27T09:46:57Z",
+      "side": 1,
+      "message": "The test and variable naming is misleading here. When checking the code (`checkTopLevel`), `\"Actions\"` is a top level name that is explicitly invalid.\nPlease adjust the test case to have naming that tells what is being tested",
+      "revId": "7da055e313cd534bf494996e27cad47af97f194e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
