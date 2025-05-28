@@ -16,6 +16,125 @@
       "message": "We can reduce the boylerplate here by introducing a `assertModResult` method here:\n```java\n    private void assertModResult(String useOpId, String xmlRootElementName, String tag, String pathParams,\n            String modifiedPath) {\n        NodeGetOperation get \u003d new NodeGetOperation(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);\n        String modResult \u003d get.toString();\n        assertThat(modResult, is(\"\"));\n    }\n```\nYou can use that then in all the newly added tests",
       "revId": "2e243248137b7bf04f879a307e693a230928d223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33c3a03_61f9d41e",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "This variable is not used",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64ae647d_82476816",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "Leftover",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47ec18d7_313add77",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "Leftover",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fb6158_95923022",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/XSDElementTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "Those comments add no additional information compared to the method name `testGetOwnerDocument`. Please remove them (also the ones below)",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11947659_4edce328",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/XSDJavaTypeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "Please add spaces before and after the `\u003d` sign here",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e83836_cfb1a962",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/YAMLfromOXMTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "You can get rid of this by annotating the method with lomboks `@SneakyThrows`",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4342a689_7810ec33",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/YAMLfromOXMTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:31:28Z",
+      "side": 1,
+      "message": "Same here",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
