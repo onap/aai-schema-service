@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a2f1da_7f7af942",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-05-28T07:09:30Z",
+      "side": 1,
+      "message": "We can reduce the boylerplate here by introducing a `assertModResult` method here:\n```java\n    private void assertModResult(String useOpId, String xmlRootElementName, String tag, String pathParams,\n            String modifiedPath) {\n        NodeGetOperation get \u003d new NodeGetOperation(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);\n        String modResult \u003d get.toString();\n        assertThat(modResult, is(\"\"));\n    }\n```\nYou can use that then in all the newly added tests",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
