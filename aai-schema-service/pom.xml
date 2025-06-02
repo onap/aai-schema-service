@@ -77,7 +77,6 @@
         <schema.uri.base.path>/aai/schema-service</schema.uri.base.path>
         <!-- End of Default ONAP Schema Properties -->
 
-        <!-- Setting some default value to not complain by editor but it will be overridden by gmaven plugin -->
     </properties>
     <profiles>
         <!-- Docker profile to be used for building docker image and pushing to nexus -->
@@ -86,8 +85,19 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.groovy.maven</groupId>
-                        <artifactId>gmaven-plugin</artifactId>
+                        <!-- This plugin provides the parsedVersion that is used
+                         for the docker-build-plugin -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>parse-version</id>
+                                <phase>pre-clean</phase>
+                                <goals>
+                                    <goal>parse-version</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>io.fabric8</groupId>
@@ -103,8 +113,12 @@
                                         <filter>@</filter>
                                         <tags>
                                             <tag>latest</tag>
-                                            <tag>${project.docker.latesttag.version}</tag>
-                                            <tag>${project.major.version}.${project.minor.version}-STAGING-${maven.build.timestamp}</tag>
+                                            <tag>
+                                                ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-STAGING-latest
+                                            </tag>
+                                            <tag>
+                                                ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}-STAGING-${maven.build.timestamp}
+                                            </tag>
                                         </tags>
                                         <cleanup>try</cleanup>
                                         <dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
@@ -429,31 +443,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.codehaus.groovy.maven</groupId>
-                    <artifactId>gmaven-plugin</artifactId>
-                    <version>1.0</version>
-                    <executions>
-                        <execution>
-                            <phase>validate</phase>
-                            <goals>
-                                <goal>execute</goal>
-                            </goals>
-                            <configuration>
-                                <source>
-                                    println project.properties['aai.project.version'];
-                                    def versionArray;
-                                    if (project.properties['aai.project.version'] != null) {
-                                        versionArray = project.properties['aai.project.version'].split('\\.');
-                                    }
-
-                                    project.properties["project.major.version"] = versionArray[0];
-                                    project.properties["project.minor.version"] = versionArray[1];
-                                    project.properties['project.docker.latesttag.version'] = versionArray[0] + '.' + versionArray[1] + '-STAGING-latest';
-                                    println 'New Tag for docker:' + project.properties['project.docker.latesttag.version'];
-                                </source>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.6.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -473,10 +465,6 @@
                         </fileset>
                     </filesets>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.groovy.maven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
