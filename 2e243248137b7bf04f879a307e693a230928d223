@@ -18,6 +18,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6ab204d_52dc08f0",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14a2f1da_7f7af942",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a33c3a03_61f9d41e",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-28T07:31:28Z",
       "side": 1,
       "message": "This variable is not used",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b63d47_5d46272b",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a33c3a03_61f9d41e",
       "revId": "2e243248137b7bf04f879a307e693a230928d223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -52,6 +88,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9e85647_7d80c1ef",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64ae647d_82476816",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47ec18d7_313add77",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-05-28T07:31:28Z",
       "side": 1,
       "message": "Leftover",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976901c2_1d83a8ca",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/NodeGetOperationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47ec18d7_313add77",
       "revId": "2e243248137b7bf04f879a307e693a230928d223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -86,6 +158,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "367fdfa4_e64ab1af",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/XSDElementTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1fb6158_95923022",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11947659_4edce328",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-05-28T07:31:28Z",
       "side": 1,
       "message": "Please add spaces before and after the `\u003d` sign here",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cc7e092_e38aec80",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/XSDJavaTypeTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11947659_4edce328",
       "revId": "2e243248137b7bf04f879a307e693a230928d223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
@@ -120,6 +228,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a91a9d00_5ff911e6",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/YAMLfromOXMTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03e83836_cfb1a962",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4342a689_7810ec33",
@@ -133,6 +259,24 @@
       "writtenOn": "2025-05-28T07:31:28Z",
       "side": 1,
       "message": "Same here",
+      "revId": "2e243248137b7bf04f879a307e693a230928d223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b6aa36_7447ad4d",
+        "filename": "aai-schema-gen/src/test/java/org/onap/aai/schemagen/genxsd/YAMLfromOXMTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-03T07:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4342a689_7810ec33",
       "revId": "2e243248137b7bf04f879a307e693a230928d223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
