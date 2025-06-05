@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 USER nobody
 
 WORKDIR /opt/app/aai-schema-service
@@ -10,3 +10,5 @@ EXPOSE 8447
 COPY --chown=nobody:nobody /maven/aai-schema-service/ .
 
 ENTRYPOINT ["/bin/sh", "/opt/app/aai-schema-service/docker-entrypoint.sh"]
+
+VOLUME /tmp

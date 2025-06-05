@@ -54,6 +54,8 @@
         <checkstyle.skip>false</checkstyle.skip>
         <aai.common.version>1.15.5</aai.common.version>
         <spring-cloud.version>2021.0.9</spring-cloud.version>
+        <project.major.version>1</project.major.version>
+        <project.minor.version>2</project.minor.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -73,7 +75,7 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+        </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
