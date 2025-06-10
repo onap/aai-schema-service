@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82cb7461_461da8d6",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8520
+      },
+      "writtenOn": "2025-06-10T10:43:01Z",
+      "side": 1,
+      "message": "It was used for testing, now removed",
+      "parentUuid": "88b848bd_1997ba08",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "871c264c_bdf6922a",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2025-06-10T06:27:16Z",
       "side": 1,
       "message": "Please remove these, they should not be necessary (anymore)",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebbc693f_10f3e477",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8520
+      },
+      "writtenOn": "2025-06-10T10:43:01Z",
+      "side": 1,
+      "message": "It was used for testing, now removed",
+      "parentUuid": "871c264c_bdf6922a",
       "revId": "a145361780a776e6408831162b9b271c80051301",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
