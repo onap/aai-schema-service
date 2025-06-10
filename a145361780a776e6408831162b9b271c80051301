@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc5d34e9_b71b4072",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-10T06:27:16Z",
+      "side": 1,
+      "message": "This is not babel. So please adjust your CR title to either remove the service name, or use the correct one",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88b848bd_1997ba08",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-10T06:27:16Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "871c264c_bdf6922a",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-10T06:27:16Z",
+      "side": 1,
+      "message": "Please remove these, they should not be necessary (anymore)",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
