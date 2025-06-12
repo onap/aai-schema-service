@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 USER nobody
 
 WORKDIR /opt/app/aai-schema-service
