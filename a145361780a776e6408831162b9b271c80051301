@@ -53,6 +53,24 @@
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "056add4d_dd65a9f6",
+        "filename": "aai-schema-service/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-12T07:45:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82cb7461_461da8d6",
+      "revId": "a145361780a776e6408831162b9b271c80051301",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "871c264c_bdf6922a",
