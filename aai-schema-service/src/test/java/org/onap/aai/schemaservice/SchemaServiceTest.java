@@ -30,6 +30,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.util.AAIConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,4 +170,64 @@ public class SchemaServiceTest {
         assertThat(responseEntity.getStatusCodeValue(), is(200));
 
     }
+
+    @Test
+    public void testSetDefaultProps() {
+        // Simulate directory containing app name
+        System.setProperty("user.dir", "/path/to/aai-schema-service");
+        System.clearProperty("BUNDLECONFIG_DIR");
+
+        // Call setDefaultProps
+        SchemaServiceApp.setDefaultProps();
+
+        // Verify the BUNDLECONFIG_DIR property is set correctly
+        assertEquals("src/main/resources", System.getProperty("BUNDLECONFIG_DIR"));
+
+        // Simulate directory not containing app name
+        System.setProperty("user.dir", "/path/to/other");
+        System.clearProperty("BUNDLECONFIG_DIR");
+        SchemaServiceApp.setDefaultProps();
+
+        // Verify the default value when not containing the app name
+        assertEquals("aai-schema-service/src/main/resources", System.getProperty("BUNDLECONFIG_DIR"));
+    }
+
+    @Test
+    public void testSetDefaultPropsWhenNotSet() {
+        // Simulate directory not containing app name
+        System.setProperty("user.dir", "/path/to/other");
+        System.clearProperty("BUNDLECONFIG_DIR");
+
+        // Call setDefaultProps
+        SchemaServiceApp.setDefaultProps();
+
+        // Verify the default value when the property was not previously set
+        assertEquals("aai-schema-service/src/main/resources", System.getProperty("BUNDLECONFIG_DIR"));
+    }
+
+    // Test for setDefaultProps with null file.separator
+    @Test
+    public void testSetDefaultPropsWithNullFileSeparator() {
+        // Clear the file.separator property
+        System.clearProperty("file.separator");
+
+        // Call setDefaultProps to set the default value
+        SchemaServiceApp.setDefaultProps();
+
+        // Verify that the file.separator system property is set to "/"
+        assertEquals("/", System.getProperty("file.separator"));
+    }
+
+    @Test
+    public void testAJSCHomePropertyWhenNotSet() {
+        // Clear the AJSC_HOME property to simulate it being unset
+        System.clearProperty("AJSC_HOME");
+
+        // Call setDefaultProps to ensure AJSC_HOME gets set
+        SchemaServiceApp.setDefaultProps();
+
+        // Verify that the AJSC_HOME property is set to "."
+        assertEquals(".", System.getProperty("AJSC_HOME"));
+    }
+
 }
