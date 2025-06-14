@@ -1,0 +1,9 @@
+Verified+1: ONAP Bypass GHA <releng+onap.bypass.gha@linuxfoundation.org>
+Code-Review+2: Lukasz Rajewski <lukasz.rajewski@t-mobile.pl>
+Verified+1: ONAP Required GHA <releng+onap.required.gha@linuxfoundation.org>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Submitted-by: Lukasz Rajewski <lukasz.rajewski@t-mobile.pl>
+Submitted-at: Sat, 14 Jun 2025 19:40:10 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/aai/schema-service/+/141266
+Project: aai/schema-service
+Branch: refs/heads/master
