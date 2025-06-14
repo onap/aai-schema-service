@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e060a52_7d486d60",
+        "filename": "aai-queries/src/test/java/org/onap/aai/queries/GremlinServerSingletonTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-14T21:21:10Z",
+      "side": 1,
+      "message": "This test is testing a property that is very unlikely to be a conscious decision of whomever wrote the logic that is tested here.\nI don\u0027t think it is worth testing that, so please remove this test",
+      "revId": "240f483f63c0a0df0088891e743bbf20e22a028c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430dc7f8_5f45b46e",
+        "filename": "aai-queries/src/test/java/org/onap/aai/queries/GremlinServerSingletonTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-14T21:21:10Z",
+      "side": 1,
+      "message": "Please remove this test too",
+      "revId": "240f483f63c0a0df0088891e743bbf20e22a028c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5b2bd22_0c353922",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/SchemaServiceTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-14T21:21:10Z",
+      "side": 1,
+      "message": "This comment is not adding any information. Please remove it",
+      "revId": "240f483f63c0a0df0088891e743bbf20e22a028c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d429c9c5_d3c418e1",
+        "filename": "aai-schema-service/src/test/java/org/onap/aai/schemaservice/config/AAIConfigTranslatorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-06-14T21:21:10Z",
+      "side": 1,
+      "message": "This test has no assertions. Either assert functionality or remove the test",
+      "revId": "240f483f63c0a0df0088891e743bbf20e22a028c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
