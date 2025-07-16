@@ -5,6 +5,39 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:annox="http://annox.dev.java.net"
     jaxb:extensionBindingPrefixes="annox">
 
+  <xs:complexType name="graph-node">
+      <xs:sequence>
+        <xs:element name="resource-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="data-owner" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Key part of a key/value pair",ownerCheck="N/A")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="data-source" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Key part of a key/value pair")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
+          <xs:annotation>
+            <xs:appinfo>
+              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Key part of a key/value pair")</annox:annotate>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="tns:relationship-list" />
+      </xs:sequence>
+  </xs:complexType>
   <xs:element name="inventory-item-data">
     <xs:complexType>
       <xs:sequence>
@@ -231,77 +264,52 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="oam-network">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="OAM network, to be deprecated shortly.  Do not use for new purposes. ",nameProps="network-name",indexedProps="cvlan-tag,network-uuid,network-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="oam-networks",uriTemplate="/oam-networks/oam-network/{network-uuid}",requiredProps="network-uuid,network-name,cvlan-tag")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="network-uuid" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of the network. Unique across a cloud-region")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="OAM network, to be deprecated shortly.  Do not use for new purposes. ",nameProps="network-name",indexedProps="cvlan-tag,network-uuid,network-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="oam-networks",uriTemplate="/oam-networks/oam-network/{network-uuid}",requiredProps="network-uuid,network-name,cvlan-tag")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="network-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the network.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="cvlan-tag" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="cvlan-id")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ipv4-oam-gateway-address" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for VNF firewall rule so customer cannot send customer traffic over this oam network")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ipv4-oam-gateway-address-prefix-length" type="xs:int" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for VNF firewall rule so customer cannot send customer traffic over this oam network")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="network-uuid" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of the network. Unique across a cloud-region")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="network-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the network.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="cvlan-tag" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="cvlan-id")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ipv4-oam-gateway-address" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for VNF firewall rule so customer cannot send customer traffic over this oam network")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ipv4-oam-gateway-address-prefix-length" type="xs:int" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for VNF firewall rule so customer cannot send customer traffic over this oam network")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="oam-networks">
@@ -318,56 +326,31 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="dvs-switch">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Digital virtual switch metadata, used by SDN-C to configure VCEs.  A&amp;AI needs to receive this data from the PO deployment team and administer it using the provisioningTool.sh into A&amp;AI. ",indexedProps="vcenter-url,switch-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="dvs-switches",uriTemplate="/dvs-switches/dvs-switch/{switch-name}",requiredProps="switch-name,vcenter-url")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="switch-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="DVS switch name")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Digital virtual switch metadata, used by SDN-C to configure VCEs.  A&amp;AI needs to receive this data from the PO deployment team and administer it using the provisioningTool.sh into A&amp;AI. ",indexedProps="vcenter-url,switch-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="dvs-switches",uriTemplate="/dvs-switches/dvs-switch/{switch-name}",requiredProps="switch-name,vcenter-url")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="vcenter-url" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL used to reach the vcenter")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="switch-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="DVS switch name")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vcenter-url" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL used to reach the vcenter")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="dvs-switches">
@@ -384,63 +367,38 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="availability-zone">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Availability zone, a collection of compute hosts/pservers",indexedProps="availability-zone-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="availability-zones",uriTemplate="/availability-zones/availability-zone/{availability-zone-name}",requiredProps="availability-zone-name,hypervisor-type")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone.  Unique across a cloud region")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Availability zone, a collection of compute hosts/pservers",indexedProps="availability-zone-name,data-owner,data-source,data-source-version",dependentOn="cloud-region",container="availability-zones",uriTemplate="/availability-zones/availability-zone/{availability-zone-name}",requiredProps="availability-zone-name,hypervisor-type")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="hypervisor-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of hypervisor.  Source of truth should define valid values.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="State that indicates whether the availability zone should be used, etc.  Source of truth should define valid values.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone.  Unique across a cloud region")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="hypervisor-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of hypervisor.  Source of truth should define valid values.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="operational-status" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="State that indicates whether the availability zone should be used, etc.  Source of truth should define valid values.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="az-and-dvs-switches">
@@ -542,49 +500,24 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="rack-unit">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of rack-unit",indexedProps="rack-unit-name,data-owner,data-source,data-source-version",dependentOn="rack",container="rack-units",uriTemplate="/rack-units/rack-unit/{rack-unit-name}",requiredProps="rack-unit-name")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="rack-unit-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack-unit (within the rack).")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of rack-unit",indexedProps="rack-unit-name,data-owner,data-source,data-source-version",dependentOn="rack",container="rack-units",uriTemplate="/rack-units/rack-unit/{rack-unit-name}",requiredProps="rack-unit-name")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="rack-unit-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack-unit (within the rack).")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="rack-units">
@@ -596,56 +529,31 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="pdu">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of pdu",uniqueProps="pdu-name",indexedProps="pdu-name,data-owner,data-source,data-source-version",dependentOn="rack",container="pdus",uriTemplate="/pdus/pdu/{pdu-name}",requiredProps="pdu-name,pdu-type")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="pdu-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the power distribution unit.")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of pdu",uniqueProps="pdu-name",indexedProps="pdu-name,data-owner,data-source,data-source-version",dependentOn="rack",container="pdus",uriTemplate="/pdus/pdu/{pdu-name}",requiredProps="pdu-name,pdu-type")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="pdu-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of pdu.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="pdu-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the power distribution unit.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="pdu-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of pdu.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="pdus">
@@ -657,79 +565,54 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="rack">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of rack",indexedProps="rack-name,data-owner,data-source,data-source-version",dependentOn="complex",container="racks",uriTemplate="/racks/rack/{rack-name}",requiredProps="rack-name,rack-type,rack-location,rack-power-diversity")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="rack-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack (within the location).")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of rack",indexedProps="rack-name,data-owner,data-source,data-source-version",dependentOn="complex",container="racks",uriTemplate="/racks/rack/{rack-name}",requiredProps="rack-name,rack-type,rack-location,rack-power-diversity")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="rack-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of rack.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="rack-location" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The location of the rack within the building.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="rack-position" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The position of the rack (ex-floor-mounted).")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="rack-power-diversity" type="xs:boolean" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:rack-units" minOccurs="0"/>
-        <xs:element ref="tns:pdus" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="rack-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack (within the location).")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="rack-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of rack.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="rack-location" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The location of the rack within the building.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="rack-position" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The position of the rack (ex-floor-mounted).")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="rack-power-diversity" type="xs:boolean" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element ref="tns:rack-units" minOccurs="0"/>
+            <xs:element ref="tns:pdus" minOccurs="0"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="racks">
@@ -741,56 +624,31 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="cable">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of cable",indexedProps="cable-name,data-owner,data-source,data-source-version",dependentOn="complex",container="cables",uriTemplate="/cables/cable/{cable-name}",requiredProps="cable-name,cable-type")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="cable-name" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the channel-link relative to the physical-link.")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Definition of cable",indexedProps="cable-name,data-owner,data-source,data-source-version",dependentOn="complex",container="cables",uriTemplate="/cables/cable/{cable-name}",requiredProps="cable-name,cable-type")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="cable-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of cable.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="cable-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the channel-link relative to the physical-link.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="cable-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of cable.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="cables">
@@ -802,70 +660,45 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="ctag-pool">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="A collection of C tags (vlan tags) grouped for a specific purpose.",indexedProps="availability-zone-name,data-owner,data-source,data-source-version",dependentOn="complex",container="ctag-pools",uriTemplate="/ctag-pools/ctag-pool/{target-pe}/{availability-zone-name}",requiredProps="target-pe,availability-zone-name,ctag-pool-purpose")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="target-pe" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The Target provider edge router")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="A collection of C tags (vlan tags) grouped for a specific purpose.",indexedProps="availability-zone-name,data-owner,data-source,data-source-version",dependentOn="complex",container="ctag-pools",uriTemplate="/ctag-pools/ctag-pool/{target-pe}/{availability-zone-name}",requiredProps="target-pe,availability-zone-name,ctag-pool-purpose")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ctag-pool-purpose" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Describes what the intended purpose of this pool is.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ctag-values" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Comma separated list of ctags")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="target-pe" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The Target provider edge router")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ctag-pool-purpose" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Describes what the intended purpose of this pool is.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ctag-values" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Comma separated list of ctags")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="ctag-pools">
@@ -877,98 +710,73 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="complex">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical locations that can house cloud-regions.",indexedProps="identity-url,data-center-code,complex-name,physical-location-id,data-owner,data-source,data-source-version",searchable="physical-location-id,data-center-code,complex-name,street1,street2,postal-code",uniqueProps="physical-location-id",container="complexes",namespace="cloud-infrastructure",uriTemplate="/cloud-infrastructure/complexes/complex/{physical-location-id}",requiredProps="physical-location-id,physical-location-type,street1,city,postal-code,country,region")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="physical-location-id" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for physical location, e.g., CLLI")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Collection of physical locations that can house cloud-regions.",indexedProps="identity-url,data-center-code,complex-name,physical-location-id,data-owner,data-source,data-source-version",searchable="physical-location-id,data-center-code,complex-name,street1,street2,postal-code",uniqueProps="physical-location-id",container="complexes",namespace="cloud-infrastructure",uriTemplate="/cloud-infrastructure/complexes/complex/{physical-location-id}",requiredProps="physical-location-id,physical-location-type,street1,city,postal-code,country,region")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="data-center-code" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Data center code which can be an alternate way to identify a complex")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="complex-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Gamma complex name for LCP instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="identity-url" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL of the keystone identity service")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="physical-location-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type, e.g., central office, data center.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="time-zone" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The time zone where the complex is located.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="street1" type="xs:string" minOccurs="0"/>
-        <xs:element name="street2" type="xs:string" minOccurs="0"/>
-        <xs:element name="city" type="xs:string" minOccurs="0"/>
-        <xs:element name="state" type="xs:string" minOccurs="0"/>
-        <xs:element name="postal-code" type="xs:string" minOccurs="0"/>
-        <xs:element name="country" type="xs:string" minOccurs="0"/>
-        <xs:element name="region" type="xs:string" minOccurs="0"/>
-        <xs:element name="latitude" type="xs:string" minOccurs="0"/>
-        <xs:element name="longitude" type="xs:string" minOccurs="0"/>
-        <xs:element name="elevation" type="xs:string" minOccurs="0"/>
-        <xs:element name="lata" type="xs:string" minOccurs="0"/>
-        <xs:element ref="tns:racks" minOccurs="0"/>
-        <xs:element ref="tns:cables" minOccurs="0"/>
-        <xs:element ref="tns:ctag-pools" minOccurs="0"/>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="physical-location-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for physical location, e.g., CLLI")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="data-center-code" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Data center code which can be an alternate way to identify a complex")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="complex-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Gamma complex name for LCP instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="identity-url" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL of the keystone identity service")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="physical-location-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type, e.g., central office, data center.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="time-zone" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The time zone where the complex is located.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="street1" type="xs:string" minOccurs="0"/>
+            <xs:element name="street2" type="xs:string" minOccurs="0"/>
+            <xs:element name="city" type="xs:string" minOccurs="0"/>
+            <xs:element name="state" type="xs:string" minOccurs="0"/>
+            <xs:element name="postal-code" type="xs:string" minOccurs="0"/>
+            <xs:element name="country" type="xs:string" minOccurs="0"/>
+            <xs:element name="region" type="xs:string" minOccurs="0"/>
+            <xs:element name="latitude" type="xs:string" minOccurs="0"/>
+            <xs:element name="longitude" type="xs:string" minOccurs="0"/>
+            <xs:element name="elevation" type="xs:string" minOccurs="0"/>
+            <xs:element name="lata" type="xs:string" minOccurs="0"/>
+            <xs:element ref="tns:racks" minOccurs="0"/>
+            <xs:element ref="tns:cables" minOccurs="0"/>
+            <xs:element ref="tns:ctag-pools" minOccurs="0"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="complexes">
@@ -985,91 +793,66 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="volume-group">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persistent block-level storage.",indexedProps="volume-group-name,vnf-type,heat-stack-id,volume-group-id,orchestration-status,data-owner,data-source,data-source-version",searchable="volume-group-id,volume-group-name",dependentOn="cloud-region",container="volume-groups",uriTemplate="/volume-groups/volume-group/{volume-group-id}",requiredProps="volume-group-id,vnf-type")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="volume-group-id" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of volume-group.")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Persistent block-level storage.",indexedProps="volume-group-name,vnf-type,heat-stack-id,volume-group-id,orchestration-status,data-owner,data-source,data-source-version",searchable="volume-group-id,volume-group-name",dependentOn="cloud-region",container="volume-groups",uriTemplate="/volume-groups/volume-group/{volume-group-id}",requiredProps="volume-group-id,vnf-type")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="volume-group-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the volume group.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="heat-stack-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Heat stack id corresponding to this volume-group")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="orchestration-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration status of this volume-group")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="captures the id of all the configuration used to customize the resource for the service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vf-module-model-customization-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="helps relate the volume group to the vf-module whose components will require the volume group")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="volume-group-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of volume-group.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="volume-group-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the volume group.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="heat-stack-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Heat stack id corresponding to this volume-group")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="orchestration-status" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration status of this volume-group")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="model-customization-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="captures the id of all the configuration used to customize the resource for the service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vf-module-model-customization-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="helps relate the volume group to the vf-module whose components will require the volume group")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="volume-groups">
@@ -1086,56 +869,31 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="volume">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Ephemeral Block storage volume.",indexedProps="volume-id,data-owner,data-source,data-source-version",dependentOn="vserver",container="volumes",uriTemplate="/volumes/volume/{volume-id}",requiredProps="volume-id,volume-selflink")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="volume-id" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of block storage volume relative to the vserver.")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Ephemeral Block storage volume.",indexedProps="volume-id,data-owner,data-source,data-source-version",dependentOn="vserver",container="volumes",uriTemplate="/volumes/volume/{volume-id}",requiredProps="volume-id,volume-selflink")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="volume-selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="volume-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of block storage volume relative to the vserver.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="volume-selflink" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="volumes">
@@ -1152,222 +910,172 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="l3-interface-ipv4-address-list">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="IPv4 Address Range",indexedProps="l3-interface-ipv4-address,vlan-id-inner,neutron-network-id,neutron-subnet-id,vlan-id-outer,data-owner,data-source,data-source-version,l3-interface-ipv4-sriov-address",dependentOn="vlan,l-interface,vnfc,cp,lag-interface,p-interface",uriTemplate="/l3-interface-ipv4-address-list/{l3-interface-ipv4-address}",requiredProps="l3-interface-ipv4-address")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="l3-interface-ipv4-address" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="IPv4 Address Range",indexedProps="l3-interface-ipv4-address,vlan-id-inner,neutron-network-id,neutron-subnet-id,vlan-id-outer,data-owner,data-source,data-source-version,l3-interface-ipv4-sriov-address",dependentOn="vlan,l-interface,vnfc,cp,lag-interface,p-interface",uriTemplate="/l3-interface-ipv4-address-list/{l3-interface-ipv4-address}",requiredProps="l3-interface-ipv4-address")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv4-prefix-length" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length, 32 for single address")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inner VLAN tag")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vlan-id-outer" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Outer VLAN tag")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="is-floating" type="xs:boolean" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator of fixed or floating address")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="neutron-network-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron network id of the interface that address belongs to")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="neutron-subnet-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron id of subnet that address belongs to")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ops-note" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Notes to aid OPs in troubleshooting, such as attribute aliases or additional descriptions/instructions about an object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv4-sriov-address" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to hold the real IP V4 address data for the OMC vservers’ SRIOV l-interfaces.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv4-sriov-prefix-length" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length for SRIOV interfaces, 32 for single address.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="l3-interface-ipv4-address" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv4-prefix-length" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length, 32 for single address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inner VLAN tag")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vlan-id-outer" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Outer VLAN tag")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="is-floating" type="xs:boolean" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator of fixed or floating address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="neutron-network-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron network id of the interface that address belongs to")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="neutron-subnet-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron id of subnet that address belongs to")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ops-note" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Notes to aid OPs in troubleshooting, such as attribute aliases or additional descriptions/instructions about an object.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv4-sriov-address" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to hold the real IP V4 address data for the OMC vservers’ SRIOV l-interfaces.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv4-sriov-prefix-length" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length for SRIOV interfaces, 32 for single address.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="l3-interface-ipv6-address-list">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="IPv6 Address Range",indexedProps="l3-interface-ipv6-address,vlan-id-inner,neutron-network-id,neutron-subnet-id,vlan-id-outer,data-owner,data-source,data-source-version,l3-interface-ipv6-sriov-address",dependentOn="vlan,l-interface,vnfc,cp,lag-interface,p-interface",uriTemplate="/l3-interface-ipv6-address-list/{l3-interface-ipv6-address}",requiredProps="l3-interface-ipv6-address")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="l3-interface-ipv6-address" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="IPv6 Address Range",indexedProps="l3-interface-ipv6-address,vlan-id-inner,neutron-network-id,neutron-subnet-id,vlan-id-outer,data-owner,data-source,data-source-version,l3-interface-ipv6-sriov-address",dependentOn="vlan,l-interface,vnfc,cp,lag-interface,p-interface",uriTemplate="/l3-interface-ipv6-address-list/{l3-interface-ipv6-address}",requiredProps="l3-interface-ipv6-address")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv6-prefix-length" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length, 128 for single address")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inner VLAN tag")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vlan-id-outer" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Outer VLAN tag")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="is-floating" type="xs:boolean" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator of fixed or floating address")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="neutron-network-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron network id of the interface that address belongs to")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="neutron-subnet-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron id of subnet that address belongs to")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="ops-note" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Notes to aid OPs in troubleshooting, such as attribute aliases or additional descriptions/instructions about an object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv6-sriov-address" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to hold the real IP V6 address data for the OMC vservers’ SRIOV l-interfaces.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="l3-interface-ipv6-sriov-prefix-length" type="xs:unsignedInt" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length for SRIOV interfaces, 128 for single address.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="l3-interface-ipv6-address" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv6-prefix-length" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length, 128 for single address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inner VLAN tag")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vlan-id-outer" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Outer VLAN tag")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="is-floating" type="xs:boolean" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator of fixed or floating address")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="neutron-network-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron network id of the interface that address belongs to")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="neutron-subnet-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Neutron id of subnet that address belongs to")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ops-note" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Notes to aid OPs in troubleshooting, such as attribute aliases or additional descriptions/instructions about an object.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv6-sriov-address" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to hold the real IP V6 address data for the OMC vservers’ SRIOV l-interfaces.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="l3-interface-ipv6-sriov-prefix-length" type="xs:unsignedInt" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Prefix length for SRIOV interfaces, 128 for single address.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="vlan">
@@ -9223,272 +8931,268 @@ xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
   </xs:element>
   <xs:element name="service-instance">
     <xs:complexType>
-      <xs:annotation>
-        <xs:appinfo>
-          <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,operational-status,service-type,administrative-state,priority-label,data-owner,data-source,data-source-version",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name,operational-status",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
-        </xs:appinfo>
-      </xs:annotation>
-      <xs:sequence>
-        <xs:element name="service-instance-id" type="xs:string" minOccurs="0">
+      <xs:complexContent>
+        <xs:extension base="tns:graph-node">
           <xs:annotation>
             <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this instance of a service")</annox:annotate>
+              <annox:annotate target="class">@org.onap.aai.annotations.Metadata(description="Instance of a service",indexedProps="service-instance-id,model-invariant-id,model-version-id,widget-model-id,widget-model-version,service-instance-name,service-instance-location-id,orchestration-status,environment-context,workload-context,operational-status,service-type,administrative-state,priority-label,data-owner,data-source,data-source-version",nameProps="service-instance-name",searchable="service-instance-id,service-instance-name,operational-status",uniqueProps="service-instance-id",dependentOn="service-subscription",container="service-instances",uriTemplate="/service-instances/service-instance/{service-instance-id}",requiredProps="service-instance-id")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
-        </xs:element>
-        <xs:element name="service-instance-name" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store a name assigned to the service-instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-type" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-role" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing the service role.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-rate" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Rate of the service instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-layer" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Definition of the service layer.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="due-date" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Due date of the service creation.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="end-date" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="End date of the service creation.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="environment-context" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store the environment context assigned to the service-instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="workload-context" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store the workload context assigned to the service-instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="created-at" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="create time of Network Service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="updated-at" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="last update of Network Service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="description" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="short description for service-instance.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="persona-model-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="internal",dataCopy="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}#model-version")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="widget-model-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC data dictionary widget model. This maps directly to the A&amp;AI widget.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="widget-model-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC data dictionary version of the widget model.This maps directly to the A&amp;AI version of the widget.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="bandwidth-total" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the total bandwidth to be used for this service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="bandwidth-up-wan1" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the upstream bandwidth this service will use on the WAN1 port of the physical device.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="bandwidth-down-wan1" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the downstream bandwidth this service will use on the WAN1 port of the physical device.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="bandwidth-up-wan2" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the upstream bandwidth this service will use on the WAN2 port of the physical device.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="bandwidth-down-wan2" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the downstream bandwidth this service will use on the WAN2 port of the physical device.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="vhn-portal-url" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL customers will use to access the vHN Portal.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-instance-location-id" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An identifier that customers assign to the location where this service is being used.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="resource-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used for optimistic concurrency.  Must be empty on create, valid on update and delete.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="selflink" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Path to the controller object.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="orchestration-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration status of this service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="input-parameters" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing request parameters from SO to pass to Closed Loop.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="service-function" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing function of the service.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-owner" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="data-source-version" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="tns:relationship-list" minOccurs="0"/>
-        <xs:element ref="tns:metadata" minOccurs="0"/>
-        <xs:element ref="tns:allotted-resources" minOccurs="0"/>
-        <xs:element ref="tns:composed-resources" minOccurs="0"/>
-        <xs:element ref="tns:communication-service-profiles" minOccurs="0"/>
-        <xs:element ref="tns:service-profiles" minOccurs="0"/>
-        <xs:element ref="tns:slice-profiles" minOccurs="0"/>
-        <xs:element name="operational-status" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="administrative-state" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="It indicates the administrative state of the network slice or network slice subnet. Allowed value are LOCKED,UNLOCKED,SHUTTINGDOWN.",suggestibleOnSearch="true")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-        <xs:element name="priority-label" type="xs:string" minOccurs="0">
-          <xs:annotation>
-            <xs:appinfo>
-              <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies a label that consumer would assign a value on an instance of network slice subnet.")</annox:annotate>
-            </xs:appinfo>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
+          <xs:sequence>
+            <xs:element name="service-instance-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this instance of a service")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-instance-name" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store a name assigned to the service-instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-type" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-role" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing the service role.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-rate" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Rate of the service instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-layer" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Definition of the service layer.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="due-date" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Due date of the service creation.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="end-date" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="End date of the service creation.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="environment-context" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store the environment context assigned to the service-instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="workload-context" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="This field will store the workload context assigned to the service-instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="created-at" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="create time of Network Service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="updated-at" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="last update of Network Service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="short description for service-instance.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model id for this resource or service model.",visibility="deployment",requires="model-version-id",dbAlias="model-invariant-id-local")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="deployment",requires="model-invariant-id",dbAlias="model-version-id-local",privateEdge="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="persona-model-version" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC model version for this resource or service model.",visibility="internal",dataCopy="service-design-and-creation/models/model/{model-invariant-id}/model-vers/model-ver/{model-version-id}#model-version")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="widget-model-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC data dictionary widget model. This maps directly to the A&amp;AI widget.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="widget-model-version" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="the ASDC data dictionary version of the widget model.This maps directly to the A&amp;AI version of the widget.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="bandwidth-total" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates the total bandwidth to be used for this service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="bandwidth-up-wan1" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the upstream bandwidth this service will use on the WAN1 port of the physical device.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="bandwidth-down-wan1" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the downstream bandwidth this service will use on the WAN1 port of the physical device.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="bandwidth-up-wan2" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the upstream bandwidth this service will use on the WAN2 port of the physical device.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="bandwidth-down-wan2" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="indicates the downstream bandwidth this service will use on the WAN2 port of the physical device.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vhn-portal-url" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL customers will use to access the vHN Portal.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-instance-location-id" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An identifier that customers assign to the location where this service is being used.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="selflink" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Path to the controller object.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="orchestration-status" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration status of this service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="input-parameters" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing request parameters from SO to pass to Closed Loop.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="service-function" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing function of the service.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="data-owner" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the entity that is responsible managing this inventory object.",ownerCheck="N/A")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="data-source" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the upstream source of the data.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="data-source-version" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Identifies the version of the upstream source.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element ref="tns:metadata" minOccurs="0"/>
+            <xs:element ref="tns:allotted-resources" minOccurs="0"/>
+            <xs:element ref="tns:composed-resources" minOccurs="0"/>
+            <xs:element ref="tns:communication-service-profiles" minOccurs="0"/>
+            <xs:element ref="tns:service-profiles" minOccurs="0"/>
+            <xs:element ref="tns:slice-profiles" minOccurs="0"/>
+            <xs:element name="operational-status" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicator for whether the resource is considered operational.  Valid values are in-service-path and out-of-service-path.",suggestibleOnSearch="true")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="administrative-state" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="It indicates the administrative state of the network slice or network slice subnet. Allowed value are LOCKED,UNLOCKED,SHUTTINGDOWN.",suggestibleOnSearch="true")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="priority-label" type="xs:string" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo>
+                  <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="An attribute specifies a label that consumer would assign a value on an instance of network slice subnet.")</annox:annotate>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:element name="service-instances">
