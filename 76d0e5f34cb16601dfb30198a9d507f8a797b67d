@@ -16,6 +16,23 @@
       "message": "stage-maven-release",
       "revId": "76d0e5f34cb16601dfb30198a9d507f8a797b67d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc6bc67_21782f97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-07-29T10:02:16Z",
+      "side": 1,
+      "message": "stage-maven-release",
+      "revId": "76d0e5f34cb16601dfb30198a9d507f8a797b67d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ],
   "submitRequirementResults": [
