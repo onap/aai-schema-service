@@ -371,6 +371,14 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- skip true is a workaround to avoid overriding the schema that
+                                         is defined in aai-schema/src/main/resources/onap/aai_schema
+                                         with the output of the GenerateXsd class.
+                                         This is done to avoid adjusting the aai-schema/.../onap/oxm
+                                         files for the GraphNode changes.
+                                         There is further work required to adjust this module to allow
+                                         inheritance. -->
+                                    <skip>true</skip>
                                     <mainClass>org.onap.aai.schemagen.GenerateXsd</mainClass>
                                     <systemProperties>
                                         <systemProperty>
