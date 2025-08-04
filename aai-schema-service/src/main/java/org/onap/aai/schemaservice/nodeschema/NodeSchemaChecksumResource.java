@@ -18,7 +18,6 @@
  * ============LICENSE_END=========================================================
  */
 
-
 package org.onap.aai.schemaservice.nodeschema;
 
 import java.util.Map;
@@ -37,8 +36,15 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Path("/v1")
 @RestController
+@Tag(name = "ONAP Schema Service - Checksums", description = "Provides checksum values for different schema versions used in ONAP.")
 public class NodeSchemaChecksumResource {
 
     private final NodeSchemaService nodeSchemaService;
@@ -47,16 +53,19 @@ public class NodeSchemaChecksumResource {
     public NodeSchemaChecksumResource(NodeSchemaService nodeSchemaService, SchemaVersions schemaVersions) {
         this.nodeSchemaService = nodeSchemaService;
         Map<SchemaVersion, Long> checksumMap = schemaVersions.getVersions().stream()
-            .collect(Collectors.toMap(
-                version -> version,
-                version -> getChecksumForSchemaVersion(version))
-            );
+                .collect(Collectors.toMap(
+                        version -> version,
+                        version -> getChecksumForSchemaVersion(version)));
         checksumResponse = new ChecksumResponse(checksumMap);
     }
 
     @GET
     @Path("/nodes/checksums")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
+    @Operation(summary = "Get schema checksums by version", description = "Returns a map of schema versions to their CRC32 checksum values for ONAP schema service.", responses = {
+            @ApiResponse(responseCode = "200", description = "Checksum data retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ChecksumResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
+    })
     public Response getChecksumByVersion(@Context HttpHeaders headers, @Context UriInfo info) {
         return Response.ok(checksumResponse).build();
     }

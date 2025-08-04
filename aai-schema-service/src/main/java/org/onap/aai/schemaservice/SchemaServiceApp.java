@@ -38,6 +38,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
 @SpringBootApplication
 // Component Scan provides a way to look for spring beans
 // It only searches beans in the following packages
@@ -47,6 +50,7 @@ import org.springframework.core.env.Profiles;
     exclude = {DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @ComponentScan(basePackages = {"org.onap.aai.schemaservice", "org.onap.aai.aaf"})
+@OpenAPIDefinition(info = @Info(title = "ONAP Schema Service APIs", description = "Provides schema management and validation APIs for ONAP components.", version = "1.0.0"))
 public class SchemaServiceApp {
 
     private static final Logger logger = LoggerFactory.getLogger(SchemaServiceApp.class.getName());
