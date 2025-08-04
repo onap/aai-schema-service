@@ -35,82 +35,102 @@ import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.restcore.RESTAPI;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * The Class EchoResponse.
  */
 @Path("/util")
 @RestController
+@Tag(name = "Health Check", description = "Endpoints for verifying service availability and connectivity.")
 public class EchoResource extends RESTAPI {
 
-    /**
-     * Simple health-check API that echos back the X-FromAppId and X-TransactionId to clients.
-     * If there is a query string, a transaction gets logged into hbase, proving the application is
-     * connected to the data store.
-     * If there is no query string, no transaction logging is done to hbase.
-     *
-     * @param headers the headers
-     * @param req the req
-     * @param uriInfo uri information
-     * @return the response
-     */
-    @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("/echo")
-    public Response echoResult(@Context HttpHeaders headers, @Context HttpServletRequest req,
-        @Context UriInfo uriInfo) {
-        Response response = null;
+        /**
+         * Simple health-check API that echos back the X-FromAppId and X-TransactionId
+         * to clients.
+         * If there is a query string, a transaction gets logged into hbase, proving the
+         * application is
+         * connected to the data store.
+         * If there is no query string, no transaction logging is done to hbase.
+         *
+         * @param headers the headers
+         * @param req     the req
+         * @param uriInfo uri information
+         * @return the response
+         */
+        @GET
+        @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+        @Path("/echo")
+        @Operation(summary = "Health check endpoint", description = "Echos back the X-FromAppId and X-TransactionId headers. If a query string is provided, it logs a transaction to the data store; otherwise, no logging occurs.", responses = {
+                        @ApiResponse(responseCode = "200", description = "Health check successful; IDs echoed back", content = {
+                                        @Content(mediaType = "application/xml"),
+                                        @Content(mediaType = "application/json")
+                        }),
+                        @ApiResponse(responseCode = "400", description = "Missing required headers", content = @Content(mediaType = "application/json")),
+                        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
+        })
+        public Response echoResult(@Context HttpHeaders headers, @Context HttpServletRequest req,
+                        @Context UriInfo uriInfo) {
+                Response response = null;
 
-        AAIException ex = null;
-        String fromAppId = null;
-        String transId = null;
+                AAIException ex = null;
+                String fromAppId = null;
+                String transId = null;
 
-        try {
-            fromAppId = getFromAppId(headers);
-            transId = getTransId(headers);
-        } catch (AAIException e) {
-            ArrayList<String> templateVars = new ArrayList<String>();
-            templateVars.add("Headers missing");
-            return Response
-                .status(e.getErrorObject().getHTTPResponseCode()).entity(ErrorLogHelper
-                    .getRESTAPIErrorResponse(headers.getAcceptableMediaTypes(), e, templateVars))
-                .build();
+                try {
+                        fromAppId = getFromAppId(headers);
+                        transId = getTransId(headers);
+                } catch (AAIException e) {
+                        ArrayList<String> templateVars = new ArrayList<String>();
+                        templateVars.add("Headers missing");
+                        return Response
+                                        .status(e.getErrorObject().getHTTPResponseCode()).entity(ErrorLogHelper
+                                                        .getRESTAPIErrorResponse(headers.getAcceptableMediaTypes(), e,
+                                                                        templateVars))
+                                        .build();
+                }
+
+                try {
+
+                        HashMap<AAIException, ArrayList<String>> exceptionList = new HashMap<AAIException, ArrayList<String>>();
+
+                        ArrayList<String> templateVars = new ArrayList<String>();
+                        templateVars.add(fromAppId);
+                        templateVars.add(transId);
+
+                        exceptionList.put(new AAIException("AAI_0002", "OK"), templateVars);
+
+                        response = Response
+                                        .status(Status.OK).entity(ErrorLogHelper
+                                                        .getRESTAPIInfoResponse(
+                                                                        new ArrayList<>(headers
+                                                                                        .getAcceptableMediaTypes()),
+                                                                        exceptionList))
+                                        .build();
+
+                } catch (Exception e) {
+                        ex = new AAIException("AAI_4000", e);
+                        ArrayList<String> templateVars = new ArrayList<String>();
+                        templateVars.add(Action.GET.name());
+                        templateVars.add(fromAppId + " " + transId);
+
+                        response = Response
+                                        .status(Status.INTERNAL_SERVER_ERROR).entity(ErrorLogHelper
+                                                        .getRESTAPIErrorResponse(headers.getAcceptableMediaTypes(), ex,
+                                                                        templateVars))
+                                        .build();
+
+                } finally {
+                        if (ex != null) {
+                                ErrorLogHelper.logException(ex);
+                        }
+
+                }
+
+                return response;
         }
-
-        try {
-
-            HashMap<AAIException, ArrayList<String>> exceptionList =
-                new HashMap<AAIException, ArrayList<String>>();
-
-            ArrayList<String> templateVars = new ArrayList<String>();
-            templateVars.add(fromAppId);
-            templateVars.add(transId);
-
-            exceptionList.put(new AAIException("AAI_0002", "OK"), templateVars);
-
-            response = Response
-                .status(Status.OK).entity(ErrorLogHelper
-                    .getRESTAPIInfoResponse(new ArrayList<>(headers.getAcceptableMediaTypes()), exceptionList))
-                .build();
-
-        } catch (Exception e) {
-            ex = new AAIException("AAI_4000", e);
-            ArrayList<String> templateVars = new ArrayList<String>();
-            templateVars.add(Action.GET.name());
-            templateVars.add(fromAppId + " " + transId);
-
-            response = Response
-                .status(Status.INTERNAL_SERVER_ERROR).entity(ErrorLogHelper
-                    .getRESTAPIErrorResponse(headers.getAcceptableMediaTypes(), ex, templateVars))
-                .build();
-
-        } finally {
-            if (ex != null) {
-                ErrorLogHelper.logException(ex);
-            }
-
-        }
-
-        return response;
-    }
 
 }

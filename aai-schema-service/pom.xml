@@ -77,6 +77,8 @@
         <schema.uri.base.path>/aai/schema-service</schema.uri.base.path>
         <!-- End of Default ONAP Schema Properties -->
 
+        <!-- Swagger version for open api json creation -->
+	    <swagger.version>2.2.35</swagger.version>
     </properties>
     <profiles>
         <!-- Docker profile to be used for building docker image and pushing to nexus -->
@@ -376,6 +378,11 @@
             <artifactId>logstash-logback-encoder</artifactId>
             <version>6.6</version>
         </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2</artifactId>
+	    <version>${swagger.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -645,6 +652,30 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+		        <version>${swagger.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-openapi</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>resolve</goal>
+                        </goals>
+                        <configuration>
+                            <attachSwaggerArtifact>false</attachSwaggerArtifact>
+                            <outputPath>${project.build.directory}/generated-swagger-docs</outputPath>
+                            <outputFileName>openapi</outputFileName>
+                            <outputFormat>JSON</outputFormat>
+                            <resourcePackages>
+                                <resourcePackage>org.onap.aai.schemaservice</resourcePackage>
+                            </resourcePackages>
+                            <prettyPrint>true</prettyPrint>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

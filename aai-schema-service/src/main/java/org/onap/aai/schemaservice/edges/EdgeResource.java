@@ -21,6 +21,12 @@
 package org.onap.aai.schemaservice.edges;
 
 import com.google.gson.Gson;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -46,6 +52,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "ONAP Schema Service - Edge Rules", description = "Provides access to ONAP edge rules for a given schema version in JSON format.")
 public class EdgeResource extends RESTAPI {
 
     private final EdgeService edgeService;
@@ -54,7 +61,15 @@ public class EdgeResource extends RESTAPI {
 
     @GET
     @Path("/edgerules")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
+    @Operation(summary = "Retrieve edge rules by version", description = "Returns the JSON-formatted edge rules for the specified ONAP schema version.", parameters = {
+            @Parameter(name = "version", description = "Schema version", required = true, example = "v30")
+    }, responses = {
+            @ApiResponse(responseCode = "200", description = "Edge rules retrieved successfully", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "400", description = "Missing or invalid version", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Edge rules not found", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
+    })
     public Response retrieveSchema(@QueryParam("version") String version,
         @Context HttpHeaders headers, @Context UriInfo info) {
         Response response = null;
