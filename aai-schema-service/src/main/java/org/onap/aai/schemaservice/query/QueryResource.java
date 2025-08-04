@@ -26,17 +26,25 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "ONAP Schema Service - Queries", description = "APIs to retrieve stored queries for ONAP schema service.")
 public class QueryResource {
 
     private final QueryService queryService;
 
     @GET
     @Path("/stored-queries")
+    @Operation(summary = "Retrieve stored queries", description = "Returns the list of stored queries available in the system.", responses = {
+            @ApiResponse(responseCode = "200", description = "List retrieved successfully", content = @Content(mediaType = "application/json"))
+    })
     public Response retrieveStoredQueries() {
         return Response.ok().entity(queryService.getStoredQueries()).build();
     }

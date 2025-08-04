@@ -22,6 +22,10 @@ package org.onap.aai.schemaservice.versions;
 
 import com.google.gson.Gson;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import javax.ws.rs.GET;
@@ -35,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "ONAP Schema Service - Version Info", description = "Provides version details for the ONAP schema service application.")
 public class VersionResource {
 
     private final VersionService versionService;
@@ -42,7 +47,10 @@ public class VersionResource {
 
     @GET
     @Path("/versions")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON })
+    @Operation(summary = "Get version information", description = "Returns version details for the application.", responses = {
+            @ApiResponse(responseCode = "200", description = "Version information retrieved successfully", content = @Content(mediaType = "application/json"))
+    })
     public Response getVersions() {
         return Response.ok(gson.toJson(versionService.getVersionInfo())).build();
     }
