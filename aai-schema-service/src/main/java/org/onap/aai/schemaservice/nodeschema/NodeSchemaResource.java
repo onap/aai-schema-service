@@ -38,8 +38,15 @@ import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationExcep
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Path("/v1")
 @RestController
+@Tag(name = "ONAP Schema Service - Node Schemas", description = "Provides access to specific ONAP node schemas in XML format.")
 public class NodeSchemaResource extends RESTAPI {
 
     private final NodeSchemaService nodeSchemaService;
@@ -53,9 +60,17 @@ public class NodeSchemaResource extends RESTAPI {
 
     @GET
     @Path("/nodes")
-    @Produces({"application/xml"})
+    @Produces({ "application/xml" })
+    @Operation(summary = "Retrieve node schema by version", description = "Returns the XML schema for the specified ONAP node schema version.", parameters = {
+            @Parameter(name = "version", description = "Schema version", required = true, example = "v30")
+    }, responses = {
+            @ApiResponse(responseCode = "200", description = "Schema retrieved successfully", content = @Content(mediaType = "application/xml")),
+            @ApiResponse(responseCode = "400", description = "Missing or invalid version", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Schema not found", content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
+    })
     public Response retrieveSchema(@QueryParam("version") String version,
-        @Context HttpHeaders headers, @Context UriInfo info) {
+            @Context HttpHeaders headers, @Context UriInfo info) {
         Response response;
         Optional<String> optionalSchema = nodeSchemaService.fetch(version);
         try {
@@ -80,10 +95,10 @@ public class NodeSchemaResource extends RESTAPI {
             response = consumerExceptionResponseGenerator(headers, info, HttpMethod.GET, ex);
         } catch (AAISchemaValidationException ex) {
             response = consumerExceptionResponseGenerator(headers, info, HttpMethod.GET,
-                new AAIException("AAI_3051", version));
+                    new AAIException("AAI_3051", version));
         } catch (Exception ex) {
             response = consumerExceptionResponseGenerator(headers, info, HttpMethod.GET,
-                new AAIException("AAI_4000"));
+                    new AAIException("AAI_4000"));
         }
 
         return response;
