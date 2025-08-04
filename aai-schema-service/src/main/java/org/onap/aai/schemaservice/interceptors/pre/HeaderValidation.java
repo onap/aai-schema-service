@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.Priority;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -31,6 +32,7 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;
@@ -43,10 +45,25 @@ import org.onap.logging.ref.slf4j.ONAPLogConstants;
 @Priority(AAIRequestFilterPriority.HEADER_VALIDATION)
 public class HeaderValidation extends AAIContainerFilter implements ContainerRequestFilter {
 
+    private static final Set<String> SAFE_PATHS = Set.of(
+        "swagger-ui.html",
+        "openapi.json");
+
+    private boolean isSafeEndpoint(String path) {
+        return SAFE_PATHS.stream().anyMatch(path::startsWith);
+    }
+
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
         Optional<Response> oResp;
+
+        UriInfo uriInfo = requestContext.getUriInfo();
+        String path = (uriInfo != null) ? uriInfo.getPath() : "";
+
+        if (isSafeEndpoint(path)) {
+            return;
+        }
 
         List<MediaType> acceptHeaderValues = requestContext.getAcceptableMediaTypes();
         String fromAppId = getPartnerName(requestContext);

@@ -32,9 +32,13 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Version Resource", description = "Version related endpoints")
 public class VersionResource {
 
     private final VersionService versionService;
@@ -43,6 +47,7 @@ public class VersionResource {
     @GET
     @Path("/versions")
     @Produces({MediaType.APPLICATION_JSON})
+    @Operation(summary = "Get versions", description = "Lists all schema, edge-rules, and query documents available for a version")
     public Response getVersions() {
         return Response.ok(gson.toJson(versionService.getVersionInfo())).build();
     }

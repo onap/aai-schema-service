@@ -21,6 +21,8 @@
 package org.onap.aai.schemaservice.edges;
 
 import com.google.gson.Gson;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
@@ -46,6 +48,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Edge Rules Service", description = "Retrieve edge rules for schema validation")
 public class EdgeResource extends RESTAPI {
 
     private final EdgeService edgeService;
@@ -55,6 +58,7 @@ public class EdgeResource extends RESTAPI {
     @GET
     @Path("/edgerules")
     @Produces({"application/json"})
+    @Operation(summary = "Fetch stored queries", description = "Returns the list of valid edge rules for the provided version")
     public Response retrieveSchema(@QueryParam("version") String version,
         @Context HttpHeaders headers, @Context UriInfo info) {
         Response response = null;

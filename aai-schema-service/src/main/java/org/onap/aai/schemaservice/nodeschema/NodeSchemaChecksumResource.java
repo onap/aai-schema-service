@@ -37,8 +37,12 @@ import javax.ws.rs.core.UriInfo;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Path("/v1")
 @RestController
+@Tag(name = "Schema Checksums Service", description = "Get checksums to verify schema file integrity")
 public class NodeSchemaChecksumResource {
 
     private final NodeSchemaService nodeSchemaService;
@@ -57,6 +61,7 @@ public class NodeSchemaChecksumResource {
     @GET
     @Path("/nodes/checksums")
     @Produces({"application/json"})
+    @Operation(summary = "Get node checksums", description = "Get checksums for all available node schemas")
     public Response getChecksumByVersion(@Context HttpHeaders headers, @Context UriInfo info) {
         return Response.ok(checksumResponse).build();
     }

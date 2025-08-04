@@ -19,11 +19,15 @@
  */
 package org.onap.aai.schemaservice.interceptors.pre;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -37,6 +41,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -59,6 +65,9 @@ public class HeaderValidationTest {
     public void setUp() {
         headers = new MultivaluedHashMap<>();
         when(requestContext.getHeaders()).thenReturn(headers);
+        UriInfo mockUriInfo = mock(UriInfo.class);
+        when(mockUriInfo.getPath()).thenReturn("default/path");
+        when(requestContext.getUriInfo()).thenReturn(mockUriInfo);
     }
 
     @Test
@@ -309,6 +318,14 @@ public class HeaderValidationTest {
         List<MediaType> acceptHeaderValues = List.of(MediaType.APPLICATION_JSON_TYPE);
         Optional<Response> result = (Optional<Response>) method.invoke(headerValidation, value, errorCode, acceptHeaderValues);
         assertNotNull(result);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"swagger-ui.html", "openapi.json"})
+    public void testFilter_skipsSafeEndpoints(String safePath) throws IOException {
+        when(requestContext.getUriInfo().getPath()).thenReturn(safePath);
+        headerValidation.filter(requestContext);
+        verify(requestContext, never()).abortWith(any(Response.class));
     }
 
 

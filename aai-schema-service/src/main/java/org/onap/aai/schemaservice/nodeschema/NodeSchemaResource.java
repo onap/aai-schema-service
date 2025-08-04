@@ -38,8 +38,12 @@ import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationExcep
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @Path("/v1")
 @RestController
+@Tag(name = "Node Schema Resource", description = "Exposes APIs to retrieve AAI node schema definitions")
 public class NodeSchemaResource extends RESTAPI {
 
     private final NodeSchemaService nodeSchemaService;
@@ -54,6 +58,7 @@ public class NodeSchemaResource extends RESTAPI {
     @GET
     @Path("/nodes")
     @Produces({"application/xml"})
+    @Operation(summary = "Retrieve AAI node schema (OXM)", description = "Returns the node schema (OXM) XML definition for a given schema version")
     public Response retrieveSchema(@QueryParam("version") String version,
         @Context HttpHeaders headers, @Context UriInfo info) {
         Response response;

@@ -30,6 +30,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletProperties;
+import org.onap.aai.schemaservice.config.SwaggerInitializer;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaChecksumResource;
@@ -43,10 +45,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+
 @Component
 public class JerseyConfiguration extends ResourceConfig {
 
     private static final Logger log = Logger.getLogger(JerseyConfiguration.class.getName());
+
+    private static final String STATIC_CONTENT_REGEX = ".*/swagger-ui.*(\\.html|\\.css|\\.js|\\.png|\\.svg|\\.ico|\\.json|\\.map)";
 
     private Environment env;
 
@@ -66,6 +72,11 @@ public class JerseyConfiguration extends ResourceConfig {
         registerFilters(ContainerResponseFilter.class);
         registerFilters(AuditLogContainerFilter.class);
 
+        // Swagger Resource
+        property(ServletProperties.FILTER_STATIC_CONTENT_REGEX, STATIC_CONTENT_REGEX);
+        register(OpenApiResource.class);
+        register(SwaggerInitializer.class);
+
     }
 
     public <T> void registerFilters(Class<T> type) {
@@ -81,14 +92,14 @@ public class JerseyConfiguration extends ResourceConfig {
         for (Class<?> filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
                 throw new RuntimeException("Container filter " + filterClass.getName()
-                    + " does not have @Priority annotation");
+                        + " does not have @Priority annotation");
             }
         }
 
         // Turn the set back into a list
         List<Class<? extends T>> filtersList = filters.stream().filter(f -> {
             if (f.isAnnotationPresent(Profile.class)
-                && !env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value()))) {
+                    && !env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value()))) {
                 return false;
             }
             return true;
@@ -96,7 +107,7 @@ public class JerseyConfiguration extends ResourceConfig {
 
         // Sort them by their priority levels value
         filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value())
-            .compareTo(c2.getAnnotation(Priority.class).value()));
+                .compareTo(c2.getAnnotation(Priority.class).value()));
 
         // Then register this to the jersey application
         filtersList.forEach(this::register);

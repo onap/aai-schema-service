@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AAI Schema Service - Swagger UI</title>
+
+    <script>
+        const contextPath = (() => {
+            const pathMatch = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
+            return pathMatch ? pathMatch[0] : '';
+        })();
+
+        const appendStyles = () => {
+            const head = document.getElementsByTagName('head')[0];
+
+            const cssLink = document.createElement("link");
+            cssLink.rel = "stylesheet";
+            cssLink.type = "text/css";
+            cssLink.href = `${contextPath}/webjars/swagger-ui/swagger-ui.css`;
+            head.appendChild(cssLink);
+
+            const icon32 = document.createElement("link");
+            icon32.rel = "icon";
+            icon32.type = "image/png";
+            icon32.href = `${contextPath}/webjars/swagger-ui/favicon-32x32.png`;
+            icon32.sizes = "32x32";
+            head.appendChild(icon32);
+
+            const icon16 = document.createElement("link");
+            icon16.rel = "icon";
+            icon16.type = "image/png";
+            icon16.href = `${contextPath}/webjars/swagger-ui/favicon-16x16.png`;
+            icon16.sizes = "16x16";
+            head.appendChild(icon16);
+        };
+
+        appendStyles();
+    </script>
+
+    <style>
+        html {
+            box-sizing: border-box;
+            overflow: -moz-scrollbars-vertical;
+            overflow-y: scroll;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+<div id="swagger-ui"></div>
+
+<script>
+    const addScripts = () => {
+        const script1 = document.createElement("script");
+        script1.src = `${contextPath}/webjars/swagger-ui/swagger-ui-bundle.js`;
+
+        script1.onload = () => {
+            const script2 = document.createElement("script");
+            script2.src = `${contextPath}/webjars/swagger-ui/swagger-ui-standalone-preset.js`;
+
+            script2.onload = () => {
+                const ui = SwaggerUIBundle({
+                    url: `${contextPath}/openapi.json`,
+                    dom_id: '#swagger-ui',
+                    deepLinking: true,
+                    presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIStandalonePreset
+                    ],
+                    plugins: [
+                        SwaggerUIBundle.plugins.DownloadUrl
+                    ],
+                    layout: "StandaloneLayout"
+                });
+                window.ui = ui;
+            };
+
+            document.body.appendChild(script2);
+        };
+
+        document.body.appendChild(script1);
+    };
+
+    window.onload = addScripts;
+</script>
+
+</body>
+</html>

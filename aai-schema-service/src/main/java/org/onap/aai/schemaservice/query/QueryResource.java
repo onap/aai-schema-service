@@ -22,21 +22,28 @@ package org.onap.aai.schemaservice.query;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Path("/v1")
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Stored Queries Resource", description = "Returns custom stored queries")
 public class QueryResource {
 
     private final QueryService queryService;
 
     @GET
     @Path("/stored-queries")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Operation(summary = "Fetch stored queries", description = "Fetch predefined stored queries used in AAI traversals")
     public Response retrieveStoredQueries() {
         return Response.ok().entity(queryService.getStoredQueries()).build();
     }

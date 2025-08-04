@@ -35,9 +35,13 @@ import org.onap.aai.logging.ErrorLogHelper;
 import org.onap.aai.restcore.RESTAPI;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 /**
  * The Class EchoResponse.
  */
+@Tag(name = "Utility APIs", description = "Utility and health check related endpoints")
 @Path("/util")
 @RestController
 public class EchoResource extends RESTAPI {
@@ -56,6 +60,7 @@ public class EchoResource extends RESTAPI {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/echo")
+    @Operation(summary = "Echo health check", description = "Returns a response with headers to verify service availability")
     public Response echoResult(@Context HttpHeaders headers, @Context HttpServletRequest req,
         @Context UriInfo uriInfo) {
         Response response = null;
