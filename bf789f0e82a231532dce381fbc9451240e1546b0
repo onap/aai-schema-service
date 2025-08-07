@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0096de0f_609f58f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-08-07T09:26:24Z",
+      "side": 1,
+      "message": "I think it would be enough here to use a plugin to generate the openapi yaml file. We do not need to expose some swagger ui during the runtime.\nThat should make the change much smaller.\nYou can for instance use https://github.com/springdoc/springdoc-openapi-maven-plugin to generate an openapi yaml during build time",
+      "revId": "bf789f0e82a231532dce381fbc9451240e1546b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
