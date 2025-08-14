@@ -16,6 +16,24 @@
       "message": "Same comment as in other CR",
       "revId": "a8cd2ceaf64365efd2b98ca78e303fa18d0d9464",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2555cbdc_e7a8b60a",
+        "filename": "aai-schema-service/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-08-14T10:46:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2deb7f0a_5ec19482",
+      "revId": "a8cd2ceaf64365efd2b98ca78e303fa18d0d9464",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
