@@ -27,7 +27,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,6 +43,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.w3c.dom.NodeList;
+import ch.qos.logback.classic.LoggerContext;
 
 public class GenerateXsd {
 
@@ -287,7 +287,7 @@ public class GenerateXsd {
                     }
                     try {
                         Charset charset = StandardCharsets.UTF_8;
-                        Path path = Paths.get(nodesfileName);
+                        Path path = Path.of(nodesfileName);
                         nodesBW = Files.newBufferedWriter(path, charset);
                         nodesBW.write(nodesContent);
                     } catch (IOException e) {
@@ -309,7 +309,7 @@ public class GenerateXsd {
                 BufferedWriter bw = null;
                 try {
                     Charset charset = StandardCharsets.UTF_8;
-                    Path path = Paths.get(outfileName);
+                    Path path = Path.of(outfileName);
                     bw = Files.newBufferedWriter(path, charset);
                     bw.write(fileContent);
                 } catch (IOException e) {
@@ -323,6 +323,10 @@ public class GenerateXsd {
             }
         } catch (BeansException e) {
             logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
+        } finally {
+            // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed up build process
+            LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+            context.stop();
         }
 
     }
