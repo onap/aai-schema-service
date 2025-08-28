@@ -172,9 +172,9 @@ public class GenerateSwagger {
                     int startIndex = line.indexOf("https://");
                     int endIndex = line.lastIndexOf("/");
                     hyperLink = line.substring(startIndex, endIndex);
-                    return String.format("<a href=\"%s\">%s</a><br/>", hyperLink, line);
+                    return "<a href=\"%s\">%s</a><br/>".formatted(hyperLink, line);
                 }
-                return String.format("%s<br/>", line);
+                return "%s<br/>".formatted(line);
             })
 
                 .collect(Collectors.joining(LINE_SEPARATOR));
@@ -488,17 +488,17 @@ public class GenerateSwagger {
                 String headerId = line.toLowerCase().replaceAll("\\s", "-");
 
                 if (line.contains("Related Nodes")) {
-                    return String.format("<h6 id=\"%s\">%s</h6>%s<ul>", headerId, line,
+                    return "<h6 id=\"%s\">%s</h6>%s<ul>".formatted(headerId, line,
                         LINE_SEPARATOR);
                 } else {
-                    return String.format("<h6 id=\"%s\">%s</h6>", headerId, line);
+                    return "<h6 id=\"%s\">%s</h6>".formatted(headerId, line);
                 }
             } else if (line.startsWith("-")) {
                 line = line.replaceFirst("-", "");
                 line = line.trim();
-                return String.format("<li>%s</li>", line);
+                return "<li>%s</li>".formatted(line);
             } else {
-                return String.format("<p>%s</p>", line);
+                return "<p>%s</p>".formatted(line);
             }
         }).collect(Collectors.joining(LINE_SEPARATOR));
 

@@ -30,12 +30,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
@@ -75,7 +74,7 @@ public class EdgeService {
             LOGGER.debug("For the version {} looking for edge rules in folder {}", schemaVersion,
                 edgeRuleVersionPath);
 
-            try (Stream<Path> pathStream = Files.walk(Paths.get(edgeRuleVersionPath))) {
+            try (Stream<Path> pathStream = Files.walk(Path.of(edgeRuleVersionPath))) {
 
                 List<Path> jsonFiles =
                     pathStream.filter((path) -> path.toString().endsWith(".json"))
