@@ -23,7 +23,7 @@ package org.onap.aai.schemaservice.nodeschema;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.onap.aai.schemaservice.nodeschema.validation.AAISchemaValidationException;
 import org.springframework.beans.factory.annotation.Value;

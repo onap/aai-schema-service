@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -159,7 +158,7 @@ public class HTMLfromOXMTest {
         XMLfile.createNewFile();
         BufferedWriter bw = null;
         Charset charset = Charset.forName("UTF-8");
-        Path path = Paths.get(outfileName);
+        Path path = Path.of(outfileName);
         bw = Files.newBufferedWriter(path, charset);
         bw.write(testXML);
         bw.close();
@@ -227,11 +226,11 @@ public class HTMLfromOXMTest {
             + LINE_SEPARATOR);
         sb.append(
             "<xs:schema elementFormDefault=\"qualified\" version=\"1.0\" targetNamespace=\"http://org.onap.aai.inventory/v11\" xmlns:tns=\"http://org.onap.aai.inventory/v11\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""
-                + LINE_SEPARATOR + "xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\""
+                + LINE_SEPARATOR + "xmlns:jaxb=\"https://jakarta.ee/xml/ns/jaxb\""
                 + LINE_SEPARATOR);
-        sb.append("    jaxb:version=\"2.1\"" + LINE_SEPARATOR);
+        sb.append("    jaxb:version=\"3.0\"" + LINE_SEPARATOR);
         sb.append(
-            "    xmlns:annox=\"http://annox.dev.java.net\"" + LINE_SEPARATOR);
+            "    xmlns:annox=\"urn:jaxb.jvnet.org:annox\"" + LINE_SEPARATOR);
         sb.append("    jaxb:extensionBindingPrefixes=\"annox\">"
             + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         return sb.toString();

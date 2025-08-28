@@ -20,8 +20,8 @@
 
 package org.onap.aai.schemaservice;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 import org.onap.aai.aailog.logs.AaiDebugLog;
 import org.onap.aai.exceptions.AAIException;

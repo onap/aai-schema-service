@@ -20,18 +20,19 @@
     ============LICENSE_END=========================================================
 
 -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.13.0-SNAPSHOT</version>
+        <version>1.13.1-SNAPSHOT</version>
     </parent>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>aai-schema-service</artifactId>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <start-class>org.onap.aai.schemaservice.SchemaServiceApp</start-class>
 
         <docker.fabric.version>0.40.2</docker.fabric.version>
@@ -42,13 +43,14 @@
         <docker.push.registry>localhost:5000</docker.push.registry>
         <aai.docker.version>1.0.0</aai.docker.version>
 
-        <logback.version>1.2.13</logback.version>
+        <logback.version>1.4.14</logback.version>
 
         <!--
              Location where assembly of our scripts, resources and main jar will be held
 	         Check the ${project.artifactId}/src/main/assembly/descriptor.xml for more info
         -->
-        <aai.build.directory>${project.build.directory}/${project.artifactId}-${project.version}-build/
+        <aai.build.directory>
+            ${project.build.directory}/${project.artifactId}-${project.version}-build/
         </aai.build.directory>
         <aai.docker.namespace>onap</aai.docker.namespace>
 
@@ -63,9 +65,11 @@
         <!-- Start of Default ONAP Schema Properties -->
         <schema.source.name>onap</schema.source.name>
         <schema.configuration.location>N/A</schema.configuration.location>
-        <schema.nodes.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/oxm
+        <schema.nodes.location>
+            ${project.basedir}/src/main/resources/schema/${schema.source.name}/oxm
         </schema.nodes.location>
-        <schema.edges.location>${project.basedir}/src/main/resources/schema/${schema.source.name}/dbedgerules
+        <schema.edges.location>
+            ${project.basedir}/src/main/resources/schema/${schema.source.name}/dbedgerules
         </schema.edges.location>
         <schema.version.depth.start>v10</schema.version.depth.start>
         <schema.version.related.link.start>v10</schema.version.related.link.start>
@@ -73,12 +77,13 @@
         <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
         <schema.version.edge.label.start>v12</schema.version.edge.label.start>
         <schema.version.api.default>v30</schema.version.api.default>
-        <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
+        <schema.version.list>
+            v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
         <schema.uri.base.path>/aai/schema-service</schema.uri.base.path>
         <!-- End of Default ONAP Schema Properties -->
 
         <!-- Swagger version for open api json creation -->
-	    <swagger.version>2.2.35</swagger.version>
+        <swagger.version>2.2.35</swagger.version>
     </properties>
     <profiles>
         <!-- Docker profile to be used for building docker image and pushing to nexus -->
@@ -110,7 +115,8 @@
                             <apiVersion>1.23</apiVersion>
                             <images>
                                 <image>
-                                    <name>${docker.push.registry}/${aai.docker.namespace}/${project.artifactId}:%l</name>
+                                    <name>
+                                        ${docker.push.registry}/${aai.docker.namespace}/${project.artifactId}:%l</name>
                                     <build>
                                         <filter>@</filter>
                                         <tags>
@@ -174,7 +180,8 @@
             <properties>
                 <schema.source.name>onap</schema.source.name>
                 <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
-                <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
+                <schema.version.list>
+                    v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
             </properties>
         </profile>
         <!-- End of ONAP Profile -->
@@ -279,13 +286,12 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -301,12 +307,20 @@
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jersey</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.onap.aai.aai-common</groupId>
@@ -327,23 +341,27 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-sleuth-zipkin</artifactId>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.34</version>
-			<scope>provided</scope>
-		</dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
@@ -380,8 +398,12 @@
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-jaxrs2</artifactId>
-	    <version>${swagger.version}</version>
+            <artifactId>swagger-jaxrs2-jakarta</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -538,7 +560,8 @@
                             <outputDirectory>${project.basedir}/src/main/resources/schema</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../aai-queries/src/main/resources/schema</directory>
+                                    <directory>
+                                        ${project.basedir}/../aai-queries/src/main/resources/schema</directory>
                                     <includes>
                                         <include>**/query/**/*.json</include>
                                     </includes>
@@ -553,7 +576,8 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/swm/package/nix/dist_files/opt/app/${project.artifactId}/appconfig/schema/</outputDirectory>
+                            <outputDirectory>
+                                ${project.build.directory}/swm/package/nix/dist_files/opt/app/${project.artifactId}/appconfig/schema/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/../aai-schema/src/main/resources/</directory>
@@ -572,10 +596,12 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/swm/package/nix/dist_files/opt/app/${project.artifactId}/appconfig/schema/</outputDirectory>
+                            <outputDirectory>
+                                ${project.build.directory}/swm/package/nix/dist_files/opt/app/${project.artifactId}/appconfig/schema/</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/../aai-queries/src/main/resources/schema</directory>
+                                    <directory>
+                                        ${project.basedir}/../aai-queries/src/main/resources/schema</directory>
                                     <includes>
                                         <include>**/query/**/*.json</include>
                                     </includes>
@@ -657,8 +683,8 @@
             </plugin>
             <plugin>
                 <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-maven-plugin</artifactId>
-		        <version>${swagger.version}</version>
+                <artifactId>swagger-maven-plugin-jakarta</artifactId>
+                <version>${swagger.version}</version>
                 <executions>
                     <execution>
                         <id>generate-openapi</id>
