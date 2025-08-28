@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.aai.schema-service</groupId>
         <artifactId>schema-service</artifactId>
-        <version>1.13.0-SNAPSHOT</version>
+        <version>1.13.1-SNAPSHOT</version>
     </parent>
     <artifactId>aai-schema-gen</artifactId>
     <name>aai-schema-gen</name>
@@ -48,7 +48,8 @@
         <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
         <schema.version.edge.label.start>v12</schema.version.edge.label.start>
         <schema.version.api.default>v30</schema.version.api.default>
-        <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
+        <schema.version.list>
+            v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
 
         <!-- End of Default ONAP Schema Properties -->
     </properties>
@@ -68,7 +69,8 @@
                 <schema.version.edge.label.start>v12</schema.version.edge.label.start>
                 <schema.version.namespace.change.start>v12</schema.version.namespace.change.start>
                 <schema.version.api.default>v30</schema.version.api.default>
-                <schema.version.list>v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
+                <schema.version.list>
+                    v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30</schema.version.list>
                 <gendoc.version>v16</gendoc.version>
             </properties>
         </profile>
@@ -197,7 +199,8 @@
                                         </systemProperty>
                                         <systemProperty>
                                             <key>yamlresponses_url</key>
-                                            <value>https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
+                                            <value>
+                                                https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
                                             </value>
                                         </systemProperty>
                                         <systemProperty>
@@ -371,7 +374,8 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <!-- skip true is a workaround to avoid overriding the schema that
+                                    <!-- skip true is a workaround to avoid overriding the schema
+                                    that
                                          is defined in aai-schema/src/main/resources/onap/aai_schema
                                          with the output of the GenerateXsd class.
                                          This is done to avoid adjusting the aai-schema/.../onap/oxm
@@ -475,7 +479,8 @@
                                         </systemProperty>
                                         <systemProperty>
                                             <key>yamlresponses_url</key>
-                                            <value>https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
+                                            <value>
+                                                https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
                                             </value>
                                         </systemProperty>
                                         <systemProperty>
@@ -631,6 +636,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -712,6 +723,10 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>4.11.0</version>
@@ -720,7 +735,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>1.18.38</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

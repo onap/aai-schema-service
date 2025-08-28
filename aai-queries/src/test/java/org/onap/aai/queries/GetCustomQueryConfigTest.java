@@ -43,10 +43,30 @@ public class GetCustomQueryConfigTest {
         System.setProperty("AJSC_HOME", ".");
         System.setProperty("BUNDLECONFIG_DIR", "src/main/resources");
 
-        configJson = "{\n\t\"stored-queries\": [{\n"
-            + "\t\t\"queryName1\": {\n\t\t\t\"query\": {\n\t\t\t\t\"required-properties\": [\"prop1\", \"prop2\"],\n\t\t\t\t\"optional-properties\": [\"prop3\", \"prop4\"]\n\t\t\t},\n\t\t\t\"stored-query\": \"out('blah').has('something','foo')\"\n\t\t}\n\t}, {\n"
-            + "\t\t\"queryName2\": {\n\t\t\t\"query\": {\n\t\t\t\t\"optional-properties\": [\"prop5\"]\n\t\t\t},\n\t\t\t\"stored-query\": \"out('bar').has('stuff','baz')\"\n\t\t}\n\t}, {\n"
-            + "\t\t\"queryName3\": {\n\t\t\t\"stored-query\": \"out('bar1').has('stuff','baz1')\"\n\t\t}\n\t}]\n}";
+        configJson = """
+            {
+            	"stored-queries": [{
+            		"queryName1": {
+            			"query": {
+            				"required-properties": ["prop1", "prop2"],
+            				"optional-properties": ["prop3", "prop4"]
+            			},
+            			"stored-query": "out('blah').has('something','foo')"
+            		}
+            	}, {
+            		"queryName2": {
+            			"query": {
+            				"optional-properties": ["prop5"]
+            			},
+            			"stored-query": "out('bar').has('stuff','baz')"
+            		}
+            	}, {
+            		"queryName3": {
+            			"stored-query": "out('bar1').has('stuff','baz1')"
+            		}
+            	}]
+            }\
+            """;
 
         getCustomQueryConfig = new GetCustomQueryConfig(configJson);
 
@@ -109,17 +129,19 @@ public class GetCustomQueryConfigTest {
 
     @Test
     public void testQueryWithNullProperties() {
-        String queryWithNullPropsJson = "{\n"
-            + "\"stored-queries\": [{\n"
-            + "\t\"queryName1\": {\n"
-            + "\t\t\"query\": {\n"
-            + "\t\t\t\"required-properties\": null,\n"
-            + "\t\t\t\"optional-properties\": null\n"
-            + "\t\t},\n"
-            + "\t\t\"stored-query\": \"out('blah').has('something','foo')\"\n"
-            + "\t}\n"
-            + "}]\n"
-            + "}";
+        String queryWithNullPropsJson = """
+            {
+            "stored-queries": [{
+            	"queryName1": {
+            		"query": {
+            			"required-properties": null,
+            			"optional-properties": null
+            		},
+            		"stored-query": "out('blah').has('something','foo')"
+            	}
+            }]
+            }\
+            """;
 
         GetCustomQueryConfig getCustomQueryConfig = new GetCustomQueryConfig(queryWithNullPropsJson);
         CustomQueryConfig cqc = getCustomQueryConfig.getStoredQuery("queryName1");
@@ -131,16 +153,18 @@ public class GetCustomQueryConfigTest {
 
     @Test
     public void testQueryWithMissingProperties() {
-        String queryWithMissingPropsJson = "{\n"
-            + "\"stored-queries\": [{\n"
-            + "\t\"queryName1\": {\n"
-            + "\t\t\"query\": {\n"
-            + "\t\t\t\"required-properties\": []\n"
-            + "\t\t},\n"
-            + "\t\t\"stored-query\": \"out('blah').has('something','foo')\"\n"
-            + "\t}\n"
-            + "}]\n"
-            + "}";
+        String queryWithMissingPropsJson = """
+            {
+            "stored-queries": [{
+            	"queryName1": {
+            		"query": {
+            			"required-properties": []
+            		},
+            		"stored-query": "out('blah').has('something','foo')"
+            	}
+            }]
+            }\
+            """;
 
         GetCustomQueryConfig getCustomQueryConfig = new GetCustomQueryConfig(queryWithMissingPropsJson);
         CustomQueryConfig cqc = getCustomQueryConfig.getStoredQuery("queryName1");
@@ -152,17 +176,19 @@ public class GetCustomQueryConfigTest {
 
     @Test
     public void testQueryWithNullRequiredProperties() {
-        String queryWithNullPropsJson = "{\n"
-            + "\"stored-queries\": [{\n"
-            + "\t\"queryName1\": {\n"
-            + "\t\t\"query\": {\n"
-            + "\t\t\t\"required-properties\": null,\n"  // Null for required properties
-            + "\t\t\t\"optional-properties\": [\"prop3\"]\n"
-            + "\t\t},\n"
-            + "\t\t\"stored-query\": \"out('blah').has('something','foo')\"\n"
-            + "\t}\n"
-            + "}]\n"
-            + "}";
+        String queryWithNullPropsJson = """
+            {
+            "stored-queries": [{
+            	"queryName1": {
+            		"query": {
+            			"required-properties": null,
+            			"optional-properties": ["prop3"]
+            		},
+            		"stored-query": "out('blah').has('something','foo')"
+            	}
+            }]
+            }\
+            """;
 
         GetCustomQueryConfig getCustomQueryConfig = new GetCustomQueryConfig(queryWithNullPropsJson);
         CustomQueryConfig cqc = getCustomQueryConfig.getStoredQuery("queryName1");
@@ -174,17 +200,19 @@ public class GetCustomQueryConfigTest {
 
     @Test
     public void testQueryWithNullOptionalProperties() {
-        String queryWithNullPropsJson = "{\n"
-            + "\"stored-queries\": [{\n"
-            + "\t\"queryName1\": {\n"
-            + "\t\t\"query\": {\n"
-            + "\t\t\t\"required-properties\": [\"prop1\"],\n"
-            + "\t\t\t\"optional-properties\": null  // Null for optional properties\n"
-            + "\t\t},\n"
-            + "\t\t\"stored-query\": \"out('blah').has('something','foo')\"\n"
-            + "\t}\n"
-            + "}]\n"
-            + "}";
+        String queryWithNullPropsJson = """
+            {
+            "stored-queries": [{
+            	"queryName1": {
+            		"query": {
+            			"required-properties": ["prop1"],
+            			"optional-properties": null  // Null for optional properties
+            		},
+            		"stored-query": "out('blah').has('something','foo')"
+            	}
+            }]
+            }\
+            """;
 
         GetCustomQueryConfig getCustomQueryConfig = new GetCustomQueryConfig(queryWithNullPropsJson);
         CustomQueryConfig cqc = getCustomQueryConfig.getStoredQuery("queryName1");

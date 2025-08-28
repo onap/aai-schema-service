@@ -23,9 +23,8 @@ package org.onap.aai.queries;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Timer;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.onap.aai.logging.LogFormatTools;
 import org.onap.aai.util.AAIConstants;
@@ -60,7 +59,7 @@ public class GremlinServerSingleton {
         try {
             String filepath =
                 storedQueriesLocation + AAIConstants.AAI_FILESEP + "stored-queries.json";
-            Path path = Paths.get(filepath);
+            Path path = Path.of(filepath);
             String customQueryConfigJson = new String(Files.readAllBytes(path));
 
             queryConfig = new GetCustomQueryConfig(customQueryConfigJson);

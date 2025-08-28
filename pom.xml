@@ -21,16 +21,17 @@
 
 -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.onap.aai.aai-common</groupId>
         <artifactId>aai-parent</artifactId>
-        <version>1.15.5</version>
+        <version>1.16.1</version>
     </parent>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>schema-service</artifactId>
-    <version>1.13.0-SNAPSHOT</version>
+    <version>1.13.1-SNAPSHOT</version>
     <name>aai-schema-service</name>
     <packaging>pom</packaging>
     <modules>
@@ -46,34 +47,38 @@
             Ideally this can be overwritten at runtime per internal environment specific values at runtime
         -->
         <nexusproxy>https://nexus.onap.org</nexusproxy>
-        <site.path>/content/sites/site/org/onap/aai/resources/${project.artifactId}/${project.version}</site.path>
+        <site.path>
+            /content/sites/site/org/onap/aai/resources/${project.artifactId}/${project.version}</site.path>
         <release.path>/content/repositories/releases/</release.path>
         <snapshot.path>/content/repositories/snapshots/</snapshot.path>
         <!-- GMaven plugin uses this property to figure out the name of the docker tag -->
         <aai.project.version>${project.version}</aai.project.version>
         <checkstyle.skip>false</checkstyle.skip>
-        <aai.common.version>1.15.5</aai.common.version>
-        <spring-cloud.version>2021.0.9</spring-cloud.version>
+        <aai.common.version>1.16.1</aai.common.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <!-- <spring-cloud.version>2022.0.5</spring-cloud.version> -->
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>eclipselink</artifactId>
-                <version>2.7.15</version>
+                <version>4.0.7</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.moxy</artifactId>
-                <version>2.7.15</version>
+                <version>4.0.7</version>
             </dependency>
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency> -->
         </dependencies>
     </dependencyManagement>
     <build>
@@ -149,6 +154,16 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version> <!-- latest recommended -->
+                    <configuration>
+                        <source>17</source>
+                        <target>17</target>
+                        <release>17</release>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -164,6 +179,45 @@
                     </dependency>
                 </dependencies>
             </plugin>
+<!--            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <version>6.15.0</version>
+                <configuration>
+                    <exportDatatables>true</exportDatatables>
+                    <activeRecipes>
+                        <recipe>org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_0</recipe>
+                        <recipe>org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_0</recipe>
+                        <recipe>org.openrewrite.java.spring.security6.UpgradeSpringSecurity_6_0</recipe>
+                        <recipe>org.openrewrite.java.spring.cloud2022.DependencyUpgrades</recipe>
+                        <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
+                    </activeRecipes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-spring</artifactId>
+                        <version>6.11.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-migrate-java</artifactId>
+                        <version>3.14.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-testing-frameworks</artifactId>
+                        <version>3.14.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>-->
         </plugins>
     </build>
     <reporting>

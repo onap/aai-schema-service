@@ -1434,11 +1434,13 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: global-customer-id\n"
-            + "          in: query\n"
-            + "          description: Customer ID description\n"
-            + "          required: false\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: global-customer-id
+                      in: query
+                      description: Customer ID description
+                      required: false
+                      type: string
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1454,10 +1456,12 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: global-customer-id\n"
-            + "          in: query\n"
-            + "          required: false\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: global-customer-id
+                      in: query
+                      required: false
+                      type: string
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1473,10 +1477,12 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: global-customer-id\n"
-            + "          in: query\n"
-            + "          required: false\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: global-customer-id
+                      in: query
+                      required: false
+                      type: string
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1492,12 +1498,14 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: customer-id\n"
-            + "          in: query\n"
-            + "          description: Customer ID\n"
-            + "          required: false\n"
-            + "          type: integer\n"
-            + "          format: int64\n";
+        String expectedYAML = """
+                    - name: customer-id
+                      in: query
+                      description: Customer ID
+                      required: false
+                      type: integer
+                      format: int64
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1513,12 +1521,14 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: order-id\n"
-            + "          in: query\n"
-            + "          description: Order ID\n"
-            + "          required: false\n"
-            + "          type: integer\n"
-            + "          format: int32\n";
+        String expectedYAML = """
+                    - name: order-id
+                      in: query
+                      description: Order ID
+                      required: false
+                      type: integer
+                      format: int32
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1534,12 +1544,14 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: price\n"
-            + "          in: query\n"
-            + "          description: Price of the product\n"
-            + "          required: false\n"
-            + "          type: number\n"
-            + "          format: float\n";
+        String expectedYAML = """
+                    - name: price
+                      in: query
+                      description: Price of the product
+                      required: false
+                      type: number
+                      format: float
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1555,12 +1567,14 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: amount\n"
-            + "          in: query\n"
-            + "          description: Amount in dollars\n"
-            + "          required: false\n"
-            + "          type: number\n"
-            + "          format: double\n";
+        String expectedYAML = """
+                    - name: amount
+                      in: query
+                      description: Amount in dollars
+                      required: false
+                      type: number
+                      format: double
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1576,11 +1590,13 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: active\n"
-            + "          in: query\n"
-            + "          description: Active status of user\n"
-            + "          required: false\n"
-            + "          type: boolean\n";
+        String expectedYAML = """
+                    - name: active
+                      in: query
+                      description: Active status of user
+                      required: false
+                      type: boolean
+            """;
 
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
@@ -1597,10 +1613,12 @@ public class XSDElementTest {
 
         XSDElement xsdElement = new XSDElement(element);
 
-        String expectedYAML = "        - name: some-id\n"
-            + "          in: query\n"
-            + "          description: Some ID\n"
-            + "          required: false\n";
+        String expectedYAML = """
+                    - name: some-id
+                      in: query
+                      description: Some ID
+                      required: false
+            """;
         String result = xsdElement.getQueryParamYAML();
         assertEquals(expectedYAML, result);
     }
@@ -1617,11 +1635,13 @@ public class XSDElementTest {
         String elementDescription = "Inventory";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: Inventory\n"
-            + "          in: path\n"
-            + "          description: Inventory\n"
-            + "          required: true\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: Inventory
+                      in: path
+                      description: Inventory
+                      required: true
+                      type: string
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1638,10 +1658,12 @@ public class XSDElementTest {
         String elementDescription = "";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: Inventory\n"
-            + "          in: path\n"
-            + "          required: true\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: Inventory
+                      in: path
+                      required: true
+                      type: string
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1659,11 +1681,13 @@ public class XSDElementTest {
         String overrideName = "CustomInventory";
         String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
 
-        String expectedYAML = "        - name: CustomInventory\n"
-            + "          in: path\n"
-            + "          description: Inventory\n"
-            + "          required: true\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: CustomInventory
+                      in: path
+                      description: Inventory
+                      required: true
+                      type: string
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1680,12 +1704,14 @@ public class XSDElementTest {
         String elementDescription = "Customer ID";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: customer-id\n"
-            + "          in: path\n"
-            + "          description: Customer ID\n"
-            + "          required: true\n"
-            + "          type: integer\n"
-            + "          format: int64\n";
+        String expectedYAML = """
+                    - name: customer-id
+                      in: path
+                      description: Customer ID
+                      required: true
+                      type: integer
+                      format: int64
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1702,12 +1728,14 @@ public class XSDElementTest {
         String elementDescription = "Order ID";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: order-id\n"
-            + "          in: path\n"
-            + "          description: Order ID\n"
-            + "          required: true\n"
-            + "          type: integer\n"
-            + "          format: int32\n";
+        String expectedYAML = """
+                    - name: order-id
+                      in: path
+                      description: Order ID
+                      required: true
+                      type: integer
+                      format: int32
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1724,12 +1752,14 @@ public class XSDElementTest {
         String elementDescription = "Price of the product";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: price\n"
-            + "          in: path\n"
-            + "          description: Price of the product\n"
-            + "          required: true\n"
-            + "          type: number\n"
-            + "          format: float\n";
+        String expectedYAML = """
+                    - name: price
+                      in: path
+                      description: Price of the product
+                      required: true
+                      type: number
+                      format: float
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1746,12 +1776,14 @@ public class XSDElementTest {
         String elementDescription = "Amount in dollars";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: amount\n"
-            + "          in: path\n"
-            + "          description: Amount in dollars\n"
-            + "          required: true\n"
-            + "          type: number\n"
-            + "          format: double\n";
+        String expectedYAML = """
+                    - name: amount
+                      in: path
+                      description: Amount in dollars
+                      required: true
+                      type: number
+                      format: double
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1768,11 +1800,13 @@ public class XSDElementTest {
         String elementDescription = "Active status of user";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: active\n"
-            + "          in: path\n"
-            + "          description: Active status of user\n"
-            + "          required: true\n"
-            + "          type: boolean\n";
+        String expectedYAML = """
+                    - name: active
+                      in: path
+                      description: Active status of user
+                      required: true
+                      type: boolean
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1789,11 +1823,13 @@ public class XSDElementTest {
         String elementDescription = "Inventory ID";
         String result = xsdElement.getPathParamYAML(elementDescription, null);
 
-        String expectedYAML = "        - name: inventory-id\n"
-            + "          in: path\n"
-            + "          description: Inventory ID\n"
-            + "          required: true\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name: inventory-id
+                      in: path
+                      description: Inventory ID
+                      required: true
+                      type: string
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -1811,11 +1847,13 @@ public class XSDElementTest {
         String overrideName = "";
         String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
 
-        String expectedYAML = "        - name: \n"
-            + "          in: path\n"
-            + "          description: Inventory ID\n"
-            + "          required: true\n"
-            + "          type: string\n";
+        String expectedYAML = """
+                    - name:\s
+                      in: path
+                      description: Inventory ID
+                      required: true
+                      type: string
+            """;
         assertEquals(expectedYAML, result);
     }
 
@@ -1992,8 +2030,10 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: string\n";
+        String expectedYAML = """
+                  property-name:
+                    type: string
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2012,9 +2052,11 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: integer\n"
-            + "        format: int64\n";
+        String expectedYAML = """
+                  property-name:
+                    type: integer
+                    format: int64
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2033,9 +2075,11 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: integer\n"
-            + "        format: int32\n";
+        String expectedYAML = """
+                  property-name:
+                    type: integer
+                    format: int32
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2054,9 +2098,11 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: number\n"
-            + "        format: float\n";
+        String expectedYAML = """
+                  property-name:
+                    type: number
+                    format: float
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2075,9 +2121,11 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: number\n"
-            + "        format: double\n";
+        String expectedYAML = """
+                  property-name:
+                    type: number
+                    format: double
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2096,8 +2144,10 @@ public class XSDElementTest {
 
         String result = xsdelement.getTypePropertyYAML(false);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: boolean\n";
+        String expectedYAML = """
+                  property-name:
+                    type: boolean
+            """;
 
         assertEquals(expectedYAML, result);
     }
@@ -2117,11 +2167,13 @@ public class XSDElementTest {
         // Call the method with isDslStartNode set to true
         String result = xsdelement.getTypePropertyYAML(true);
 
-        String expectedYAML = "      property-name:\n"
-            + "        type: string\n"
-            + "        description: |\n"
-            + "          \n"
-            + "          *This property can be used as a filter to find the start node for a dsl query\n";
+        String expectedYAML = """
+                  property-name:
+                    type: string
+                    description: |
+                     \s
+                      *This property can be used as a filter to find the start node for a dsl query
+            """;
 
         assertEquals(expectedYAML, result);
     }

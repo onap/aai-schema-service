@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -476,7 +475,7 @@ public class ValidateOXMTest {
     @Test
     public void testSchemaValidationAgainstEdgeRules() throws XPathExpressionException, IOException,
         SAXException, ParserConfigurationException, ParseException {
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         List<File> subDirs =
             Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
         boolean success = true;
@@ -777,7 +776,7 @@ public class ValidateOXMTest {
     }
 
     private List<File> getFiles() {
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         return FileUtils
             .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
@@ -788,7 +787,7 @@ public class ValidateOXMTest {
 
     private List<File> getOxmSchemaFiles() {
 
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         return FileUtils
             .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
@@ -801,7 +800,7 @@ public class ValidateOXMTest {
 
     private List<File> getOnapOxmSchemaFiles() {
 
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         return FileUtils
             .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
@@ -812,7 +811,7 @@ public class ValidateOXMTest {
     }
 
     private List<File> getAaiSchemaOxmFiles() {
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         return FileUtils
             .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.xml"),
                 DirectoryFileFilter.DIRECTORY)
@@ -822,7 +821,7 @@ public class ValidateOXMTest {
     }
 
     private List<File> getDbEdgeRulesFiles() {
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         return FileUtils
             .listFiles(currentRelativePath.toFile(), new RegexFileFilter(".*\\.json"),
                 DirectoryFileFilter.DIRECTORY)
@@ -839,7 +838,7 @@ public class ValidateOXMTest {
     private List<File> getLatestDbEdgeRulesFiles(String fileDirectory) {
         List<String> latest = new ArrayList<>();
         String currentRelativePath =
-            Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/dbedgerules")
+            Path.of("../aai-schema/src/main/resources/" + fileDirectory + "/dbedgerules")
                 .toAbsolutePath().toString();
         File[] oxms = new File(currentRelativePath).listFiles(File::isDirectory);
         Arrays.stream(oxms).map(File::getAbsolutePath).max(new Comparator<String>() {
@@ -869,7 +868,7 @@ public class ValidateOXMTest {
      */
     private List<File> getLatestFiles() {
         List<String> latest = new ArrayList<>();
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         List<File> subDirs =
             Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
         for (File subDir : subDirs) {
@@ -904,7 +903,7 @@ public class ValidateOXMTest {
     private List<File> getLatestFiles(String fileDirectory) {
         List<String> latest = new ArrayList<>();
         String currentRelativePath =
-            Paths.get("../aai-schema/src/main/resources/" + fileDirectory + "/oxm").toAbsolutePath()
+            Path.of("../aai-schema/src/main/resources/" + fileDirectory + "/oxm").toAbsolutePath()
                 .toString();
         File[] oxms = new File(currentRelativePath).listFiles(File::isDirectory);
         Arrays.stream(oxms).map(File::getAbsolutePath).max(new Comparator<String>() {

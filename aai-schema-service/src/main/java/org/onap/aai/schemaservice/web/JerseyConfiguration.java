@@ -25,9 +25,9 @@ import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import javax.annotation.Priority;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ContainerResponseFilter;
+import jakarta.annotation.Priority;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.ContainerResponseFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.onap.aai.schemaservice.edges.EdgeResource;
