@@ -54,7 +54,6 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -179,7 +178,7 @@ public class YAMLfromOXMTest {
         XMLfile.createNewFile();
         BufferedWriter bw = null;
         Charset charset = Charset.forName("UTF-8");
-        Path path = Paths.get(outfileName);
+        Path path = Path.of(outfileName);
         bw = Files.newBufferedWriter(path, charset);
         bw.write(testXML);
         bw.close();
@@ -883,29 +882,46 @@ public class YAMLfromOXMTest {
         sb.append("{\n" + "  \"rules\": [\n");
         sb.append("    {\n");
         sb.append("      \"from\": \"service-subscription\",\n");
-        sb.append("      \"to\": \"customer\",\n"
-            + "      \"label\": \"org.onap.relationships.inventory.BelongsTo\",\n"
-            + "      \"direction\": \"OUT\",\n" + "      \"multiplicity\": \"MANY2ONE\",\n"
-            + "      \"contains-other-v\": \"!${direction}\",\n"
-            + "      \"delete-other-v\": \"!${direction}\",\n"
-            + "      \"prevent-delete\": \"NONE\",\n" + "      \"default\": \"true\",\n"
-            + "      \"description\":\"\"\n");
+        sb.append("""
+                  "to": "customer",
+                  "label": "org.onap.relationships.inventory.BelongsTo",
+                  "direction": "OUT",
+                  "multiplicity": "MANY2ONE",
+                  "contains-other-v": "!${direction}",
+                  "delete-other-v": "!${direction}",
+                  "prevent-delete": "NONE",
+                  "default": "true",
+                  "description":""
+            """);
         sb.append("    },\n");
-        sb.append("    {\n" + "      \"from\": \"service-instance\",\n"
-            + "      \"to\": \"service-subscription\",\n"
-            + "      \"label\": \"org.onap.relationships.inventory.BelongsTo\",\n"
-            + "      \"direction\": \"OUT\",\n" + "      \"multiplicity\": \"MANY2ONE\",\n"
-            + "      \"contains-other-v\": \"!${direction}\",\n"
-            + "      \"delete-other-v\": \"!${direction}\",\n"
-            + "      \"prevent-delete\": \"NONE\",\n" + "      \"default\": \"true\",\n"
-            + "      \"description\":\"\"\n" + "    },\n");
-        sb.append("    {\n" + "      \"from\": \"service-subscription\",\n"
-            + "      \"to\": \"tenant\",\n"
-            + "      \"label\": \"org.onap.relationships.inventory.Uses\",\n"
-            + "      \"direction\": \"OUT\",\n" + "      \"multiplicity\": \"MANY2MANY\",\n"
-            + "      \"contains-other-v\": \"NONE\",\n" + "      \"delete-other-v\": \"NONE\",\n"
-            + "      \"prevent-delete\": \"NONE\",\n" + "      \"default\": \"true\",\n"
-            + "      \"description\":\"\"\n" + "    }");
+        sb.append("""
+                {
+                  "from": "service-instance",
+                  "to": "service-subscription",
+                  "label": "org.onap.relationships.inventory.BelongsTo",
+                  "direction": "OUT",
+                  "multiplicity": "MANY2ONE",
+                  "contains-other-v": "!${direction}",
+                  "delete-other-v": "!${direction}",
+                  "prevent-delete": "NONE",
+                  "default": "true",
+                  "description":""
+                },
+            """);
+        sb.append("""
+                {
+                  "from": "service-subscription",
+                  "to": "tenant",
+                  "label": "org.onap.relationships.inventory.Uses",
+                  "direction": "OUT",
+                  "multiplicity": "MANY2MANY",
+                  "contains-other-v": "NONE",
+                  "delete-other-v": "NONE",
+                  "prevent-delete": "NONE",
+                  "default": "true",
+                  "description":""
+                }\
+            """);
         sb.append("  ]\n" + "}\n");
         return sb.toString();
     }

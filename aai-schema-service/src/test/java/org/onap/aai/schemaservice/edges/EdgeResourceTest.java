@@ -29,9 +29,9 @@ import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersion;
 import org.onap.aai.schemaservice.nodeschema.SchemaVersions;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

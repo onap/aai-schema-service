@@ -23,12 +23,12 @@ package org.onap.aai.schemaservice.healthcheck;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.*;
-import javax.ws.rs.core.Response.Status;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.*;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.logging.ErrorLogHelper;

@@ -31,14 +31,14 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.restcore.HttpMethod;
@@ -88,7 +88,7 @@ public class EdgeResource extends RESTAPI {
 
             Optional<EdgeRules> edgeRulesOptional = edgeService.findRules(version);
 
-            if (!edgeRulesOptional.isPresent()) {
+            if (edgeRulesOptional.isEmpty()) {
                 throw new AAIException("AAI_3001");
             }
 

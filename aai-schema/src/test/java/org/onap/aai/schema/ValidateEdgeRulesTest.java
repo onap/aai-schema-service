@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,7 +52,7 @@ public class ValidateEdgeRulesTest {
     @Test
     public void testOnlyOneDefaultPerEdgeRuleBetweenTwoNodetypes()
         throws IOException, ParseException {
-        Path currentRelativePath = Paths.get("../aai-schema/src/main/resources/").toAbsolutePath();
+        Path currentRelativePath = Path.of("../aai-schema/src/main/resources/").toAbsolutePath();
         List<File> subDirs =
             Arrays.asList(currentRelativePath.toFile().listFiles(File::isDirectory));
         List<String> multipleDefaultsPerList = new ArrayList<>();
@@ -147,7 +146,7 @@ public class ValidateEdgeRulesTest {
             to = temp;
         }
 
-        String edgeInfo = String.format("%s%s%s[%s]%s", from,
+        String edgeInfo = "%s%s%s[%s]%s".formatted(from,
             ((direction.equals("OUT")) ? "->" : "<-"), to, label, isDefault);
 
         if ("false".equals(isDefault)) {
