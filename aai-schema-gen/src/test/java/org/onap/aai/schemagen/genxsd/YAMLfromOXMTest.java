@@ -770,7 +770,6 @@ public class YAMLfromOXMTest {
         sb.append("  inventory:\n");
         sb.append("    properties:\n");
         sb.append("      business:\n");
-        sb.append("        type: object\n");
         sb.append("        $ref: \"#/definitions/business\"\n");
         sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
@@ -873,7 +872,6 @@ public class YAMLfromOXMTest {
         sb.append("  relationship-list:\n");
         sb.append("    properties:\n");
         sb.append("      relationship:\n");
-        sb.append("        type: object\n");
         sb.append("        $ref: \"#/definitions/relationship\"\n");
         return sb.toString();
     }

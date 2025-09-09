@@ -361,7 +361,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                 } else {
                     for (int k = 0; k < addTypeV.size(); ++k) {
                         sbRequired.append("    - ")
-                            .append(getXmlRootElementName(addTypeV.elementAt(k))).append(":\n");
+                            .append(getXmlRootElementName(addTypeV.elementAt(k))).append("\n");
                     }
                 }
             }
@@ -408,12 +408,13 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                         sbProperties.append("      ").append(getXmlRootElementName(addType))
                             .append(":\n");
                         if ("RelationshipList".equals(addType)) {
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/").append(itemName)
                                 .append("\"\n");
                         } else {
-                            sbProperties.append("        type: array\n        items:\n");
-                            sbProperties.append("          $ref: \"#/definitions/")
+                            sbProperties.append("        type: object\n        properties:\n");
+                            sbProperties.append("          " + itemName + ":\n");
+                            sbProperties.append("            type: array\n            items:\n");
+                            sbProperties.append("              $ref: \"#/definitions/")
                                 .append("".equals(itemName) ? "aai-internal" : itemName)
                                 .append("\"\n");
                         }
@@ -440,7 +441,6 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                         useName = getXmlRootElementName(addType);
                         sbProperties.append("      ").append(useName).append(":\n");
                         if ("relationship".equals(useName)) {
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
                         } else {
                             sbProperties.append("        type: array\n        items:          \n");
@@ -457,7 +457,6 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                         if (!nodeFilter.contains(getXmlRootElementName(addType))) {
                             sbProperties.append("      ").append(getXmlRootElementName(addType))
                                 .append(":\n");
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/")
                                 .append(getXmlRootElementName(addType)).append("\"\n");
                         }
