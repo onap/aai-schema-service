@@ -420,9 +420,12 @@ public class NodesYAMLfromOXMTest {
         sb.append("      Namespace for business related constructs\n");
         sb.append("    properties:\n");
         sb.append("      customers:\n");
-        sb.append("        type: array\n");
-        sb.append("        items:\n");
-        sb.append("          $ref: \"#/definitions/customer\"\n");
+        sb.append("        type: object\n");
+        sb.append("        properties:\n");
+        sb.append("          customer:\n");
+        sb.append("            type: array\n");
+        sb.append("            items:\n");
+        sb.append("              $ref: \"#/definitions/customer\"\n");
         sb.append("  customer:\n");
         sb.append("    description: |\n");
         sb.append("      customer identifiers to provide linkage back to BSS information.\n");
@@ -453,9 +456,12 @@ public class NodesYAMLfromOXMTest {
         sb.append(
             "        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
         sb.append("      service-subscriptions:\n");
-        sb.append("        type: array\n");
-        sb.append("        items:\n");
-        sb.append("          $ref: \"#/definitions/service-subscription\"\n");
+        sb.append("        type: object\n");
+        sb.append("        properties:\n");
+        sb.append("          service-subscription:\n");
+        sb.append("            type: array\n");
+        sb.append("            items:\n");
+        sb.append("              $ref: \"#/definitions/service-subscription\"\n");
         sb.append("  customers:\n");
         sb.append("    description: |\n");
         sb.append(
@@ -468,7 +474,6 @@ public class NodesYAMLfromOXMTest {
         sb.append("  inventory:\n");
         sb.append("    properties:\n");
         sb.append("      business:\n");
-        sb.append("        type: object\n");
         sb.append("        $ref: \"#/definitions/business\"\n");
         sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
         sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);

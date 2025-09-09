@@ -390,7 +390,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 } else {
                     for (int k = 0; k < addTypeV.size(); ++k) {
                         sbRequired.append("    - ")
-                            .append(getXmlRootElementName(addTypeV.elementAt(k))).append(":\n");
+                            .append(getXmlRootElementName(addTypeV.elementAt(k))).append("\n");
                     }
                 }
             }
@@ -441,7 +441,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
                                 .append("\"\n");
                             sbPropertiesPatch.append("      ")
                                 .append(getXmlRootElementName(addType)).append(":\n");
-                            sbPropertiesPatch.append("        type: object\n");
                             sbPropertiesPatch.append("        $ref: \"#/definitions/")
                                 .append(itemName).append("\"\n");
                             ++patchPropertyCnt;
@@ -475,9 +474,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
                         useName = getXmlRootElementName(addType);
                         sbProperties.append("      ").append(useName).append(":\n");
                         if ("relationship".equals(useName)) {
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
-                            sbPropertiesPatch.append("        type: object\n");
                             sbPropertiesPatch
                                 .append("        $ref: \"#/definitions/relationship\"\n");
                             ++patchPropertyCnt;
@@ -496,7 +493,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
                         if (!nodeFilter.contains(getXmlRootElementName(addType))) {
                             sbProperties.append("      ").append(getXmlRootElementName(addType))
                                 .append(":\n");
-                            sbProperties.append("        type: object\n");
                             sbProperties.append("        $ref: \"#/definitions/")
                                 .append(getXmlRootElementName(addType)).append("\"\n");
                         }
