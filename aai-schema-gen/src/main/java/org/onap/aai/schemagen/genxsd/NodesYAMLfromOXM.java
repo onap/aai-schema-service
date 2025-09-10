@@ -30,7 +30,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -684,7 +683,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         } catch (IOException e) {
             logger.error("Exception creating output file " + outfileName, e);
         }
-        Path path = Paths.get(outfileName);
+        Path path = Path.of(outfileName);
         Charset charset = StandardCharsets.UTF_8;
         try (BufferedWriter bw = Files.newBufferedWriter(path, charset)) {
             bw.write(fileContent);

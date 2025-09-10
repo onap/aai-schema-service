@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://org.openecomp.aai.inventory/v9" xmlns:tns="http://org.openecomp.aai.inventory/v9" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-    jaxb:version="2.1"
-    xmlns:annox="http://annox.dev.java.net"
+xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    jaxb:version="3.0"
+    xmlns:annox="urn:jaxb.jvnet.org:annox"
     jaxb:extensionBindingPrefixes="annox">
 
   <xs:element name="inventory-item-data">

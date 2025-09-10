@@ -25,7 +25,7 @@
 # jre-alpine image has $JAVA_HOME set and added to $PATH
 # ubuntu image requires to set $JAVA_HOME and add java to $PATH manually
 if [ -z $JAVA_HOME ] && [ $(grep -i "ID=ubuntu" /etc/os-release | wc -w) -eq 1 ] ; then
-    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-`dpkg --print-architecture | awk -F- '{ print $NF }'`
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-`dpkg --print-architecture | awk -F- '{ print $NF }'`
     export PATH=$PATH:${JAVA_HOME}/jre/bin:${JAVA_HOME}/bin
 fi
 

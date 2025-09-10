@@ -49,7 +49,6 @@ import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -143,7 +142,7 @@ public class NodesYAMLfromOXMTest {
         XMLfile.createNewFile();
         BufferedWriter bw = null;
         Charset charset = Charset.forName("UTF-8");
-        Path path = Paths.get(outfileName);
+        Path path = Path.of(outfileName);
         bw = Files.newBufferedWriter(path, charset);
         bw.write(testXML);
         bw.close();
@@ -554,15 +553,17 @@ public class NodesYAMLfromOXMTest {
 
         String result = (String) getDictionaryMethod.invoke(nodesYamlFromOxm, resource);
 
-        String expectedResult = "  business:\n"
-            + "    description: |\n"
-            + "      dictionary of business\n"
-            + "    type: object\n"
-            + "    properties:\n"
-            + "      business:\n"
-            + "        type: array\n"
-            + "        items:\n"
-            + "          $ref: \"#/definitions/business-dict\"\n";
+        String expectedResult = """
+              business:
+                description: |
+                  dictionary of business
+                type: object
+                properties:
+                  business:
+                    type: array
+                    items:
+                      $ref: "#/definitions/business-dict"
+            """;
 
         // Verify that the result matches the expected output
         assertThat(result, is(expectedResult));

@@ -84,9 +84,9 @@ public class HTMLfromOXM extends OxmFileProcessor {
             .append(namespace).append(".aai.inventory/").append(v.toString())
             .append("\" xmlns:tns=\"http://").append(namespace).append(".aai.inventory/")
             .append(v.toString()).append("\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"")
-            .append(LINE_SEPARATOR).append("xmlns:jaxb=\"http://java.sun.com/xml/ns/jaxb\"")
-            .append(LINE_SEPARATOR).append("    jaxb:version=\"2.1\"").append(LINE_SEPARATOR)
-            .append("    xmlns:annox=\"http://annox.dev.java.net\"").append(LINE_SEPARATOR)
+            .append(LINE_SEPARATOR).append("xmlns:jaxb=\"https://jakarta.ee/xml/ns/jaxb\"")
+            .append(LINE_SEPARATOR).append("    jaxb:version=\"3.0\"").append(LINE_SEPARATOR)
+            .append("    xmlns:annox=\"urn:jaxb.jvnet.org:annox\"").append(LINE_SEPARATOR)
             .append("    jaxb:extensionBindingPrefixes=\"annox\">").append(DOUBLE_LINE_SEPARATOR);
         return sb.toString();
     }

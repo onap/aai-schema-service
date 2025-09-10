@@ -38,6 +38,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import ch.qos.logback.classic.LoggerContext;
+
 public class AutoGenerateHtml {
 
     private static Logger logger = LoggerFactory.getLogger(AutoGenerateHtml.class);
@@ -81,6 +83,10 @@ public class AutoGenerateHtml {
             }
         } catch (BeansException e) {
             logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
+        } finally {
+            // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed up build process
+            LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+            context.stop();
         }
 
         System.setProperty(AAI_GENERATE_VERSION, savedProperty);
