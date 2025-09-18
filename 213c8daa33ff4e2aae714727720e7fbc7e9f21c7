@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd3e9a34_a16104db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7849
+      },
+      "writtenOn": "2025-09-18T12:26:14Z",
+      "side": 1,
+      "message": "Can you adjust your commit message to:\n\n```\n1.13.1 release\n\n- update spring-boot (2.7 -\u003e 3.1)\n- adjust openapi file generation to be more compliant with the specs\n```\nplease?",
+      "revId": "213c8daa33ff4e2aae714727720e7fbc7e9f21c7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
