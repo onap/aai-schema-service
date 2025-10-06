@@ -54,13 +54,13 @@ public class SchemaLocationsBean {
     @Value("${schema.edges.location}")
     private String edgeDirectory;
 
-    @Value("${schema.nodes.inclusion.list:}#{T(java.util.Arrays).asList(\".*oxm(.*).xml\")}")
+    @Value("#{'${schema.nodes.inclusion.list:.*oxm(.*).xml}'.split(',')}")
     private List<String> nodesInclusionPattern;
 
     @Value("${schema.nodes.exclusion.list:}#{T(java.util.Collections).emptyList()}")
     private List<String> nodesExclusionPattern;
 
-    @Value("${schema.edges.inclusion.list:}#{T(java.util.Arrays).asList(\"DbEdgeRules_.*.json\")}")
+    @Value("#{'${schema.edges.inclusion.list:DbEdgeRules_.*.json}'.split(',')}")
     private List<String> edgesInclusionPattern;
 
     @Value("${schema.edges.exclusion.list:}#{T(java.util.Collections).emptyList()}")
