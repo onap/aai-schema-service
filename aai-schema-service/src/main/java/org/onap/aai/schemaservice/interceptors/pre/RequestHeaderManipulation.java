@@ -38,7 +38,7 @@ import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
 public class RequestHeaderManipulation extends AAIContainerFilter
     implements ContainerRequestFilter {
 
-    public static final Pattern EXTRACT_VERSION_PATTERN = Pattern.compile("^(v[1-9][0-9]*).*$");
+    private static final Pattern EXTRACT_VERSION_PATTERN = Pattern.compile("^(v[1-9]\\d{0,9}).*");
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
