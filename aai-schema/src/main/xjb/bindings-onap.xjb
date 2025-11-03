@@ -119,6 +119,11 @@
     </jaxb:bindings>
     <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v30">
         <jaxb:schemaBindings>
+            <jaxb:package name="org.onap.aai.domain.yang.v30"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    <jaxb:bindings scd="x-schema::a" xmlns:a="http://org.onap.aai.inventory/v31">
+        <jaxb:schemaBindings>
             <jaxb:package name="org.onap.aai.domain.yang"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
