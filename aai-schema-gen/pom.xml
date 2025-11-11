@@ -382,7 +382,7 @@
                                          files for the GraphNode changes.
                                          There is further work required to adjust this module to allow
                                          inheritance. -->
-                                    <skip>true</skip>
+                                    <!-- <skip>true</skip> -->
                                     <mainClass>org.onap.aai.schemagen.GenerateXsd</mainClass>
                                     <systemProperties>
                                         <systemProperty>
