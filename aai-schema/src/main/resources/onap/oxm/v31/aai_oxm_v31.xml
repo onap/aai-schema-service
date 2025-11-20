@@ -16175,7 +16175,7 @@
                         <xml-property name="description" value="Specifies the maximum packet size supported by the network slice or the network slice subnet in downlink."/>
                     </xml-properties>
                 </xml-element>
-				<xml-element java-attribute="nROperatingBands" name="nr-operating-bands" type="inventory.aai.onap.org.v31.NrOperatingBands">
+				<xml-element java-attribute="nrOperatingBands" name="nr-operating-bands" type="inventory.aai.onap.org.v31.NrOperatingBands">
                     <xml-properties>
                         <xml-property name="description" value="Represents which 5G NR frequency bands can be used to access the network slice."/>
                     </xml-properties>
