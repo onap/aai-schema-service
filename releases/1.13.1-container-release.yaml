@@ -1,5 +1,5 @@
 distribution_type: container
-container_release_tag: 1.13.0
+container_release_tag: 1.13.1
 project: aai/schema-service
 ref: 7d7b93b2ba4d902e9f996395e6d05f546be86a1c
 containers:
