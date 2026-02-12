@@ -22,10 +22,6 @@ package org.onap.aai.schemaservice.logging;
 
 import ch.qos.logback.access.jetty.RequestLogImpl;
 
-import java.util.Arrays;
-
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
@@ -39,26 +35,18 @@ public class LocalHostAccessLog {
 
     @Bean
     public AbstractServletWebServerFactory jettyConfigBean(
-        @Value("${jetty.threadPool.maxThreads:200}") final String maxThreads,
+        @Value("${jetty.threadPool.maxThreads:50}") final String maxThreads,
         @Value("${jetty.threadPool.minThreads:8}") final String minThreads) {
 
         JettyServletWebServerFactory jef = new JettyServletWebServerFactory();
         jef.addServerCustomizers((JettyServerCustomizer) server -> {
 
-            HandlerCollection handlers = new HandlerCollection();
-
-            Arrays.stream(server.getHandlers()).forEach(handlers::addHandler);
-
-            RequestLogHandler requestLogHandler = new RequestLogHandler();
-            requestLogHandler.setServer(server);
-
             RequestLogImpl requestLogImpl = new RequestLogImpl();
             requestLogImpl.setResource("/localhost-access-logback.xml");
             requestLogImpl.start();
 
-            requestLogHandler.setRequestLog(requestLogImpl);
-            handlers.addHandler(requestLogHandler);
-            server.setHandler(handlers);
+            // Set the custom request log
+            server.setRequestLog(requestLogImpl);
 
             final QueuedThreadPool threadPool = server.getBean(QueuedThreadPool.class);
             threadPool.setMaxThreads(Integer.valueOf(maxThreads));
