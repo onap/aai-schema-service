@@ -84,6 +84,41 @@
         </dependency>
     </dependencies>
     <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Only used by m2e (Eclipse/VS Code Java language server). Tells the IDE's
+                     incremental build NOT to run the jaxb-maven-plugin XJC code generation:
+                     it compiles all ~25 versioned XSDs into a single in-memory JAXB code model
+                     with -XtoString, which OOMs the language server JVM. The generated classes
+                     are only used at runtime via MOXy reflection and are not referenced by any
+                     hand-written source, so the IDE does not need them. This block is inert to
+                     command-line Maven, which still runs the generation normally. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jvnet.jaxb</groupId>
+                                        <artifactId>jaxb-maven-plugin</artifactId>
+                                        <versionRange>[0,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <!-- This plugin is advanced, well-documentated, currently maintained(supports JDK11, JDK17 and JDK21) and has no CVEs-->
              <!-- https://github.com/highsource/jaxb-tools -->
