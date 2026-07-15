@@ -35,6 +35,14 @@ public class DeleteOperation {
 
     public static HashMap<String, String> deletePaths = new HashMap<String, String>();
 
+    /**
+     * Clears the static deletePaths map. Called at the start of a generation run so that state
+     * does not leak across runs that share a JVM (e.g. the in-process exec:java profiles or tests).
+     */
+    public static void resetDeletePaths() {
+        deletePaths = new HashMap<String, String>();
+    }
+
     public DeleteOperation(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams) {
         super();

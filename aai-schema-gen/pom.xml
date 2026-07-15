@@ -37,6 +37,12 @@
         <aai.wiki.link>https://wiki.onap.org/</aai.wiki.link>
         <gendoc.version>v19</gendoc.version>
         <aai.release>onap</aai.release>
+        <!-- Max heap for each forked schema-generation JVM (XSD/YAML/HTML). Each phase runs in
+             its own short-lived JVM, so this caps generation memory instead of it accumulating in
+             the Maven process across all three phases. 1g comfortably fits the ~280 MB live set
+             plus young-gen headroom (avoiding GC thrash) while staying well under the >1.1 GB the
+             old single-JVM run ballooned to. Override with -Dschema.generation.jvm.maxmem=... . -->
+        <schema.generation.jvm.maxmem>1g</schema.generation.jvm.maxmem>
         <schema.uri.base.path>/aai</schema.uri.base.path>
         <schema.xsd.maxoccurs>5000</schema.xsd.maxoccurs>
         <schema.configuration.location>N/A</schema.configuration.location>
@@ -362,6 +368,20 @@
             </activation>
             <build>
                 <plugins>
+                    <!--
+                         Each generation step (XSD, YAML, HTML) is run in its OWN forked JVM
+                         (exec:exec, not exec:java) with a bounded heap. Previously all three ran
+                         in-process in the Maven JVM, so every version's cached OXM DOM / MOXy
+                         JAXBContext and all the short-lived generation garbage from all three
+                         phases accumulated in a single long-lived heap, driving peak memory well
+                         past 1 GB. Forking releases each phase's memory completely when its JVM
+                         exits and caps consumption at ${schema.generation.jvm.maxmem}.
+
+                         The forked JVM MUST run from the reactor root
+                         (${session.executionRootDirectory}); the generators derive their
+                         input/output paths from user.dir (checking for the "aai-schema-gen"
+                         directory name), which is what exec:java inherited from Maven. The
+                         <classpath/> element expands to this module's compile-scope classpath. -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
@@ -371,239 +391,104 @@
                                 <id>autoGenerateXsd</id>
                                 <phase>process-classes</phase>
                                 <goals>
-                                    <goal>java</goal>
+                                    <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <!-- skip true is a workaround to avoid overriding the schema
-                                    that
-                                         is defined in aai-schema/src/main/resources/onap/aai_schema
-                                         with the output of the GenerateXsd class.
-                                         This is done to avoid adjusting the aai-schema/.../onap/oxm
-                                         files for the GraphNode changes.
-                                         There is further work required to adjust this module to allow
-                                         inheritance. -->
-                                    <!-- <skip>true</skip> -->
-                                    <mainClass>org.onap.aai.schemagen.GenerateXsd</mainClass>
-                                    <systemProperties>
-                                        <systemProperty>
-                                            <key>gen_version</key>
-                                            <value>ALL</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>gen_type</key>
-                                            <value>XSD</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.xsd.maxoccurs</key>
-                                            <value>${schema.xsd.maxoccurs}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value></value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value></value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.configuration.location</key>
-                                            <value>${schema.configuration.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.nodes.location</key>
-                                            <value>${schema.nodes.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.edges.location</key>
-                                            <value>${schema.edges.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.list</key>
-                                            <value>${schema.version.list}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.related.link.start</key>
-                                            <value>${schema.version.related.link.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.app.root.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.edge.label.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.namespace.change.start</key>
-                                            <value>${schema.version.namespace.change.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.api.default</key>
-                                            <value>${schema.version.api.default}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.uri.base.path</key>
-                                            <value>${schema.uri.base.path}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>aai.release</key>
-                                            <value>${aai.release}</value>
-                                        </systemProperty>
-                                    </systemProperties>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <workingDirectory>${session.executionRootDirectory}</workingDirectory>
+                                    <classpathScope>compile</classpathScope>
+                                    <arguments>
+                                        <argument>-Xmx${schema.generation.jvm.maxmem}</argument>
+                                        <argument>-Dfile.encoding=UTF-8</argument>
+                                        <argument>-Dgen_version=ALL</argument>
+                                        <argument>-Dgen_type=XSD</argument>
+                                        <argument>-Dschema.xsd.maxoccurs=${schema.xsd.maxoccurs}</argument>
+                                        <argument>-Dyamlresponses_url=</argument>
+                                        <argument>-Dyamlresponses_label=</argument>
+                                        <argument>-Dschema.configuration.location=${schema.configuration.location}</argument>
+                                        <argument>-Dschema.nodes.location=${schema.nodes.location}</argument>
+                                        <argument>-Dschema.edges.location=${schema.edges.location}</argument>
+                                        <argument>-Dschema.version.list=${schema.version.list}</argument>
+                                        <argument>-Dschema.version.depth.start=${schema.version.depth.start}</argument>
+                                        <argument>-Dschema.version.related.link.start=${schema.version.related.link.start}</argument>
+                                        <argument>-Dschema.version.app.root.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.edge.label.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.namespace.change.start=${schema.version.namespace.change.start}</argument>
+                                        <argument>-Dschema.version.api.default=${schema.version.api.default}</argument>
+                                        <argument>-Dschema.uri.base.path=${schema.uri.base.path}</argument>
+                                        <argument>-Daai.release=${aai.release}</argument>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>org.onap.aai.schemagen.GenerateXsd</argument>
+                                    </arguments>
                                 </configuration>
                             </execution>
                             <execution>
                                 <id>autoGenerateYaml</id>
                                 <phase>process-classes</phase>
                                 <goals>
-                                    <goal>java</goal>
+                                    <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>org.onap.aai.schemagen.GenerateXsd</mainClass>
-                                    <systemProperties>
-                                        <systemProperty>
-                                            <key>gen_version</key>
-                                            <value>ALL</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>gen_type</key>
-                                            <value>YAML</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value>
-                                                https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
-                                            </value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value>Response codes are uniform across all endpoints.</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.configuration.location</key>
-                                            <value>${schema.configuration.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.nodes.location</key>
-                                            <value>${schema.nodes.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.edges.location</key>
-                                            <value>${schema.edges.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.list</key>
-                                            <value>${schema.version.list}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.related.link.start</key>
-                                            <value>${schema.version.related.link.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.app.root.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.edge.label.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.namespace.change.start</key>
-                                            <value>${schema.version.namespace.change.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.api.default</key>
-                                            <value>${schema.version.api.default}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>aai.release</key>
-                                            <value>${aai.release}</value>
-                                        </systemProperty>
-                                    </systemProperties>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <workingDirectory>${session.executionRootDirectory}</workingDirectory>
+                                    <classpathScope>compile</classpathScope>
+                                    <arguments>
+                                        <argument>-Xmx${schema.generation.jvm.maxmem}</argument>
+                                        <argument>-Dfile.encoding=UTF-8</argument>
+                                        <argument>-Dgen_version=ALL</argument>
+                                        <argument>-Dgen_type=YAML</argument>
+                                        <argument>-Dyamlresponses_url=https://wiki.web.att.com/pages/viewpage.action?pageId=607391054</argument>
+                                        <argument>-Dyamlresponses_label=Response codes are uniform across all endpoints.</argument>
+                                        <argument>-Dschema.configuration.location=${schema.configuration.location}</argument>
+                                        <argument>-Dschema.nodes.location=${schema.nodes.location}</argument>
+                                        <argument>-Dschema.edges.location=${schema.edges.location}</argument>
+                                        <argument>-Dschema.version.list=${schema.version.list}</argument>
+                                        <argument>-Dschema.version.depth.start=${schema.version.depth.start}</argument>
+                                        <argument>-Dschema.version.related.link.start=${schema.version.related.link.start}</argument>
+                                        <argument>-Dschema.version.app.root.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.edge.label.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.namespace.change.start=${schema.version.namespace.change.start}</argument>
+                                        <argument>-Dschema.version.api.default=${schema.version.api.default}</argument>
+                                        <argument>-Dschema.uri.base.path=${schema.uri.base.path}</argument>
+                                        <argument>-Daai.release=${aai.release}</argument>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>org.onap.aai.schemagen.GenerateXsd</argument>
+                                    </arguments>
                                 </configuration>
                             </execution>
                             <execution>
                                 <id>autoGenerateHtml</id>
                                 <phase>process-classes</phase>
                                 <goals>
-                                    <goal>java</goal>
+                                    <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>org.onap.aai.schemagen.AutoGenerateHtml</mainClass>
-                                    <systemProperties>
-                                        <property>
-                                            <key>aai.generate.version</key>
-                                            <value>${gendoc.version}</value>
-                                        </property>
-                                        <property>
-                                            <key>aai.wiki.link</key>
-                                            <value>${aai.wiki.link}</value>
-                                        </property>
-                                        <systemProperty>
-                                            <key>schema.configuration.location</key>
-                                            <value>${schema.configuration.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.nodes.location</key>
-                                            <value>${schema.nodes.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.edges.location</key>
-                                            <value>${schema.edges.location}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.list</key>
-                                            <value>${schema.version.list}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.depth.start</key>
-                                            <value>${schema.version.depth.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.related.link.start</key>
-                                            <value>${schema.version.related.link.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.app.root.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.edge.label.start</key>
-                                            <value>${schema.version.app.root.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.namespace.change.start</key>
-                                            <value>${schema.version.namespace.change.start}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>schema.version.api.default</key>
-                                            <value>${schema.version.api.default}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>aai.release</key>
-                                            <value>${aai.release}</value>
-                                        </systemProperty>
-                                    </systemProperties>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <workingDirectory>${session.executionRootDirectory}</workingDirectory>
+                                    <classpathScope>compile</classpathScope>
+                                    <arguments>
+                                        <argument>-Xmx${schema.generation.jvm.maxmem}</argument>
+                                        <argument>-Dfile.encoding=UTF-8</argument>
+                                        <argument>-Daai.generate.version=${gendoc.version}</argument>
+                                        <argument>-Daai.wiki.link=${aai.wiki.link}</argument>
+                                        <argument>-Dschema.configuration.location=${schema.configuration.location}</argument>
+                                        <argument>-Dschema.nodes.location=${schema.nodes.location}</argument>
+                                        <argument>-Dschema.edges.location=${schema.edges.location}</argument>
+                                        <argument>-Dschema.version.list=${schema.version.list}</argument>
+                                        <argument>-Dschema.version.depth.start=${schema.version.depth.start}</argument>
+                                        <argument>-Dschema.version.related.link.start=${schema.version.related.link.start}</argument>
+                                        <argument>-Dschema.version.app.root.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.edge.label.start=${schema.version.app.root.start}</argument>
+                                        <argument>-Dschema.version.namespace.change.start=${schema.version.namespace.change.start}</argument>
+                                        <argument>-Dschema.version.api.default=${schema.version.api.default}</argument>
+                                        <argument>-Dschema.uri.base.path=${schema.uri.base.path}</argument>
+                                        <argument>-Daai.release=${aai.release}</argument>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>org.onap.aai.schemagen.AutoGenerateHtml</argument>
+                                    </arguments>
                                 </configuration>
                             </execution>
                         </executions>

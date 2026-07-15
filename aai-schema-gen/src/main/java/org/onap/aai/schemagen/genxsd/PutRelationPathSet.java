@@ -48,6 +48,14 @@ public class PutRelationPathSet {
         putRelationPaths.put(useOpId, path);
     }
 
+    /**
+     * Clears the static putRelationPaths map. Called at the start of a generation run so that state
+     * does not leak across runs that share a JVM (e.g. the in-process exec:java profiles or tests).
+     */
+    public static void resetPutRelationPaths() {
+        putRelationPaths = new HashMap<String, String>();
+    }
+
     String apiPath;
     String opId;
     SchemaVersion version;

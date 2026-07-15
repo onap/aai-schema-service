@@ -35,6 +35,14 @@ public class GetOperation {
         containers.put(container, containerProps);;
     }
 
+    /**
+     * Clears the static container map. Called at the start of a generation run so that state does
+     * not leak across runs that share a JVM (e.g. the in-process exec:java profiles or tests).
+     */
+    public static void resetContainers() {
+        containers = new HashMap<String, Vector<String>>();
+    }
+
     private String useOpId;
     private String xmlRootElementName;
     private String tag;

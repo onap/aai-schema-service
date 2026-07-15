@@ -33,8 +33,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.onap.aai.schemagen.genxsd.DeleteOperation;
+import org.onap.aai.schemagen.genxsd.GetOperation;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
+import org.onap.aai.schemagen.genxsd.NodeGetOperation;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
+import org.onap.aai.schemagen.genxsd.PutRelationPathSet;
 import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
@@ -154,6 +158,14 @@ public class GenerateXsd {
         } else {
             fileTypeToGen = fileTypeToGen.toLowerCase();
         }
+
+        // Clear static accumulator maps up front so a JVM that is reused across generation runs
+        // (the in-process exec:java profiles, or unit tests) starts from a clean slate rather than
+        // inheriting the previous run's paths.
+        DeleteOperation.resetDeletePaths();
+        PutRelationPathSet.resetPutRelationPaths();
+        GetOperation.resetContainers();
+        NodeGetOperation.resetContainers();
 
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
             "org.onap.aai.setup", "org.onap.aai.schemagen")) {
