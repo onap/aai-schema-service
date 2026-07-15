@@ -23,7 +23,6 @@ package org.onap.aai.schemagen.genxsd;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
 public class DeleteOperation {
@@ -50,16 +49,16 @@ public class DeleteOperation {
         StringTokenizer st;
         st = new StringTokenizer(path, "/");
         // a valid tag is necessary
-        if (StringUtils.isEmpty(tag)) {
+        if (OperationFilter.hasNoTag(tag)) {
             return "";
         }
-        if (path.contains("/relationship/")) { // filter paths with relationship-list
+        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
             return "";
         }
-        if (path.endsWith("/relationship-list")) {
+        if (OperationFilter.isRelationshipListPath(path)) {
             return "";
         }
-        if (path.startsWith("/search")) {
+        if (OperationFilter.isSearchPath(path)) {
             return "";
         }
         // All Delete operation paths end with "relationship"
@@ -99,14 +98,27 @@ public class DeleteOperation {
             pathSb.append("          required: true\n");
             pathSb.append("          type: string\n");
         }
-        this.objectPathMapEntry();
         return pathSb.toString();
     }
 
-    public String objectPathMapEntry() {
+    /**
+     * Registers this operation's path in the shared {@link #deletePaths} map (unless it is a
+     * relationship endpoint). Kept separate from {@link #toString()} so that rendering is free of
+     * side effects; call this once, after the operation has been emitted.
+     */
+    public void register() {
         if (!path.endsWith("/relationship")) {
             deletePaths.put(path, xmlRootElementName);
         }
+    }
+
+    /**
+     * @deprecated retained for backwards compatibility; use {@link #register()} instead. The return
+     *             value is never used by callers.
+     */
+    @Deprecated
+    public String objectPathMapEntry() {
+        register();
         return (xmlRootElementName + ":" + path);
     }
 }

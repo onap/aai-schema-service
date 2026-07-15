@@ -74,19 +74,19 @@ public class GetOperation {
          * }
          */
         // a valid tag is necessary
-        if (StringUtils.isEmpty(tag)) {
+        if (OperationFilter.hasNoTag(tag)) {
             return "";
         }
         if (path.endsWith("/relationship")) {
             return "";
         }
-        if (path.contains("/relationship/")) { // filter paths with relationship-list
+        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
             return "";
         }
-        if (path.endsWith("/relationship-list")) {
+        if (OperationFilter.isRelationshipListPath(path)) {
             return "";
         }
-        if (path.startsWith("/search")) {
+        if (OperationFilter.isSearchPath(path)) {
             return "";
         }
         StringBuilder pathSb = new StringBuilder();

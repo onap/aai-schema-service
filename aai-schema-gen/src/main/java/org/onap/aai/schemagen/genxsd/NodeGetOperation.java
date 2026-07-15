@@ -97,19 +97,20 @@ public class NodeGetOperation {
          * }
          */
         // a valid tag is necessary
-        if (StringUtils.isEmpty(tag)) {
+        if (OperationFilter.hasNoTag(tag)) {
             return "";
         }
         if (CRUDpath.endsWith("/relationship")) {
             return "";
         }
-        if (CRUDpath.contains("/relationship/")) { // filter paths with relationship-list
+        if (OperationFilter.isRelationshipChildPath(CRUDpath)) { // filter paths with
+                                                                 // relationship-list
             return "";
         }
-        if (CRUDpath.endsWith("/relationship-list")) {
+        if (OperationFilter.isRelationshipListPath(CRUDpath)) {
             return "";
         }
-        if (CRUDpath.startsWith("/search")) {
+        if (OperationFilter.isSearchPath(CRUDpath)) {
             return "";
         }
         if (CRUDpath.startsWith("/actions")) {

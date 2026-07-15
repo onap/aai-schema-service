@@ -518,7 +518,13 @@ public class YAMLfromOXM extends OxmFileProcessor {
         // add PUT
         PutOperation put = new PutOperation(useOpId, xmlRootElementName, tag, path,
             pathParams == null ? "" : pathParams.toString(), this.v, this.basePath);
-        pathSb.append(put);
+        String putStr = put.toString();
+        pathSb.append(putStr);
+        // register the relationship path only when the operation was actually emitted, mirroring
+        // the original placement of the registration at the tail of PutOperation.toString()
+        if (!putStr.isEmpty()) {
+            put.register();
+        }
         // add PATCH
         PatchOperation patch = new PatchOperation(useOpId, xmlRootElementName, tag, path,
             pathParams == null ? "" : pathParams.toString(), this.v, this.basePath);
@@ -527,7 +533,13 @@ public class YAMLfromOXM extends OxmFileProcessor {
         // add DELETE
         DeleteOperation del = new DeleteOperation(useOpId, xmlRootElementName, tag, path,
             pathParams == null ? "" : pathParams.toString());
-        pathSb.append(del);
+        String delStr = del.toString();
+        pathSb.append(delStr);
+        // register the delete path only when the operation was actually emitted, mirroring the
+        // original placement of the registration at the tail of DeleteOperation.toString()
+        if (!delStr.isEmpty()) {
+            del.register();
+        }
         if (generatedJavaType.containsKey(xmlRootElementName)) {
             logger.debug("xmlRootElementName(1)=" + xmlRootElementName);
             return null;

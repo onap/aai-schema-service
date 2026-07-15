@@ -270,28 +270,7 @@ public class XSDElement implements Element {
                 .append("\n");
         }
         sbParameter.append(("          required: false\n"));
-        if (("java.lang.String").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: string\n");
-        }
-        if (("java.lang.Long").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: integer\n");
-            sbParameter.append("          format: int64\n");
-        }
-        if (("java.lang.Integer").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: integer\n");
-            sbParameter.append("          format: int32\n");
-        }
-        if (("java.lang.Float").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: number\n");
-            sbParameter.append("          format: float\n");
-        }
-        if (("java.lang.Double").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: number\n");
-            sbParameter.append("          format: double\n");
-        }
-        if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: boolean\n");
-        }
+        appendParameterType(sbParameter);
         return sbParameter.toString();
     }
 
@@ -311,29 +290,57 @@ public class XSDElement implements Element {
             sbParameter.append("          description: ").append(elementDescription).append("\n");
         }
         sbParameter.append(("          required: true\n"));
-        if (("java.lang.String").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: string\n");
-        }
-        if (("java.lang.Long").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: integer\n");
-            sbParameter.append("          format: int64\n");
-        }
-        if (("java.lang.Integer").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: integer\n");
-            sbParameter.append("          format: int32\n");
-        }
-        if (("java.lang.Float").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: number\n");
-            sbParameter.append("          format: float\n");
-        }
-        if (("java.lang.Double").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: number\n");
-            sbParameter.append("          format: double\n");
-        }
-        if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
-            sbParameter.append("          type: boolean\n");
-        }
+        appendParameterType(sbParameter);
         return sbParameter.toString();
+    }
+
+    /**
+     * The swagger {@code type} and (optional) {@code format} for a Java primitive-wrapper type.
+     * Single source of truth for the mapping that was previously spelled out in
+     * {@link #getQueryParamYAML()}, {@link #getPathParamYAML(String, String)} and
+     * {@link #getTypePropertyYAML(boolean)}.
+     */
+    private record SwaggerType(String type, String format) {
+    }
+
+    /**
+     * Maps a Java type name to its swagger type/format, or {@code null} for a non-standard type
+     * (mirroring {@link #isStandardType()} — callers emit nothing for a non-standard type).
+     */
+    private static SwaggerType swaggerTypeFor(String javaType) {
+        switch (javaType) {
+            case "java.lang.String":
+                return new SwaggerType("string", null);
+            case "java.lang.Long":
+                return new SwaggerType("integer", "int64");
+            case "java.lang.Integer":
+                return new SwaggerType("integer", "int32");
+            case "java.lang.Float":
+                return new SwaggerType("number", "float");
+            case "java.lang.Double":
+                return new SwaggerType("number", "double");
+            case "java.lang.Boolean":
+                return new SwaggerType("boolean", null);
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Appends the swagger {@code type}/{@code format} lines for a path or query parameter, indented
+     * to the parameter level (10 spaces). Shared by {@link #getQueryParamYAML()} and
+     * {@link #getPathParamYAML(String, String)}, which previously duplicated this mapping verbatim.
+     * Non-standard types append nothing, exactly as before.
+     */
+    private void appendParameterType(StringBuilder sb) {
+        SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
+        if (swaggerType == null) {
+            return;
+        }
+        sb.append("          type: ").append(swaggerType.type()).append("\n");
+        if (swaggerType.format() != null) {
+            sb.append("          format: ").append(swaggerType.format()).append("\n");
+        }
     }
 
     public String getHTMLElement(SchemaVersion v, boolean useAnnotation, HTMLfromOXM driver) {
@@ -481,22 +488,12 @@ public class XSDElement implements Element {
         sbProperties.append("      ").append(this.getAttribute("name")).append(":\n");
         sbProperties.append("        type: ");
 
-        if (("java.lang.String").equals(this.getAttribute("type"))) {
-            sbProperties.append("string\n");
-        } else if (("java.lang.Long").equals(this.getAttribute("type"))) {
-            sbProperties.append("integer\n");
-            sbProperties.append("        format: int64\n");
-        } else if (("java.lang.Integer").equals(this.getAttribute("type"))) {
-            sbProperties.append("integer\n");
-            sbProperties.append("        format: int32\n");
-        } else if (("java.lang.Float").equals(this.getAttribute("type"))) {
-            sbProperties.append("number\n");
-            sbProperties.append("        format: float\n");
-        } else if (("java.lang.Double").equals(this.getAttribute("type"))) {
-            sbProperties.append("number\n");
-            sbProperties.append("        format: double\n");
-        } else if (("java.lang.Boolean").equals(this.getAttribute("type"))) {
-            sbProperties.append("boolean\n");
+        SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
+        if (swaggerType != null) {
+            sbProperties.append(swaggerType.type()).append("\n");
+            if (swaggerType.format() != null) {
+                sbProperties.append("        format: ").append(swaggerType.format()).append("\n");
+            }
         }
         String attrDescription = this.getPathDescriptionProperty();
         if (attrDescription != null && attrDescription.length() > 0) {

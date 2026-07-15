@@ -22,7 +22,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 import org.onap.aai.setup.SchemaVersion;
 
@@ -51,22 +50,22 @@ public class PutOperation {
     @Override
     public String toString() {
         // a valid tag is necessary
-        if (StringUtils.isEmpty(tag)) {
+        if (OperationFilter.hasNoTag(tag)) {
             return "";
         }
         // All Put operation paths end with "relationship"
         // or there is a parameter at the end of the path
         // and there is a parameter in the path
-        if (path.contains("/" + RELATIONSHIP + "/")) { // filter paths with relationship-list
+        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
             return "";
         }
-        if (path.endsWith("/" + RELATIONSHIP + "-list")) {
+        if (OperationFilter.isRelationshipListPath(path)) {
             return "";
         }
         if (!path.endsWith("/" + RELATIONSHIP) && !path.endsWith("}")) {
             return "";
         }
-        if (path.startsWith("/search")) {
+        if (OperationFilter.isSearchPath(path)) {
             return "";
         }
         StringBuilder pathSb = new StringBuilder();
@@ -115,14 +114,27 @@ public class PutOperation {
             useElement += "-dict";
         }
         pathSb.append("            $ref: \"#/definitions/").append(useElement).append("\"\n");
-        this.tagRelationshipPathMapEntry();
         return pathSb.toString();
     }
 
-    public String tagRelationshipPathMapEntry() {
+    /**
+     * Registers this operation's relationship path in the shared {@link PutRelationPathSet} when the
+     * path is a relationship endpoint. Kept separate from {@link #toString()} so that rendering is
+     * free of side effects; call this once, after the operation has been emitted.
+     */
+    public void register() {
         if (path.endsWith("/" + RELATIONSHIP)) {
             PutRelationPathSet.add(useOpId, path);
         }
+    }
+
+    /**
+     * @deprecated retained for backwards compatibility; use {@link #register()} instead. The return
+     *             value was always the empty string and is never used by callers.
+     */
+    @Deprecated
+    public String tagRelationshipPathMapEntry() {
+        register();
         return "";
     }
 
