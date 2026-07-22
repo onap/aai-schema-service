@@ -22,21 +22,17 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.onap.aai.setup.SchemaVersion;
-
-import java.util.Arrays;
-import java.util.Collection;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PutOperationTest {
     private static SchemaVersion v = new SchemaVersion("v14");
@@ -120,6 +116,49 @@ public class PutOperationTest {
         PutOperation put = new PutOperation("useOpId", "xmlRootElementName", "tag", "/search/query", "pathParams", v, "/aai");
         String result = put.toString();
         assertThat(result, is("")); // Should return empty string for path starting with "/search"
+    }
+
+    @BeforeEach
+    public void clearPutRelationPaths() {
+        // the map is static and shared; isolate each register() assertion
+        PutRelationPathSet.putRelationPaths.clear();
+    }
+
+    @Test
+    public void testRegisterAddsRelationshipPath() {
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
+            "Network", path, "", v, "/aai");
+        put.register();
+        assertEquals(path, PutRelationPathSet.putRelationPaths.get("NetworkGenericVnfsGenericVnf"));
+    }
+
+    @Test
+    public void testRegisterIgnoresNonRelationshipPath() {
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
+            "/network/generic-vnfs/generic-vnf/{vnf-id}", "", v, "/aai");
+        put.register();
+        assertTrue(PutRelationPathSet.putRelationPaths.isEmpty());
+    }
+
+    @Test
+    public void testToStringDoesNotRegister() {
+        // toString() must be free of side effects; registration only happens via register()
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
+            "Network", path, "", v, "/aai");
+        put.toString();
+        assertTrue(PutRelationPathSet.putRelationPaths.isEmpty());
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
+    public void testDeprecatedShimStillRegisters() {
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
+            "Network", path, "", v, "/aai");
+        assertEquals("", put.tagRelationshipPathMapEntry());
+        assertEquals(path, PutRelationPathSet.putRelationPaths.get("NetworkGenericVnfsGenericVnf"));
     }
 
 }
