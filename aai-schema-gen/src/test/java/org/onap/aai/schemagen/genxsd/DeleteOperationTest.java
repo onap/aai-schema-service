@@ -20,12 +20,16 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeleteOperationTest {
 
@@ -71,6 +75,49 @@ public class DeleteOperationTest {
             new DeleteOperation(useOpId, xmlRootElementName, tag, path, pathParams);
         String modResult = delete.toString();
         assertThat(modResult, is(expectedResult));
+    }
+
+    @BeforeEach
+    public void clearDeletePaths() {
+        // the map is static and shared; isolate each register() assertion
+        DeleteOperation.deletePaths.clear();
+    }
+
+    @Test
+    public void testRegisterAddsObjectPath() {
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}";
+        DeleteOperation delete =
+            new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
+        delete.register();
+        assertEquals("generic-vnf", DeleteOperation.deletePaths.get(path));
+    }
+
+    @Test
+    public void testRegisterIgnoresRelationshipPath() {
+        DeleteOperation delete = new DeleteOperation("TestPathEndsWithRelationship", "relationship",
+            "Service", "/service/xyz/relationship", "");
+        delete.register();
+        assertTrue(DeleteOperation.deletePaths.isEmpty());
+    }
+
+    @Test
+    public void testToStringDoesNotRegister() {
+        // toString() must be free of side effects; registration only happens via register()
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}";
+        DeleteOperation delete =
+            new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
+        delete.toString();
+        assertTrue(DeleteOperation.deletePaths.isEmpty());
+    }
+
+    @Test
+    @SuppressWarnings("deprecation")
+    public void testDeprecatedShimStillRegisters() {
+        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}";
+        DeleteOperation delete =
+            new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
+        assertEquals("generic-vnf:" + path, delete.objectPathMapEntry());
+        assertEquals("generic-vnf", DeleteOperation.deletePaths.get(path));
     }
 
 }
