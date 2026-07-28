@@ -43,6 +43,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.yaml.snakeyaml.Yaml;
 import lombok.SneakyThrows;
 
 import java.io.BufferedWriter;
@@ -57,6 +58,7 @@ import java.nio.file.Path;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -169,6 +171,37 @@ public class YAMLfromOXMTest {
             e.printStackTrace();
         }
         assertThat("FileContent-TestProcess:\n" + fileContent, fileContent, is(YAMLresult()));
+    }
+
+    /**
+     * The swagger definitions of an OXM that declares constraint facets carry the matching
+     * validation keywords. All six are Swagger 2.0 keywords, so no vendor extension is involved.
+     */
+    @Test
+    public void testProcessWithConstraintFacets() throws Exception {
+        XSDElementTest x = new XSDElementTest();
+        x.setUpWithFacets();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
+        yamlFromOxm.setXmlVersion(x.testXML, v);
+        String fileContent = yamlFromOxm.process();
+
+        assertNotNull(fileContent);
+        // the facets sit between type/format and description, in declaration order
+        assertThat(fileContent, containsString("      global-customer-id:\n"
+            + "        type: string\n" + "        minLength: 1\n" + "        maxLength: 36\n"
+            + "        pattern: '^[A-Za-z0-9-]+$'\n"
+            + "        description: Global customer id used across to uniquely identify customer.\n"));
+        // allowedValues becomes a swagger enum
+        assertThat(fileContent, containsString("      subscriber-type:\n" + "        type: string\n"
+            + "        enum:\n" + "        - CUST\n" + "        - INFRA\n"));
+        // numeric facets keep the format line ahead of them
+        assertThat(fileContent, containsString("      customer-rank:\n" + "        type: integer\n"
+            + "        format: int32\n" + "        minimum: 0\n" + "        maximum: 100\n"));
+        // a property without facets is untouched
+        assertThat(fileContent, containsString("      subscriber-name:\n" + "        type: string\n"
+            + "        description: Subscriber name, an alternate way to retrieve a customer.\n"));
+        // and the definitions block, which is what the facets are emitted into, parses as YAML
+        assertNotNull(new Yaml().load(fileContent.substring(fileContent.indexOf("definitions:"))));
     }
 
     @Test

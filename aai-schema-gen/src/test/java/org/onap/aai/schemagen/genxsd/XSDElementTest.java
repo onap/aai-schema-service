@@ -98,6 +98,25 @@ public class XSDElementTest {
         init();
     }
 
+    /**
+     * The same OXM as {@code setUp(0)} except that {@code Customer} carries constraint facets, so
+     * the generators can be exercised end to end on an input that declares them. No shipped OXM
+     * version declares any facet, which is why the generated artefacts are unchanged by this
+     * vocabulary until an OXM opts in.
+     */
+    public void setUpWithFacets() throws Exception {
+        StringBuilder sb = new StringBuilder(maxSizeForXml);
+        addNamespace(sb);
+        addBusiness(sb);
+        addCustomers(sb);
+        addCustomerWithFacets(sb);
+        addServiceSubscriptions(sb);
+        addServiceSubscription(sb);
+        addEndOfXML(sb);
+        testXML = sb.toString();
+        init();
+    }
+
     public void setUpRelationship() throws Exception {
         StringBuilder sb = new StringBuilder(maxSizeForXml);
         addNamespaceNoInventory(sb);
@@ -203,6 +222,74 @@ public class XSDElementTest {
             "<xml-element java-attribute=\"serviceSubscriptions\" name=\"service-subscriptions\" type=\"inventory.aai.onap.org.v11.ServiceSubscriptions\" />\n");
         // sb.append("<xml-element java-attribute=\"relationshipList\" name=\"relationship-list\"
         // type=\"inventory.aai.onap.org.v11.RelationshipList\" />\n");
+        sb.append("</java-attributes>\n");
+        sb.append("<xml-properties>\n");
+        sb.append(
+            "<xml-property name=\"description\" value=\"customer identifiers to provide linkage back to BSS information.\" />\n");
+        sb.append("<xml-property name=\"nameProps\" value=\"subscriber-name\" />\n");
+        sb.append(
+            "<xml-property name=\"indexedProps\" value=\"subscriber-name,global-customer-id,subscriber-type\" />\n");
+        sb.append(
+            "<xml-property name=\"searchable\" value=\"global-customer-id,subscriber-name\" />\n");
+        sb.append("<xml-property name=\"uniqueProps\" value=\"global-customer-id\" />\n");
+        sb.append("<xml-property name=\"container\" value=\"customers\" />\n");
+        sb.append("<xml-property name=\"namespace\" value=\"business\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</java-type>\n");
+    }
+
+    private void addCustomerWithFacets(StringBuilder sb) {
+        sb.append("<java-type name=\"Customer\">\n");
+        sb.append("<xml-root-element name=\"customer\" />\n");
+        sb.append("<java-attributes>\n");
+        sb.append(
+            "<xml-element java-attribute=\"globalCustomerId\" name=\"global-customer-id\" required=\"true\" type=\"java.lang.String\" xml-key=\"true\">\n");
+        sb.append("<xml-properties>\n");
+        sb.append(
+            "<xml-property name=\"description\" value=\"Global customer id used across to uniquely identify customer.\" />\n");
+        sb.append("<xml-property name=\"minLength\" value=\"1\" />\n");
+        sb.append("<xml-property name=\"maxLength\" value=\"36\" />\n");
+        sb.append("<xml-property name=\"pattern\" value=\"^[A-Za-z0-9-]+$\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        sb.append(
+            "<xml-element java-attribute=\"subscriberName\" name=\"subscriber-name\" required=\"true\" type=\"java.lang.String\">\n");
+        sb.append("<xml-properties>\n");
+        sb.append(
+            "<xml-property name=\"description\" value=\"Subscriber name, an alternate way to retrieve a customer.\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        sb.append(
+            "<xml-element java-attribute=\"subscriberType\" name=\"subscriber-type\" required=\"true\" type=\"java.lang.String\">\n");
+        sb.append("<xml-properties>\n");
+        sb.append(
+            "<xml-property name=\"description\" value=\"Subscriber type, a way to provide VID with only the INFRA customers.\" />\n");
+        sb.append("<xml-property name=\"defaultValue\" value=\"CUST\" />\n");
+        sb.append("<xml-property name=\"allowedValues\" value=\"CUST,INFRA\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        sb.append(
+            "<xml-element java-attribute=\"customerRank\" name=\"customer-rank\" type=\"java.lang.Integer\">\n");
+        sb.append("<xml-properties>\n");
+        sb.append("<xml-property name=\"description\" value=\"Rank of the customer.\" />\n");
+        sb.append("<xml-property name=\"minimum\" value=\"0\" />\n");
+        sb.append("<xml-property name=\"maximum\" value=\"100\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        sb.append(
+            "<xml-element java-attribute=\"resourceVersion\" name=\"resource-version\" type=\"java.lang.String\">\n");
+        sb.append("<xml-properties>\n");
+        sb.append(
+            "<xml-property name=\"description\" value=\"Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        sb.append(
+            "<xml-element java-attribute=\"serviceSubscriptions\" name=\"service-subscriptions\" type=\"inventory.aai.onap.org.v11.ServiceSubscriptions\">\n");
+        sb.append("<xml-properties>\n");
+        // a facet on a reference to another node type has nothing to restrict and is ignored
+        sb.append("<xml-property name=\"maxLength\" value=\"10\" />\n");
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
         sb.append("</java-attributes>\n");
         sb.append("<xml-properties>\n");
         sb.append(
@@ -2178,4 +2265,246 @@ public class XSDElementTest {
         assertEquals(expectedYAML, result);
     }
 
+
+    /**
+     * Parses a single {@code <xml-element>} carrying the given constraint facet
+     * {@code <xml-property>} entries, so the facet readers see the same DOM shape a real OXM file
+     * produces (facet properties are looked up relative to their own element).
+     */
+    private XSDElement facetElement(String type, String... facetNameValuePairs) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<xml-element java-attribute=\"prop\" name=\"property-name\" type=\"")
+            .append(type).append("\">\n");
+        sb.append("<xml-properties>\n");
+        for (int i = 0; i < facetNameValuePairs.length; i += 2) {
+            sb.append("<xml-property name=\"").append(facetNameValuePairs[i]).append("\" value=\"")
+                .append(facetNameValuePairs[i + 1]).append("\" />\n");
+        }
+        sb.append("</xml-properties>\n");
+        sb.append("</xml-element>\n");
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        Document facetDoc =
+            dbFactory.newDocumentBuilder().parse(new InputSource(new StringReader(sb.toString())));
+        return new XSDElement(facetDoc.getDocumentElement(), "unbounded");
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withStringFacets() throws Exception {
+        XSDElement element = facetElement("java.lang.String", "minLength", "1", "maxLength", "64",
+            "pattern", "^[0-9]{3}$");
+
+        String expectedYAML = """
+                  property-name:
+                    type: string
+                    minLength: 1
+                    maxLength: 64
+                    pattern: '^[0-9]{3}$'
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withAllowedValuesBecomesEnum() throws Exception {
+        XSDElement element = facetElement("java.lang.String", "allowedValues",
+            "in-service-path, planned ,, provisioned");
+
+        String expectedYAML = """
+                  property-name:
+                    type: string
+                    enum:
+                    - in-service-path
+                    - planned
+                    - provisioned
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_withNumericFacets() throws Exception {
+        XSDElement element = facetElement("java.lang.Integer", "minimum", "0", "maximum", "65535");
+
+        String expectedYAML = """
+                  property-name:
+                    type: integer
+                    format: int32
+                    minimum: 0
+                    maximum: 65535
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_facetsPrecedeDescription() throws Exception {
+        XSDElement element = facetElement("java.lang.String", "maxLength", "8", "description",
+            "Mobile country code.");
+
+        String expectedYAML = """
+                  property-name:
+                    type: string
+                    maxLength: 8
+                    description: Mobile country code.
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_patternSingleQuoteIsDoubled() throws Exception {
+        XSDElement element = facetElement("java.lang.String", "pattern", "^[^']+$");
+
+        assertThat(element.getTypePropertyYAML(false), containsString("pattern: '^[^'']+$'\n"));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_facetNotLegalForTypeIsSkipped() throws Exception {
+        // minLength/pattern are string-only, minimum/maximum are numeric-only
+        XSDElement numeric =
+            facetElement("java.lang.Long", "minLength", "1", "pattern", "^\\d+$", "minimum", "1");
+        String numericYAML = numeric.getTypePropertyYAML(false);
+        assertThat(numericYAML, containsString("minimum: 1"));
+        assertThat(numericYAML, not(containsString("minLength")));
+        assertThat(numericYAML, not(containsString("pattern")));
+
+        XSDElement string =
+            facetElement("java.lang.String", "minimum", "1", "maximum", "9", "maxLength", "9");
+        String stringYAML = string.getTypePropertyYAML(false);
+        assertThat(stringYAML, containsString("maxLength: 9"));
+        assertThat(stringYAML, not(containsString("minimum")));
+        assertThat(stringYAML, not(containsString("maximum")));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_booleanTakesNoFacets() throws Exception {
+        XSDElement element = facetElement("java.lang.Boolean", "minLength", "1", "minimum", "0",
+            "allowedValues", "true,false");
+
+        String expectedYAML = """
+                  property-name:
+                    type: boolean
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetTypePropertyYAML_emptyFacetValueIsIgnored() throws Exception {
+        XSDElement element = facetElement("java.lang.String", "pattern", "", "maxLength", "3");
+
+        String expectedYAML = """
+                  property-name:
+                    type: string
+                    maxLength: 3
+            """;
+
+        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+    }
+
+    @Test
+    public void testGetHTMLElement_withFacetsEmitsInlineRestriction() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = facetElement("java.lang.String", "minLength", "3", "maxLength", "3",
+            "pattern", "^[0-9]{3}$");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        // an xs:element cannot carry a type attribute and an inline xs:simpleType at the same time
+        assertThat(actual, not(containsString("type=\"xs:string\"")));
+        assertThat(actual, containsString("<xs:element name=\"property-name\" minOccurs=\"0\">"));
+        assertThat(actual, containsString("<xs:simpleType>"));
+        assertThat(actual, containsString("<xs:restriction base=\"xs:string\">"));
+        assertThat(actual, containsString("<xs:minLength value=\"3\"/>"));
+        assertThat(actual, containsString("<xs:maxLength value=\"3\"/>"));
+        assertThat(actual, containsString("<xs:pattern value=\"^[0-9]{3}$\"/>"));
+        assertThat(actual, containsString("</xs:restriction>"));
+        assertThat(actual, containsString("</xs:simpleType>"));
+        assertThat(actual, containsString("</xs:element>"));
+    }
+
+    @Test
+    public void testGetHTMLElement_annotationPrecedesSimpleType() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = facetElement("java.lang.String", "description", "Mobile country code.",
+            "maxLength", "3");
+
+        String actual = element.getHTMLElement(schemaVersion, true, htmlDriver);
+
+        // the content model of xs:element is ordered: xs:annotation has to come first
+        assertThat(actual, containsString("<xs:annotation>"));
+        assertTrue(actual.indexOf("</xs:annotation>") < actual.indexOf("<xs:simpleType>"),
+            "xs:annotation must precede xs:simpleType, got:\n" + actual);
+    }
+
+    @Test
+    public void testGetHTMLElement_numericFacetsUseInclusiveBounds() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = facetElement("java.lang.Integer", "minimum", "0", "maximum", "65535");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual, not(containsString("type=\"xs:int\"")));
+        assertThat(actual, containsString("<xs:restriction base=\"xs:int\">"));
+        assertThat(actual, containsString("<xs:minInclusive value=\"0\"/>"));
+        assertThat(actual, containsString("<xs:maxInclusive value=\"65535\"/>"));
+    }
+
+    @Test
+    public void testGetHTMLElement_allowedValuesBecomeEnumerations() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element =
+            facetElement("java.lang.String", "allowedValues", "planned, provisioned");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual, containsString("<xs:enumeration value=\"planned\"/>"));
+        assertThat(actual, containsString("<xs:enumeration value=\"provisioned\"/>"));
+    }
+
+    @Test
+    public void testGetHTMLElement_facetValueIsXmlAttributeEscaped() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        // a pattern is the facet most likely to contain markup significant characters
+        XSDElement element = facetElement("java.lang.String", "pattern", "^[a-z&amp;&lt;&quot;]+$");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual, containsString("<xs:pattern value=\"^[a-z&amp;&lt;&quot;]+$\"/>"));
+    }
+
+    @Test
+    public void testGetHTMLElement_facetsOnNodeTypeReferenceAreIgnored() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("service-subscriptions");
+        XSDElement element = facetElement("inventory.aai.onap.org.v11.ServiceSubscriptions",
+            "maxLength", "3", "pattern", "^[0-9]+$");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual,
+            containsString("<xs:element ref=\"tns:service-subscriptions\" minOccurs=\"0\"/>"));
+        assertThat(actual, not(containsString("xs:simpleType")));
+        assertThat(actual, not(containsString("xs:maxLength")));
+    }
+
+    @Test
+    public void testGetHTMLElement_withoutFacetsKeepsTypeAttribute() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = facetElement("java.lang.String", "description", "no facets here");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual, containsString(
+            "<xs:element name=\"property-name\" type=\"xs:string\" minOccurs=\"0\"/>"));
+        assertThat(actual, not(containsString("xs:simpleType")));
+    }
 }

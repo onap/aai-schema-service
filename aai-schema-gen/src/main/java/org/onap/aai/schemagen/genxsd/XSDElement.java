@@ -23,12 +23,18 @@ package org.onap.aai.schemagen.genxsd;
 import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.setup.SchemaVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -40,6 +46,8 @@ import org.w3c.dom.TypeInfo;
 import org.w3c.dom.UserDataHandler;
 
 public class XSDElement implements Element {
+    private static final Logger logger = LoggerFactory.getLogger(XSDElement.class);
+
     Element xmlElementElement;
     String maxOccurs;
     private static final int VALUE_NONE = 0;
@@ -48,6 +56,43 @@ public class XSDElement implements Element {
     private static final int VALUE_CONTAINER = 3;
     private static final int VALUE_REQUIRES = 4;
     private static final int VALUE_DSLSTARTNODE = 5;
+
+    /** OXM {@code <xml-property>} name for the minimum length of a string property. */
+    private static final String FACET_MIN_LENGTH = "minLength";
+    /** OXM {@code <xml-property>} name for the maximum length of a string property. */
+    private static final String FACET_MAX_LENGTH = "maxLength";
+    /** OXM {@code <xml-property>} name for the regular expression a string must match. */
+    private static final String FACET_PATTERN = "pattern";
+    /** OXM {@code <xml-property>} name for the comma separated list of permitted values. */
+    private static final String FACET_ALLOWED_VALUES = "allowedValues";
+    /** OXM {@code <xml-property>} name for the inclusive lower bound of a numeric property. */
+    private static final String FACET_MINIMUM = "minimum";
+    /** OXM {@code <xml-property>} name for the inclusive upper bound of a numeric property. */
+    private static final String FACET_MAXIMUM = "maximum";
+
+    /**
+     * All constraint facet property names, in the order they are emitted. Length before pattern
+     * before enumeration before range keeps both generated artefacts stable and readable.
+     */
+    private static final List<String> FACET_NAMES =
+        Collections.unmodifiableList(Arrays.asList(FACET_MIN_LENGTH, FACET_MAX_LENGTH,
+            FACET_PATTERN, FACET_ALLOWED_VALUES, FACET_MINIMUM, FACET_MAXIMUM));
+
+    /** Facets that XML Schema allows on {@code xs:string}. */
+    private static final Set<String> STRING_FACETS =
+        Set.of(FACET_MIN_LENGTH, FACET_MAX_LENGTH, FACET_PATTERN, FACET_ALLOWED_VALUES);
+
+    /** Facets that XML Schema allows on the numeric types this generator emits. */
+    private static final Set<String> NUMERIC_FACETS =
+        Set.of(FACET_MINIMUM, FACET_MAXIMUM, FACET_ALLOWED_VALUES);
+
+    /**
+     * The XML Schema facet element each OXM property name maps to. {@code allowedValues} is absent
+     * because it expands to one {@code xs:enumeration} per value rather than a single facet.
+     */
+    private static final Map<String, String> XSD_FACET_NAMES =
+        Map.of(FACET_MIN_LENGTH, "xs:minLength", FACET_MAX_LENGTH, "xs:maxLength", FACET_PATTERN,
+            "xs:pattern", FACET_MINIMUM, "xs:minInclusive", FACET_MAXIMUM, "xs:maxInclusive");
 
     public XSDElement(Element xmlElementElement, String maxOccurs) {
         super();
@@ -165,6 +210,88 @@ public class XSDElement implements Element {
             return replaceDescription;
         }
         return pathDescriptionProperty;
+    }
+
+    /**
+     * The value of one constraint facet {@code <xml-property>} declared on this element, or
+     * {@code null} when the element does not declare it.
+     *
+     * <p>
+     * Only {@code <xml-properties>} belonging to this element are considered - the DOM
+     * {@code getElementsByTagName} lookup is recursive, so a nested element's properties would
+     * otherwise leak in, which is the same parent check the neighbouring readers make.
+     */
+    private String getFacet(String facetName) {
+        NodeList xmlPropNodes = this.getElementsByTagName("xml-properties");
+        String facetValue = null;
+        for (int i = 0; i < xmlPropNodes.getLength(); ++i) {
+            Element xmlPropElement = (Element) xmlPropNodes.item(i);
+            if (!xmlPropElement.getParentNode().isSameNode(this.xmlElementElement)) {
+                continue;
+            }
+            NodeList childNodes = xmlPropElement.getElementsByTagName("xml-property");
+            for (int j = 0; j < childNodes.getLength(); ++j) {
+                Element childElement = (Element) childNodes.item(j);
+                if (facetName.equals(childElement.getAttribute("name"))) {
+                    String value = childElement.getAttribute("value");
+                    if (StringUtils.isNotEmpty(value)) {
+                        facetValue = value;
+                    }
+                }
+            }
+        }
+        return facetValue;
+    }
+
+    /**
+     * The facets XML Schema (and swagger) allow for this element's type. A facet that is not legal
+     * for the type is silently skipped rather than emitted, so a mistake in the OXM cannot produce
+     * an invalid XSD or swagger document. {@code xs:boolean} and node-type references take no
+     * facets.
+     */
+    private Set<String> legalFacets() {
+        switch (this.getAttribute("type")) {
+            case "java.lang.String":
+                return STRING_FACETS;
+            case "java.lang.Long":
+            case "java.lang.Integer":
+            case "java.lang.Float":
+            case "java.lang.Double":
+                return NUMERIC_FACETS;
+            default:
+                return Collections.emptySet();
+        }
+    }
+
+    /**
+     * The constraint facets this element declares that are also legal for its type, in emission
+     * order. Empty when the element declares none, declares only facets that do not apply to its
+     * type, or is not of a standard type at all.
+     */
+    private List<String> declaredFacets() {
+        Set<String> legalFacets = legalFacets();
+        List<String> declared = new ArrayList<>();
+        for (String facetName : FACET_NAMES) {
+            if (legalFacets.contains(facetName) && getFacet(facetName) != null) {
+                declared.add(facetName);
+            }
+        }
+        return declared;
+    }
+
+    /**
+     * Splits an {@code allowedValues} property into its individual values, trimming each and
+     * dropping empties, so {@code "a, b ,, c"} yields {@code [a, b, c]}.
+     */
+    private static List<String> splitAllowedValues(String allowedValues) {
+        List<String> values = new ArrayList<>();
+        for (String value : allowedValues.split(",")) {
+            String trimmed = value.trim();
+            if (!trimmed.isEmpty()) {
+                values.add(trimmed);
+            }
+        }
+        return values;
     }
 
     public Vector<String> getProps(int needValue) {
@@ -343,6 +470,29 @@ public class XSDElement implements Element {
         }
     }
 
+    /**
+     * The XML Schema built-in type this generator uses for a Java primitive-wrapper type, or
+     * {@code null} for anything else (a node-type reference or a container).
+     */
+    private static String xsdTypeFor(String javaType) {
+        switch (javaType) {
+            case "java.lang.String":
+                return "xs:string";
+            case "java.lang.Long":
+                return "xs:unsignedInt";
+            case "java.lang.Integer":
+                return "xs:int";
+            case "java.lang.Float":
+                return "xs:float";
+            case "java.lang.Double":
+                return "xs:double";
+            case "java.lang.Boolean":
+                return "xs:boolean";
+            default:
+                return null;
+        }
+    }
+
     public String getHTMLElement(SchemaVersion v, boolean useAnnotation, HTMLfromOXM driver) {
         StringBuilder sbElement = new StringBuilder();
         String elementName = this.getAttribute("name");
@@ -353,29 +503,28 @@ public class XSDElement implements Element {
             ? elementType.substring(elementType.lastIndexOf('.') + 1)
             : null;
 
+        String xsdType = xsdTypeFor(elementType);
+        List<String> facets = declaredFacets();
+        if (addType != null && !facets.isEmpty()) {
+            // a reference carries the referenced node type's own definition, so there is nothing
+            // here to restrict
+            logger.warn(
+                "ignoring constraint facets {} on element {}: they do not apply to a reference to node type {}",
+                facets, elementName, addType);
+            facets = Collections.emptyList();
+        }
+        // an xs:element cannot carry both a type attribute and an inline xs:simpleType, so a
+        // restricted element states its base type inside the restriction instead
+        boolean restrictType = xsdType != null && addType == null && !facets.isEmpty();
+
         if (addType != null) {
             sbElement.append("        <xs:element ref=\"tns:")
                 .append(driver.getXmlRootElementName(addType)).append("\"");
         } else {
             sbElement.append("        <xs:element name=\"").append(elementName).append("\"");
         }
-        if (elementType.equals("java.lang.String")) {
-            sbElement.append(" type=\"xs:string\"");
-        }
-        if (elementType.equals("java.lang.Long")) {
-            sbElement.append(" type=\"xs:unsignedInt\"");
-        }
-        if (elementType.equals("java.lang.Integer")) {
-            sbElement.append(" type=\"xs:int\"");
-        }
-        if (elementType.equals("java.lang.Float")) {
-            sbElement.append(" type=\"xs:float\"");
-        }
-        if (elementType.equals("java.lang.Double")) {
-            sbElement.append(" type=\"xs:double\"");
-        }
-        if (elementType.equals("java.lang.Boolean")) {
-            sbElement.append(" type=\"xs:boolean\"");
+        if (xsdType != null && !restrictType) {
+            sbElement.append(" type=\"").append(xsdType).append("\"");
         }
         if (addType != null || elementType.startsWith("java.lang.")) {
             sbElement.append(" minOccurs=\"0\"");
@@ -383,20 +532,68 @@ public class XSDElement implements Element {
         if (elementContainerType != null && elementContainerType.equals("java.util.ArrayList")) {
             sbElement.append(" maxOccurs=\"").append(maxOccurs).append("\"");
         }
-        if (useAnnotation) {
-            String annotation = new XSDElement(xmlElementElement, maxOccurs)
-                .getHTMLAnnotation("field", "          ");
-            sbElement.append(
-                StringUtils.isNotEmpty(annotation) ? ">" + OxmFileProcessor.LINE_SEPARATOR : "");
-            sbElement.append(annotation);
-            sbElement.append(StringUtils.isNotEmpty(annotation)
-                ? "        </xs:element>" + OxmFileProcessor.LINE_SEPARATOR
-                : "/>" + OxmFileProcessor.LINE_SEPARATOR);
+        String annotation = useAnnotation
+            ? new XSDElement(xmlElementElement, maxOccurs).getHTMLAnnotation("field", "          ")
+            : "";
+        if (restrictType) {
+            // xs:annotation has to come first, the content model of xs:element is ordered
+            sbElement.append(">").append(OxmFileProcessor.LINE_SEPARATOR).append(annotation);
+            appendSimpleTypeRestriction(sbElement, xsdType, facets, "          ");
+            sbElement.append("        </xs:element>").append(OxmFileProcessor.LINE_SEPARATOR);
+        } else if (StringUtils.isNotEmpty(annotation)) {
+            sbElement.append(">").append(OxmFileProcessor.LINE_SEPARATOR).append(annotation)
+                .append("        </xs:element>").append(OxmFileProcessor.LINE_SEPARATOR);
         } else {
             sbElement.append("/>").append(OxmFileProcessor.LINE_SEPARATOR);
         }
         return this.getHTMLElementWrapper(sbElement.toString(), v, useAnnotation);
         // return sbElement.toString();
+    }
+
+    /**
+     * Appends the inline {@code xs:simpleType} that restricts {@code xsdType} by the given facets.
+     * Only facets legal for the base type reach here (see {@link #declaredFacets()}), so every
+     * facet
+     * emitted is one a validating parser accepts.
+     */
+    private void appendSimpleTypeRestriction(StringBuilder sbElement, String xsdType,
+        List<String> facets, String indentation) {
+        sbElement.append(indentation).append("<xs:simpleType>")
+            .append(OxmFileProcessor.LINE_SEPARATOR);
+        sbElement.append(indentation).append("  <xs:restriction base=\"").append(xsdType)
+            .append("\">").append(OxmFileProcessor.LINE_SEPARATOR);
+        for (String facetName : facets) {
+            String facetValue = getFacet(facetName);
+            if (FACET_ALLOWED_VALUES.equals(facetName)) {
+                for (String value : splitAllowedValues(facetValue)) {
+                    appendFacet(sbElement, indentation, "xs:enumeration", value);
+                }
+            } else {
+                appendFacet(sbElement, indentation, XSD_FACET_NAMES.get(facetName), facetValue);
+            }
+        }
+        sbElement.append(indentation).append("  </xs:restriction>")
+            .append(OxmFileProcessor.LINE_SEPARATOR);
+        sbElement.append(indentation).append("</xs:simpleType>")
+            .append(OxmFileProcessor.LINE_SEPARATOR);
+    }
+
+    private void appendFacet(StringBuilder sbElement, String indentation, String xsdFacetName,
+        String facetValue) {
+        sbElement.append(indentation).append("    <").append(xsdFacetName).append(" value=\"")
+            .append(escapeXmlAttribute(facetValue)).append("\"/>")
+            .append(OxmFileProcessor.LINE_SEPARATOR);
+    }
+
+    /**
+     * Escapes a value for use inside a double quoted XML attribute. A facet value is author
+     * supplied
+     * - a pattern in particular routinely contains characters that would otherwise end the
+     * attribute or start a markup construct.
+     */
+    private static String escapeXmlAttribute(String value) {
+        return value.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"",
+            "&quot;");
     }
 
     public String getHTMLElementWrapper(String unwrappedElement, SchemaVersion v,
@@ -495,6 +692,7 @@ public class XSDElement implements Element {
                 sbProperties.append("        format: ").append(swaggerType.format()).append("\n");
             }
         }
+        appendPropertyFacetsYAML(sbProperties);
         String attrDescription = this.getPathDescriptionProperty();
         if (attrDescription != null && attrDescription.length() > 0) {
             if (!isDslStartNode) {
@@ -514,6 +712,32 @@ public class XSDElement implements Element {
             }
         }
         return sbProperties.toString();
+    }
+
+    /**
+     * Appends the swagger validation keywords for the constraint facets this element declares. All
+     * six are Swagger 2.0 keywords, so no {@code x-} extension is needed. Nothing is appended when
+     * the element declares no facet that applies to its type, which is why generating a schema
+     * version whose OXM carries no facet is byte-for-byte unchanged.
+     */
+    private void appendPropertyFacetsYAML(StringBuilder sbProperties) {
+        for (String facetName : declaredFacets()) {
+            String facetValue = getFacet(facetName);
+            if (FACET_ALLOWED_VALUES.equals(facetName)) {
+                sbProperties.append("        enum:\n");
+                for (String value : splitAllowedValues(facetValue)) {
+                    sbProperties.append("        - ").append(value).append("\n");
+                }
+            } else if (FACET_PATTERN.equals(facetName)) {
+                // a regular expression is full of YAML-significant characters, so it is always
+                // single quoted, with any embedded single quote doubled as YAML requires
+                sbProperties.append("        pattern: '").append(facetValue.replace("'", "''"))
+                    .append("'\n");
+            } else {
+                sbProperties.append("        ").append(facetName).append(": ").append(facetValue)
+                    .append("\n");
+            }
+        }
     }
 
     public boolean isStandardType() {

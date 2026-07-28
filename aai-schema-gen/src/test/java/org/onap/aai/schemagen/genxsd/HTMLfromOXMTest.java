@@ -20,9 +20,11 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 import static org.onap.aai.schemagen.genxsd.OxmFileProcessor.LINE_SEPARATOR;
@@ -32,9 +34,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,6 +63,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -189,6 +197,77 @@ public class HTMLfromOXMTest {
         logger.debug("FileContent-II:");
         logger.debug(fileContent);
         assertThat(fileContent, is(HTMLresult(0)));
+    }
+
+    /**
+     * An OXM that declares constraint facets has to produce an element restricted inline, because
+     * an {@code xs:element} cannot carry both a {@code type} attribute and an
+     * {@code xs:simpleType}.
+     */
+    @Test
+    public void testProcessWithConstraintFacets() throws Exception {
+        XSDElementTest x = new XSDElementTest();
+        x.setUpWithFacets();
+        String facetXML = x.testXML;
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
+        htmlFromOxm.setXmlVersion(facetXML, v);
+        String fileContent = htmlFromOxm.process();
+
+        assertNotNull("generated XSD", fileContent);
+        // string facets on global-customer-id, in declaration order
+        assertThat(fileContent, containsString(
+            "        <xs:element name=\"global-customer-id\" minOccurs=\"0\">" + LINE_SEPARATOR));
+        assertThat(fileContent,
+            containsString("          <xs:simpleType>" + LINE_SEPARATOR
+                + "            <xs:restriction base=\"xs:string\">" + LINE_SEPARATOR
+                + "              <xs:minLength value=\"1\"/>" + LINE_SEPARATOR
+                + "              <xs:maxLength value=\"36\"/>" + LINE_SEPARATOR
+                + "              <xs:pattern value=\"^[A-Za-z0-9-]+$\"/>" + LINE_SEPARATOR
+                + "            </xs:restriction>" + LINE_SEPARATOR + "          </xs:simpleType>"
+                + LINE_SEPARATOR));
+        // allowedValues expands to one xs:enumeration per value
+        assertThat(fileContent, containsString("              <xs:enumeration value=\"CUST\"/>"));
+        assertThat(fileContent, containsString("              <xs:enumeration value=\"INFRA\"/>"));
+        // numeric facets use the inclusive bounds
+        assertThat(fileContent, containsString("            <xs:restriction base=\"xs:int\">"));
+        assertThat(fileContent, containsString("              <xs:minInclusive value=\"0\"/>"));
+        assertThat(fileContent, containsString("              <xs:maxInclusive value=\"100\"/>"));
+        // a facet on a reference to another node type has nothing to restrict, so only the three
+        // facet carrying standard type elements get an inline simple type
+        assertThat(fileContent, containsString(
+            "        <xs:element ref=\"tns:service-subscriptions\" minOccurs=\"0\">"));
+        assertThat(countOccurrences(fileContent, "<xs:simpleType>"), is(3));
+        // an element without facets keeps the plain type attribute
+        assertThat(fileContent, containsString(
+            "        <xs:element name=\"subscriber-name\" type=\"xs:string\" minOccurs=\"0\">"));
+        // the annotation still precedes the inline simple type
+        int annotationEnd = fileContent.indexOf("          </xs:annotation>");
+        assertTrue(annotationEnd > 0 && annotationEnd < fileContent.indexOf("<xs:simpleType>"),
+            "xs:annotation must precede xs:simpleType in:" + LINE_SEPARATOR + fileContent);
+        // and the result is a legal schema - the content model of xs:element is ordered, so an
+        // xs:simpleType placed before the xs:annotation would be rejected here
+        assertIsValidSchema(fileContent);
+    }
+
+    private static int countOccurrences(String haystack, String needle) {
+        int count = 0;
+        for (int i = haystack.indexOf(needle); i >= 0; i = haystack.indexOf(needle, i + 1)) {
+            ++count;
+        }
+        return count;
+    }
+
+    /**
+     * Fails unless the argument is a schema document XML Schema itself accepts, which is the check
+     * that the generated XSD is well formed and its content model correctly ordered.
+     */
+    private static void assertIsValidSchema(String xsd) {
+        try {
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            factory.newSchema(new StreamSource(new StringReader(xsd)));
+        } catch (SAXException e) {
+            fail("generated XSD is not a valid schema: " + e.getMessage() + LINE_SEPARATOR + xsd);
+        }
     }
 
     @Test

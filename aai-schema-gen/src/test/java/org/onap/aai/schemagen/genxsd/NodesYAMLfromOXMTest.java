@@ -135,6 +135,34 @@ public class NodesYAMLfromOXMTest {
         assertThat("FileContent-I:\n" + fileContent, fileContent, is(YAMLresult()));
     }
 
+    /**
+     * The nodes swagger emits its standard-type properties through the same
+     * {@code XSDElement.getTypePropertyYAML} as the full swagger, so constraint facets reach it
+     * without a separate emission path.
+     */
+    @Test
+    public void testProcessWithConstraintFacets() throws Exception {
+        XSDElementTest x = new XSDElementTest();
+        x.setUpWithFacets();
+        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
+        nodesYamlFromOxm.setXmlVersion(x.testXML, v);
+        String fileContent = nodesYamlFromOxm.process();
+
+        assertNotNull(fileContent);
+        assertTrue(
+            fileContent.contains(
+                "      global-customer-id:\n" + "        type: string\n" + "        minLength: 1\n"
+                    + "        maxLength: 36\n" + "        pattern: '^[A-Za-z0-9-]+$'\n"),
+            "expected string facets in the nodes swagger, got:\n" + fileContent);
+        assertTrue(
+            fileContent.contains("        enum:\n" + "        - CUST\n" + "        - INFRA\n"),
+            "expected allowedValues to become an enum in the nodes swagger, got:\n" + fileContent);
+        assertTrue(
+            fileContent.contains("      customer-rank:\n" + "        type: integer\n"
+                + "        format: int32\n" + "        minimum: 0\n" + "        maximum: 100\n"),
+            "expected numeric facets in the nodes swagger, got:\n" + fileContent);
+    }
+
     @Test
     public void testNodesYAMLfromOXMFileVersionFile() throws IOException {
         String outfileName = "testXML.xml";
