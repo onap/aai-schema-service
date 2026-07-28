@@ -78,4 +78,16 @@ public @interface Metadata {
 
     String dslStartNodeProps() default "";
 
+    String minLength() default "";
+
+    String maxLength() default "";
+
+    String pattern() default "";
+
+    String allowedValues() default "";
+
+    String minimum() default "";
+
+    String maximum() default "";
+
 }

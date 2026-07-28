@@ -50,4 +50,17 @@ public class AnnotationsTest {
     public void testAnnotation() {
         assertTrue(true);
     }
+
+    @Metadata(
+        minLength = "1",
+        maxLength = "64",
+        pattern = "^[0-9]{3}$",
+        allowedValues = "in-service,out-of-service",
+        minimum = "0",
+        maximum = "255")
+
+    @Test
+    public void testConstraintFacetAnnotation() {
+        assertTrue(true);
+    }
 }

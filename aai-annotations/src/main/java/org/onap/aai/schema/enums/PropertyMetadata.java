@@ -71,7 +71,31 @@ public enum PropertyMetadata {
      * Add a private edge between two objects based on the uri provided by user which should provide
      * the appropriate information from the url similar to dataCopy
      */
-    PRIVATE_EDGE("privateEdge");
+    PRIVATE_EDGE("privateEdge"),
+    /**
+     * minimum number of characters a string property must contain
+     */
+    MIN_LENGTH("minLength"),
+    /**
+     * maximum number of characters a string property may contain
+     */
+    MAX_LENGTH("maxLength"),
+    /**
+     * regular expression a string property must match
+     */
+    PATTERN("pattern"),
+    /**
+     * comma separated list of the only values a property may take
+     */
+    ALLOWED_VALUES("allowedValues"),
+    /**
+     * smallest value a numeric property may take, inclusive
+     */
+    MINIMUM("minimum"),
+    /**
+     * largest value a numeric property may take, inclusive
+     */
+    MAXIMUM("maximum");
 
     private final String name;
 
