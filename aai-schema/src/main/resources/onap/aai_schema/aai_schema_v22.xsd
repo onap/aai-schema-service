@@ -113,14 +113,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="relationship-key" type="xs:string" minOccurs="0">
+        <xs:element name="relationship-key" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="A keyword provided by A&amp;AI to indicate an attribute.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="relationship-value" type="xs:string" minOccurs="0">
+        <xs:element name="relationship-value" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Value of the attribute.")</annox:annotate>
@@ -237,21 +237,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="network-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of the network. Unique across a cloud-region")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="network-name" type="xs:string" minOccurs="0">
+        <xs:element name="network-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the network.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cvlan-tag" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="cvlan-tag" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="cvlan-id")</annox:annotate>
@@ -324,14 +324,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="switch-name" type="xs:string" minOccurs="0">
+        <xs:element name="switch-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="DVS switch name")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vcenter-url" type="xs:string" minOccurs="0">
+        <xs:element name="vcenter-url" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL used to reach the vcenter")</annox:annotate>
@@ -390,14 +390,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
+        <xs:element name="availability-zone-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone.  Unique across a cloud region")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="hypervisor-type" type="xs:string" minOccurs="0">
+        <xs:element name="hypervisor-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of hypervisor.  Source of truth should define valid values.")</annox:annotate>
@@ -501,7 +501,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="update-node-type" type="xs:string" minOccurs="0"/>
+        <xs:element name="update-node-type" type="xs:string"/>
         <xs:element ref="tns:update-node-key" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="update-node-uri" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:action" minOccurs="0" maxOccurs="5000"/>
@@ -519,7 +519,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
   <xs:element name="notify">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="event-id" type="xs:string" minOccurs="0"/>
+        <xs:element name="event-id" type="xs:string"/>
         <xs:element name="node-type" type="xs:string" minOccurs="0"/>
         <xs:element name="event-trigger" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:key-data" minOccurs="0" maxOccurs="5000"/>
@@ -548,7 +548,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="rack-unit-name" type="xs:string" minOccurs="0">
+        <xs:element name="rack-unit-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack-unit (within the rack).")</annox:annotate>
@@ -602,14 +602,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="pdu-name" type="xs:string" minOccurs="0">
+        <xs:element name="pdu-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the power distribution unit.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="pdu-type" type="xs:string" minOccurs="0">
+        <xs:element name="pdu-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of pdu.")</annox:annotate>
@@ -663,21 +663,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="rack-name" type="xs:string" minOccurs="0">
+        <xs:element name="rack-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the rack (within the location).")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rack-type" type="xs:string" minOccurs="0">
+        <xs:element name="rack-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of rack.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rack-location" type="xs:string" minOccurs="0">
+        <xs:element name="rack-location" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The location of the rack within the building.")</annox:annotate>
@@ -691,7 +691,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rack-power-diversity" type="xs:boolean" minOccurs="0">
+        <xs:element name="rack-power-diversity" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="")</annox:annotate>
@@ -747,14 +747,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="cable-name" type="xs:string" minOccurs="0">
+        <xs:element name="cable-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the channel-link relative to the physical-link.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cable-type" type="xs:string" minOccurs="0">
+        <xs:element name="cable-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of cable.")</annox:annotate>
@@ -808,21 +808,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="target-pe" type="xs:string" minOccurs="0">
+        <xs:element name="target-pe" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The Target provider edge router")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="availability-zone-name" type="xs:string" minOccurs="0">
+        <xs:element name="availability-zone-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the availability zone")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ctag-pool-purpose" type="xs:string" minOccurs="0">
+        <xs:element name="ctag-pool-purpose" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Describes what the intended purpose of this pool is.")</annox:annotate>
@@ -883,7 +883,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="physical-location-id" type="xs:string" minOccurs="0">
+        <xs:element name="physical-location-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for physical location, e.g., CLLI")</annox:annotate>
@@ -918,7 +918,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="physical-location-type" type="xs:string" minOccurs="0">
+        <xs:element name="physical-location-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type, e.g., central office, data center.")</annox:annotate>
@@ -953,13 +953,13 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="street1" type="xs:string" minOccurs="0"/>
+        <xs:element name="street1" type="xs:string"/>
         <xs:element name="street2" type="xs:string" minOccurs="0"/>
-        <xs:element name="city" type="xs:string" minOccurs="0"/>
+        <xs:element name="city" type="xs:string"/>
         <xs:element name="state" type="xs:string" minOccurs="0"/>
-        <xs:element name="postal-code" type="xs:string" minOccurs="0"/>
-        <xs:element name="country" type="xs:string" minOccurs="0"/>
-        <xs:element name="region" type="xs:string" minOccurs="0"/>
+        <xs:element name="postal-code" type="xs:string"/>
+        <xs:element name="country" type="xs:string"/>
+        <xs:element name="region" type="xs:string"/>
         <xs:element name="latitude" type="xs:string" minOccurs="0"/>
         <xs:element name="longitude" type="xs:string" minOccurs="0"/>
         <xs:element name="elevation" type="xs:string" minOccurs="0"/>
@@ -991,7 +991,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="volume-group-id" type="xs:string" minOccurs="0">
+        <xs:element name="volume-group-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of volume-group.")</annox:annotate>
@@ -1012,7 +1012,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
@@ -1092,14 +1092,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="volume-id" type="xs:string" minOccurs="0">
+        <xs:element name="volume-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of block storage volume relative to the vserver.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="volume-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="volume-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
@@ -1158,7 +1158,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="l3-interface-ipv4-address" type="xs:string" minOccurs="0">
+        <xs:element name="l3-interface-ipv4-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
@@ -1254,7 +1254,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="l3-interface-ipv6-address" type="xs:string" minOccurs="0">
+        <xs:element name="l3-interface-ipv6-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
@@ -1350,7 +1350,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-interface" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-interface" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="String that identifies the interface")</annox:annotate>
@@ -1427,7 +1427,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)")</annox:annotate>
@@ -1441,14 +1441,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-ip-unnumbered" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-ip-unnumbered" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Flag indicating the interface uses the IP Unnumbered configuration.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-private" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-private" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Private VLAN indicator.")</annox:annotate>
@@ -1497,7 +1497,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="pci-id" type="xs:string" minOccurs="0">
+        <xs:element name="pci-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="PCI ID used to identify the sriov-vf")</annox:annotate>
@@ -1640,7 +1640,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="interface-name" type="xs:string" minOccurs="0">
+        <xs:element name="interface-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name given to the interface")</annox:annotate>
@@ -1710,7 +1710,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-port-mirrored" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-port-mirrored" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="boolean indicatating whether or not port is a mirrored.")</annox:annotate>
@@ -1724,7 +1724,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)")</annox:annotate>
@@ -1738,7 +1738,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-ip-unnumbered" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-ip-unnumbered" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Flag indicating the interface uses the IP Unnumbered configuration.")</annox:annotate>
@@ -1773,7 +1773,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="l2-multicasting" type="xs:boolean" minOccurs="0">
+        <xs:element name="l2-multicasting" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Identifies l2-multicasting support on an l-interface. true indicates that l2-multicasting is supported; defaulted to false .")</annox:annotate>
@@ -1837,14 +1837,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vserver-id" type="xs:string" minOccurs="0">
+        <xs:element name="vserver-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for this vserver relative to its tenant")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vserver-name" type="xs:string" minOccurs="0">
+        <xs:element name="vserver-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of vserver")</annox:annotate>
@@ -1865,21 +1865,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vserver-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="vserver-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-closed-loop-disabled" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-closed-loop-disabled" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether closed loop function is enabled on this node")</annox:annotate>
@@ -1954,21 +1954,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="nos-server-id" type="xs:string" minOccurs="0">
+        <xs:element name="nos-server-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for this nos relative to its tenant")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="nos-server-name" type="xs:string" minOccurs="0">
+        <xs:element name="nos-server-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of nos")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vendor" type="xs:string" minOccurs="0">
+        <xs:element name="vendor" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="uCPE vendor")</annox:annotate>
@@ -1982,14 +1982,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="nos-server-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="nos-server-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
@@ -2048,14 +2048,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="tenant-id" type="xs:string" minOccurs="0">
+        <xs:element name="tenant-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id relative to the cloud-region.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="tenant-name" type="xs:string" minOccurs="0">
+        <xs:element name="tenant-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Readable name of tenant")</annox:annotate>
@@ -2144,7 +2144,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="hpa-attribute-key" type="xs:string" minOccurs="0">
+        <xs:element name="hpa-attribute-key" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="name of the specific HPA attribute")</annox:annotate>
@@ -2198,14 +2198,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="hpa-capability-id" type="xs:string" minOccurs="0">
+        <xs:element name="hpa-capability-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID to uniquely identify a HPA capability")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="hpa-feature" type="xs:string" minOccurs="0">
+        <xs:element name="hpa-feature" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the HPACapability")</annox:annotate>
@@ -2279,14 +2279,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="flavor-id" type="xs:string" minOccurs="0">
+        <xs:element name="flavor-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Flavor id, expected to be unique across cloud-region.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="flavor-name" type="xs:string" minOccurs="0">
+        <xs:element name="flavor-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Flavor name")</annox:annotate>
@@ -2335,7 +2335,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="flavor-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="flavor-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
@@ -2408,21 +2408,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="group-id" type="xs:string" minOccurs="0">
+        <xs:element name="group-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Group id, expected to be unique across cloud-region.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="group-type" type="xs:string" minOccurs="0">
+        <xs:element name="group-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Group type - the type of group this instance refers to")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="group-name" type="xs:string" minOccurs="0">
+        <xs:element name="group-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Group name - name assigned to the group")</annox:annotate>
@@ -2488,7 +2488,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="snapshot-id" type="xs:string" minOccurs="0">
+        <xs:element name="snapshot-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Snapshot id, this is the key UUID assoc associated in glance with the snapshots.")</annox:annotate>
@@ -2610,14 +2610,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="metaname" type="xs:string" minOccurs="0">
+        <xs:element name="metaname" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true)</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="metaval" type="xs:string" minOccurs="0"/>
+        <xs:element name="metaval" type="xs:string"/>
         <xs:element name="data-owner" type="xs:string" minOccurs="0">
           <xs:annotation>
             <xs:appinfo>
@@ -2669,14 +2669,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="image-id" type="xs:string" minOccurs="0">
+        <xs:element name="image-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Image id, expected to be unique across cloud region")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="image-name" type="xs:string" minOccurs="0">
+        <xs:element name="image-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Image name")</annox:annotate>
@@ -2690,14 +2690,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="image-os-distro" type="xs:string" minOccurs="0">
+        <xs:element name="image-os-distro" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The common name of the operating system distribution in lowercase")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="image-os-version" type="xs:string" minOccurs="0">
+        <xs:element name="image-os-version" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The operating system version as specified by the distributor.")</annox:annotate>
@@ -2725,7 +2725,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="image-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="image-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
@@ -2797,7 +2797,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vip-ipv4-address" type="xs:string" minOccurs="0">
+        <xs:element name="vip-ipv4-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
@@ -2893,7 +2893,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vip-ipv6-address" type="xs:string" minOccurs="0">
+        <xs:element name="vip-ipv6-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
@@ -2989,14 +2989,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-tag-id" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-tag-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Vlan Tag Id")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-tag-role" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-tag-role" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Role assigned to this vlan-tag")</annox:annotate>
@@ -3017,7 +3017,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-private" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-private" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="is private flag.")</annox:annotate>
@@ -3097,28 +3097,28 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-range-id" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-range-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="vlan id in range UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-id-lower" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="vlan-id-lower" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="vlan id in range lower")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-id-upper" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="vlan-id-upper" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="vlan id in range upper")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vlan-type" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="vlan type")</annox:annotate>
@@ -3173,14 +3173,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="host-aggregate-id" type="xs:string" minOccurs="0">
+        <xs:element name="host-aggregate-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for the host-aggregate.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="host-aggregate-name" type="xs:string" minOccurs="0">
+        <xs:element name="host-aggregate-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the host-aggregate.")</annox:annotate>
@@ -3239,14 +3239,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="state-order" type="xs:int" minOccurs="0">
+        <xs:element name="state-order" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Order for the activity state.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="state-name" type="xs:string" minOccurs="0">
+        <xs:element name="state-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the activity state (ex, NVT-PROV).")</annox:annotate>
@@ -3312,14 +3312,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="activity-id" type="xs:string" minOccurs="0">
+        <xs:element name="activity-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id for the activity. (UUID)")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="activity-type" type="xs:string" minOccurs="0">
+        <xs:element name="activity-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of activity (ex, provisioning).")</annox:annotate>
@@ -3449,7 +3449,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="validation-id" type="xs:string" minOccurs="0">
+        <xs:element name="validation-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Validation-Audit UUID")</annox:annotate>
@@ -3529,7 +3529,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="esr-system-info-id" type="xs:string" minOccurs="0">
+        <xs:element name="esr-system-info-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of esr system info.")</annox:annotate>
@@ -3571,21 +3571,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="user-name" type="xs:string" minOccurs="0">
+        <xs:element name="user-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="username used to access external systems.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="password" type="xs:string" minOccurs="0">
+        <xs:element name="password" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="password used to access external systems.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="system-type" type="xs:string" minOccurs="0">
+        <xs:element name="system-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="it could be vim/vnfm/thirdparty-sdnc/ems-resource/ems-performance/ems-alarm.")</annox:annotate>
@@ -3721,14 +3721,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="cloud-owner" type="xs:string" minOccurs="0">
+        <xs:element name="cloud-owner" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Identifies the vendor and cloud name. First part of composite key should be formatted as vendor-cloudname")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cloud-region-id" type="xs:string" minOccurs="0">
+        <xs:element name="cloud-region-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Identifier used by the vendor for the region. Second part of composite key")</annox:annotate>
@@ -3847,14 +3847,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="orchestration-disabled" type="xs:boolean" minOccurs="0">
+        <xs:element name="orchestration-disabled" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether orchestration is enabled for this cloud-region.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not cloud-region object is in maintenance mode.")</annox:annotate>
@@ -3929,7 +3929,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="nm-profile-name" type="xs:string" minOccurs="0">
+        <xs:element name="nm-profile-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique name of network profile.")</annox:annotate>
@@ -3995,7 +3995,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="ab-id" type="xs:string" minOccurs="0">
+        <xs:element name="ab-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the attribute")</annox:annotate>
@@ -4075,7 +4075,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="bwa-id" type="xs:string" minOccurs="0">
+        <xs:element name="bwa-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the bandwidth attribute")</annox:annotate>
@@ -4142,7 +4142,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="pf-pci-id" type="xs:string" minOccurs="0">
+        <xs:element name="pf-pci-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Identifier for the sriov-pf")</annox:annotate>
@@ -4201,7 +4201,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="interface-name" type="xs:string" minOccurs="0">
+        <xs:element name="interface-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name that identifies the physical interface")</annox:annotate>
@@ -4306,7 +4306,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)")</annox:annotate>
@@ -4419,7 +4419,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="interface-name" type="xs:string" minOccurs="0">
+        <xs:element name="interface-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name that identifies the link aggregate interface")</annox:annotate>
@@ -4475,7 +4475,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)")</annox:annotate>
@@ -4565,7 +4565,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="hpa-capacity-key" type="xs:string" minOccurs="0">
+        <xs:element name="hpa-capacity-key" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Composite key formed with hpaFeature and append list of hpaFeatureAttributes needed for capacity check")</annox:annotate>
@@ -4619,7 +4619,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="hostname" type="xs:string" minOccurs="0">
+        <xs:element name="hostname" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Value from executing hostname on the compute node.")</annox:annotate>
@@ -4759,7 +4759,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
@@ -4886,7 +4886,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="ip-address" type="xs:string" minOccurs="0">
+        <xs:element name="ip-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="IP address")</annox:annotate>
@@ -4975,7 +4975,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="port" type="xs:string" minOccurs="0">
+        <xs:element name="port" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Port number")</annox:annotate>
@@ -5043,7 +5043,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="selector" type="xs:string" minOccurs="0">
+        <xs:element name="selector" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Selector")</annox:annotate>
@@ -5104,7 +5104,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="endpoint-id" type="xs:string" minOccurs="0">
+        <xs:element name="endpoint-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier for the endpoint.")</annox:annotate>
@@ -5187,14 +5187,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vdc-id" type="xs:string" minOccurs="0">
+        <xs:element name="vdc-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of the vdc")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vdc-name" type="xs:string" minOccurs="0">
+        <xs:element name="vdc-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the virtual data center")</annox:annotate>
@@ -5253,42 +5253,42 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="operational-environment-id" type="xs:string" minOccurs="0">
+        <xs:element name="operational-environment-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of an operational environment")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="operational-environment-name" type="xs:string" minOccurs="0">
+        <xs:element name="operational-environment-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operational Environment name")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="operational-environment-type" type="xs:string" minOccurs="0">
+        <xs:element name="operational-environment-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Operational Environment Type.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="operational-environment-status" type="xs:string" minOccurs="0">
+        <xs:element name="operational-environment-status" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Status")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="tenant-context" type="xs:string" minOccurs="0">
+        <xs:element name="tenant-context" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Tenant Context.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="workload-context" type="xs:string" minOccurs="0">
+        <xs:element name="workload-context" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Workload Context.")</annox:annotate>
@@ -5347,7 +5347,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="geo-region-id" type="xs:string" minOccurs="0">
+        <xs:element name="geo-region-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID, key for geo-region object.")</annox:annotate>
@@ -5428,14 +5428,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-technology-id" type="xs:string" minOccurs="0">
+        <xs:element name="network-technology-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier of the network-technology object (UUID)")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="network-technology-name" type="xs:string" minOccurs="0">
+        <xs:element name="network-technology-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The network-technology  that a cloud-region can support. Current valid values- CONTRAIL AIC_SR_IOV OVS STANDARD-SR-IOV")</annox:annotate>
@@ -5514,7 +5514,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="ems-id" type="xs:string" minOccurs="0">
+        <xs:element name="ems-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of EMS.")</annox:annotate>
@@ -5574,7 +5574,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnfm-id" type="xs:string" minOccurs="0">
+        <xs:element name="vnfm-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of VNFM.")</annox:annotate>
@@ -5648,7 +5648,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="nfvo-id" type="xs:string" minOccurs="0">
+        <xs:element name="nfvo-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of nfvo.")</annox:annotate>
@@ -5715,7 +5715,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="thirdparty-sdnc-id" type="xs:string" minOccurs="0">
+        <xs:element name="thirdparty-sdnc-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of SDNC.")</annox:annotate>
@@ -5811,7 +5811,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="resource-instance-id" type="xs:string" minOccurs="0">
+        <xs:element name="resource-instance-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of resource instance.")</annox:annotate>
@@ -5899,7 +5899,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Allotted Resource id UUID assigned to this instance.")</annox:annotate>
@@ -5958,7 +5958,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Allotted Resource id UUID assigned to this instance.")</annox:annotate>
@@ -6130,7 +6130,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+        <xs:element name="profile-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
@@ -6238,7 +6238,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+        <xs:element name="profile-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
@@ -6416,7 +6416,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="profile-id" type="xs:string" minOccurs="0">
+        <xs:element name="profile-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="ID of the profile.")</annox:annotate>
@@ -6615,7 +6615,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="service-instance-id" type="xs:string" minOccurs="0">
+        <xs:element name="service-instance-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this instance of a service")</annox:annotate>
@@ -6882,7 +6882,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="service-type" type="xs:string" minOccurs="0">
+        <xs:element name="service-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Value defined by orchestration to identify this service across ONAP.")</annox:annotate>
@@ -6949,21 +6949,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="global-customer-id" type="xs:string" minOccurs="0">
+        <xs:element name="global-customer-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Global customer id used across ONAP to uniquely identify customer.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="subscriber-name" type="xs:string" minOccurs="0">
+        <xs:element name="subscriber-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Subscriber name, an alternate way to retrieve a customer.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="subscriber-type" type="xs:string" minOccurs="0">
+        <xs:element name="subscriber-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Subscriber type, a way to provide VID with only the INFRA customers.",defaultValue="CUST")</annox:annotate>
@@ -7023,7 +7023,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="line-of-business-name" type="xs:string" minOccurs="0">
+        <xs:element name="line-of-business-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the line-of-business (product)")</annox:annotate>
@@ -7082,14 +7082,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="owning-entity-id" type="xs:string" minOccurs="0">
+        <xs:element name="owning-entity-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of an owning entity")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="owning-entity-name" type="xs:string" minOccurs="0">
+        <xs:element name="owning-entity-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Owning entity name")</annox:annotate>
@@ -7148,7 +7148,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="platform-name" type="xs:string" minOccurs="0">
+        <xs:element name="platform-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the platform")</annox:annotate>
@@ -7207,7 +7207,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="project-name" type="xs:string" minOccurs="0">
+        <xs:element name="project-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the project deploying a service")</annox:annotate>
@@ -7287,7 +7287,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="sp-partner-id" type="xs:string" minOccurs="0">
+        <xs:element name="sp-partner-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this sp-partner by id")</annox:annotate>
@@ -7406,21 +7406,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnf-image-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-image-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of this asset")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="application" type="xs:string" minOccurs="0">
+        <xs:element name="application" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The application that the image instantiates.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="application-vendor" type="xs:string" minOccurs="0">
+        <xs:element name="application-vendor" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The vendor of the application.")</annox:annotate>
@@ -7493,14 +7493,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="service-id" type="xs:string" minOccurs="0">
+        <xs:element name="service-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="This gets defined by others to provide a unique ID for the service, we accept what is sent.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="service-description" type="xs:string" minOccurs="0">
+        <xs:element name="service-description" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Description of the service")</annox:annotate>
@@ -7573,14 +7573,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="service-type" type="xs:string" minOccurs="0">
+        <xs:element name="service-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="This gets defined by others to provide a unique ID for the service, we accept what is sent.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
@@ -7639,7 +7639,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="element-choice-set-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="element-choice-set-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
@@ -7667,7 +7667,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="element-choice-set-name" type="xs:string" minOccurs="0"/>
+        <xs:element name="element-choice-set-name" type="xs:string"/>
         <xs:element name="cardinality" type="xs:string" minOccurs="0"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:model-elements" minOccurs="0"/>
@@ -7690,7 +7690,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="constrained-element-set-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="constrained-element-set-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
@@ -7718,8 +7718,8 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="constraint-type" type="xs:string" minOccurs="0"/>
-        <xs:element name="check-type" type="xs:string" minOccurs="0"/>
+        <xs:element name="constraint-type" type="xs:string"/>
+        <xs:element name="check-type" type="xs:string"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:element-choice-sets" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
@@ -7741,7 +7741,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="model-constraint-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="model-constraint-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
@@ -7769,7 +7769,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="constrained-element-set-uuid-to-replace" type="xs:string" minOccurs="0"/>
+        <xs:element name="constrained-element-set-uuid-to-replace" type="xs:string"/>
         <xs:element ref="tns:constrained-element-sets" minOccurs="0"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0">
           <xs:annotation>
@@ -7796,21 +7796,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="model-element-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="model-element-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="new-data-del-flag" type="xs:string" minOccurs="0">
+        <xs:element name="new-data-del-flag" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Indicates whether this element was created as part of instantiation from this model")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="cardinality" type="xs:string" minOccurs="0">
+        <xs:element name="cardinality" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="How many of this type of element are required/allowed")</annox:annotate>
@@ -7879,21 +7879,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="model-version-id" type="xs:string" minOccurs="0">
+        <xs:element name="model-version-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier corresponding to one version of a model in ASDC")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-name" type="xs:string" minOccurs="0">
+        <xs:element name="model-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the model, which can change from version to version.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-version" type="xs:string" minOccurs="0">
+        <xs:element name="model-version" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Version")</annox:annotate>
@@ -7977,14 +7977,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+        <xs:element name="model-invariant-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier corresponding to the main definition of a model in ASDC")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-type" type="xs:string" minOccurs="0">
+        <xs:element name="model-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of the model, e.g., service, resource, widget, etc.")</annox:annotate>
@@ -8051,17 +8051,17 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="related-lookup-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="related-lookup-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="source-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element name="source-node-property" type="xs:string" minOccurs="0"/>
-        <xs:element name="target-node-type" type="xs:string" minOccurs="0"/>
-        <xs:element name="target-node-property" type="xs:string" minOccurs="0"/>
+        <xs:element name="source-node-type" type="xs:string"/>
+        <xs:element name="source-node-property" type="xs:string"/>
+        <xs:element name="target-node-type" type="xs:string"/>
+        <xs:element name="target-node-property" type="xs:string"/>
         <xs:element name="property-collect-list" type="xs:string" minOccurs="0" maxOccurs="5000"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
         <xs:element ref="tns:relationship-list" minOccurs="0"/>
@@ -8083,16 +8083,16 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="property-constraint-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="property-constraint-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="constraint-type" type="xs:string" minOccurs="0"/>
-        <xs:element name="property-name" type="xs:string" minOccurs="0"/>
-        <xs:element name="property-value" type="xs:string" minOccurs="0"/>
+        <xs:element name="constraint-type" type="xs:string"/>
+        <xs:element name="property-name" type="xs:string"/>
+        <xs:element name="property-value" type="xs:string"/>
         <xs:element name="resource-version" type="xs:string" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
@@ -8112,7 +8112,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="named-query-element-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="named-query-element-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,autoGenerateUuid="true")</annox:annotate>
@@ -8145,15 +8145,15 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="named-query-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="named-query-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true)</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="named-query-name" type="xs:string" minOccurs="0"/>
-        <xs:element name="named-query-version" type="xs:string" minOccurs="0"/>
+        <xs:element name="named-query-name" type="xs:string"/>
+        <xs:element name="named-query-version" type="xs:string"/>
         <xs:element name="required-input-params" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
@@ -8199,21 +8199,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="link-name" type="xs:string" minOccurs="0">
+        <xs:element name="link-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="e.g., evc-name, or vnf-nameA_interface-nameA_vnf-nameZ_interface-nameZ")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="link-type" type="xs:string" minOccurs="0">
+        <xs:element name="link-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of logical link, e.g., evc")</annox:annotate>
@@ -8412,7 +8412,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="cos" type="xs:string" minOccurs="0">
+        <xs:element name="cos" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="unique identifier of probe")</annox:annotate>
@@ -8485,7 +8485,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="site-pair-id" type="xs:string" minOccurs="0">
+        <xs:element name="site-pair-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="unique identifier of probe")</annox:annotate>
@@ -8580,7 +8580,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="routing-instance-id" type="xs:string" minOccurs="0">
+        <xs:element name="routing-instance-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of routing instance")</annox:annotate>
@@ -8647,7 +8647,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="site-pair-set-id" type="xs:string" minOccurs="0">
+        <xs:element name="site-pair-set-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of site pair set.")</annox:annotate>
@@ -8707,14 +8707,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="global-route-target" type="xs:string" minOccurs="0">
+        <xs:element name="global-route-target" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Number used to identify an RT, globally unique in the network")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="route-target-role" type="xs:string" minOccurs="0">
+        <xs:element name="route-target-role" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Role assigned to this route target")</annox:annotate>
@@ -8773,14 +8773,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vpn-id" type="xs:string" minOccurs="0">
+        <xs:element name="vpn-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="VPN ID, globally unique within A&amp;AI")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vpn-name" type="xs:string" minOccurs="0">
+        <xs:element name="vpn-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VPN Name")</annox:annotate>
@@ -9030,7 +9030,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="equipment-name" type="xs:string" minOccurs="0">
+        <xs:element name="equipment-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true)</annox:annotate>
@@ -9119,21 +9119,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="multicast-configuration-id" type="xs:string" minOccurs="0">
+        <xs:element name="multicast-configuration-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of multicast configuration.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="multicast-protocol" type="xs:string" minOccurs="0">
+        <xs:element name="multicast-protocol" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="protocol of multicast configuration")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rp-type" type="xs:string" minOccurs="0">
+        <xs:element name="rp-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="rp type of multicast configuration")</annox:annotate>
@@ -9192,7 +9192,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="cvlan-tag" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="cvlan-tag" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="See mis-na-virtualization-platform.yang")</annox:annotate>
@@ -9246,7 +9246,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="interface-id" type="xs:string" minOccurs="0">
+        <xs:element name="interface-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of the interface")</annox:annotate>
@@ -9302,7 +9302,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="orchestration-status" type="xs:string" minOccurs="0">
+        <xs:element name="orchestration-status" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Orchestration status of this VNF, mastered by MSO")</annox:annotate>
@@ -9364,14 +9364,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="group-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="group-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID for the license group the resource belongs to, should be uuid.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="resource-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="resource-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of a license resource. ")</annox:annotate>
@@ -9451,14 +9451,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="group-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="group-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID for the entitlement group the resource comes from, should be uuid.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="resource-uuid" type="xs:string" minOccurs="0">
+        <xs:element name="resource-uuid" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of an entitlement resource. ")</annox:annotate>
@@ -9517,14 +9517,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnf-id" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of VNF.  This is unique across the graph.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-name" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of VNF.")</annox:annotate>
@@ -9538,7 +9538,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the SDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ONAP matures.")</annox:annotate>
@@ -9698,7 +9698,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="cp-instance-id" type="xs:string" minOccurs="0">
+        <xs:element name="cp-instance-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of the connection point.")</annox:annotate>
@@ -9766,21 +9766,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnfc-name" type="xs:string" minOccurs="0">
+        <xs:element name="vnfc-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of vnfc.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="nfc-naming-code" type="xs:string" minOccurs="0">
+        <xs:element name="nfc-naming-code" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Short code that is used in naming instances of the item being modeled")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="nfc-function" type="xs:string" minOccurs="0">
+        <xs:element name="nfc-function" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="English description of function that the specific resource deployment is providing. Assigned as part of the customization of a resource in a service")</annox:annotate>
@@ -9808,14 +9808,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true)")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-closed-loop-disabled" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-closed-loop-disabled" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether closed loop function is enabled on this node")</annox:annotate>
@@ -9905,21 +9905,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="host-route-id" type="xs:string" minOccurs="0">
+        <xs:element name="host-route-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="host-route id")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="route-prefix" type="xs:string" minOccurs="0">
+        <xs:element name="route-prefix" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="subnet prefix")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="next-hop" type="xs:string" minOccurs="0">
+        <xs:element name="next-hop" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Could be ip-address, hostname, or service-instance")</annox:annotate>
@@ -9987,14 +9987,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="address-family-id" type="xs:string" minOccurs="0">
+        <xs:element name="address-family-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="address family UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="af-type" type="xs:string" minOccurs="0">
+        <xs:element name="af-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="address family type (aka afi)")</annox:annotate>
@@ -10090,14 +10090,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="bgp-neighbor-id" type="xs:string" minOccurs="0">
+        <xs:element name="bgp-neighbor-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bgp-neighbor-type" type="xs:string" minOccurs="0">
+        <xs:element name="bgp-neighbor-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="name of bgp-group")</annox:annotate>
@@ -10222,7 +10222,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="subnet-id" type="xs:string" minOccurs="0">
+        <xs:element name="subnet-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Subnet ID, should be UUID.")</annox:annotate>
@@ -10285,7 +10285,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="dhcp-enabled" type="xs:boolean" minOccurs="0">
+        <xs:element name="dhcp-enabled" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="dhcp enabled")</annox:annotate>
@@ -10405,7 +10405,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-id-inner" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="vlan-id-inner" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="id.")</annox:annotate>
@@ -10459,7 +10459,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="segmentation-id" type="xs:string" minOccurs="0">
+        <xs:element name="segmentation-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Route Table Reference id, UUID assigned to this instance.")</annox:annotate>
@@ -10518,7 +10518,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="agg-route-id" type="xs:string" minOccurs="0">
+        <xs:element name="agg-route-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Route UUID.")</annox:annotate>
@@ -10619,7 +10619,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-id" type="xs:string" minOccurs="0">
+        <xs:element name="network-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Network ID, should be uuid. Unique across A&amp;AI.")</annox:annotate>
@@ -10668,7 +10668,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-bound-to-vpn" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-bound-to-vpn" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Set to true if bound to VPN")</annox:annotate>
@@ -10773,21 +10773,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-provider-network" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-provider-network" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="boolean indicatating whether or not network is a provider network.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-shared-network" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-shared-network" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="boolean indicatating whether or not network is a shared network.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-external-network" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-external-network" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="boolean indicatating whether or not network is an external network.")</annox:annotate>
@@ -10879,7 +10879,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-policy-id" type="xs:string" minOccurs="0">
+        <xs:element name="network-policy-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID representing unique key to this instance")</annox:annotate>
@@ -10989,7 +10989,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vf-module-id" type="xs:string" minOccurs="0">
+        <xs:element name="vf-module-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of vf-module.")</annox:annotate>
@@ -11017,14 +11017,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-base-vf-module" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-base-vf-module" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is base vf module")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="automated-assignment" type="xs:boolean" minOccurs="0">
+        <xs:element name="automated-assignment" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Indicates whether vf-module assignment was done via automation or manually")</annox:annotate>
@@ -11153,14 +11153,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="bgp-group-id" type="xs:string" minOccurs="0">
+        <xs:element name="bgp-group-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bgp-group-name" type="xs:string" minOccurs="0">
+        <xs:element name="bgp-group-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="name of bgp-group")</annox:annotate>
@@ -11278,7 +11278,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnf-id" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of VNF.  This is unique across the graph.")</annox:annotate>
@@ -11306,7 +11306,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures.")</annox:annotate>
@@ -11495,14 +11495,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-closed-loop-disabled" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-closed-loop-disabled" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether closed loop function is enabled on this node")</annox:annotate>
@@ -11743,7 +11743,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="link-name" type="xs:string" minOccurs="0">
+        <xs:element name="link-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Alphabetical concatenation of lag-interface names")</annox:annotate>
@@ -11802,14 +11802,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnf-id2" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-id2" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of VNF, can't use same attribute name right now until we promote this new object")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-name" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of VNF.")</annox:annotate>
@@ -11823,7 +11823,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vnf-type" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="String capturing type of vnf, that was intended to identify the ASDC resource.  This field has been overloaded in service-specific ways and clients should expect changes to occur in the future to this field as ECOMP matures.")</annox:annotate>
@@ -11946,14 +11946,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="software-version-id" type="xs:string" minOccurs="0">
+        <xs:element name="software-version-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Identifier of the software version")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="is-active-sw-ver" type="xs:boolean" minOccurs="0">
+        <xs:element name="is-active-sw-ver" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="used to indicate whether or not this software-version is the active one (activeSw = true)")</annox:annotate>
@@ -12004,14 +12004,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vrf-id" type="xs:string" minOccurs="0">
+        <xs:element name="vrf-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="VRF UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="vrf-name" type="xs:string" minOccurs="0">
+        <xs:element name="vrf-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="VRF Name")</annox:annotate>
@@ -12132,7 +12132,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="pnf-name" type="xs:string" minOccurs="0">
+        <xs:element name="pnf-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="unique name of Physical Network Function.")</annox:annotate>
@@ -12237,7 +12237,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not this object is in maintenance mode (maintenance mode = true). This field (in conjunction with prov-status) is used to suppress alarms and vSCL on VNFs/VMs.")</annox:annotate>
@@ -12300,7 +12300,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="spare-equipment-indicator" type="xs:boolean" minOccurs="0">
+        <xs:element name="spare-equipment-indicator" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Flag for identifying spare equipment")</annox:annotate>
@@ -12479,35 +12479,35 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="port-name" type="xs:string" minOccurs="0">
+        <xs:element name="port-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A unique name for the port relative to the containing hardware.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="port-type" type="xs:string" minOccurs="0">
+        <xs:element name="port-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of port.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="port-role" type="xs:string" minOccurs="0">
+        <xs:element name="port-role" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The role of the port.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="speed-value" type="xs:string" minOccurs="0">
+        <xs:element name="speed-value" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The numeric value for the speed of the port.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="speed-units" type="xs:string" minOccurs="0">
+        <xs:element name="speed-units" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The units for the speed of the port.")</annox:annotate>
@@ -12596,7 +12596,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="pluggable-type" type="xs:string" minOccurs="0">
+        <xs:element name="pluggable-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The type of pluggable.")</annox:annotate>
@@ -12665,7 +12665,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="slot-name" type="xs:string" minOccurs="0">
+        <xs:element name="slot-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The name of the pluggable-slot. (unique relative to the chassis or card).")</annox:annotate>
@@ -12720,7 +12720,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="card-type" type="xs:string" minOccurs="0">
+        <xs:element name="card-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The type of card.")</annox:annotate>
@@ -12776,7 +12776,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="slot-name" type="xs:string" minOccurs="0">
+        <xs:element name="slot-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="The name of the card-slot (unique relative to the chassis).")</annox:annotate>
@@ -12831,21 +12831,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="chassis-name" type="xs:string" minOccurs="0">
+        <xs:element name="chassis-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="A globally unique name for the chassis.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="chassis-type" type="xs:string" minOccurs="0">
+        <xs:element name="chassis-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The type of chassis..")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="chassis-role" type="xs:string" minOccurs="0">
+        <xs:element name="chassis-role" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="The role of the chassis relative to the pnf/pserver..")</annox:annotate>
@@ -12980,7 +12980,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="link-name" type="xs:string" minOccurs="0">
+        <xs:element name="link-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="e.g., hostnameA_p-connection_nameA_hostnameZ+p_connection-nameZ")</annox:annotate>
@@ -13137,7 +13137,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vig-address-type" type="xs:string" minOccurs="0">
+        <xs:element name="vig-address-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="indicates whether the VIG is for AVPN or INTERNET")</annox:annotate>
@@ -13205,7 +13205,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="ipsec-configuration-id" type="xs:string" minOccurs="0">
+        <xs:element name="ipsec-configuration-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID of this configuration")</annox:annotate>
@@ -13400,14 +13400,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="route-table-reference-id" type="xs:string" minOccurs="0">
+        <xs:element name="route-table-reference-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Route Table Reference id, UUID assigned to this instance.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="route-table-reference-fqdn" type="xs:string" minOccurs="0">
+        <xs:element name="route-table-reference-fqdn" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="FQDN entry in the route table.")</annox:annotate>
@@ -13466,7 +13466,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Instance Group ID, UUID assigned to this instance.")</annox:annotate>
@@ -13501,7 +13501,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="instance-group-type" type="xs:string" minOccurs="0">
+        <xs:element name="instance-group-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Only valid value today is lower case ha for high availability")</annox:annotate>
@@ -13588,14 +13588,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="zone-id" type="xs:string" minOccurs="0">
+        <xs:element name="zone-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Code assigned by AIC to the zone")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="zone-name" type="xs:string" minOccurs="0">
+        <xs:element name="zone-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="English name associated with the zone")</annox:annotate>
@@ -13609,14 +13609,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="design-type" type="xs:string" minOccurs="0">
+        <xs:element name="design-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Design of zone [Medium/Large…]")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="zone-context" type="xs:string" minOccurs="0">
+        <xs:element name="zone-context" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Context of zone [production/test]")</annox:annotate>
@@ -13672,7 +13672,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="in-maint" type="xs:boolean" minOccurs="0">
+        <xs:element name="in-maint" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Used to indicate whether or not zone object is in maintenance mode.")</annox:annotate>
@@ -13704,21 +13704,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="autonomous-system-id" type="xs:string" minOccurs="0">
+        <xs:element name="autonomous-system-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="autonomous-system-number" type="xs:unsignedInt" minOccurs="0">
+        <xs:element name="autonomous-system-number" type="xs:unsignedInt">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="asn in the range of 0 to 9223372036854775807")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="autonomous-system-type" type="xs:string" minOccurs="0">
+        <xs:element name="autonomous-system-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="type (global vs. local).")</annox:annotate>
@@ -13791,21 +13791,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-range-id" type="xs:string" minOccurs="0">
+        <xs:element name="network-range-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="network-range-name" type="xs:string" minOccurs="0">
+        <xs:element name="network-range-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="name")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="network-range-type" type="xs:string" minOccurs="0">
+        <xs:element name="network-range-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="type (ex, esi, vni, vni-rt, lacp-id).")</annox:annotate>
@@ -13914,7 +13914,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="mapping-id" type="xs:string" minOccurs="0">
+        <xs:element name="mapping-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Key for mapping object.")</annox:annotate>
@@ -14044,7 +14044,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="hw-component-id" type="xs:string" minOccurs="0">
+        <xs:element name="hw-component-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID")</annox:annotate>
@@ -14126,7 +14126,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="sw-component-id" type="xs:string" minOccurs="0">
+        <xs:element name="sw-component-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID")</annox:annotate>
@@ -14208,42 +14208,42 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="route-id" type="xs:string" minOccurs="0">
+        <xs:element name="route-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="unique identifier example uuid.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="type" type="xs:string" minOccurs="0">
+        <xs:element name="type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="used to categorize this object in conjunction with role &amp; function. The most generic category.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="role" type="xs:string" minOccurs="0">
+        <xs:element name="role" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="used to categorize this object in conjunction with type &amp; function.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="function" type="xs:string" minOccurs="0">
+        <xs:element name="function" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="used to categorize this object in conjunction with type &amp; role. The most specific category.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="ip-address" type="xs:string" minOccurs="0">
+        <xs:element name="ip-address" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="ip address that of the specific network-route.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="prefix-length" type="xs:int" minOccurs="0">
+        <xs:element name="prefix-length" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="ip-address prefix length.")</annox:annotate>
@@ -14278,7 +14278,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="address-family" type="xs:string" minOccurs="0">
+        <xs:element name="address-family" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="whether the route address is ipv4, ipv6.")</annox:annotate>
@@ -14332,7 +14332,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-mapping-id" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-mapping-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Key for vlan-mapping object.")</annox:annotate>
@@ -14413,7 +14413,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="forwarder-evc-id" type="xs:string" minOccurs="0">
+        <xs:element name="forwarder-evc-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Key for forwarder-evc object")</annox:annotate>
@@ -14496,7 +14496,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="evc-id" type="xs:string" minOccurs="0">
+        <xs:element name="evc-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique/key field for the evc object")</annox:annotate>
@@ -14662,7 +14662,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="configuration-id" type="xs:string" minOccurs="0">
+        <xs:element name="configuration-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID assigned to configuration.")</annox:annotate>
@@ -14683,7 +14683,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="configuration-type" type="xs:string" minOccurs="0">
+        <xs:element name="configuration-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="port-mirroring-configuration.")</annox:annotate>
@@ -14843,7 +14843,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="sequence" type="xs:int" minOccurs="0">
+        <xs:element name="sequence" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of this segmentation")</annox:annotate>
@@ -14904,14 +14904,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="forwarding-path-id" type="xs:string" minOccurs="0">
+        <xs:element name="forwarding-path-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of this FP")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="forwarding-path-name" type="xs:string" minOccurs="0">
+        <xs:element name="forwarding-path-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the FP")</annox:annotate>
@@ -14973,7 +14973,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="collection-id" type="xs:string" minOccurs="0">
+        <xs:element name="collection-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Collection Object UUID")</annox:annotate>
@@ -15083,14 +15083,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="next-hop-id" type="xs:string" minOccurs="0">
+        <xs:element name="next-hop-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="next-hop-type" type="xs:string" minOccurs="0">
+        <xs:element name="next-hop-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to categorize this object in conjunction with role &amp; function. The most generic category.")</annox:annotate>
@@ -15186,14 +15186,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="bfd-id" type="xs:string" minOccurs="0">
+        <xs:element name="bfd-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="bfd-type" type="xs:string" minOccurs="0">
+        <xs:element name="bfd-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Used to categorize this object in conjunction with role &amp; function. The most generic category.")</annox:annotate>
@@ -15275,7 +15275,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="fqdn" type="xs:string" minOccurs="0">
+        <xs:element name="fqdn" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Fully qualified domain name.")</annox:annotate>
@@ -15303,7 +15303,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="dns-domain" type="xs:string" minOccurs="0">
+        <xs:element name="dns-domain" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Domain name.")</annox:annotate>
@@ -15357,7 +15357,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="connectivity-id" type="xs:string" minOccurs="0">
+        <xs:element name="connectivity-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this connectivity by id")</annox:annotate>
@@ -15535,7 +15535,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="dhcp-service-id" type="xs:string" minOccurs="0">
+        <xs:element name="dhcp-service-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this dhcp-service by id")</annox:annotate>
@@ -15664,7 +15664,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="lan-port-config-id" type="xs:string" minOccurs="0">
+        <xs:element name="lan-port-config-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this lan-port-config by id")</annox:annotate>
@@ -15787,7 +15787,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="network-id" type="xs:string" minOccurs="0">
+        <xs:element name="network-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this network-resource by id")</annox:annotate>
@@ -15881,7 +15881,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="site-resource-id" type="xs:string" minOccurs="0">
+        <xs:element name="site-resource-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this site-resource by id")</annox:annotate>
@@ -16010,7 +16010,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="sdwan-vpn-id" type="xs:string" minOccurs="0">
+        <xs:element name="sdwan-vpn-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this sdwan-vpn by id")</annox:annotate>
@@ -16139,7 +16139,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="device-id" type="xs:string" minOccurs="0">
+        <xs:element name="device-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this device by id")</annox:annotate>
@@ -16303,7 +16303,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="wan-port-config-id" type="xs:string" minOccurs="0">
+        <xs:element name="wan-port-config-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Uniquely identifies this wan-port-config by id")</annox:annotate>
@@ -16516,7 +16516,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="aai-id" type="xs:string" minOccurs="0">
+        <xs:element name="aai-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique ID of the referenced AAI.")</annox:annotate>
@@ -16578,7 +16578,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the label restriction")</annox:annotate>
@@ -16728,7 +16728,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the UNI")</annox:annotate>
@@ -16836,7 +16836,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the TE link attribute")</annox:annotate>
@@ -16972,14 +16972,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="id" type="xs:string" minOccurs="0">
+        <xs:element name="id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the interlayer topology attachment")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="inter-layer-lockId" type="xs:int" minOccurs="0">
+        <xs:element name="inter-layer-lockId" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Inter layer lock id")</annox:annotate>
@@ -17066,7 +17066,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="ttp-id" type="xs:string" minOccurs="0">
+        <xs:element name="ttp-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Id that identifies the tunnel termination point")</annox:annotate>
@@ -17316,28 +17316,28 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="item-name" type="xs:string" minOccurs="0">
+        <xs:element name="item-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique name for the hardware-catalog-item")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="system-type" type="xs:string" minOccurs="0">
+        <xs:element name="system-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of system defined by ATT")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="manufacturer" type="xs:string" minOccurs="0">
+        <xs:element name="manufacturer" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Manufacturer of the hardware-catalog-item (ex,Cisco)")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model" type="xs:string" minOccurs="0">
+        <xs:element name="model" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Model of the hardware-catalog-item (ex,5501 NCS)")</annox:annotate>
@@ -17358,7 +17358,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="sku" type="xs:string" minOccurs="0">
+        <xs:element name="sku" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Stock-keeping-unit (ATT specific identifier for the hardware-catalog-item)")</annox:annotate>
@@ -17417,7 +17417,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="contact-name" type="xs:string" minOccurs="0">
+        <xs:element name="contact-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the contact")</annox:annotate>
@@ -17497,7 +17497,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="profile-name" type="xs:string" minOccurs="0">
+        <xs:element name="profile-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Name of the profile")</annox:annotate>
@@ -17539,7 +17539,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="profile-selflink" type="xs:string" minOccurs="0">
+        <xs:element name="profile-selflink" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="URL to endpoint where AAI can get more details")</annox:annotate>
@@ -17599,7 +17599,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="community-value" type="xs:string" minOccurs="0">
+        <xs:element name="community-value" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="String value")</annox:annotate>
@@ -17653,14 +17653,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="object-group-id" type="xs:string" minOccurs="0">
+        <xs:element name="object-group-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="group-type" type="xs:string" minOccurs="0">
+        <xs:element name="group-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of object contained in the list.")</annox:annotate>
@@ -17744,7 +17744,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="rule-id" type="xs:string" minOccurs="0">
+        <xs:element name="rule-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
@@ -17828,7 +17828,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="log" type="xs:boolean" minOccurs="0">
+        <xs:element name="log" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Boolean to indicate whether or not logging is required.")</annox:annotate>
@@ -17897,7 +17897,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="policy-id" type="xs:string" minOccurs="0">
+        <xs:element name="policy-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique Policy UUID.")</annox:annotate>
@@ -17932,21 +17932,21 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="do-not-track" type="xs:boolean" minOccurs="0">
+        <xs:element name="do-not-track" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Do not track")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="pre-dnat" type="xs:boolean" minOccurs="0">
+        <xs:element name="pre-dnat" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Pre destination NAT")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="apply-on-forward" type="xs:boolean" minOccurs="0">
+        <xs:element name="apply-on-forward" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="apply on forward")</annox:annotate>
@@ -18066,7 +18066,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vlan-characteristic-id" type="xs:string" minOccurs="0">
+        <xs:element name="vlan-characteristic-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
@@ -18087,14 +18087,14 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="dhcp-pool" type="xs:boolean" minOccurs="0">
+        <xs:element name="dhcp-pool" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="DHCP Agent access.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="internet-access" type="xs:boolean" minOccurs="0">
+        <xs:element name="internet-access" type="xs:boolean">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(defaultValue="false",description="Boolean to represent if requires internet access.")</annox:annotate>
@@ -18153,28 +18153,28 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="rule-node" type="xs:string" minOccurs="0">
+        <xs:element name="rule-node" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="NARAD object")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rule-property" type="xs:string" minOccurs="0">
+        <xs:element name="rule-property" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Object property")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rule-value" type="xs:string" minOccurs="0">
+        <xs:element name="rule-value" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Property value")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="component-order" type="xs:int" minOccurs="0">
+        <xs:element name="component-order" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Order in traversal")</annox:annotate>
@@ -18233,28 +18233,28 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="rule-id" type="xs:string" minOccurs="0">
+        <xs:element name="rule-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="UUID.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="context" type="xs:string" minOccurs="0">
+        <xs:element name="context" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Example global,site")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="rule-traversals" type="xs:int" minOccurs="0">
+        <xs:element name="rule-traversals" type="xs:int">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Number of traversals")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="applies-to" type="xs:string" minOccurs="0">
+        <xs:element name="applies-to" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Node the related object applies to")</annox:annotate>
@@ -18359,42 +18359,42 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="model-invariant-id" type="xs:string" minOccurs="0">
+        <xs:element name="model-invariant-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier corresponding to the main definition of a model in ASDC")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-name-version-id" type="xs:string" minOccurs="0">
+        <xs:element name="model-name-version-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique identifier corresponding to one version of a model in ASDC")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-type" type="xs:string" minOccurs="0">
+        <xs:element name="model-type" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Type of the model, e.g., service, resource, widget, etc.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-name" type="xs:string" minOccurs="0">
+        <xs:element name="model-name" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Name of the model, which can change from version to version.")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-id" type="xs:string" minOccurs="0">
+        <xs:element name="model-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Invariant unique ID which does not change from version to version")</annox:annotate>
             </xs:appinfo>
           </xs:annotation>
         </xs:element>
-        <xs:element name="model-version" type="xs:string" minOccurs="0">
+        <xs:element name="model-version" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(description="Version")</annox:annotate>
@@ -18562,7 +18562,7 @@ xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         </xs:appinfo>
       </xs:annotation>
       <xs:sequence>
-        <xs:element name="vnf-id" type="xs:string" minOccurs="0">
+        <xs:element name="vnf-id" type="xs:string">
           <xs:annotation>
             <xs:appinfo>
               <annox:annotate target="field">@org.onap.aai.annotations.Metadata(isKey=true,description="Unique id of VNF.  This is unique across the graph.")</annox:annotate>
