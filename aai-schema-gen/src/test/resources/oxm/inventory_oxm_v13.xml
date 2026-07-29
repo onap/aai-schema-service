@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ============LICENSE_START=======================================================
+  org.onap.aai
+  ================================================================================
+  Copyright © 2025 Deutsche Telekom.
+  ================================================================================
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  ============LICENSE_END=========================================================
+  -->
+<!--
+  Synthetic top-level "Inventory" binding for the swagger-generation characterization test only.
+  The business/common/serviceDesign/network v13 fixtures carry no Inventory root, so on their own
+  they yield definitions but zero paths. This wires the three namespace roots they do define
+  (business, network, service-design-and-creation) under Inventory so path generation runs, the
+  same way the production oxm_v{N} does and the way XSDElementTest synthesizes an Inventory for the
+  smaller v11 golden.
+  -->
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm" package-name="inventory.aai.onap.org.v13" xml-mapping-metadata-complete="true">
+	<xml-schema element-form-default="QUALIFIED">
+		<xml-ns namespace-uri="http://org.onap.aai.inventory/v13" />
+	</xml-schema>
+	<java-types>
+		<java-type name="Inventory">
+			<xml-root-element name="inventory" />
+			<java-attributes>
+				<xml-element java-attribute="business" name="business" type="inventory.aai.onap.org.v13.Business" />
+				<xml-element java-attribute="serviceDesignAndCreation" name="service-design-and-creation" type="inventory.aai.onap.org.v13.ServiceDesignAndCreation" />
+				<xml-element java-attribute="network" name="network" type="inventory.aai.onap.org.v13.Network" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>
