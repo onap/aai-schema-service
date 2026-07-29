@@ -70,10 +70,25 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
 
     private final String basePath;
 
+    /**
+     * Node-GET state for the version currently being generated. Replaced on every
+     * {@link #process()} call, which is where the old code called
+     * {@code NodeGetOperation.resetContainers()}.
+     */
+    private NodeGenerationContext nodeContext = new NodeGenerationContext();
+
+    /**
+     * The run-scoped state shared with {@link YAMLfromOXM}. This class emits no PUT operations of
+     * its own, but it regenerates the relations files from the relationship paths that
+     * {@link YAMLfromOXM} registered earlier in the run, so it must observe the same context.
+     */
+    private final GenerationContext context;
+
     public NodesYAMLfromOXM(String basePath, SchemaConfigVersions schemaConfigVersions,
-        NodeIngestor ni, EdgeIngestor ei) {
+        NodeIngestor ni, EdgeIngestor ei, GenerationContext context) {
         super(schemaConfigVersions, ni, ei);
         this.basePath = basePath;
+        this.context = context;
     }
 
     public void setOxmVersion(File oxmFile, SchemaVersion v) {
@@ -156,7 +171,8 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         FileNotFoundException, EdgeRuleNotFoundException {
         StringBuilder sb = new StringBuilder();
         StringBuilder pathSb = new StringBuilder();
-        NodeGetOperation.resetContainers();
+        // a fresh context per version, replacing the former NodeGetOperation.resetContainers()
+        nodeContext = new NodeGenerationContext();
         try {
             init();
         } catch (Exception e) {
@@ -203,7 +219,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         // sb.append(totalPathSbAccumulator);
         sb.append(appendOperations());
         sb.append(appendDefinitions());
-        PutRelationPathSet prp = new PutRelationPathSet(v);
+        PutRelationPathSet prp = new PutRelationPathSet(v, context);
         prp.generateRelations(ei);
         return sb.toString();
     }
@@ -371,7 +387,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             if (indexedProps != null
                 && indexedProps.contains(xmlElementElement.getAttribute("name"))) {
                 containerProps.add(xmlElementElement.getQueryParamYAML());
-                NodeGetOperation.addContainerProps(container, containerProps);
+                nodeContext.addContainerProps(container, containerProps);
             }
             if (xmlElementElement.isStandardType()) {
                 boolean isDslStartNode =
@@ -477,17 +493,21 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
         }
         if (indexedProps != null && indexedProps.isEmpty() && containerProps.isEmpty()) {
             NodeGetOperation get =
-                new NodeGetOperation(useOpId, xmlRootElementName, tag, path, null);
+                new NodeGetOperation(useOpId, xmlRootElementName, tag, path, null, nodeContext);
             String operation = get.toString();
             if (StringUtils.isNotEmpty(operation)) {
                 operationDefinitions.put(xmlRootElementName, operation);
+                // mirrors the original placement of the checklist update at the tail of toString()
+                get.register();
             }
         } else {
             NodeGetOperation get = new NodeGetOperation(useOpId, xmlRootElementName, tag, path,
-                pathParams == null ? "" : pathParams.toString());
+                pathParams == null ? "" : pathParams.toString(), nodeContext);
             String operation = get.toString();
             if (StringUtils.isNotEmpty(operation)) {
                 operationDefinitions.put(xmlRootElementName, operation);
+                // mirrors the original placement of the checklist update at the tail of toString()
+                get.register();
             }
         }
         logger.debug("opId vs useOpId:" + opId + " vs " + useOpId + " PathParams=" + pathParams);

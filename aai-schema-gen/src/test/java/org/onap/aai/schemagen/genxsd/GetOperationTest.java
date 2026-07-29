@@ -22,10 +22,12 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Vector;
-import org.junit.jupiter.api.BeforeAll;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
@@ -58,19 +60,26 @@ public class GetOperationTest {
             {"TestOp3", "relationship-list", "TestTag", "/network/relationship-list", "", ""},
 
             // Test case for path starting with "/search"
-            {"TestOp4", "search", "TestTag", "/search/records", "", ""}
-        };
+            {"TestOp4", "search", "TestTag", "/search/records", "", ""}};
         return Arrays.asList(inputs);
     }
 
-    public void initGetOperationTest(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, String result) {
+    public void initGetOperationTest(String useOpId, String xmlRootElementName, String tag,
+        String path, String pathParams, String result) {
         this.xmlRootElementName = xmlRootElementName;
         this.result = result;
     }
 
-    @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    /**
+     * A fresh context per test. Previously the container map was static, so whichever test ran
+     * first
+     * decided what the others observed; an explicit context removes that ordering coupling.
+     */
+    private GenerationContext context;
+
+    @BeforeEach
+    public void setUp() {
+        context = new GenerationContext();
         String container = "p-interfaces";
         String queryProps[] = {
             "        - name: interface-name\n          in: query\n          description:\n          required: false\n          type: string",
@@ -79,12 +88,13 @@ public class GetOperationTest {
         for (String prop : queryProps) {
             containerProps.add(prop);
         }
-        GetOperation.addContainerProps(container, containerProps);
+        context.addContainerProps(container, containerProps);
     }
 
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testAddContainerProps(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+    public void testAddContainerProps(String useOpId, String xmlRootElementName, String tag,
+        String path, String pathParams, String result) {
         initGetOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
         String container = this.xmlRootElementName;
         String prop = "        - name: " + container
@@ -95,15 +105,17 @@ public class GetOperationTest {
             logger.debug("qProp=" + p);
         }
         logger.debug("Done=" + this.xmlRootElementName);
-        GetOperation.addContainerProps(container, queryProps);
-        assertThat(GetOperation.containers.get(container).get(0), is(prop));
+        context.addContainerProps(container, queryProps);
+        assertThat(context.getContainerProps(container).get(0), is(prop));
     }
 
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String result) {
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path,
+        String pathParams, String result) {
         initGetOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
-        GetOperation get = new GetOperation(useOpId, xmlRootElementName, tag, path, pathParams);
+        GetOperation get =
+            new GetOperation(useOpId, xmlRootElementName, tag, path, pathParams, context);
         String modResult = get.toString();
         assertThat(modResult, is(this.result));
     }

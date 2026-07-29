@@ -20,8 +20,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -29,11 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
 public class GetOperation {
-    static Map<String, Vector<String>> containers = new HashMap<String, Vector<String>>();
-
-    public static void addContainerProps(String container, Vector<String> containerProps) {
-        containers.put(container, containerProps);;
-    }
 
     private String useOpId;
     private String xmlRootElementName;
@@ -43,23 +36,19 @@ public class GetOperation {
     private String queryParams;
 
     public GetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams) {
+        String pathParams, GenerationContext context) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
         this.pathParams = pathParams;
-        // StringBuilder p = new StringBuilder();
 
-        if (containers.get(xmlRootElementName) == null) {
+        Vector<String> containerProps = context.getContainerProps(xmlRootElementName);
+        if (containerProps == null) {
             this.queryParams = "";
         } else {
-            this.queryParams = String.join("", containers.get(xmlRootElementName));
-            // for(String param : containers.get(xmlRootElementName)) {
-            // p.append(param);
-            // }
-            // this.queryParams = p.toString();
+            this.queryParams = String.join("", containerProps);
         }
     }
 

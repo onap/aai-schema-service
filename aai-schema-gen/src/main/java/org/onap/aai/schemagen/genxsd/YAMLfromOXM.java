@@ -71,10 +71,17 @@ public class YAMLfromOXM extends OxmFileProcessor {
 
     private String basePath;
 
+    /**
+     * State shared with the operation emitters. Deliberately spans every version generated in a
+     * run; see {@link GenerationContext} for why narrowing its lifetime would change the output.
+     */
+    private final GenerationContext context;
+
     public YAMLfromOXM(String basePath, SchemaConfigVersions schemaConfigVersions, NodeIngestor ni,
-        EdgeIngestor ei) {
+        EdgeIngestor ei, GenerationContext context) {
         super(schemaConfigVersions, ni, ei);
         this.basePath = basePath;
+        this.context = context;
     }
 
     public void setOxmVersion(File oxmFile, SchemaVersion v) {
@@ -200,7 +207,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
         sb.append(pathSb);
 
         sb.append(appendDefinitions());
-        PutRelationPathSet prp = new PutRelationPathSet(v);
+        PutRelationPathSet prp = new PutRelationPathSet(v, context);
         prp.generateRelations(ei);
         return sb.toString();
     }
@@ -396,7 +403,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
             if (indexedProps != null
                 && indexedProps.contains(xmlElementElement.getAttribute("name"))) {
                 containerProps.add(xmlElementElement.getQueryParamYAML());
-                GetOperation.addContainerProps(container, containerProps);
+                context.addContainerProps(container, containerProps);
             }
             if (xmlElementElement.isStandardType()) {
                 boolean isDslStartNode =
@@ -512,7 +519,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
             pathParams.append(sbPathParameters);
         }
         GetOperation get = new GetOperation(useOpId, xmlRootElementName, tag, path,
-            pathParams == null ? "" : pathParams.toString());
+            pathParams == null ? "" : pathParams.toString(), context);
         pathSb.append(get);
         logger.debug("opId vs useOpId:" + opId + " vs " + useOpId + " PathParams=" + pathParams);
         // add PUT
@@ -523,7 +530,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
         // register the relationship path only when the operation was actually emitted, mirroring
         // the original placement of the registration at the tail of PutOperation.toString()
         if (!putStr.isEmpty()) {
-            put.register();
+            put.register(context);
         }
         // add PATCH
         PatchOperation patch = new PatchOperation(useOpId, xmlRootElementName, tag, path,
@@ -538,7 +545,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
         // register the delete path only when the operation was actually emitted, mirroring the
         // original placement of the registration at the tail of DeleteOperation.toString()
         if (!delStr.isEmpty()) {
-            del.register();
+            del.register(context);
         }
         if (generatedJavaType.containsKey(xmlRootElementName)) {
             logger.debug("xmlRootElementName(1)=" + xmlRootElementName);

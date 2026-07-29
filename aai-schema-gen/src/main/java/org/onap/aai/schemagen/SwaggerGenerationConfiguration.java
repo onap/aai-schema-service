@@ -24,6 +24,7 @@ package org.onap.aai.schemagen;
 
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.schemagen.genxsd.GenerationContext;
 import org.onap.aai.schemagen.genxsd.HTMLfromOXM;
 import org.onap.aai.schemagen.genxsd.NodesYAMLfromOXM;
 import org.onap.aai.schemagen.genxsd.YAMLfromOXM;
@@ -46,8 +47,9 @@ public class SwaggerGenerationConfiguration {
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public NodesYAMLfromOXM nodesYamlFromOXM(SchemaConfigVersions schemaConfigVersions,
-        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
-        return new NodesYAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor);
+        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor, GenerationContext generationContext) {
+        return new NodesYAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor,
+            generationContext);
     }
 
     @Bean
@@ -57,11 +59,23 @@ public class SwaggerGenerationConfiguration {
         return new HTMLfromOXM(maxOccurs, schemaConfigVersions, nodeIngestor, edgeIngestor);
     }
 
+    /**
+     * State shared by the swagger operation emitters. Intentionally a <em>singleton</em>, unlike the
+     * prototype-scoped generators: the delete/relationship paths accumulate across every version
+     * generated in a run, which is the behaviour the generated relations files depend on. See
+     * {@link GenerationContext}.
+     */
+    @Bean
+    public GenerationContext generationContext() {
+        return new GenerationContext();
+    }
+
     @Bean
     @Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public YAMLfromOXM yamlFromOXM(SchemaConfigVersions schemaConfigVersions,
-        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor) {
-        return new YAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor);
+        NodeIngestor nodeIngestor, EdgeIngestor edgeIngestor, GenerationContext generationContext) {
+        return new YAMLfromOXM(basePath, schemaConfigVersions, nodeIngestor, edgeIngestor,
+            generationContext);
     }
 
 }

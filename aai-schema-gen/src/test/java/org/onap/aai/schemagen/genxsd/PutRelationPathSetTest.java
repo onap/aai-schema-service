@@ -136,32 +136,34 @@ public class PutRelationPathSetTest {
 
     }
 
+    /** A fresh context per test, seeded with the delete paths these tests resolve against. */
+    private GenerationContext context;
+
     @BeforeEach
     public void setUp() throws Exception {
+        context = new GenerationContext();
 
-        DeleteOperation.deletePaths.put("/cloud-infrastructure/pservers/pserver/{hostname}",
-            "pserver");
-        DeleteOperation.deletePaths.put("/network/vces/vce/{vnf-id}", "vce");
-        DeleteOperation.deletePaths
-            .put("/cloud-infrastructure/complexes/complex/{physical-location-id}", "complex");
-        DeleteOperation.deletePaths.put(
+        context.addDeletePath("/cloud-infrastructure/pservers/pserver/{hostname}", "pserver");
+        context.addDeletePath("/network/vces/vce/{vnf-id}", "vce");
+        context.addDeletePath("/cloud-infrastructure/complexes/complex/{physical-location-id}",
+            "complex");
+        context.addDeletePath(
             "/service-design-and-creation/service-capabilities/service-capability/{service-type}/{vnf-type}",
             "service-capability");
-        DeleteOperation.deletePaths.put(
+        context.addDeletePath(
             "/cloud-infrastructure/cloud-regions/cloud-region/{cloud-owner}/{cloud-region-id}",
             "cloud-region");
-        DeleteOperation.deletePaths.put("/network/generic-vnfs/generic-vnf/{vnf-id}",
-            "generic-vnf");
-        DeleteOperation.deletePaths.put(
+        context.addDeletePath("/network/generic-vnfs/generic-vnf/{vnf-id}", "generic-vnf");
+        context.addDeletePath(
             "/cloud-infrastructure/cloud-regions/cloud-region/{cloud-owner}/{cloud-region-id}/dvs-switches/dvs-switch/{switch-name}",
             "dvs-switch");
-        DeleteOperation.deletePaths.put(
+        context.addDeletePath(
             "/cloud-infrastructure/complexes/complex/{physical-location-id}/ctag-pools/ctag-pool/{target-pe}/{availability-zone-name}",
             "ctag-pool");
 
-        DeleteOperation.deletePaths.put(path.replace("/relationship-list/relationship", ""),
+        context.addDeletePath(path.replace("/relationship-list/relationship", ""),
             "availability-zone");
-        PutRelationPathSet.add(opId, path);
+        context.addPutRelationPath(opId, path);
     }
 
     @AfterAll
@@ -172,16 +174,16 @@ public class PutRelationPathSetTest {
 
     @Test
     public void testAdd() {
-        PutRelationPathSet.add(opId, path);
-        assertThat(PutRelationPathSet.putRelationPaths.size(), is(1));
-        assertThat(PutRelationPathSet.putRelationPaths.get(opId), is(target));
+        context.addPutRelationPath(opId, path);
+        assertThat(context.getPutRelationPaths().size(), is(1));
+        assertThat(context.getPutRelationPaths().get(opId), is(target));
     }
 
     @Test
     public void testPutRelationPathSet() {
 
-        this.prp = new PutRelationPathSet(v);
-        assertThat(PutRelationPathSet.putRelationPaths.size(), is(1));
+        this.prp = new PutRelationPathSet(v, context);
+        assertThat(context.getPutRelationPaths().size(), is(1));
         prp.generateRelations(edgeIngestor);
         assertTrue(this.relationsFile.exists());
         this.relationsFile.delete();
@@ -189,16 +191,16 @@ public class PutRelationPathSetTest {
 
     @Test
     public void testPutRelationPathSetStringString() {
-        this.prp = new PutRelationPathSet(opId, path, v);
-        assertThat(PutRelationPathSet.putRelationPaths.size(), is(1));
+        this.prp = new PutRelationPathSet(opId, path, v, context);
+        assertThat(context.getPutRelationPaths().size(), is(1));
     }
 
     @Test
     public void testGenerateRelations() {
-        PutRelationPathSet prp = new PutRelationPathSet(opId, "availability-zone", v);
+        PutRelationPathSet prp = new PutRelationPathSet(opId, "availability-zone", v, context);
         prp.generateRelations(edgeIngestor);
-        assertThat(PutRelationPathSet.putRelationPaths.size(), is(1));
-        assertThat(PutRelationPathSet.putRelationPaths.get(opId), is(target));
+        assertThat(context.getPutRelationPaths().size(), is(1));
+        assertThat(context.getPutRelationPaths().get(opId), is(target));
         assertTrue(this.relationsFile.exists());
         // this.relationsFile.delete();
     }

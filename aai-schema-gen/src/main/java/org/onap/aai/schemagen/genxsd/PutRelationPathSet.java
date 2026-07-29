@@ -25,7 +25,6 @@ import com.google.common.collect.Multimap;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -42,27 +41,26 @@ import org.slf4j.LoggerFactory;
 public class PutRelationPathSet {
     EdgeIngestor ei;
     private static final Logger logger = LoggerFactory.getLogger("PutRelationPathSet.class");
-    protected static HashMap<String, String> putRelationPaths = new HashMap<String, String>();
-
-    public static void add(String useOpId, String path) {
-        putRelationPaths.put(useOpId, path);
-    }
 
     String apiPath;
     String opId;
     SchemaVersion version;
     protected ArrayList<String> relations = new ArrayList<String>();
     String objectName = "";
+    private final GenerationContext context;
 
-    public PutRelationPathSet(SchemaVersion v) {
+    public PutRelationPathSet(SchemaVersion v, GenerationContext context) {
         this.version = v;
+        this.context = context;
     }
 
-    public PutRelationPathSet(String opId, String path, SchemaVersion v) {
+    public PutRelationPathSet(String opId, String path, SchemaVersion v,
+        GenerationContext context) {
         this.apiPath = path.replace("/relationship-list/relationship", "");
         this.opId = opId;
         this.version = v;
-        objectName = DeleteOperation.deletePaths.get(apiPath);
+        this.context = context;
+        objectName = context.getDeletePathObject(apiPath);
         logger.debug("II-apiPath: " + apiPath + "\nPath: " + path + "\nopId=" + opId
             + "\nobjectName=" + objectName);
     }
@@ -193,12 +191,12 @@ public class PutRelationPathSet {
         return pathSb.toString();
     }
 
-    private static String getKinObjectPath(String obj, String apiPath) {
+    private String getKinObjectPath(String obj, String apiPath) {
         LevenshteinDistance proximity = new LevenshteinDistance();
         String targetPath = "";
         int targetScore = Integer.MAX_VALUE;
         int targetMaxScore = 0;
-        for (Map.Entry<String, String> p : DeleteOperation.deletePaths.entrySet()) {
+        for (Map.Entry<String, String> p : context.getDeletePaths().entrySet()) {
             if (p.getValue().equals(obj)) {
                 targetScore = (targetScore >= proximity.apply(apiPath, p.getKey()))
                     ? proximity.apply(apiPath, p.getKey())
@@ -215,10 +213,10 @@ public class PutRelationPathSet {
         return targetPath;
     }
 
-    private static String getUnrelatedObjectPaths(String obj, String apiPath) {
+    private String getUnrelatedObjectPaths(String obj, String apiPath) {
         StringBuilder targetPath = new StringBuilder();
         logger.trace("Obj:" + obj + "\n" + apiPath);
-        for (Map.Entry<String, String> p : DeleteOperation.deletePaths.entrySet()) {
+        for (Map.Entry<String, String> p : context.getDeletePaths().entrySet()) {
             if (p.getValue().equals(obj)) {
                 logger.trace("p.getvalue:" + p.getValue() + "p.getkey:" + p.getKey());
                 targetPath.append(targetPath.length() == 0 ? "" : "|").append(p.getKey());
@@ -229,13 +227,13 @@ public class PutRelationPathSet {
     }
 
     public void generateRelations(EdgeIngestor edgeIngestor) {
-        putRelationPaths.forEach((k, v) -> {
+        context.getPutRelationPaths().forEach((k, v) -> {
             logger.trace("k=" + k + "\n" + "v=" + v + v.equals(
                 "/business/customers/customer/{global-customer-id}/service-subscriptions/service-subscription/{service-type}/service-instances/service-instance/{service-instance-id}/allotted-resources/allotted-resource/{id}/relationship-list/relationship"));
             logger.debug("apiPath(Operation): " + v);
             logger.debug("Target object: " + v.replace("/relationship-list/relationship", ""));
             logger.debug("Relations: ");
-            PutRelationPathSet prp = new PutRelationPathSet(k, v, this.version);
+            PutRelationPathSet prp = new PutRelationPathSet(k, v, this.version, this.context);
             prp.process(edgeIngestor);
         });
     }

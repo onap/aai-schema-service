@@ -54,21 +54,19 @@ public class PutOperationTest {
                 ""},
 
             // Case where path ends with "/relationship-list": this should return empty
-            {"RelationshipListExample", "relationship", "ExampleTag",
-                "/example/relationship-list",
+            {"RelationshipListExample", "relationship", "ExampleTag", "/example/relationship-list",
                 "        - name: related-resource\n          in: path\n          description: Related resource.\n          required: true\n          type: string\n          example: __RESOURCE-ID__",
                 ""},
 
             // Case where path neither ends with "/relationship" nor "}" - should return empty
             // ExamplePathWithoutRelationship - Expecting full operation details for this path
-            {"ExamplePathWithoutRelationship", "example-resource", "ExampleTag", "/example-path/{resource-id}",
+            {"ExamplePathWithoutRelationship", "example-resource", "ExampleTag",
+                "/example-path/{resource-id}",
                 "        - name: resource-id\n          in: path\n          description: Resource ID.\n          required: true\n          type: string\n          example: __RESOURCE-ID__",
-                "    put:\n      tags:\n        - ExampleTag\n      summary: create or update an existing example-resource\n      description: |\n        Create or update an existing example-resource.\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement. An example can be found in the [PATCH section] below\n      operationId: createOrUpdateExamplePathWithoutRelationship\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null\n      parameters:\n        - name: resource-id\n          in: path\n          description: Resource ID.\n          required: true\n          type: string\n          example: __RESOURCE-ID__\n        - name: body\n          in: body\n          description: example-resource object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v14/ExamplePathWithoutRelationship.json)\n          required: true\n          schema:\n            $ref: \"#/definitions/example-resource\"\n"
-                  },
+                "    put:\n      tags:\n        - ExampleTag\n      summary: create or update an existing example-resource\n      description: |\n        Create or update an existing example-resource.\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement. An example can be found in the [PATCH section] below\n      operationId: createOrUpdateExamplePathWithoutRelationship\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null\n      parameters:\n        - name: resource-id\n          in: path\n          description: Resource ID.\n          required: true\n          type: string\n          example: __RESOURCE-ID__\n        - name: body\n          in: body\n          description: example-resource object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v14/ExamplePathWithoutRelationship.json)\n          required: true\n          schema:\n            $ref: \"#/definitions/example-resource\"\n"},
 
             // Case where path starts with "/search": this should return empty
-            {"SearchExample", "search", "SearchTag",
-                "/search/query",
+            {"SearchExample", "search", "SearchTag", "/search/query",
                 "        - name: query\n          in: path\n          description: Search query.\n          required: true\n          type: string\n          example: __QUERY__",
                 ""},
 
@@ -77,12 +75,10 @@ public class PutOperationTest {
                 "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
                 ""},
             // Test case for path ending with '/relationship'
-            {"RelationshipTest", "relationship", "", "/path/to/relationship",
-                "", ""},
+            {"RelationshipTest", "relationship", "", "/path/to/relationship", "", ""},
 
             // Test case for path starting with '/search'
-            {"SearchTest", "search", "", "/search/path/to/resource",
-                "", ""},
+            {"SearchTest", "search", "", "/search/path/to/resource", "", ""},
 
             // Test case for path containing "/relationship/"
             {"TestOp2", "relationship", "TestTag", "/network/relationship/123", "", ""},
@@ -91,19 +87,20 @@ public class PutOperationTest {
             {"TestOp3", "relationship-list", "TestTag", "/network/relationship-list", "", ""},
 
             // Test case for path starting with "/search"
-            {"TestOp4", "search", "TestTag", "/search/records", "", ""}
-        };
+            {"TestOp4", "search", "TestTag", "/search/records", "", ""}};
         return Arrays.asList(inputs);
     }
 
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String expectedResult) {
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path,
+        String pathParams, String expectedResult) {
         PutOperation put =
             new PutOperation(useOpId, xmlRootElementName, tag, path, pathParams, v, "/aai");
         String modResult = put.toString();
 
-        // Trim leading/trailing spaces and normalize internal whitespace (i.e., remove multiple spaces)
+        // Trim leading/trailing spaces and normalize internal whitespace (i.e., remove multiple
+        // spaces)
         String normalizedExpected = expectedResult.trim().replaceAll("\\s+", " ");
         String normalizedActual = modResult.trim().replaceAll("\\s+", " ");
 
@@ -113,15 +110,18 @@ public class PutOperationTest {
     // Test case for path starting with "/search"
     @Test
     public void testToStringForSearchPath() {
-        PutOperation put = new PutOperation("useOpId", "xmlRootElementName", "tag", "/search/query", "pathParams", v, "/aai");
+        PutOperation put = new PutOperation("useOpId", "xmlRootElementName", "tag", "/search/query",
+            "pathParams", v, "/aai");
         String result = put.toString();
         assertThat(result, is("")); // Should return empty string for path starting with "/search"
     }
 
+    /** A fresh context per test; no shared state to clear. */
+    private GenerationContext context;
+
     @BeforeEach
-    public void clearPutRelationPaths() {
-        // the map is static and shared; isolate each register() assertion
-        PutRelationPathSet.putRelationPaths.clear();
+    public void newContext() {
+        context = new GenerationContext();
     }
 
     @Test
@@ -129,16 +129,16 @@ public class PutOperationTest {
         String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
         PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
             "Network", path, "", v, "/aai");
-        put.register();
-        assertEquals(path, PutRelationPathSet.putRelationPaths.get("NetworkGenericVnfsGenericVnf"));
+        put.register(context);
+        assertEquals(path, context.getPutRelationPaths().get("NetworkGenericVnfsGenericVnf"));
     }
 
     @Test
     public void testRegisterIgnoresNonRelationshipPath() {
-        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
-            "/network/generic-vnfs/generic-vnf/{vnf-id}", "", v, "/aai");
-        put.register();
-        assertTrue(PutRelationPathSet.putRelationPaths.isEmpty());
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", "/network/generic-vnfs/generic-vnf/{vnf-id}", "", v, "/aai");
+        put.register(context);
+        assertTrue(context.getPutRelationPaths().isEmpty());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class PutOperationTest {
         PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
             "Network", path, "", v, "/aai");
         put.toString();
-        assertTrue(PutRelationPathSet.putRelationPaths.isEmpty());
+        assertTrue(context.getPutRelationPaths().isEmpty());
     }
 
     @Test
@@ -157,8 +157,8 @@ public class PutOperationTest {
         String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
         PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
             "Network", path, "", v, "/aai");
-        assertEquals("", put.tagRelationshipPathMapEntry());
-        assertEquals(path, PutRelationPathSet.putRelationPaths.get("NetworkGenericVnfsGenericVnf"));
+        assertEquals("", put.tagRelationshipPathMapEntry(context));
+        assertEquals(path, context.getPutRelationPaths().get("NetworkGenericVnfsGenericVnf"));
     }
 
 }

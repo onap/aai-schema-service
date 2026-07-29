@@ -696,6 +696,7 @@ public class XSDElementTest {
             "        - name: subscriber-name\n          in: query\n          required: false\n          type: string\n");
         target.add(
             "        - name: subscriber-type\n          in: query\n          required: false\n          type: string\n");
+        GenerationContext context = new GenerationContext();
         Vector<String> indexedProps = new Vector<String>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
@@ -709,7 +710,7 @@ public class XSDElementTest {
                     if (indexedProps.contains(xmlElement.name()))
                         containerProps.add(xmlElement.getQueryParamYAML());
                 }
-                GetOperation.addContainerProps(container, containerProps);
+                context.addContainerProps(container, containerProps);
             }
         }
         /*
@@ -720,7 +721,7 @@ public class XSDElementTest {
          * queryParams.add(javaTypeElement.getQueryParamYAML());
          * }
          */
-        assertThat(GetOperation.containers.get("customers"), equalTo(target));
+        assertThat(context.getContainerProps("customers"), equalTo(target));
     }
 
     @Test

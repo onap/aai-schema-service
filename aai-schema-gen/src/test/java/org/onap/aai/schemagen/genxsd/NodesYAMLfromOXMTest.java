@@ -97,7 +97,8 @@ public class NodesYAMLfromOXMTest {
     @BeforeEach
     public void setUp() throws Exception {
 
-        NodeGetOperation.checklist.clear();
+        // no shared node-GET state to clear: NodesYAMLfromOXM.process() now starts each version
+        // with a fresh NodeGenerationContext
         XSDElementTest x = new XSDElementTest();
         x.setUp();
         testXML = x.testXML;

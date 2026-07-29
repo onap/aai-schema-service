@@ -20,16 +20,18 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import java.util.Arrays;
-import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class DeleteOperationTest {
 
@@ -41,11 +43,13 @@ public class DeleteOperationTest {
                 ""}, // Should return an empty string because tag is empty
 
             // Case where path contains "/relationship/" (tests path.contains("/relationship/"))
-            {"TestPathContainsRelationship", "generic-vnf", "Network", "/network/relationship/xyz/{xyz-id}",
+            {"TestPathContainsRelationship", "generic-vnf", "Network",
+                "/network/relationship/xyz/{xyz-id}",
                 "        - name: xyz-id\n          in: path\n          description: Unique id of XYZ. This is a test.\n          required: true\n          type: string\n          example: __XYZ-ID__\n",
                 ""}, // Should return an empty string because path contains "/relationship/"
 
-            // Case where path ends with "/relationship-list" (tests path.endsWith("/relationship-list"))
+            // Case where path ends with "/relationship-list" (tests
+            // path.endsWith("/relationship-list"))
             {"TestPathEndsWithRelationshipList", "service", "Network", "/network/relationship-list",
                 "        - name: xyz-id\n          in: path\n          description: Unique id of XYZ. This is a test.\n          required: true\n          type: string\n          example: __XYZ-ID__\n",
                 ""}, // Should return an empty string because path ends with "/relationship-list"
@@ -61,26 +65,29 @@ public class DeleteOperationTest {
                 ""}, // Should return an empty string because path starts with "/search"
 
             // Additional normal case to verify overall behavior
-            {"TestValidPath", "generic-vnf", "Network", "/network/generic-vnfs/generic-vnf/{vnf-id}",
+            {"TestValidPath", "generic-vnf", "Network",
+                "/network/generic-vnfs/generic-vnf/{vnf-id}",
                 "        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n",
-                "    delete:\n      tags:\n        - Network\n      summary: delete an existing generic-vnf\n      description: delete an existing generic-vnf\n      operationId: deleteTestValidPath\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n        - name: resource-version\n          in: query\n          description: resource-version for concurrency\n          required: true\n          type: string\n"}
-        };
+                "    delete:\n      tags:\n        - Network\n      summary: delete an existing generic-vnf\n      description: delete an existing generic-vnf\n      operationId: deleteTestValidPath\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF. This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__\n        - name: resource-version\n          in: query\n          description: resource-version for concurrency\n          required: true\n          type: string\n"}};
         return Arrays.asList(inputs);
     }
 
     @MethodSource("testConditions")
     @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path, String pathParams, String expectedResult) {
+    public void testToString(String useOpId, String xmlRootElementName, String tag, String path,
+        String pathParams, String expectedResult) {
         DeleteOperation delete =
             new DeleteOperation(useOpId, xmlRootElementName, tag, path, pathParams);
         String modResult = delete.toString();
         assertThat(modResult, is(expectedResult));
     }
 
+    /** A fresh context per test; no shared state to clear. */
+    private GenerationContext context;
+
     @BeforeEach
-    public void clearDeletePaths() {
-        // the map is static and shared; isolate each register() assertion
-        DeleteOperation.deletePaths.clear();
+    public void newContext() {
+        context = new GenerationContext();
     }
 
     @Test
@@ -88,16 +95,16 @@ public class DeleteOperationTest {
         String path = "/network/generic-vnfs/generic-vnf/{vnf-id}";
         DeleteOperation delete =
             new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
-        delete.register();
-        assertEquals("generic-vnf", DeleteOperation.deletePaths.get(path));
+        delete.register(context);
+        assertEquals("generic-vnf", context.getDeletePathObject(path));
     }
 
     @Test
     public void testRegisterIgnoresRelationshipPath() {
         DeleteOperation delete = new DeleteOperation("TestPathEndsWithRelationship", "relationship",
             "Service", "/service/xyz/relationship", "");
-        delete.register();
-        assertTrue(DeleteOperation.deletePaths.isEmpty());
+        delete.register(context);
+        assertTrue(context.getDeletePaths().isEmpty());
     }
 
     @Test
@@ -107,7 +114,7 @@ public class DeleteOperationTest {
         DeleteOperation delete =
             new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
         delete.toString();
-        assertTrue(DeleteOperation.deletePaths.isEmpty());
+        assertTrue(context.getDeletePaths().isEmpty());
     }
 
     @Test
@@ -116,8 +123,8 @@ public class DeleteOperationTest {
         String path = "/network/generic-vnfs/generic-vnf/{vnf-id}";
         DeleteOperation delete =
             new DeleteOperation("NetworkGenericVnfsGenericVnf", "generic-vnf", "Network", path, "");
-        assertEquals("generic-vnf:" + path, delete.objectPathMapEntry());
-        assertEquals("generic-vnf", DeleteOperation.deletePaths.get(path));
+        assertEquals("generic-vnf:" + path, delete.objectPathMapEntry(context));
+        assertEquals("generic-vnf", context.getDeletePathObject(path));
     }
 
 }

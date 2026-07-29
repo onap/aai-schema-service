@@ -20,7 +20,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import org.onap.aai.schemagen.GenerateXsd;
@@ -31,8 +30,6 @@ public class DeleteOperation {
     private String tag;
     private String path;
     private String pathParams;
-
-    public static HashMap<String, String> deletePaths = new HashMap<String, String>();
 
     public DeleteOperation(String useOpId, String xmlRootElementName, String tag, String path,
         String pathParams) {
@@ -102,23 +99,23 @@ public class DeleteOperation {
     }
 
     /**
-     * Registers this operation's path in the shared {@link #deletePaths} map (unless it is a
+     * Registers this operation's path in the run's {@link GenerationContext} (unless it is a
      * relationship endpoint). Kept separate from {@link #toString()} so that rendering is free of
      * side effects; call this once, after the operation has been emitted.
      */
-    public void register() {
+    public void register(GenerationContext context) {
         if (!path.endsWith("/relationship")) {
-            deletePaths.put(path, xmlRootElementName);
+            context.addDeletePath(path, xmlRootElementName);
         }
     }
 
     /**
-     * @deprecated retained for backwards compatibility; use {@link #register()} instead. The return
-     *             value is never used by callers.
+     * @deprecated retained for backwards compatibility; use {@link #register(GenerationContext)}
+     *             instead. The return value is never used by callers.
      */
     @Deprecated
-    public String objectPathMapEntry() {
-        register();
+    public String objectPathMapEntry(GenerationContext context) {
+        register(context);
         return (xmlRootElementName + ":" + path);
     }
 }

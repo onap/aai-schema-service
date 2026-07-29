@@ -118,23 +118,24 @@ public class PutOperation {
     }
 
     /**
-     * Registers this operation's relationship path in the shared {@link PutRelationPathSet} when the
+     * Registers this operation's relationship path in the run's {@link GenerationContext} when the
      * path is a relationship endpoint. Kept separate from {@link #toString()} so that rendering is
      * free of side effects; call this once, after the operation has been emitted.
      */
-    public void register() {
+    public void register(GenerationContext context) {
         if (path.endsWith("/" + RELATIONSHIP)) {
-            PutRelationPathSet.add(useOpId, path);
+            context.addPutRelationPath(useOpId, path);
         }
     }
 
     /**
-     * @deprecated retained for backwards compatibility; use {@link #register()} instead. The return
-     *             value was always the empty string and is never used by callers.
+     * @deprecated retained for backwards compatibility; use {@link #register(GenerationContext)}
+     *             instead. The return value was always the empty string and is never used by
+     *             callers.
      */
     @Deprecated
-    public String tagRelationshipPathMapEntry() {
-        register();
+    public String tagRelationshipPathMapEntry(GenerationContext context) {
+        register(context);
         return "";
     }
 

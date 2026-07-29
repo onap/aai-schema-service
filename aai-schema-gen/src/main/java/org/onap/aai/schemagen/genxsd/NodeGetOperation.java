@@ -20,9 +20,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -30,22 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
 
 public class NodeGetOperation {
-    static Map<String, Vector<String>> containers = new HashMap<String, Vector<String>>();
-    static ArrayList<String> checklist = createChecklist();
-
-    private static ArrayList<String> createChecklist() {
-        ArrayList<String> list = new ArrayList<String>();
-        return list;
-    }
-
-    public static void addContainerProps(String container, Vector<String> containerProps) {
-        containers.put(container, containerProps);
-    }
-
-    public static void resetContainers() {
-        containers = new HashMap<String, Vector<String>>();
-        checklist = createChecklist();
-    }
 
     private String useOpId;
     private String xmlRootElementName;
@@ -54,9 +35,10 @@ public class NodeGetOperation {
     private String CRUDpath;
     private String pathParams;
     private String queryParams;
+    private final NodeGenerationContext context;
 
     public NodeGetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams) {
+        String pathParams, NodeGenerationContext context) {
         super();
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
@@ -64,16 +46,13 @@ public class NodeGetOperation {
         this.CRUDpath = path;
         this.path = nodePath();
         this.pathParams = pathParams;
-        StringBuilder p = new StringBuilder();
+        this.context = context;
 
-        if (containers.get(xmlRootElementName) == null) {
+        Vector<String> containerProps = context.getContainerProps(xmlRootElementName);
+        if (containerProps == null) {
             this.queryParams = "";
         } else {
-            this.queryParams = String.join("", containers.get(xmlRootElementName));
-            for (String param : containers.get(xmlRootElementName)) {
-                p.append(param);
-            }
-            this.queryParams = p.toString();
+            this.queryParams = String.join("", containerProps);
         }
     }
 
@@ -119,7 +98,7 @@ public class NodeGetOperation {
         if (CRUDpath.startsWith("/nodes")) {
             return "";
         }
-        if (checklist.contains(xmlRootElementName)) {
+        if (context.isAlreadyEmitted(xmlRootElementName)) {
             return "";
         }
         StringBuilder pathSb = new StringBuilder();
@@ -158,7 +137,16 @@ public class NodeGetOperation {
         if (StringUtils.isNotEmpty(queryParams)) {
             pathSb.append(queryParams);
         }
-        checklist.add(xmlRootElementName);
         return pathSb.toString();
+    }
+
+    /**
+     * Marks this object as having had its node-GET operation emitted, so that later occurrences are
+     * suppressed. Kept separate from {@link #toString()} so that rendering is free of side effects;
+     * call this once, after a non-empty operation has been emitted — which is exactly when the
+     * original code reached the tail of {@code toString()}.
+     */
+    public void register() {
+        context.markEmitted(xmlRootElementName);
     }
 }
