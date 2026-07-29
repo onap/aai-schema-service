@@ -22,24 +22,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.onap.aai.setup.SchemaVersion;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.*;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -51,6 +33,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.fail;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.*;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.onap.aai.setup.SchemaVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class XSDElementTest {
     private static final Logger logger = LoggerFactory.getLogger("XSDElementTest.class");
@@ -867,14 +870,15 @@ public class XSDElementTest {
     @Test
     public void testGetHTMLElement_withoutAnnotation() {
         // Create the mock SchemaVersion and HTMLfromOXM
-        SchemaVersion schemaVersion = new SchemaVersion("v11");  // Use version "v11"
+        SchemaVersion schemaVersion = new SchemaVersion("v11"); // Use version "v11"
         HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
 
         // Mock getXmlRootElementName() to return a custom value
         when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("stringElement");
 
         // Create a dummy Element (XML Element)
-        Document document = createTestXMLDocument();  // Assuming this method creates a Document object
+        Document document = createTestXMLDocument(); // Assuming this method creates a Document
+                                                     // object
         Element element = document.createElement("testElement");
         element.setAttribute("name", "testName");
         element.setAttribute("type", "java.lang.String");
@@ -884,14 +888,16 @@ public class XSDElementTest {
         // Initialize XSDElement with the element and maxOccurs value
         XSDElement xsdelement = new XSDElement(element, "unbounded");
 
-        // Mock the behavior of XSDElement's getHTMLAnnotation() to return an empty string (no annotation)
+        // Mock the behavior of XSDElement's getHTMLAnnotation() to return an empty string (no
+        // annotation)
         XSDElement mockedXSDElement = mock(XSDElement.class);
         when(mockedXSDElement.getHTMLAnnotation("field", "          ")).thenReturn("");
 
         // Call the method to get the actual HTML element without annotations
         String actualHtml = xsdelement.getHTMLElement(schemaVersion, true, htmlDriver);
 
-        // Assert the generated HTML contains the expected elements and doesn't include annotation text
+        // Assert the generated HTML contains the expected elements and doesn't include annotation
+        // text
         assertThat(actualHtml, containsString("<xs:element name=\"testName\""));
         assertThat(actualHtml, containsString("type=\"xs:string\""));
         assertThat(actualHtml, containsString("minOccurs=\"0\""));
@@ -900,11 +906,13 @@ public class XSDElementTest {
         assertThat(actualHtml, containsString("/>"));
     }
 
-    // Helper method to create a simple Document with a root element (can be extended as per the test needs)
+    // Helper method to create a simple Document with a root element (can be extended as per the
+    // test needs)
     private Document createTestXMLDocument() {
         try {
             // Use a simple DocumentBuilderFactory to create an empty Document
-            javax.xml.parsers.DocumentBuilderFactory factory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+            javax.xml.parsers.DocumentBuilderFactory factory =
+                javax.xml.parsers.DocumentBuilderFactory.newInstance();
             javax.xml.parsers.DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.newDocument();
             return document;
@@ -1060,7 +1068,8 @@ public class XSDElementTest {
     @Test
     public void testCompareDocumentPosition() throws DOMException {
         Node otherNode = mock(Node.class);
-        when(xmlElementElement.compareDocumentPosition(otherNode)).thenReturn(Node.DOCUMENT_POSITION_FOLLOWING);
+        when(xmlElementElement.compareDocumentPosition(otherNode))
+            .thenReturn(Node.DOCUMENT_POSITION_FOLLOWING);
 
         short result = xsdelement.compareDocumentPosition(otherNode);
 
@@ -1377,11 +1386,13 @@ public class XSDElementTest {
 
     @Test
     public void testSetAttributeNS() throws DOMException {
-        doNothing().when(xmlElementElement).setAttributeNS("namespaceURI", "qualifiedName", "value");
+        doNothing().when(xmlElementElement).setAttributeNS("namespaceURI", "qualifiedName",
+            "value");
 
         xsdelement.setAttributeNS("namespaceURI", "qualifiedName", "value");
 
-        verify(xmlElementElement, times(1)).setAttributeNS("namespaceURI", "qualifiedName", "value");
+        verify(xmlElementElement, times(1)).setAttributeNS("namespaceURI", "qualifiedName",
+            "value");
     }
 
     @Test
@@ -1416,7 +1427,8 @@ public class XSDElementTest {
     @Test
     public void testGetElementsByTagNameNS() throws DOMException {
         NodeList nodeList = mock(NodeList.class);
-        when(xmlElementElement.getElementsByTagNameNS("namespaceURI", "localName")).thenReturn(nodeList);
+        when(xmlElementElement.getElementsByTagNameNS("namespaceURI", "localName"))
+            .thenReturn(nodeList);
 
         NodeList result = xsdelement.getElementsByTagNameNS("namespaceURI", "localName");
 
@@ -1482,15 +1494,12 @@ public class XSDElementTest {
     @Test
     public void testGetRequiresProperty() {
         // Mocking the XML element containing the <xml-property name="requires"> element
-        String xmlString =
-            "<xml-bindings>" +
-                "<java-type name=\"Business\">" +
-                "<xml-properties>" +
-                "<xml-property name=\"description\" value=\"Namespace for business related constructs\" />" +
-                "<xml-property name=\"requires\" value=\"some-required-property\" />" + // This is what we're looking for
-                "</xml-properties>" +
-                "</java-type>" +
-                "</xml-bindings>";
+        String xmlString = "<xml-bindings>" + "<java-type name=\"Business\">" + "<xml-properties>"
+            + "<xml-property name=\"description\" value=\"Namespace for business related constructs\" />"
+            + "<xml-property name=\"requires\" value=\"some-required-property\" />" + // This is
+                                                                                      // what we're
+                                                                                      // looking for
+            "</xml-properties>" + "</java-type>" + "</xml-bindings>";
 
         try {
             // Parse the XML string into a Document object
@@ -1504,7 +1513,8 @@ public class XSDElementTest {
 
             // Call getRequiresProperty and assert the result
             String requiresProperty = xsdelement.getRequiresProperty();
-            assertEquals("some-required-property", requiresProperty, "The requires property should match the expected value.");
+            assertEquals("some-required-property", requiresProperty,
+                "The requires property should match the expected value.");
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
             fail("An error occurred while parsing the XML or executing the test.");
@@ -1689,7 +1699,8 @@ public class XSDElementTest {
         assertEquals(expectedYAML, result);
     }
 
-    // Add a test for when type is unrecognized, to ensure the method handles unexpected types correctly
+    // Add a test for when type is unrecognized, to ensure the method handles unexpected types
+    // correctly
     @Test
     public void testGetQueryParamYAML_withUnrecognizedType() {
         // Mock Element with an unrecognized type
@@ -1946,7 +1957,7 @@ public class XSDElementTest {
 
     @Test
     public void testGetHTMLElement_withStringType_withoutAnnotation() {
-        SchemaVersion schemaVersion = new SchemaVersion("v11");  // Use version "v11"
+        SchemaVersion schemaVersion = new SchemaVersion("v11"); // Use version "v11"
         HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
         when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("stringElement");
 
@@ -1963,7 +1974,8 @@ public class XSDElementTest {
         // Call the method to get the actual HTML element without annotations
         String actualHtml = xsdelement.getHTMLElement(schemaVersion, false, htmlDriver);
 
-        // Assert the generated HTML contains the expected elements and doesn't include annotation text
+        // Assert the generated HTML contains the expected elements and doesn't include annotation
+        // text
         assertThat(actualHtml, containsString("<xs:element name=\"testName\""));
         assertThat(actualHtml, containsString("type=\"xs:string\""));
         assertThat(actualHtml, containsString("minOccurs=\"0\""));
@@ -2112,7 +2124,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2134,7 +2146,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2157,7 +2169,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2180,7 +2192,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2203,7 +2215,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2226,7 +2238,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         String result = xsdelement.getTypePropertyYAML(false);
@@ -2248,7 +2260,7 @@ public class XSDElementTest {
 
         // Mock the getElementsByTagName method to return a NodeList
         NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0);  // No xml-properties present
+        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
         when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
 
         // Call the method with isDslStartNode set to true
@@ -2264,7 +2276,6 @@ public class XSDElementTest {
 
         assertEquals(expectedYAML, result);
     }
-
 
     /**
      * Parses a single {@code <xml-element>} carrying the given constraint facet
@@ -2506,5 +2517,74 @@ public class XSDElementTest {
         assertThat(actual, containsString(
             "<xs:element name=\"property-name\" type=\"xs:string\" minOccurs=\"0\"/>"));
         assertThat(actual, not(containsString("xs:simpleType")));
+    }
+
+    /**
+     * Builds an {@code xml-element} of the given type, optionally carrying
+     * {@code required="true"}.
+     */
+    private XSDElement requiredElement(String type, boolean required) throws Exception {
+        String xml = "<xml-element java-attribute=\"prop\" name=\"property-name\""
+            + (required ? " required=\"true\"" : "") + " type=\"" + type + "\" />\n";
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        Document doc = dbFactory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+        return new XSDElement(doc.getDocumentElement(), "unbounded");
+    }
+
+    @Test
+    public void testGetHTMLElement_requiredElementOmitsMinOccurs() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = requiredElement("java.lang.String", true);
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        // XSD defaults minOccurs to 1, so a mandatory element is the one that says nothing
+        assertThat(actual, is("        <xs:element name=\"property-name\" type=\"xs:string\"/>"
+            + OxmFileProcessor.LINE_SEPARATOR));
+    }
+
+    @Test
+    public void testGetHTMLElement_optionalElementKeepsMinOccursZero() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = requiredElement("java.lang.String", false);
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual,
+            is("        <xs:element name=\"property-name\" type=\"xs:string\" minOccurs=\"0\"/>"
+                + OxmFileProcessor.LINE_SEPARATOR));
+    }
+
+    @Test
+    public void testGetHTMLElement_requiredNodeTypeReferenceStaysOptional() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        when(htmlDriver.getXmlRootElementName(anyString())).thenReturn("service-subscriptions");
+        XSDElement element =
+            requiredElement("inventory.aai.onap.org.v11.ServiceSubscriptions", true);
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        // getHTMLElementWrapper has always kept references optional regardless of required
+        assertThat(actual,
+            is("        <xs:element ref=\"tns:service-subscriptions\" minOccurs=\"0\"/>"
+                + OxmFileProcessor.LINE_SEPARATOR));
+    }
+
+    @Test
+    public void testGetHTMLElement_requiredFacetElementOmitsMinOccurs() throws Exception {
+        SchemaVersion schemaVersion = new SchemaVersion("v11");
+        HTMLfromOXM htmlDriver = mock(HTMLfromOXM.class);
+        XSDElement element = facetElement("java.lang.String", "maxLength", "3");
+        element.setAttribute("required", "true");
+
+        String actual = element.getHTMLElement(schemaVersion, false, htmlDriver);
+
+        assertThat(actual, containsString("<xs:element name=\"property-name\">"));
+        assertThat(actual, not(containsString("minOccurs")));
+        assertThat(actual, containsString("<xs:maxLength value=\"3\"/>"));
     }
 }

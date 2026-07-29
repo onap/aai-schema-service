@@ -526,7 +526,10 @@ public class XSDElement implements Element {
         if (xsdType != null && !restrictType) {
             sbElement.append(" type=\"").append(xsdType).append("\"");
         }
-        if (addType != null || elementType.startsWith("java.lang.")) {
+        // required="true" makes the element mandatory, which in XSD is the default minOccurs of 1.
+        // A reference stays optional either way, as getHTMLElementWrapper also has it.
+        boolean isOptional = addType != null || !"true".equals(elementIsRequired);
+        if ((addType != null || elementType.startsWith("java.lang.")) && isOptional) {
             sbElement.append(" minOccurs=\"0\"");
         }
         if (elementContainerType != null && elementContainerType.equals("java.util.ArrayList")) {
