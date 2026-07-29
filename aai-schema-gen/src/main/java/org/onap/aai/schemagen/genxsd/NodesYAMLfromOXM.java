@@ -20,8 +20,6 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import com.google.common.collect.Multimap;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,21 +29,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.edges.EdgeIngestor;
-import org.onap.aai.edges.EdgeRule;
-import org.onap.aai.edges.EdgeRuleQuery;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.setup.SchemaConfigVersions;
@@ -180,7 +173,7 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
             throw e;
         }
         pathSb.append(getDocumentHeader());
-        StringBuilder definitionsSb = new StringBuilder();
+        YamlWriter definitions = new YamlWriter();
         Element elem;
         String javaTypeName;
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
@@ -211,8 +204,8 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
                 throw new SAXException(msg);
             }
             namespaceFilter.add(getXmlRootElementName(javaTypeName));
-            processJavaTypeElementSwagger(javaTypeName, javaTypeElement, pathSb, definitionsSb,
-                null, null, null, null, null, null);
+            processJavaTypeElementSwagger(javaTypeName, javaTypeElement.getElement(), pathSb,
+                definitions, null, null, null, null);
         }
         sb.append(pathSb);
         // sb.append(getDocumentHeader());
@@ -259,432 +252,443 @@ public class NodesYAMLfromOXM extends OxmFileProcessor {
     }
 
     private String getDictionary(String resource) {
-        StringBuilder dictSb = new StringBuilder();
-        dictSb.append("  ").append(resource).append(":\n");
-        dictSb.append("    description: |\n");
-        dictSb.append("      dictionary of ").append(resource).append("\n");
-        dictSb.append("    type: object\n");
-        dictSb.append("    properties:\n");
-        dictSb.append("      ").append(resource).append(":\n");
-        dictSb.append("        type: array\n");
-        dictSb.append("        items:\n");
-        dictSb.append("          $ref: \"#/definitions/").append(resource).append("-dict\"\n");
-        return dictSb.toString();
+        YamlWriter dictionary = new YamlWriter();
+        dictionary.key(1, resource);
+        dictionary.blockScalar(2, "description");
+        dictionary.text(3, "dictionary of " + resource);
+        dictionary.entry(2, "type", "object");
+        dictionary.key(2, "properties");
+        dictionary.key(3, resource);
+        dictionary.entry(4, "type", "array");
+        dictionary.key(4, "items");
+        dictionary.entry(5, "$ref", "\"#/definitions/" + resource + "-dict\"");
+        return dictionary.toString();
     }
 
-    private String processJavaTypeElementSwagger(String javaTypeName, Element javaTypeElement,
-        StringBuilder pathSb, StringBuilder definitionsSb, String path, String tag, String opId,
-        String getItemName, StringBuilder pathParams, String validEdges) {
+    /**
+     * Emits the node-GET operation and the schema definition for one java-type, recursing into the
+     * types it references.
+     *
+     * <p>
+     * The structure mirrors {@link YAMLfromOXM}: a {@link JavaTypeScope} holds what the recursion
+     * accumulates and this method is the skeleton. What differs is what gets emitted - one GET per
+     * node instead of the full CRUD set, no PATCH definitions, and path parameters that are not
+     * inherited from the referencing type.
+     */
+    private void processJavaTypeElementSwagger(String javaTypeName, Element javaTypeElement,
+        StringBuilder pathSb, YamlWriter definitions, String path, String tag, String opId,
+        StringBuilder pathParams) {
 
-        String xmlRootElementName = getXMLRootElementName(javaTypeElement);
-        StringBuilder definitionsLocalSb = new StringBuilder(256);
-
-        String useTag = null;
-        String useOpId = null;
         logger.debug("tag=" + tag);
-
-        if (tag != null && (!validTag(tag))) {
+        if (tag != null && !validTag(tag)) {
             logger.debug("tag=" + tag + "; javaTypeName=" + javaTypeName);
-            return null;
+            return;
         }
-        if (!"Inventory".equals(javaTypeName)) {
-            if ("AaiInternal".equals(javaTypeName)) {
-                return null;
-            }
-            if (opId == null) {
-                useOpId = javaTypeName;
-            } else {
-                useOpId = opId + javaTypeName;
-            }
-            if (tag == null) {
-                useTag = javaTypeName;
-            }
+        if ("AaiInternal".equals(javaTypeName)) {
+            return;
         }
-
-        path = "inventory".equals(xmlRootElementName) ? ""
-            : (path == null) ? "/" + xmlRootElementName : path + "/" + xmlRootElementName;
-        XSDJavaType javaType = new XSDJavaType(javaTypeElement);
-        if (getItemName != null) {
-            if ("array".equals(getItemName)) {
-                return javaType.getArrayType();
-            } else {
-                return javaType.getItemName();
-            }
-        }
-
         NodeList parentNodes = javaTypeElement.getElementsByTagName("java-attributes");
         if (parentNodes.getLength() == 0) {
             logger.debug("no java-attributes for java-type " + javaTypeName);
-            return "";
+            return;
         }
 
-        String pathDescriptionProperty = javaType.getPathDescriptionProperty();
-        String container = javaType.getContainerProperty();
-        Vector<String> indexedProps = javaType.getIndexedProps();
-        Vector<String> dslStartNodeProps = javaType.getDslStartNodeProps();
-        Vector<String> containerProps = new Vector<String>();
-        if (container != null) {
-            logger.debug("javaTypeName " + javaTypeName + " container:" + container
-                + " indexedProps:" + indexedProps);
+        JavaTypeScope scope = new JavaTypeScope(javaTypeName, javaTypeElement, path, tag, opId,
+            pathParams, pathSb, definitions);
+        if (appliedPaths.containsKey(scope.path)) {
+            return;
+        }
+        StringTokenizer st = new StringTokenizer(scope.path, "/");
+        logger.debug("path: " + scope.path + " st? " + st);
+        if (st.countTokens() > 1) {
+            logger.debug("appliedPaths: " + appliedPaths + " containsKey? "
+                + appliedPaths.containsKey(scope.path));
+            appliedPaths.put(scope.path, scope.xmlRootElementName);
         }
 
-        Element parentElement = (Element) parentNodes.item(0);
-        NodeList xmlElementNodes = parentElement.getElementsByTagName("xml-element");
+        scope.appendChildProperties((Element) parentNodes.item(0));
+        scope.appendNodeGetOperation();
 
-        StringBuilder sbParameters = new StringBuilder();
-        StringBuilder sbRequired = new StringBuilder();
-        int requiredCnt = 0;
-        int propertyCnt = 0;
-        StringBuilder sbProperties = new StringBuilder();
+        if (generatedJavaType.containsKey(scope.xmlRootElementName)) {
+            logger.debug("xmlRootElementName(1)=" + scope.xmlRootElementName);
+            return;
+        }
+        scope.appendDefinition();
+        scope.storeDefinition();
+        if (scope.xmlRootElementName.equals("inventory")) {
+            logger.trace("skip xmlRootElementName(2)=" + scope.xmlRootElementName);
+            return;
+        }
+        generatedJavaType.put(scope.xmlRootElementName, null);
+        logger.debug("xmlRootElementName(2)=" + scope.xmlRootElementName);
+    }
 
-        if (appliedPaths.containsKey(path)) {
+    /**
+     * The array-item name of a referenced java-type, i.e. the definition a referencing property
+     * points its {@code $ref} at, or null when that type is not a collection or is not emitted at
+     * all. See {@link YAMLfromOXM}'s counterpart; the only difference is the tag check.
+     */
+    private String getArrayItemName(String javaTypeName, Element javaTypeElement, String tag) {
+        if (tag != null && !validTag(tag)) {
+            logger.debug("tag=" + tag + "; javaTypeName=" + javaTypeName);
             return null;
         }
-
-        StringTokenizer st = new StringTokenizer(path, "/");
-        logger.debug("path: " + path + " st? " + st);
-        if (st.countTokens() > 1 && getItemName == null) {
-            logger.debug("appliedPaths: " + appliedPaths + " containsKey? "
-                + appliedPaths.containsKey(path));
-            appliedPaths.put(path, xmlRootElementName);
+        if ("AaiInternal".equals(javaTypeName)) {
+            return null;
         }
-        Vector<String> addTypeV = null;
-        for (int i = 0; i < xmlElementNodes.getLength(); ++i) {
-            XSDElement xmlElementElement = new XSDElement((Element) xmlElementNodes.item(i));
-            if (!xmlElementElement.getParentNode().isSameNode(parentElement)) {
-                continue;
+        return new XSDJavaType(javaTypeElement).getArrayType();
+    }
+
+    /**
+     * The state of emitting one java-type: what the walk over its {@code xml-element} children
+     * accumulates, plus the run-wide buffers that walk feeds. One instance per
+     * {@link NodesYAMLfromOXM#processJavaTypeElementSwagger} invocation, so a referenced type gets
+     * its own.
+     */
+    private final class JavaTypeScope {
+
+        private final String xmlRootElementName;
+        /** Inherited from the referencing type; both null at the top of the tree. */
+        private final String tag;
+        private final String opId;
+        /**
+         * What referenced types inherit as their tag and operation-id prefix. Both null for
+         * {@code Inventory}, which contributes no path segment of its own; {@code useTag} is also
+         * null once some ancestor has already set the tag.
+         */
+        private final String useTag;
+        private final String useOpId;
+        /** Extended by every child carrying {@code xml-key}, hence not final. */
+        private String path;
+        /**
+         * Path parameters inherited from the referencing type. Unlike {@link YAMLfromOXM}, a
+         * referenced type is generated with this type's own parameters only (cp8128), so child
+         * nodes don't repeat the parameters of their parents.
+         */
+        private StringBuilder inheritedPathParams;
+        private final StringBuilder pathSb;
+        /** The run-wide definitions block, which every java-type appends its definition to. */
+        private final YamlWriter definitions;
+
+        private final String pathDescriptionProperty;
+        private final String container;
+        private final Vector<String> indexedProps;
+        private final Vector<String> dslStartNodeProps;
+        private final Vector<String> containerProps = new Vector<>();
+
+        /** This type's own xml-key parameters. */
+        private final StringBuilder parameters = new StringBuilder();
+        private final DefinitionProperties definition = new DefinitionProperties();
+
+        /** This type's definition body, before it is stored. */
+        private final YamlWriter definitionsLocal = new YamlWriter(new StringBuilder(256));
+        /** Only for {@code relationship}: the dictionary wrapper stored under the plain name. */
+        private String dict;
+        private boolean processingInventoryDef;
+        /** The "Related Nodes" block, shared by the description emitter. */
+        private String validEdges;
+
+        private JavaTypeScope(String javaTypeName, Element javaTypeElement, String path, String tag,
+            String opId, StringBuilder pathParams, StringBuilder pathSb, YamlWriter definitions) {
+            this.xmlRootElementName = getXMLRootElementName(javaTypeElement);
+            this.tag = tag;
+            this.opId = opId;
+            boolean isInventory = "Inventory".equals(javaTypeName);
+            this.useOpId = isInventory ? null : (opId == null ? javaTypeName : opId + javaTypeName);
+            this.useTag = (isInventory || tag != null) ? null : javaTypeName;
+            this.path = "inventory".equals(xmlRootElementName) ? ""
+                : (path == null) ? "/" + xmlRootElementName : path + "/" + xmlRootElementName;
+            this.inheritedPathParams = pathParams;
+            this.pathSb = pathSb;
+            this.definitions = definitions;
+
+            XSDJavaType javaType = new XSDJavaType(javaTypeElement);
+            this.pathDescriptionProperty = javaType.getPathDescriptionProperty();
+            this.container = javaType.getContainerProperty();
+            this.indexedProps = javaType.getIndexedProps();
+            this.dslStartNodeProps = javaType.getDslStartNodeProps();
+            if (container != null) {
+                logger.debug("javaTypeName " + javaTypeName + " container:" + container
+                    + " indexedProps:" + indexedProps);
             }
+        }
+
+        /** The tag a referenced type inherits: ours if we have one, otherwise the one we set. */
+        private String childTag() {
+            return tag == null ? useTag : tag;
+        }
+
+        private void appendChildProperties(Element parentElement) {
+            NodeList xmlElementNodes = parentElement.getElementsByTagName("xml-element");
+            for (int i = 0; i < xmlElementNodes.getLength(); ++i) {
+                XSDElement xmlElementElement = new XSDElement((Element) xmlElementNodes.item(i));
+                // getElementsByTagName also finds grandchildren; those belong to a nested type
+                if (!xmlElementElement.getParentNode().isSameNode(parentElement)) {
+                    continue;
+                }
+                appendChildProperty(xmlElementElement);
+            }
+        }
+
+        private void appendChildProperty(XSDElement xmlElementElement) {
+            String name = xmlElementElement.getAttribute("name");
             String elementDescription = xmlElementElement.getPathDescriptionProperty();
-            if (getItemName == null) {
-                addTypeV = xmlElementElement.getAddTypes(v.toString());
-            }
-            if ("true".equals(xmlElementElement.getAttribute("xml-key"))) {
-                path += "/{" + xmlElementElement.getAttribute("name") + "}";
+            Vector<String> addTypeV = xmlElementElement.getAddTypes(v.toString());
+            boolean isKey = "true".equals(xmlElementElement.getAttribute("xml-key"));
+            if (isKey) {
+                path += "/{" + name + "}";
             }
             logger.debug("path: " + path);
             logger.debug("xmlElementElement.getAttribute(required):"
                 + xmlElementElement.getAttribute("required"));
 
             if ("true".equals(xmlElementElement.getAttribute("required"))) {
-                if (requiredCnt == 0) {
-                    sbRequired.append("    required:\n");
-                }
-                ++requiredCnt;
-                if (addTypeV == null || addTypeV.isEmpty()) {
-                    sbRequired.append("    - ").append(xmlElementElement.getAttribute("name"))
-                        .append("\n");
-                } else {
-                    for (int k = 0; k < addTypeV.size(); ++k) {
-                        sbRequired.append("    - ")
-                            .append(getXmlRootElementName(addTypeV.elementAt(k))).append("\n");
-                    }
-                }
+                appendRequired(name, addTypeV);
             }
-
-            if ("true".equals(xmlElementElement.getAttribute("xml-key"))) {
-                sbParameters.append(xmlElementElement.getPathParamYAML(elementDescription));
+            if (isKey) {
+                parameters.append(xmlElementElement.getPathParamYAML(elementDescription));
             }
-            if (indexedProps != null
-                && indexedProps.contains(xmlElementElement.getAttribute("name"))) {
+            if (indexedProps != null && indexedProps.contains(name)) {
                 containerProps.add(xmlElementElement.getQueryParamYAML());
                 nodeContext.addContainerProps(container, containerProps);
             }
             if (xmlElementElement.isStandardType()) {
-                boolean isDslStartNode =
-                    dslStartNodeProps.contains(xmlElementElement.getAttribute("name"));
-                sbProperties.append(xmlElementElement.getTypePropertyYAML(isDslStartNode));
-                ++propertyCnt;
+                boolean isDslStartNode = dslStartNodeProps.contains(name);
+                definition.properties.raw(xmlElementElement.getTypePropertyYAML(isDslStartNode));
+                ++definition.propertyCount;
             }
 
-            // StringBuffer newPathParams = new StringBuffer((pathParams == null ? "" :
-            // pathParams.toString())+sbParameters.toString()); //cp8128 don't append the pathParams
-            // to sbParameters so that child nodes don't contain the parameters from parent
-            StringBuilder newPathParams = new StringBuilder(sbParameters.toString());
-            String useName;
+            // cp8128 don't append the inherited pathParams so that child nodes don't contain the
+            // parameters from parent
+            StringBuilder newPathParams = new StringBuilder(parameters.toString());
             for (int k = 0; addTypeV != null && k < addTypeV.size(); ++k) {
-                String addType = addTypeV.elementAt(k);
-                namespaceFilter.add(getXmlRootElementName(addType));
-                if (opId == null || !opId.contains(addType)) {
-                    processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType),
-                        pathSb, definitionsSb, path, tag == null ? useTag : tag, useOpId, null,
-                        newPathParams, validEdges);
-                }
-                // need item name of array
-                String itemName = processJavaTypeElementSwagger(addType,
-                    getJavaTypeElementSwagger(addType), pathSb, definitionsSb, path,
-                    tag == null ? useTag : tag, useOpId, "array", null, null);
-
-                if (itemName != null) {
-                    if ("AaiInternal".equals(addType)) {
-                        logger.debug("addType AaiInternal, skip properties");
-
-                    } else if (getItemName == null) {
-                        ++propertyCnt;
-                        sbProperties.append("      ").append(getXmlRootElementName(addType))
-                            .append(":\n");
-                        if ("RelationshipList".equals(addType)) {
-                            sbProperties.append("        $ref: \"#/definitions/").append(itemName)
-                                .append("\"\n");
-                        } else {
-                            sbProperties.append("        type: object\n        properties:\n");
-                            sbProperties.append("          " + itemName + ":\n");
-                            sbProperties.append("            type: array\n            items:\n");
-                            sbProperties.append("              $ref: \"#/definitions/")
-                                .append("".equals(itemName) ? "aai-internal" : itemName)
-                                .append("\"\n");
-                        }
-                        if (StringUtils.isNotEmpty(elementDescription)) {
-                            sbProperties.append("        description: ").append(elementDescription)
-                                .append("\n");
-                        }
-                    }
-                } else {
-                    if (("java.util.ArrayList")
-                        .equals(xmlElementElement.getAttribute("container-type"))) {
-                        // need properties for getXmlRootElementName(addType)
-                        namespaceFilter.add(getXmlRootElementName(addType));
-                        if (getXmlRootElementName(addType).equals("service-capabilities")) {
-                            logger.info("arrays: " + getXmlRootElementName(addType));
-                        }
-                        // newPathParams = new StringBuffer((pathParams == null ? "" :
-                        // pathParams.toString())+sbParameters.toString()); //cp8128 - change this
-                        // to not append pathParameters. Just use sbParameters
-                        newPathParams = new StringBuilder(sbParameters.toString());
-                        processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType),
-                            pathSb, definitionsSb, path, tag == null ? useTag : tag, useOpId, null,
-                            newPathParams, validEdges);
-                        useName = getXmlRootElementName(addType);
-                        sbProperties.append("      ").append(useName).append(":\n");
-                        if ("relationship".equals(useName)) {
-                            sbProperties.append("        $ref: \"#/definitions/relationship\"\n");
-                        } else {
-                            sbProperties.append("        type: array\n        items:          \n");
-                            sbProperties.append("          $ref: \"#/definitions/")
-                                .append(getXmlRootElementName(addType)).append("\"\n");
-                        }
-                        if (StringUtils.isNotEmpty(elementDescription)) {
-                            sbProperties.append("        description: ").append(elementDescription)
-                                .append("\n");
-                        }
-
-                    } else {
-                        // Make sure certain types added to the filter don't appear
-                        if (!nodeFilter.contains(getXmlRootElementName(addType))) {
-                            sbProperties.append("      ").append(getXmlRootElementName(addType))
-                                .append(":\n");
-                            sbProperties.append("        $ref: \"#/definitions/")
-                                .append(getXmlRootElementName(addType)).append("\"\n");
-                        }
-                    }
-                    if (StringUtils.isNotEmpty(elementDescription)) {
-                        sbProperties.append("        description: ").append(elementDescription)
-                            .append("\n");
-                    }
-                    ++propertyCnt;
-                }
+                newPathParams = appendReferencedType(xmlElementElement, addTypeV.elementAt(k),
+                    elementDescription, newPathParams);
             }
         }
 
-        if (sbParameters.toString().length() > 0) {
-            if (pathParams == null) {
-                pathParams = new StringBuilder();
+        private void appendRequired(String name, Vector<String> addTypeV) {
+            if (definition.requiredCount == 0) {
+                definition.required.key(2, "required");
             }
-            pathParams.append(sbParameters);
-        }
-        if (indexedProps != null && indexedProps.isEmpty() && containerProps.isEmpty()) {
-            NodeGetOperation get =
-                new NodeGetOperation(useOpId, xmlRootElementName, tag, path, null, nodeContext);
-            String operation = get.toString();
-            if (StringUtils.isNotEmpty(operation)) {
-                operationDefinitions.put(xmlRootElementName, operation);
-                // mirrors the original placement of the checklist update at the tail of toString()
-                get.register();
-            }
-        } else {
-            NodeGetOperation get = new NodeGetOperation(useOpId, xmlRootElementName, tag, path,
-                pathParams == null ? "" : pathParams.toString(), nodeContext);
-            String operation = get.toString();
-            if (StringUtils.isNotEmpty(operation)) {
-                operationDefinitions.put(xmlRootElementName, operation);
-                // mirrors the original placement of the checklist update at the tail of toString()
-                get.register();
-            }
-        }
-        logger.debug("opId vs useOpId:" + opId + " vs " + useOpId + " PathParams=" + pathParams);
-        // add PUT
-        if (generatedJavaType.containsKey(xmlRootElementName)) {
-            logger.debug("xmlRootElementName(1)=" + xmlRootElementName);
-            return null;
-        }
-        boolean processingInventoryDef = false;
-        String dict = null;
-        if (xmlRootElementName.equals("inventory")) {
-            // inventory properties for each oxm to be concatenated
-            processingInventoryDef = true;
-            if (inventoryDefSb == null) {
-                inventoryDefSb = new StringBuilder();
-                definitionsSb.append("  ").append(xmlRootElementName).append(":\n");
-                definitionsLocalSb.append("  ").append(xmlRootElementName).append(":\n");
-                definitionsLocalSb.append("    properties:\n");
-            }
-        } else if (xmlRootElementName.equals("relationship")) {
-            definitionsSb.append("  " + "relationship-dict" + ":\n");
-            definitionsLocalSb.append("  " + "relationship-dict" + ":\n");
-            dict = getDictionary(xmlRootElementName);
-        } else {
-            definitionsSb.append("  ").append(xmlRootElementName).append(":\n");
-            definitionsLocalSb.append("  ").append(xmlRootElementName).append(":\n");
-        }
-        DeleteFootnoteSet footnotes = new DeleteFootnoteSet(xmlRootElementName);
-        StringBuilder sbEdge = new StringBuilder();
-        LinkedHashSet<String> preventDelete = new LinkedHashSet<String>();
-        String prevent = null;
-        String nodeCaption = "      ###### Related Nodes\n";
-        try {
-            EdgeRuleQuery q =
-                new EdgeRuleQuery.Builder(xmlRootElementName).version(v).fromOnly().build();
-            Multimap<String, EdgeRule> results = ei.getRules(q);
-            SortedSet<String> ss = new TreeSet<>(results.keySet());
-            sbEdge.append(nodeCaption);
-            nodeCaption = "";
-            for (String key : ss) {
-                results.get(key).stream()
-                    .filter((i) -> (i.getFrom().equals(xmlRootElementName) && (!i.isPrivateEdge())))
-                    .forEach((i) -> {
-                        logger.info(new String(new StringBuilder("      - TO ").append(i.getTo())
-                            .append(i.getDirection().toString()).append(i.getContains())));
-                    });
-                results.get(key).stream()
-                    .filter((i) -> (i.getFrom().equals(xmlRootElementName) && (!i.isPrivateEdge())))
-                    .forEach((i) -> {
-                        sbEdge.append("      - TO ").append(i.getTo());
-                        EdgeDescription ed = new EdgeDescription(i);
-                        String footnote = ed.getAlsoDeleteFootnote(xmlRootElementName);
-                        sbEdge.append(ed.getRelationshipDescription("TO", xmlRootElementName))
-                            .append(footnote).append("\n");
-                        if (StringUtils.isNotEmpty(footnote)) {
-                            footnotes.add(footnote);
-                        }
-                    });
-                results.get(key).stream()
-                    .filter((i) -> (i.getFrom().equals(xmlRootElementName)
-                        && (!i.isPrivateEdge() && i.getPreventDelete().equals("OUT"))))
-                    .forEach((i) -> {
-                        preventDelete.add(i.getTo().toUpperCase());
-                    });
-            }
-        } catch (Exception e) {
-            logger.debug("xmlRootElementName: " + xmlRootElementName + "\n" + e);
-        }
-        try {
-            EdgeRuleQuery q1 =
-                new EdgeRuleQuery.Builder(xmlRootElementName).version(v).toOnly().build();
-            Multimap<String, EdgeRule> results = ei.getRules(q1);
-            SortedSet<String> ss = new TreeSet<String>(results.keySet());
-            sbEdge.append(nodeCaption);
-            for (String key : ss) {
-                results.get(key).stream()
-                    .filter((i) -> (i.getTo().equals(xmlRootElementName) && (!i.isPrivateEdge())))
-                    .forEach((i) -> {
-                        sbEdge.append("      - FROM ").append(i.getFrom());
-                        EdgeDescription ed = new EdgeDescription(i);
-                        String footnote = ed.getAlsoDeleteFootnote(xmlRootElementName);
-                        sbEdge.append(ed.getRelationshipDescription("FROM", xmlRootElementName))
-                            .append(footnote).append("\n");
-                        if (StringUtils.isNotEmpty(footnote)) {
-                            footnotes.add(footnote);
-                        }
-                    });
-                results.get(key).stream()
-                    .filter((i) -> (i.getTo().equals(xmlRootElementName) && (!i.isPrivateEdge())))
-                    .forEach((i) -> {
-                        logger
-                            .info(new String(new StringBuilder("      - FROM ").append(i.getFrom())
-                                .append(i.getDirection().toString()).append(i.getContains())));
-                    });
-                results.get(key).stream()
-                    .filter((i) -> (i.getTo().equals(xmlRootElementName)
-                        && (!i.isPrivateEdge() && i.getPreventDelete().equals("IN"))))
-                    .forEach((i) -> {
-                        preventDelete.add(i.getFrom().toUpperCase());
-                    });
-            }
-        } catch (Exception e) {
-            logger.debug("xmlRootElementName: " + xmlRootElementName + "\n" + e);
-        }
-        if (preventDelete.size() > 0) {
-            prevent = xmlRootElementName.toUpperCase() + " cannot be deleted if related to "
-                + String.join(",", preventDelete);
-            logger.debug(prevent);
-        }
-
-        if (StringUtils.isNotEmpty(prevent)) {
-            footnotes.add(prevent);
-        }
-        if (footnotes.footnotes.size() > 0) {
-            sbEdge.append(footnotes.toString());
-        }
-        validEdges = sbEdge.toString();
-
-        // Handle description property. Might have a description OR valid edges OR both OR neither.
-        // Only put a description: tag if there is at least one.
-        if (StringUtils.isNotEmpty(pathDescriptionProperty) || StringUtils.isNotEmpty(validEdges)) {
-            definitionsSb.append("    description: |\n");
-            definitionsLocalSb.append("    description: |\n");
-
-            if (pathDescriptionProperty != null) {
-                definitionsSb.append("      ").append(pathDescriptionProperty).append("\n");
-                definitionsLocalSb.append("      ").append(pathDescriptionProperty).append("\n");
-            }
-            definitionsSb.append(validEdges);
-            definitionsLocalSb.append(validEdges);
-        }
-
-        if (requiredCnt > 0) {
-            definitionsSb.append(sbRequired);
-            definitionsLocalSb.append(sbRequired);
-        }
-
-        if (propertyCnt > 0) {
-            definitionsSb.append("    properties:\n");
-            definitionsSb.append(sbProperties);
-            if (!processingInventoryDef) {
-                definitionsLocalSb.append("    properties:\n");
-            }
-            definitionsLocalSb.append(sbProperties);
-        }
-        try {
-            namespaceFilter.add(xmlRootElementName);
-            if (xmlRootElementName.equals("inventory")) {
-                // will add to javaTypeDefinitions at end
-                inventoryDefSb.append(definitionsLocalSb);
-            } else if (xmlRootElementName.equals("relationship")) {
-                javaTypeDefinitions.put(xmlRootElementName, dict);
-                javaTypeDefinitions.put(xmlRootElementName + "-dict",
-                    definitionsLocalSb.toString());
+            ++definition.requiredCount;
+            if (addTypeV == null || addTypeV.isEmpty()) {
+                definition.required.item(2, name);
             } else {
-                javaTypeDefinitions.put(xmlRootElementName, definitionsLocalSb.toString());
+                for (int k = 0; k < addTypeV.size(); ++k) {
+                    definition.required.item(2, getXmlRootElementName(addTypeV.elementAt(k)));
+                }
             }
-        } catch (Exception e) {
-            logger.trace("Exception during javaTypeDefinitions :", e);
         }
-        if (xmlRootElementName.equals("inventory")) {
-            logger.trace("skip xmlRootElementName(2)=" + xmlRootElementName);
-            return null;
-        }
-        generatedJavaType.put(xmlRootElementName, null);
-        // Write operations by Namespace(tagName)
-        /*
-         * if( validTag(javaTypeName) && javaTypeName == useTag && tag == null) {
-         * writeYAMLfile("nodes_"+javaTypeName,
-         * getDocumentHeader()+pathSb.toString()+appendDefinitions(namespaceFilter));
-         * totalPathSbAccumulator.append(pathSb);
-         * pathSb.delete(0, pathSb.length());
-         * namespaceFilter.clear();
-         * }
+
+        /**
+         * Emits the property for one entry of a child's type list, and the referenced type's own
+         * path and definition with it.
+         *
+         * @return the path parameters the next entry of the same list inherits
          */
-        logger.debug("xmlRootElementName(2)=" + xmlRootElementName);
-        return null;
+        private StringBuilder appendReferencedType(XSDElement xmlElementElement, String addType,
+            String elementDescription, StringBuilder newPathParams) {
+            namespaceFilter.add(getXmlRootElementName(addType));
+
+            if (opId == null || !opId.contains(addType)) {
+                processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType), pathSb,
+                    definitions, path, childTag(), useOpId, newPathParams);
+            }
+            // need item name of array
+            String itemName =
+                getArrayItemName(addType, getJavaTypeElementSwagger(addType), childTag());
+
+            if (itemName != null) {
+                if ("AaiInternal".equals(addType)) {
+                    logger.debug("addType AaiInternal, skip properties");
+                } else {
+                    appendCollectionProperty(addType, itemName, elementDescription);
+                }
+                return newPathParams;
+            }
+            if ("java.util.ArrayList".equals(xmlElementElement.getAttribute("container-type"))) {
+                // need properties for getXmlRootElementName(addType)
+                namespaceFilter.add(getXmlRootElementName(addType));
+                if (getXmlRootElementName(addType).equals("service-capabilities")) {
+                    logger.info("arrays: " + getXmlRootElementName(addType));
+                }
+                // cp8128 - just use this type's own parameters, don't append the inherited ones
+                newPathParams = new StringBuilder(parameters.toString());
+                processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType), pathSb,
+                    definitions, path, childTag(), useOpId, newPathParams);
+                appendArrayProperty(addType, elementDescription);
+            } else if (!nodeFilter.contains(getXmlRootElementName(addType))) {
+                // Make sure certain types added to the filter don't appear
+                definition.properties.key(3, getXmlRootElementName(addType));
+                definition.properties.entry(4, "$ref",
+                    "\"#/definitions/" + getXmlRootElementName(addType) + "\"");
+            }
+            if (StringUtils.isNotEmpty(elementDescription)) {
+                definition.properties.entry(4, "description", elementDescription);
+            }
+            ++definition.propertyCount;
+            return newPathParams;
+        }
+
+        /** A property that holds a collection of the referenced type, keyed by its item name. */
+        private void appendCollectionProperty(String addType, String itemName,
+            String elementDescription) {
+            ++definition.propertyCount;
+            definition.properties.key(3, getXmlRootElementName(addType));
+            if ("RelationshipList".equals(addType)) {
+                definition.properties.entry(4, "$ref", "\"#/definitions/" + itemName + "\"");
+            } else {
+                definition.properties.entry(4, "type", "object");
+                definition.properties.key(4, "properties");
+                definition.properties.key(5, itemName);
+                definition.properties.entry(6, "type", "array");
+                definition.properties.key(6, "items");
+                definition.properties.entry(7, "$ref",
+                    "\"#/definitions/" + ("".equals(itemName) ? "aai-internal" : itemName) + "\"");
+            }
+            if (StringUtils.isNotEmpty(elementDescription)) {
+                definition.properties.entry(4, "description", elementDescription);
+            }
+        }
+
+        /**
+         * A property for a {@code java.util.ArrayList}-container child: an array of the referenced
+         * type, or a plain {@code $ref} when that type is {@code relationship}.
+         *
+         * <p>
+         * The description is emitted here and again by the caller, so such a property carries it
+         * twice - long-standing output that the byte-identity constraint keeps in place.
+         */
+        private void appendArrayProperty(String addType, String elementDescription) {
+            String useName = getXmlRootElementName(addType);
+            definition.properties.key(3, useName);
+            if ("relationship".equals(useName)) {
+                definition.properties.entry(4, "$ref", "\"#/definitions/relationship\"");
+            } else {
+                definition.properties.entry(4, "type", "array");
+                // the items key of an array property trails whitespace in the current documents, so
+                // it is written as a line rather than as a key
+                definition.properties.text(4, "items:" + " ".repeat(ITEMS_TRAILING_SPACES));
+                definition.properties.entry(5, "$ref",
+                    "\"#/definitions/" + getXmlRootElementName(addType) + "\"");
+            }
+            if (StringUtils.isNotEmpty(elementDescription)) {
+                definition.properties.entry(4, "description", elementDescription);
+            }
+        }
+
+        /**
+         * Emits the node GET, keyed by node type rather than appended to {@code pathSb} - the
+         * operations are sorted by {@link NodesYAMLfromOXM#appendOperations()} at the end of the
+         * run.
+         *
+         * <p>
+         * A node with no indexed properties and no container properties is queried without
+         * parameters at all; otherwise the inherited path parameters apply.
+         */
+        private void appendNodeGetOperation() {
+            if (parameters.length() > 0) {
+                if (inheritedPathParams == null) {
+                    inheritedPathParams = new StringBuilder();
+                }
+                inheritedPathParams.append(parameters);
+            }
+            boolean unparameterized =
+                indexedProps != null && indexedProps.isEmpty() && containerProps.isEmpty();
+            String params = unparameterized ? null
+                : (inheritedPathParams == null ? "" : inheritedPathParams.toString());
+            NodeGetOperation get =
+                new NodeGetOperation(useOpId, xmlRootElementName, tag, path, params, nodeContext);
+            String operation = get.toString();
+            if (StringUtils.isNotEmpty(operation)) {
+                operationDefinitions.put(xmlRootElementName, operation);
+                // mirrors the original placement of the checklist update at the tail of toString()
+                get.register();
+            }
+            logger.debug("opId vs useOpId:" + opId + " vs " + useOpId + " PathParams="
+                + inheritedPathParams);
+        }
+
+        private void appendDefinition() {
+            appendDefinitionHeader();
+            validEdges = getRelatedNodesDescription(xmlRootElementName);
+            appendDescription();
+            appendRequiredAndProperties();
+        }
+
+        private void appendDefinitionHeader() {
+            if (xmlRootElementName.equals("inventory")) {
+                // inventory properties for each oxm to be concatenated
+                processingInventoryDef = true;
+                if (inventoryDefSb == null) {
+                    inventoryDefSb = new StringBuilder();
+                    definitions.key(1, xmlRootElementName);
+                    definitionsLocal.key(1, xmlRootElementName);
+                    definitionsLocal.key(2, "properties");
+                }
+            } else if (xmlRootElementName.equals("relationship")) {
+                // a relationship is stored under the dictionary name; getDictionary() writes the
+                // wrapper that points back at this definition
+                definitions.key(1, "relationship-dict");
+                definitionsLocal.key(1, "relationship-dict");
+                dict = getDictionary(xmlRootElementName);
+            } else {
+                definitions.key(1, xmlRootElementName);
+                definitionsLocal.key(1, xmlRootElementName);
+            }
+        }
+
+        /**
+         * Might have a description OR valid edges OR both OR neither: only open a
+         * {@code description:} tag if there is at least one.
+         */
+        private void appendDescription() {
+            if (StringUtils.isEmpty(pathDescriptionProperty) && StringUtils.isEmpty(validEdges)) {
+                return;
+            }
+            definitions.blockScalar(2, "description");
+            definitionsLocal.blockScalar(2, "description");
+            if (pathDescriptionProperty != null) {
+                definitions.text(3, pathDescriptionProperty);
+                definitionsLocal.text(3, pathDescriptionProperty);
+            }
+            definitions.raw(validEdges);
+            definitionsLocal.raw(validEdges);
+        }
+
+        private void appendRequiredAndProperties() {
+            if (definition.requiredCount > 0) {
+                definitions.raw(definition.required.toString());
+                definitionsLocal.raw(definition.required.toString());
+            }
+            if (definition.propertyCount > 0) {
+                definitions.key(2, "properties");
+                definitions.raw(definition.properties.toString());
+                if (!processingInventoryDef) {
+                    definitionsLocal.key(2, "properties");
+                }
+                definitionsLocal.raw(definition.properties.toString());
+            }
+        }
+
+        private void storeDefinition() {
+            try {
+                namespaceFilter.add(xmlRootElementName);
+                if (xmlRootElementName.equals("inventory")) {
+                    // will add to javaTypeDefinitions at end
+                    inventoryDefSb.append(definitionsLocal);
+                } else if (xmlRootElementName.equals("relationship")) {
+                    javaTypeDefinitions.put(xmlRootElementName, dict);
+                    javaTypeDefinitions.put(xmlRootElementName + "-dict",
+                        definitionsLocal.toString());
+                } else {
+                    javaTypeDefinitions.put(xmlRootElementName, definitionsLocal.toString());
+                }
+            } catch (Exception e) {
+                logger.trace("Exception during javaTypeDefinitions :", e);
+            }
+        }
     }
 
     private void writeYAMLfile(String outfileName, String fileContent) {

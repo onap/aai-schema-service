@@ -77,60 +77,57 @@ public class PatchOperation {
             return "";
         }
 
-        StringBuilder pathSb = new StringBuilder();
-        StringBuilder relationshipExamplesSb = new StringBuilder();
+        YamlWriter yaml = new YamlWriter();
+        String relationshipExamples = "";
+        // unreachable given the guard above, but kept so this emitter stays symmetric with the PUT
         if (path.endsWith("/relationship")) {
-            pathSb.append("  ").append(path).append(":\n");
+            yaml.key(1, path);
         }
-        pathSb.append("    patch:\n");
-        pathSb.append("      tags:\n");
-        pathSb.append("        - ").append(tag).append("\n");
+        yaml.key(2, "patch");
+        yaml.key(3, "tags");
+        yaml.item(4, tag);
 
         if (path.endsWith("/relationship")) {
-            pathSb.append("      summary: see node definition for valid relationships\n");
+            yaml.entry(3, "summary", "see node definition for valid relationships");
         } else {
-            relationshipExamplesSb.append("[See Examples](apidocs").append(basePath)
-                .append("/relations/").append(version.toString()).append("/").append(useOpId)
-                .append(".json)");
-            pathSb.append("      summary: update an existing ").append(xmlRootElementName)
-                .append("\n");
-            pathSb.append("      description: |\n");
-            pathSb.append("        Update an existing ").append(xmlRootElementName).append("\n");
-            pathSb.append("        #\n");
-            pathSb.append(
-                "        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.\n");
-            pathSb.append("        The PUT operation will entirely replace an existing object.\n");
-            pathSb.append(
-                "        The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.\n");
-            pathSb.append("        #\n");
-            pathSb.append("        Other differences between PUT and PATCH are:\n");
-            pathSb.append("        #\n");
-            pathSb.append(
-                "        - For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.\n");
-            pathSb.append(
-                "        - For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.\n");
-            pathSb.append(
-                "        - PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.\n");
+            relationshipExamples = "[See Examples](apidocs" + basePath + "/relations/"
+                + version.toString() + "/" + useOpId + ".json)";
+            yaml.entry(3, "summary", "update an existing " + xmlRootElementName);
+            yaml.blockScalar(3, "description");
+            yaml.text(4, "Update an existing " + xmlRootElementName);
+            yaml.text(4, "#");
+            yaml.text(4,
+                "Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.");
+            yaml.text(4, "The PUT operation will entirely replace an existing object.");
+            yaml.text(4,
+                "The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.");
+            yaml.text(4, "#");
+            yaml.text(4, "Other differences between PUT and PATCH are:");
+            yaml.text(4, "#");
+            yaml.text(4,
+                "- For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.");
+            yaml.text(4,
+                "- For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.");
+            yaml.text(4,
+                "- PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.");
         }
-        pathSb.append("      operationId: Update").append(useOpId).append("\n");
-        pathSb.append("      consumes:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("      produces:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("      responses:\n");
-        pathSb.append("        \"default\":\n");
-        pathSb.append("          ").append(GenerateXsd.getResponsesUrl());
-        pathSb.append("      parameters:\n");
-        pathSb.append(pathParams); // for nesting
-        pathSb.append("        - name: body\n");
-        pathSb.append("          in: body\n");
-        pathSb.append("          description: ").append(xmlRootElementName)
-            .append(" object that needs to be updated.").append(relationshipExamplesSb.toString())
-            .append("\n");
-        pathSb.append("          required: true\n");
-        pathSb.append("          schema:\n");
-        pathSb.append("            $ref: \"#/definitions/").append(prefixForPatch)
-            .append(xmlRootElementName).append("\"\n");
-        return pathSb.toString();
+        yaml.entry(3, "operationId", "Update" + useOpId);
+        yaml.key(3, "consumes");
+        yaml.item(4, "application/json");
+        yaml.key(3, "produces");
+        yaml.item(4, "application/json");
+        yaml.key(3, "responses");
+        yaml.key(4, "\"default\"");
+        yaml.fragment(5, GenerateXsd.getResponsesUrl());
+        yaml.key(3, "parameters");
+        yaml.raw(pathParams); // for nesting
+        yaml.item(4, "name: body");
+        yaml.entry(5, "in", "body");
+        yaml.entry(5, "description",
+            xmlRootElementName + " object that needs to be updated." + relationshipExamples);
+        yaml.entry(5, "required", "true");
+        yaml.key(5, "schema");
+        yaml.entry(6, "$ref", "\"#/definitions/" + prefixForPatch + xmlRootElementName + "\"");
+        return yaml.toString();
     }
 }

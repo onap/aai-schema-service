@@ -101,43 +101,42 @@ public class NodeGetOperation {
         if (context.isAlreadyEmitted(xmlRootElementName)) {
             return "";
         }
-        StringBuilder pathSb = new StringBuilder();
+        YamlWriter yaml = new YamlWriter();
         if (path.indexOf('{') == -1) {
             path += "?parameter=value[&parameter2=value2]";
         }
-        pathSb.append("  ").append(path).append(":\n");
-        pathSb.append("    get:\n");
-        pathSb.append("      tags:\n");
-        pathSb.append("        - Operations" + "\n");
-        pathSb.append("      summary: returns ").append(xmlRootElementName).append("\n");
-
-        pathSb.append("      description: returns ").append(xmlRootElementName).append("\n");
-        pathSb.append("      operationId: get").append(useOpId).append("\n");
-        pathSb.append("      produces:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("        - application/xml\n");
-
-        pathSb.append("      responses:\n");
-        pathSb.append("        \"200\":\n");
-        pathSb.append("          description: successful operation\n");
-        pathSb.append("          schema:\n");
-        pathSb.append("              $ref: \"#/definitions/").append(xmlRootElementName)
-            .append("\"\n");
-        pathSb.append("        \"default\":\n");
-        pathSb.append("          ").append(GenerateXsd.getResponsesUrl());
+        yaml.key(1, path);
+        yaml.key(2, "get");
+        yaml.key(3, "tags");
+        yaml.item(4, "Operations");
+        yaml.entry(3, "summary", "returns " + xmlRootElementName);
+        yaml.entry(3, "description", "returns " + xmlRootElementName);
+        yaml.entry(3, "operationId", "get" + useOpId);
+        yaml.key(3, "produces");
+        yaml.item(4, "application/json");
+        yaml.item(4, "application/xml");
+        yaml.key(3, "responses");
+        yaml.key(4, "\"200\"");
+        yaml.entry(5, "description", "successful operation");
+        yaml.key(5, "schema");
+        // the $ref sits two levels below its schema key, as the current documents have it
+        yaml.entry(7, "$ref", "\"#/definitions/" + xmlRootElementName + "\"");
+        yaml.key(4, "\"default\"");
+        yaml.fragment(5, GenerateXsd.getResponsesUrl());
         if (StringUtils.isNotEmpty(pathParams) || StringUtils.isNotEmpty(queryParams)) {
-            pathSb.append("\n      parameters:\n");
+            yaml.blankLine();
+            yaml.key(3, "parameters");
         }
         if (StringUtils.isNotEmpty(pathParams)) {
-            pathSb.append(pathParams);
+            yaml.raw(pathParams);
         }
         if (StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
-            pathSb.append("\n");
+            yaml.blankLine();
         }
         if (StringUtils.isNotEmpty(queryParams)) {
-            pathSb.append(queryParams);
+            yaml.raw(queryParams);
         }
-        return pathSb.toString();
+        return yaml.toString();
     }
 
     /**

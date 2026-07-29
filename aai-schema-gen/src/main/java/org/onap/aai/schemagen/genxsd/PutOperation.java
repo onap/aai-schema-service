@@ -68,53 +68,54 @@ public class PutOperation {
         if (OperationFilter.isSearchPath(path)) {
             return "";
         }
-        StringBuilder pathSb = new StringBuilder();
-        StringBuilder relationshipExamplesSb = new StringBuilder();
-        if (path.endsWith("/" + RELATIONSHIP)) {
-            pathSb.append("  ").append(path).append(":\n");
+        YamlWriter yaml = new YamlWriter();
+        boolean isRelationshipPath = path.endsWith("/" + RELATIONSHIP);
+        // a relationship endpoint is not reached by any other operation, so it opens its own path;
+        // otherwise the path key was already emitted by the GET
+        if (isRelationshipPath) {
+            yaml.key(1, path);
         }
-        pathSb.append("    put:\n");
-        pathSb.append("      tags:\n");
-        pathSb.append("        - ").append(tag).append("\n");
+        yaml.key(2, "put");
+        yaml.key(3, "tags");
+        yaml.item(4, tag);
 
-        if (path.endsWith("/" + RELATIONSHIP)) {
-            pathSb.append("      summary: see node definition for valid relationships\n");
+        if (isRelationshipPath) {
+            yaml.entry(3, "summary", "see node definition for valid relationships");
         } else {
-            pathSb.append("      summary: create or update an existing ").append(xmlRootElementName)
-                .append("\n");
-            pathSb.append("      description: |\n        Create or update an existing ")
-                .append(xmlRootElementName).append(
-                    ".\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
+            yaml.entry(3, "summary", "create or update an existing " + xmlRootElementName);
+            yaml.blockScalar(3, "description");
+            yaml.text(4, "Create or update an existing " + xmlRootElementName + ".");
+            yaml.text(4, "#");
+            yaml.text(4,
+                "Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below");
         }
-        relationshipExamplesSb.append("[Valid relationship examples shown here](apidocs")
-            .append(basePath).append("/relations/").append(version.toString()).append("/")
-            .append(useOpId.replace("RelationshipListRelationship", "")).append(".json)");
-        pathSb.append("      operationId: createOrUpdate").append(useOpId).append("\n");
-        pathSb.append("      consumes:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("        - application/xml\n");
-        pathSb.append("      produces:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("        - application/xml\n");
-        pathSb.append("      responses:\n");
-        pathSb.append("        \"default\":\n");
-        pathSb.append("          ").append(GenerateXsd.getResponsesUrl());
-
-        pathSb.append("      parameters:\n");
-        pathSb.append(pathParams); // for nesting
-        pathSb.append("        - name: body\n");
-        pathSb.append("          in: body\n");
-        pathSb.append("          description: ").append(xmlRootElementName)
-            .append(" object that needs to be created or updated. ")
-            .append(relationshipExamplesSb.toString()).append("\n");
-        pathSb.append("          required: true\n");
-        pathSb.append("          schema:\n");
+        String relationshipExamples = "[Valid relationship examples shown here](apidocs" + basePath
+            + "/relations/" + version.toString() + "/"
+            + useOpId.replace("RelationshipListRelationship", "") + ".json)";
+        yaml.entry(3, "operationId", "createOrUpdate" + useOpId);
+        yaml.key(3, "consumes");
+        yaml.item(4, "application/json");
+        yaml.item(4, "application/xml");
+        yaml.key(3, "produces");
+        yaml.item(4, "application/json");
+        yaml.item(4, "application/xml");
+        yaml.key(3, "responses");
+        yaml.key(4, "\"default\"");
+        yaml.fragment(5, GenerateXsd.getResponsesUrl());
+        yaml.key(3, "parameters");
+        yaml.raw(pathParams); // for nesting
+        yaml.item(4, "name: body");
+        yaml.entry(5, "in", "body");
+        yaml.entry(5, "description", xmlRootElementName
+            + " object that needs to be created or updated. " + relationshipExamples);
+        yaml.entry(5, "required", "true");
+        yaml.key(5, "schema");
         String useElement = xmlRootElementName;
         if (xmlRootElementName.equals("relationship")) {
             useElement += "-dict";
         }
-        pathSb.append("            $ref: \"#/definitions/").append(useElement).append("\"\n");
-        return pathSb.toString();
+        yaml.entry(6, "$ref", "\"#/definitions/" + useElement + "\"");
+        return yaml.toString();
     }
 
     /**

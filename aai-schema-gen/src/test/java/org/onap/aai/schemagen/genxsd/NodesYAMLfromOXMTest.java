@@ -22,6 +22,23 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,21 +58,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -573,11 +575,11 @@ public class NodesYAMLfromOXMTest {
         assertTrue(header.contains(version.toString()));
     }
 
-
     @Test
     public void testGetDictionary() throws Exception {
         String resource = "business";
-        Method getDictionaryMethod = NodesYAMLfromOXM.class.getDeclaredMethod("getDictionary", String.class);
+        Method getDictionaryMethod =
+            NodesYAMLfromOXM.class.getDeclaredMethod("getDictionary", String.class);
         getDictionaryMethod.setAccessible(true);
 
         String result = (String) getDictionaryMethod.invoke(nodesYamlFromOxm, resource);
@@ -604,7 +606,8 @@ public class NodesYAMLfromOXMTest {
 
         mockJavaTypeDefinitions.put("namespace1", "definition1");
         mockJavaTypeDefinitions.put("namespace2", "definition2");
-        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+        mockJavaTypeDefinitions.put("relationship-dict",
+            "definition-for-relationship-dict related-to-property: extra-info-to-remove");
 
         nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
 
@@ -615,7 +618,8 @@ public class NodesYAMLfromOXMTest {
 
         String expectedDefinitions = "definitions:\ndefinition1";
 
-        assertThat("Definitions (with filter):\n" + definitions, definitions, is(expectedDefinitions));
+        assertThat("Definitions (with filter):\n" + definitions, definitions,
+            is(expectedDefinitions));
     }
 
     @Test
@@ -624,11 +628,13 @@ public class NodesYAMLfromOXMTest {
 
         nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
 
-        String definitions = nodesYamlFromOxm.appendDefinitions(); // This calls appendDefinitions(null)
+        String definitions = nodesYamlFromOxm.appendDefinitions(); // This calls
+                                                                   // appendDefinitions(null)
 
         String expectedDefinitions = "definitions:\n";
 
-        assertThat("Definitions (empty map):\n" + definitions, definitions, is(expectedDefinitions));
+        assertThat("Definitions (empty map):\n" + definitions, definitions,
+            is(expectedDefinitions));
     }
 
     @Test
@@ -636,7 +642,8 @@ public class NodesYAMLfromOXMTest {
         Map<String, String> mockJavaTypeDefinitions = new HashMap<>();
 
         mockJavaTypeDefinitions.put("namespace1", "definition1");
-        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+        mockJavaTypeDefinitions.put("relationship-dict",
+            "definition-for-relationship-dict related-to-property: extra-info-to-remove");
 
         nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
 
@@ -644,7 +651,7 @@ public class NodesYAMLfromOXMTest {
 
         String expectedDefinitions = "definitions:\ndefinition1definition-for-relationship-dict";
 
-        assertEquals(expectedDefinitions,definitions);
+        assertEquals(expectedDefinitions, definitions);
     }
 
     @Test
@@ -653,15 +660,17 @@ public class NodesYAMLfromOXMTest {
 
         mockJavaTypeDefinitions.put("namespace1", "definition1");
         mockJavaTypeDefinitions.put("namespace2", "definition2");
-        mockJavaTypeDefinitions.put("relationship-dict", "definition-for-relationship-dict related-to-property: extra-info-to-remove");
+        mockJavaTypeDefinitions.put("relationship-dict",
+            "definition-for-relationship-dict related-to-property: extra-info-to-remove");
 
         nodesYamlFromOxm.javaTypeDefinitions = mockJavaTypeDefinitions;
 
         String definitions = nodesYamlFromOxm.appendDefinitions();
 
-        String expectedDefinitions = "definitions:\ndefinition1definition2definition-for-relationship-dict";
+        String expectedDefinitions =
+            "definitions:\ndefinition1definition2definition-for-relationship-dict";
 
-        assertEquals( expectedDefinitions,definitions);
+        assertEquals(expectedDefinitions, definitions);
     }
 
     @Test
@@ -775,14 +784,11 @@ public class NodesYAMLfromOXMTest {
     }
 
     @Test
-    public void testGetTopLevelPathsCheckForFalse(){
+    public void testGetTopLevelPathsCheckForFalse() {
         // Arrange: Mock XML structure and expected paths
-        String xmlContent = "<root>" +
-            "<java-attributes>" +
-            "<xml-element type=\"com.example.TopLevel1\"/>" +
-            "<xml-element type=\"com.example.TopLevel2\"/>" +
-            "</java-attributes>" +
-            "</root>";
+        String xmlContent = "<root>" + "<java-attributes>"
+            + "<xml-element type=\"com.example.TopLevel1\"/>"
+            + "<xml-element type=\"com.example.TopLevel2\"/>" + "</java-attributes>" + "</root>";
 
         // Set the XML content (this assumes the setXmlVersion method processes the XML)
         nodesYamlFromOxm.setXmlVersion(xmlContent, schemaConfigVersions.getAppRootVersion());
@@ -791,7 +797,8 @@ public class NodesYAMLfromOXMTest {
 
         NodeList mockJavaAttributesNodeList = mockJavaAttributesNodeList();
 
-        Mockito.when(mockElement.getElementsByTagName("java-attributes")).thenReturn(mockJavaAttributesNodeList);
+        Mockito.when(mockElement.getElementsByTagName("java-attributes"))
+            .thenReturn(mockJavaAttributesNodeList);
 
         nodesYamlFromOxm.getTopLevelPaths(mockElement);
 
@@ -805,14 +812,15 @@ public class NodesYAMLfromOXMTest {
         // Create and return the mocked NodeList containing the <xml-element> nodes
         Element mockJavaAttributesElement = Mockito.mock(Element.class);
 
-        XSDElement mockParentElement = Mockito.mock(XSDElement.class);
+        Node mockParentElement = Mockito.mock(Node.class);
 
         Mockito.when(mockNodeList.getLength()).thenReturn(1);
         Mockito.when(mockNodeList.item(0)).thenReturn(mockJavaAttributesElement);
 
         // Mock behavior for the getElementsByTagName("xml-element") for the <java-attributes> node
         NodeList mockXmlElementNodes = mockXmlElementNodes(mockJavaAttributesElement);
-        Mockito.when(mockJavaAttributesElement.getElementsByTagName("xml-element")).thenReturn(mockXmlElementNodes);
+        Mockito.when(mockJavaAttributesElement.getElementsByTagName("xml-element"))
+            .thenReturn(mockXmlElementNodes);
 
         Mockito.when(mockJavaAttributesElement.getParentNode()).thenReturn(mockParentElement);
 
@@ -844,7 +852,7 @@ public class NodesYAMLfromOXMTest {
 
         Mockito.when(mockElement2.getParentNode()).thenReturn(parentElement);
 
-        Mockito.when(mockNodeList.getLength()).thenReturn(2);  // Ensure that getLength() returns 2
+        Mockito.when(mockNodeList.getLength()).thenReturn(2); // Ensure that getLength() returns 2
         Mockito.when(mockNodeList.item(0)).thenReturn(mockElement1);
         Mockito.when(mockNodeList.item(1)).thenReturn(mockElement2);
 

@@ -134,7 +134,8 @@ public class HTMLfromOXM extends OxmFileProcessor {
             if (!"Inventory".equals(javaTypeName)) {
                 generatedJavaType.put(javaTypeName, null);
             }
-            sb.append(processJavaTypeElement(javaTypeName, javaTypeElement, sbInventory));
+            sb.append(
+                processJavaTypeElement(javaTypeName, javaTypeElement.getElement(), sbInventory));
         }
         sb.append(sbInventory);
         sb.append("      </xs:sequence>" + LINE_SEPARATOR);

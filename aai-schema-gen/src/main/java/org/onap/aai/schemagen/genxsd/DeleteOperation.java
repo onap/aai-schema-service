@@ -65,37 +65,32 @@ public class DeleteOperation {
         if (!path.endsWith("/relationship") && !path.endsWith("}")) {
             return "";
         }
-        StringBuilder pathSb = new StringBuilder();
-        pathSb.append("    delete:\n");
-        pathSb.append("      tags:\n");
-        pathSb.append("        - ").append(tag).append("\n");
-        pathSb.append("      summary: delete an existing ").append(xmlRootElementName).append("\n");
-
-        pathSb.append("      description: delete an existing ").append(xmlRootElementName)
-            .append("\n");
-
-        pathSb.append("      operationId: delete").append(useOpId).append("\n");
-        pathSb.append("      consumes:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("        - application/xml\n");
-        pathSb.append("      produces:\n");
-        pathSb.append("        - application/json\n");
-        pathSb.append("        - application/xml\n");
-        pathSb.append("      responses:\n");
-        pathSb.append("        \"default\":\n");
-        pathSb.append("          ").append(GenerateXsd.getResponsesUrl());
-        pathSb.append("      parameters:\n");
-
-        pathSb.append(pathParams); // for nesting
+        YamlWriter yaml = new YamlWriter();
+        yaml.key(2, "delete");
+        yaml.key(3, "tags");
+        yaml.item(4, tag);
+        yaml.entry(3, "summary", "delete an existing " + xmlRootElementName);
+        yaml.entry(3, "description", "delete an existing " + xmlRootElementName);
+        yaml.entry(3, "operationId", "delete" + useOpId);
+        yaml.key(3, "consumes");
+        yaml.item(4, "application/json");
+        yaml.item(4, "application/xml");
+        yaml.key(3, "produces");
+        yaml.item(4, "application/json");
+        yaml.item(4, "application/xml");
+        yaml.key(3, "responses");
+        yaml.key(4, "\"default\"");
+        yaml.fragment(5, GenerateXsd.getResponsesUrl());
+        yaml.key(3, "parameters");
+        yaml.raw(pathParams); // for nesting
         if (!path.endsWith("/relationship")) {
-            pathSb.append("        - name: resource-version\n");
-
-            pathSb.append("          in: query\n");
-            pathSb.append("          description: resource-version for concurrency\n");
-            pathSb.append("          required: true\n");
-            pathSb.append("          type: string\n");
+            yaml.item(4, "name: resource-version");
+            yaml.entry(5, "in", "query");
+            yaml.entry(5, "description", "resource-version for concurrency");
+            yaml.entry(5, "required", "true");
+            yaml.entry(5, "type", "string");
         }
-        return pathSb.toString();
+        return yaml.toString();
     }
 
     /**

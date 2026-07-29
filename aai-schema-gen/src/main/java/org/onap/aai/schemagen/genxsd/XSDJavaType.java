@@ -29,16 +29,14 @@ public class XSDJavaType extends XSDElement {
         super(javaTypeElement);
     }
 
-    /*
-     * public XSDJavaType(XSDElement javaTypeElement, StringBuffer pathSb, StringBuffer
-     * definitionsSb,
-     * StringBuffer pathParams) {
-     * super(javaTypeElement);
-     * this.pathSb = pathSb;
-     * this.definitionsSb = definitionsSb;
-     * this.pathParams = pathParams;
-     * }
+    /**
+     * Wraps the same DOM element as an existing {@link XSDElement}. Kept so callers that already
+     * hold a wrapper can promote it to a java-type without unwrapping it themselves.
      */
+    public XSDJavaType(XSDElement javaTypeElement) {
+        super(javaTypeElement.getElement());
+    }
+
     public String getItemName() {
         NodeList parentNodes = this.getElementsByTagName("java-attributes");
         if (parentNodes.getLength() == 0) {

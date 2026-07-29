@@ -20,6 +20,8 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import com.google.common.collect.Multimap;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,20 +30,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.edges.EdgeIngestor;
+import org.onap.aai.edges.EdgeRule;
+import org.onap.aai.edges.EdgeRuleQuery;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,6 +62,35 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public abstract class OxmFileProcessor {
+
+    private static final Logger logger = LoggerFactory.getLogger(OxmFileProcessor.class);
+
+    /**
+     * The definition body accumulated for a single java-type while its {@code xml-element} children
+     * are walked: the {@code required:} list, the property block, and the PATCH flavour of that
+     * block (the same properties minus {@code resource-version}). The counts decide whether the
+     * corresponding tag is emitted at all, so they live next to the buffers they describe.
+     *
+     * <p>
+     * One instance per invocation, not per generator instance - the walk recurses into referenced
+     * java-types. Node-only generation emits no PATCH operations and leaves that flavour empty.
+     */
+    protected static final class DefinitionProperties {
+        final YamlWriter required = new YamlWriter();
+        final YamlWriter properties = new YamlWriter();
+        final YamlWriter patchProperties = new YamlWriter();
+        int requiredCount;
+        int propertyCount;
+        int patchPropertyCount;
+    }
+
+    /**
+     * Trailing spaces carried by the {@code items:} key of an array property. YAML does not care,
+     * but the generated documents have them and this refactoring leaves the output byte-identical.
+     * A count rather than a literal, since trailing spaces in a literal are invisible in the source
+     * and any editor that strips whitespace on save would silently change the generated documents.
+     */
+    protected static final int ITEMS_TRAILING_SPACES = 10;
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String DOUBLE_LINE_SEPARATOR =
@@ -528,5 +567,94 @@ public abstract class OxmFileProcessor {
         combineXmlProperties(useElement, combineElementList);
         combinedJavaTypes.put(javaTypeName, useElement);
         return combineElementList.get(useElement);
+    }
+
+    /**
+     * The "Related Nodes" markdown block for a node type: one bullet per edge rule, the
+     * also-delete footnotes those bullets reference, and a closing cannot-be-deleted note.
+     *
+     * <p>
+     * Outgoing edges are listed before incoming ones, and within each direction the rules are
+     * visited in sorted key order, so the block is stable across runs. The caption is emitted by
+     * whichever direction produces the first bullet; a node with no edges at all yields an empty
+     * string, which is why callers test the result before opening a {@code description:} tag.
+     *
+     * <p>
+     * An edge query that fails is logged and skipped rather than propagated - a pre-existing
+     * behaviour this extraction deliberately preserves, since changing it would alter the generated
+     * documents whenever a rule set is incomplete.
+     */
+    protected String getRelatedNodesDescription(String xmlRootElementName) {
+        DeleteFootnoteSet footnotes = new DeleteFootnoteSet(xmlRootElementName);
+        StringBuilder sbEdge = new StringBuilder();
+        LinkedHashSet<String> preventDelete = new LinkedHashSet<>();
+        String nodeCaption = "      ###### Related Nodes\n";
+        try {
+            EdgeRuleQuery q =
+                new EdgeRuleQuery.Builder(xmlRootElementName).version(v).fromOnly().build();
+            Multimap<String, EdgeRule> results = ei.getRules(q);
+            SortedSet<String> ss = new TreeSet<>(results.keySet());
+            sbEdge.append(nodeCaption);
+            nodeCaption = "";
+            for (String key : ss) {
+                results.get(key).stream()
+                    .filter(i -> i.getFrom().equals(xmlRootElementName) && !i.isPrivateEdge())
+                    .forEach(
+                        i -> appendEdge(sbEdge, footnotes, i, "TO", i.getTo(), xmlRootElementName));
+                results.get(key).stream()
+                    .filter(i -> i.getFrom().equals(xmlRootElementName) && !i.isPrivateEdge()
+                        && i.getPreventDelete().equals("OUT"))
+                    .forEach(i -> preventDelete.add(i.getTo().toUpperCase()));
+            }
+        } catch (Exception e) {
+            logger.debug("xmlRootElementName: " + xmlRootElementName + " from edge exception\n", e);
+        }
+        try {
+            EdgeRuleQuery q1 =
+                new EdgeRuleQuery.Builder(xmlRootElementName).version(v).toOnly().build();
+            Multimap<String, EdgeRule> results = ei.getRules(q1);
+            SortedSet<String> ss = new TreeSet<>(results.keySet());
+            sbEdge.append(nodeCaption);
+            for (String key : ss) {
+                results.get(key).stream()
+                    .filter(i -> i.getTo().equals(xmlRootElementName) && !i.isPrivateEdge())
+                    .forEach(i -> appendEdge(sbEdge, footnotes, i, "FROM", i.getFrom(),
+                        xmlRootElementName));
+                results.get(key).stream()
+                    .filter(i -> i.getTo().equals(xmlRootElementName) && !i.isPrivateEdge()
+                        && i.getPreventDelete().equals("IN"))
+                    .forEach(i -> preventDelete.add(i.getFrom().toUpperCase()));
+            }
+        } catch (Exception e) {
+            logger.debug("xmlRootElementName: " + xmlRootElementName + " to edge exception\n", e);
+        }
+        if (!preventDelete.isEmpty()) {
+            String prevent = xmlRootElementName.toUpperCase() + " cannot be deleted if related to "
+                + String.join(",", preventDelete);
+            logger.debug(prevent);
+            footnotes.add(prevent);
+        }
+        if (!footnotes.footnotes.isEmpty()) {
+            sbEdge.append(footnotes.toString());
+        }
+        return sbEdge.toString();
+    }
+
+    /**
+     * Appends one {@code - TO}/{@code - FROM} bullet and collects the also-delete footnote it
+     * refers to, if any.
+     */
+    private void appendEdge(StringBuilder sbEdge, DeleteFootnoteSet footnotes, EdgeRule rule,
+        String direction, String otherNode, String xmlRootElementName) {
+        logger.info("      - " + direction + " " + otherNode + rule.getDirection().toString()
+            + rule.getContains());
+        sbEdge.append("      - ").append(direction).append(" ").append(otherNode);
+        EdgeDescription ed = new EdgeDescription(rule);
+        String footnote = ed.getAlsoDeleteFootnote(xmlRootElementName);
+        sbEdge.append(ed.getRelationshipDescription(direction, xmlRootElementName)).append(footnote)
+            .append("\n");
+        if (StringUtils.isNotEmpty(footnote)) {
+            footnotes.add(footnote);
+        }
     }
 }

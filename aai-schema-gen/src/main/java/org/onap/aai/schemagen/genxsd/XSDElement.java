@@ -36,16 +36,23 @@ import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.TypeInfo;
-import org.w3c.dom.UserDataHandler;
 
-public class XSDElement implements Element {
+/**
+ * An OXM {@code <java-type>} or {@code <xml-element>} enriched with the readers and emitters the
+ * generators need.
+ *
+ * <p>
+ * This <em>wraps</em> a DOM element rather than implementing {@link Element}. Callers only ever ask
+ * it for a handful of attributes and child lists, so the ~40 pass-through methods the is-a relation
+ * demanded carried no weight; {@link #getElement()} hands out the wrapped element for the few
+ * places
+ * that genuinely need a DOM node.
+ */
+public class XSDElement {
     private static final Logger logger = LoggerFactory.getLogger(XSDElement.class);
 
     Element xmlElementElement;
@@ -388,17 +395,8 @@ public class XSDElement implements Element {
     }
 
     public String getQueryParamYAML() {
-        StringBuilder sbParameter = new StringBuilder();
-        sbParameter.append("        - name: ").append(this.getAttribute("name")).append("\n");
-        sbParameter.append(("          in: query\n"));
-        if (this.getAttribute("description") != null
-            && this.getAttribute("description").length() > 0) {
-            sbParameter.append("          description: ").append(this.getAttribute("description"))
-                .append("\n");
-        }
-        sbParameter.append(("          required: false\n"));
-        appendParameterType(sbParameter);
-        return sbParameter.toString();
+        return parameterYAML("query", this.getAttribute("name"), this.getAttribute("description"),
+            false);
     }
 
     public String getPathParamYAML(String elementDescription) {
@@ -407,18 +405,25 @@ public class XSDElement implements Element {
 
     public String getPathParamYAML(String elementDescription, String overrideName) {
         // updated to allow caller to provide parameter name to use in API
-        StringBuilder sbParameter = new StringBuilder();
-        if (overrideName == null) {
-            overrideName = this.getAttribute("name");
+        return parameterYAML("path",
+            overrideName == null ? this.getAttribute("name") : overrideName, elementDescription,
+            true);
+    }
+
+    /**
+     * One entry of an operation's {@code parameters:} sequence. A path parameter is required and a
+     * query parameter is not, which is the only structural difference between the two.
+     */
+    private String parameterYAML(String in, String name, String description, boolean required) {
+        YamlWriter yaml = new YamlWriter();
+        yaml.item(4, "name: " + name);
+        yaml.entry(5, "in", in);
+        if (description != null && description.length() > 0) {
+            yaml.entry(5, "description", description);
         }
-        sbParameter.append("        - name: ").append(overrideName).append("\n");
-        sbParameter.append(("          in: path\n"));
-        if (elementDescription != null && elementDescription.length() > 0) {
-            sbParameter.append("          description: ").append(elementDescription).append("\n");
-        }
-        sbParameter.append(("          required: true\n"));
-        appendParameterType(sbParameter);
-        return sbParameter.toString();
+        yaml.entry(5, "required", Boolean.toString(required));
+        appendParameterType(yaml);
+        return yaml.toString();
     }
 
     /**
@@ -454,19 +459,19 @@ public class XSDElement implements Element {
     }
 
     /**
-     * Appends the swagger {@code type}/{@code format} lines for a path or query parameter, indented
-     * to the parameter level (10 spaces). Shared by {@link #getQueryParamYAML()} and
+     * Appends the swagger {@code type}/{@code format} lines for a path or query parameter, at the
+     * level of the parameter's own keys. Shared by {@link #getQueryParamYAML()} and
      * {@link #getPathParamYAML(String, String)}, which previously duplicated this mapping verbatim.
      * Non-standard types append nothing, exactly as before.
      */
-    private void appendParameterType(StringBuilder sb) {
+    private void appendParameterType(YamlWriter yaml) {
         SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
         if (swaggerType == null) {
             return;
         }
-        sb.append("          type: ").append(swaggerType.type()).append("\n");
+        yaml.entry(5, "type", swaggerType.type());
         if (swaggerType.format() != null) {
-            sb.append("          format: ").append(swaggerType.format()).append("\n");
+            yaml.entry(5, "format", swaggerType.format());
         }
     }
 
@@ -681,37 +686,33 @@ public class XSDElement implements Element {
     }
 
     public String getTypePropertyYAML(boolean isDslStartNode) {
-        StringBuilder sbProperties = new StringBuilder();
-        sbProperties.append("      ").append(this.getAttribute("name")).append(":\n");
-        sbProperties.append("        type: ");
+        YamlWriter yaml = new YamlWriter();
+        yaml.key(3, this.getAttribute("name"));
 
         SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
         if (swaggerType != null) {
-            sbProperties.append(swaggerType.type()).append("\n");
+            yaml.entry(4, "type", swaggerType.type());
             if (swaggerType.format() != null) {
-                sbProperties.append("        format: ").append(swaggerType.format()).append("\n");
-            }
-        }
-        appendPropertyFacetsYAML(sbProperties);
-        String attrDescription = this.getPathDescriptionProperty();
-        if (attrDescription != null && attrDescription.length() > 0) {
-            if (!isDslStartNode) {
-                sbProperties.append("        description: ").append(attrDescription).append("\n");
-            } else {
-                sbProperties.append("        description: |\n");
-                sbProperties.append("          ").append(attrDescription).append("\n");
-                sbProperties.append(
-                    "          *This property can be used as a filter to find the start node for a dsl query\n");
+                yaml.entry(4, "format", swaggerType.format());
             }
         } else {
-            if (isDslStartNode) {
-                sbProperties.append("        description: |\n");
-                sbProperties.append("          \n");
-                sbProperties.append(
-                    "          *This property can be used as a filter to find the start node for a dsl query\n");
-            }
+            // a non-standard type still opens the key, and leaves it without a value - long
+            // standing output that the byte-identity constraint keeps in place
+            yaml.fragment(4, "type: ");
         }
-        return sbProperties.toString();
+        appendPropertyFacetsYAML(yaml);
+        String attrDescription = this.getPathDescriptionProperty();
+        boolean hasDescription = attrDescription != null && attrDescription.length() > 0;
+        if (hasDescription && !isDslStartNode) {
+            yaml.entry(4, "description", attrDescription);
+        } else if (hasDescription || isDslStartNode) {
+            // the dsl note has to sit on its own line, so the description becomes a block scalar
+            yaml.blockScalar(4, "description");
+            yaml.text(5, hasDescription ? attrDescription : "");
+            yaml.text(5,
+                "*This property can be used as a filter to find the start node for a dsl query");
+        }
+        return yaml.toString();
     }
 
     /**
@@ -720,22 +721,21 @@ public class XSDElement implements Element {
      * the element declares no facet that applies to its type, which is why generating a schema
      * version whose OXM carries no facet is byte-for-byte unchanged.
      */
-    private void appendPropertyFacetsYAML(StringBuilder sbProperties) {
+    private void appendPropertyFacetsYAML(YamlWriter yaml) {
         for (String facetName : declaredFacets()) {
             String facetValue = getFacet(facetName);
             if (FACET_ALLOWED_VALUES.equals(facetName)) {
-                sbProperties.append("        enum:\n");
+                yaml.key(4, "enum");
                 for (String value : splitAllowedValues(facetValue)) {
-                    sbProperties.append("        - ").append(value).append("\n");
+                    // the sequence sits at its key's level rather than below it, which YAML allows
+                    yaml.item(4, value);
                 }
             } else if (FACET_PATTERN.equals(facetName)) {
                 // a regular expression is full of YAML-significant characters, so it is always
                 // single quoted, with any embedded single quote doubled as YAML requires
-                sbProperties.append("        pattern: '").append(facetValue.replace("'", "''"))
-                    .append("'\n");
+                yaml.entry(4, "pattern", "'" + facetValue.replace("'", "''") + "'");
             } else {
-                sbProperties.append("        ").append(facetName).append(": ").append(facetValue)
-                    .append("\n");
+                yaml.entry(4, facetName, facetValue);
             }
         }
     }
@@ -753,294 +753,32 @@ public class XSDElement implements Element {
         return false;
     }
 
-    @Override
-    public String getNodeName() {
-        return xmlElementElement.getNodeName();
+    /**
+     * The wrapped DOM element. For the callers that hand this element on to DOM-typed code or
+     * construct another wrapper around it.
+     */
+    public Element getElement() {
+        return xmlElementElement;
     }
 
-    @Override
-    public String getNodeValue() throws DOMException {
-        return xmlElementElement.getNodeValue();
-    }
-
-    @Override
-    public void setNodeValue(String nodeValue) throws DOMException {
-        xmlElementElement.setNodeValue(nodeValue);
-    }
-
-    @Override
-    public short getNodeType() {
-        return xmlElementElement.getNodeType();
-    }
-
-    @Override
-    public Node getParentNode() {
-        return xmlElementElement.getParentNode();
-    }
-
-    @Override
-    public NodeList getChildNodes() {
-        return xmlElementElement.getChildNodes();
-    }
-
-    @Override
-    public Node getFirstChild() {
-        return xmlElementElement.getFirstChild();
-    }
-
-    @Override
-    public Node getLastChild() {
-        return xmlElementElement.getLastChild();
-    }
-
-    @Override
-    public Node getPreviousSibling() {
-        return xmlElementElement.getPreviousSibling();
-    }
-
-    @Override
-    public Node getNextSibling() {
-        return xmlElementElement.getNextSibling();
-    }
-
-    @Override
-    public NamedNodeMap getAttributes() {
-        return xmlElementElement.getAttributes();
-    }
-
-    @Override
-    public Document getOwnerDocument() {
-        return xmlElementElement.getOwnerDocument();
-    }
-
-    @Override
-    public Node insertBefore(Node newChild, Node refChild) throws DOMException {
-        return xmlElementElement.insertBefore(newChild, refChild);
-    }
-
-    @Override
-    public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
-        return xmlElementElement.replaceChild(newChild, oldChild);
-    }
-
-    @Override
-    public Node removeChild(Node oldChild) throws DOMException {
-        return xmlElementElement.removeChild(oldChild);
-    }
-
-    @Override
-    public Node appendChild(Node newChild) throws DOMException {
-        return xmlElementElement.appendChild(newChild);
-    }
-
-    @Override
-    public boolean hasChildNodes() {
-        return xmlElementElement.hasChildNodes();
-    }
-
-    @Override
-    public Node cloneNode(boolean deep) {
-        return xmlElementElement.cloneNode(deep);
-    }
-
-    @Override
-    public void normalize() {
-        xmlElementElement.normalize();
-    }
-
-    @Override
-    public boolean isSupported(String feature, String version) {
-        return xmlElementElement.isSupported(feature, version);
-    }
-
-    @Override
-    public String getNamespaceURI() {
-        return xmlElementElement.getNamespaceURI();
-    }
-
-    @Override
-    public String getPrefix() {
-        return xmlElementElement.getPrefix();
-    }
-
-    @Override
-    public void setPrefix(String prefix) throws DOMException {
-        xmlElementElement.setPrefix(prefix);
-    }
-
-    @Override
-    public String getLocalName() {
-
-        return xmlElementElement.getLocalName();
-    }
-
-    @Override
-    public boolean hasAttributes() {
-        return xmlElementElement.hasAttributes();
-    }
-
-    @Override
-    public String getBaseURI() {
-        return xmlElementElement.getBaseURI();
-    }
-
-    @Override
-    public short compareDocumentPosition(Node other) throws DOMException {
-        return xmlElementElement.compareDocumentPosition(other);
-    }
-
-    @Override
-    public String getTextContent() throws DOMException {
-        return xmlElementElement.getTextContent();
-    }
-
-    @Override
-    public void setTextContent(String textContent) throws DOMException {
-        xmlElementElement.setTextContent(textContent);
-    }
-
-    @Override
-    public boolean isSameNode(Node other) {
-        return xmlElementElement.isSameNode(other);
-    }
-
-    @Override
-    public String lookupPrefix(String namespaceURI) {
-        return xmlElementElement.lookupPrefix(namespaceURI);
-    }
-
-    @Override
-    public boolean isDefaultNamespace(String namespaceURI) {
-        return xmlElementElement.isDefaultNamespace(namespaceURI);
-    }
-
-    @Override
-    public String lookupNamespaceURI(String prefix) {
-        return xmlElementElement.lookupNamespaceURI(prefix);
-    }
-
-    @Override
-    public boolean isEqualNode(Node arg) {
-        return xmlElementElement.isEqualNode(arg);
-    }
-
-    @Override
-    public Object getFeature(String feature, String version) {
-        return xmlElementElement.getFeature(feature, version);
-    }
-
-    @Override
-    public Object setUserData(String key, Object data, UserDataHandler handler) {
-        return xmlElementElement.setUserData(key, data, handler);
-    }
-
-    @Override
-    public Object getUserData(String key) {
-        return xmlElementElement.getUserData(key);
-    }
-
-    @Override
-    public String getTagName() {
-        return xmlElementElement.getTagName();
-    }
-
-    @Override
     public String getAttribute(String name) {
         return xmlElementElement.getAttribute(name);
     }
 
-    @Override
-    public void setAttribute(String name, String value) throws DOMException {
-        xmlElementElement.setAttribute(name, value);
-    }
-
-    @Override
-    public void removeAttribute(String name) throws DOMException {
-        xmlElementElement.removeAttribute(name);
-    }
-
-    @Override
-    public Attr getAttributeNode(String name) {
-        return xmlElementElement.getAttributeNode(name);
-    }
-
-    @Override
-    public Attr setAttributeNode(Attr newAttr) throws DOMException {
-        return xmlElementElement.setAttributeNode(newAttr);
-    }
-
-    @Override
-    public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
-        return xmlElementElement.removeAttributeNode(oldAttr);
-    }
-
-    @Override
-    public NodeList getElementsByTagName(String name) {
-        return xmlElementElement.getElementsByTagName(name);
-    }
-
-    @Override
-    public String getAttributeNS(String namespaceURI, String localName) throws DOMException {
-        return xmlElementElement.getAttributeNS(namespaceURI, localName);
-    }
-
-    @Override
-    public void setAttributeNS(String namespaceURI, String qualifiedName, String value)
-        throws DOMException {
-        xmlElementElement.setAttributeNS(namespaceURI, qualifiedName, value);
-    }
-
-    @Override
-    public void removeAttributeNS(String namespaceURI, String localName) throws DOMException {
-        xmlElementElement.removeAttributeNS(namespaceURI, localName);
-    }
-
-    @Override
-    public Attr getAttributeNodeNS(String namespaceURI, String localName) throws DOMException {
-        return xmlElementElement.getAttributeNodeNS(namespaceURI, localName);
-    }
-
-    @Override
-    public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
-        return xmlElementElement.setAttributeNodeNS(newAttr);
-    }
-
-    @Override
-    public NodeList getElementsByTagNameNS(String namespaceURI, String localName)
-        throws DOMException {
-        return xmlElementElement.getElementsByTagNameNS(namespaceURI, localName);
-    }
-
-    @Override
     public boolean hasAttribute(String name) {
         return xmlElementElement.hasAttribute(name);
     }
 
-    @Override
-    public boolean hasAttributeNS(String namespaceURI, String localName) throws DOMException {
-        return xmlElementElement.hasAttributeNS(namespaceURI, localName);
+    public NamedNodeMap getAttributes() {
+        return xmlElementElement.getAttributes();
     }
 
-    @Override
-    public TypeInfo getSchemaTypeInfo() {
-        return xmlElementElement.getSchemaTypeInfo();
+    public NodeList getElementsByTagName(String name) {
+        return xmlElementElement.getElementsByTagName(name);
     }
 
-    @Override
-    public void setIdAttribute(String name, boolean isId) throws DOMException {
-        xmlElementElement.setIdAttribute(name, isId);
-
-    }
-
-    @Override
-    public void setIdAttributeNS(String namespaceURI, String localName, boolean isId)
-        throws DOMException {
-        xmlElementElement.setIdAttributeNS(namespaceURI, localName, isId);
-    }
-
-    @Override
-    public void setIdAttributeNode(Attr idAttr, boolean isId) throws DOMException {
-        xmlElementElement.setIdAttributeNode(idAttr, isId);
+    public Node getParentNode() {
+        return xmlElementElement.getParentNode();
     }
 
 }

@@ -22,6 +22,8 @@ package org.onap.aai.schemagen.genxsd;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 
@@ -29,11 +31,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import java.util.HashMap;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class XSDJavaTypeTest extends XSDElementTest {
 
@@ -110,12 +107,12 @@ public class XSDJavaTypeTest extends XSDElementTest {
     @Test
     public void testGetItemName_withEmptyNodeList() {
         NodeList nodeListMock = mock(NodeList.class);
-        XSDElement xsdelementMock = mock(XSDElement.class);
+        Element elementMock = mock(Element.class);
         // Set up mocks to simulate behavior for empty NodeList
-        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        when(elementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
         when(nodeListMock.getLength()).thenReturn(0);
 
-        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+        XSDJavaType javaType = new XSDJavaType(elementMock);
 
         String itemName = javaType.getItemName();
 
@@ -125,14 +122,23 @@ public class XSDJavaTypeTest extends XSDElementTest {
     @Test
     public void testGetArrayType_withEmptyNodeList() {
         NodeList nodeListMock = mock(NodeList.class);
-        XSDElement xsdelementMock = mock(XSDElement.class);
-        when(xsdelementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
+        Element elementMock = mock(Element.class);
+        when(elementMock.getElementsByTagName("java-attributes")).thenReturn(nodeListMock);
         when(nodeListMock.getLength()).thenReturn(0);
 
-        XSDJavaType javaType = new XSDJavaType(xsdelementMock);
+        XSDJavaType javaType = new XSDJavaType(elementMock);
 
         String itemName = javaType.getArrayType();
 
         assertThat(itemName, equalTo(null));
+    }
+
+    @Test
+    public void testWrappingAnXsdElementKeepsTheSameDomElement() {
+        XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(0));
+
+        XSDJavaType javaType = new XSDJavaType(javaTypeElement);
+
+        assertThat(javaType.getElement(), equalTo(javaTypeElement.getElement()));
     }
 }
