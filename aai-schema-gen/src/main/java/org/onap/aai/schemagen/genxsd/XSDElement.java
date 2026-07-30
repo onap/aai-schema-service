@@ -32,6 +32,10 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
+import org.onap.aai.schemagen.yaml.YamlBlock;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlSequence;
+import org.onap.aai.schemagen.yaml.YamlSerializer;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -395,8 +399,7 @@ public class XSDElement {
     }
 
     public String getQueryParamYAML() {
-        return parameterYAML("query", this.getAttribute("name"), this.getAttribute("description"),
-            false);
+        return serializeParameter(queryParam());
     }
 
     public String getPathParamYAML(String elementDescription) {
@@ -404,26 +407,46 @@ public class XSDElement {
     }
 
     public String getPathParamYAML(String elementDescription, String overrideName) {
-        // updated to allow caller to provide parameter name to use in API
-        return parameterYAML("path",
-            overrideName == null ? this.getAttribute("name") : overrideName, elementDescription,
-            true);
+        return serializeParameter(pathParam(elementDescription, overrideName));
+    }
+
+    /** This element as a query parameter, which is never required. */
+    public YamlMapping queryParam() {
+        return parameter("query", this.getAttribute("name"), this.getAttribute("description"),
+            false);
+    }
+
+    /**
+     * This element as a path parameter, which always is required.
+     *
+     * @param overrideName the name to use in the API, or {@code null} for the schema property's own
+     *        name - a child whose name already appears in the path is qualified by its caller
+     */
+    public YamlMapping pathParam(String elementDescription, String overrideName) {
+        return parameter("path", overrideName == null ? this.getAttribute("name") : overrideName,
+            elementDescription, true);
     }
 
     /**
      * One entry of an operation's {@code parameters:} sequence. A path parameter is required and a
      * query parameter is not, which is the only structural difference between the two.
      */
-    private String parameterYAML(String in, String name, String description, boolean required) {
-        YamlWriter yaml = new YamlWriter();
-        yaml.item(4, "name: " + name);
-        yaml.entry(5, "in", in);
+    private YamlMapping parameter(String in, String name, String description, boolean required) {
+        YamlMapping parameter = new YamlMapping().entry("name", name).entry("in", in);
         if (description != null && description.length() > 0) {
-            yaml.entry(5, "description", description);
+            parameter.entry("description", description);
         }
-        yaml.entry(5, "required", Boolean.toString(required));
-        appendParameterType(yaml);
-        return yaml.toString();
+        parameter.entry("required", Boolean.toString(required));
+        addParameterType(parameter);
+        return parameter;
+    }
+
+    /**
+     * A single parameter rendered as the fragment its callers still concatenate: one item of an
+     * operation's parameters sequence, which sits four levels in.
+     */
+    private static String serializeParameter(YamlMapping parameter) {
+        return YamlSerializer.serialize(new YamlSequence().item(parameter), 4);
     }
 
     /**
@@ -459,19 +482,18 @@ public class XSDElement {
     }
 
     /**
-     * Appends the swagger {@code type}/{@code format} lines for a path or query parameter, at the
-     * level of the parameter's own keys. Shared by {@link #getQueryParamYAML()} and
-     * {@link #getPathParamYAML(String, String)}, which previously duplicated this mapping verbatim.
-     * Non-standard types append nothing, exactly as before.
+     * Adds the swagger {@code type}/{@code format} entries for a path or query parameter. Shared by
+     * {@link #getQueryParamYAML()} and {@link #getPathParamYAML(String, String)}, which previously
+     * duplicated this mapping verbatim. Non-standard types add nothing, exactly as before.
      */
-    private void appendParameterType(YamlWriter yaml) {
+    private void addParameterType(YamlMapping parameter) {
         SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
         if (swaggerType == null) {
             return;
         }
-        yaml.entry(5, "type", swaggerType.type());
+        parameter.entry("type", swaggerType.type());
         if (swaggerType.format() != null) {
-            yaml.entry(5, "format", swaggerType.format());
+            parameter.entry("format", swaggerType.format());
         }
     }
 
@@ -686,33 +708,47 @@ public class XSDElement {
     }
 
     public String getTypePropertyYAML(boolean isDslStartNode) {
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(3, this.getAttribute("name"));
+        YamlMapping properties = new YamlMapping();
+        addTypeProperty(properties, isDslStartNode);
+        // one entry of a definition's properties block, which sits three levels in
+        return YamlSerializer.serialize(properties, 3);
+    }
+
+    /**
+     * Adds this element as one entry of a definition's {@code properties:} block: its swagger type,
+     * the constraint facets it declares, and its description.
+     *
+     * @param properties the block to add to, so that the entry is placed by nesting rather than at
+     *        a
+     *        stated indentation
+     */
+    public void addTypeProperty(YamlMapping properties, boolean isDslStartNode) {
+        YamlMapping property = new YamlMapping();
 
         SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
         if (swaggerType != null) {
-            yaml.entry(4, "type", swaggerType.type());
+            property.entry("type", swaggerType.type());
             if (swaggerType.format() != null) {
-                yaml.entry(4, "format", swaggerType.format());
+                property.entry("format", swaggerType.format());
             }
         } else {
-            // a non-standard type still opens the key, and leaves it without a value - long
-            // standing output that the byte-identity constraint keeps in place
-            yaml.fragment(4, "type: ");
+            // a non-standard type still opens the key and leaves it without a value or a line
+            // ending, so whatever follows continues on its line - long standing output that the
+            // byte-identity constraint keeps in place
+            property.fragment("type: ");
         }
-        appendPropertyFacetsYAML(yaml);
+        addPropertyFacetsYAML(property);
         String attrDescription = this.getPathDescriptionProperty();
         boolean hasDescription = attrDescription != null && attrDescription.length() > 0;
         if (hasDescription && !isDslStartNode) {
-            yaml.entry(4, "description", attrDescription);
+            property.entry("description", attrDescription);
         } else if (hasDescription || isDslStartNode) {
             // the dsl note has to sit on its own line, so the description becomes a block scalar
-            yaml.blockScalar(4, "description");
-            yaml.text(5, hasDescription ? attrDescription : "");
-            yaml.text(5,
-                "*This property can be used as a filter to find the start node for a dsl query");
+            property.entry("description",
+                new YamlBlock().line(hasDescription ? attrDescription : "").line(
+                    "*This property can be used as a filter to find the start node for a dsl query"));
         }
-        return yaml.toString();
+        properties.entry(this.getAttribute("name"), property);
     }
 
     /**
@@ -721,21 +757,21 @@ public class XSDElement {
      * the element declares no facet that applies to its type, which is why generating a schema
      * version whose OXM carries no facet is byte-for-byte unchanged.
      */
-    private void appendPropertyFacetsYAML(YamlWriter yaml) {
+    private void addPropertyFacetsYAML(YamlMapping property) {
         for (String facetName : declaredFacets()) {
             String facetValue = getFacet(facetName);
             if (FACET_ALLOWED_VALUES.equals(facetName)) {
-                yaml.key(4, "enum");
-                for (String value : splitAllowedValues(facetValue)) {
-                    // the sequence sits at its key's level rather than below it, which YAML allows
-                    yaml.item(4, value);
-                }
+                YamlSequence values = new YamlSequence();
+                splitAllowedValues(facetValue).forEach(values::item);
+                // the indicators are aligned with the key rather than indented past it, which YAML
+                // allows and these documents use
+                property.entryAtShiftedDepth("enum", values, -1);
             } else if (FACET_PATTERN.equals(facetName)) {
                 // a regular expression is full of YAML-significant characters, so it is always
                 // single quoted, with any embedded single quote doubled as YAML requires
-                yaml.entry(4, "pattern", "'" + facetValue.replace("'", "''") + "'");
+                property.entry("pattern", "'" + facetValue.replace("'", "''") + "'");
             } else {
-                yaml.entry(4, facetName, facetValue);
+                property.entry(facetName, facetValue);
             }
         }
     }

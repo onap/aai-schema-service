@@ -25,6 +25,11 @@ import java.util.Vector;
 
 import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.schemagen.GenerateXsd;
+import org.onap.aai.schemagen.yaml.YamlFragment;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlRaw;
+import org.onap.aai.schemagen.yaml.YamlSequence;
+import org.onap.aai.schemagen.yaml.YamlSerializer;
 
 public class GetOperation {
 
@@ -78,34 +83,47 @@ public class GetOperation {
         if (OperationFilter.isSearchPath(path)) {
             return "";
         }
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(1, path);
-        yaml.key(2, "get");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-        yaml.entry(3, "summary", "returns " + xmlRootElementName);
-        yaml.entry(3, "description", "returns " + xmlRootElementName);
-        yaml.entry(3, "operationId", "get" + useOpId);
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"200\"");
-        yaml.entry(5, "description", "successful operation");
-        yaml.key(5, "schema");
-        // the $ref sits two levels below its schema key, as the current documents have it
-        yaml.entry(7, "$ref", "\"#/definitions/" + xmlRootElementName + "\"");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        if (StringUtils.isNotEmpty(pathParams) || StringUtils.isNotEmpty(queryParams)) {
-            yaml.key(3, "parameters");
+        YamlMapping operation = new YamlMapping().entry("tags", new YamlSequence().item(tag))
+            .entry("summary", "returns " + xmlRootElementName)
+            .entry("description", "returns " + xmlRootElementName)
+            .entry("operationId", "get" + useOpId)
+            .entry("produces", new YamlSequence().item("application/json").item("application/xml"))
+            .entry("responses", responses());
+        YamlSequence parameters = parameters();
+        if (!parameters.isEmpty()) {
+            operation.entry("parameters", parameters);
         }
+        YamlMapping pathItem =
+            new YamlMapping().entry(path, new YamlMapping().entry("get", operation));
+        // the path item is spliced into the document's paths block, one level in
+        return YamlSerializer.serialize(pathItem, 1);
+    }
+
+    private YamlMapping responses() {
+        YamlMapping successSchema =
+            new YamlMapping().entry("$ref", "\"#/definitions/" + xmlRootElementName + "\"");
+        return new YamlMapping()
+            .entry("\"200\"", new YamlMapping().entry("description", "successful operation")
+                // the $ref sits a level deeper than nesting alone would put it, as the
+                // current documents have it
+                .entryAtShiftedDepth("schema", successSchema, 1))
+            .entry("\"default\"", new YamlFragment(GenerateXsd.getResponsesUrl()));
+    }
+
+    /**
+     * The operation's parameters, inherited from the path and from the container's properties. Both
+     * arrive pre-rendered and already indented, so they pass through as raw items; an empty
+     * sequence
+     * means the {@code parameters:} key is left out altogether.
+     */
+    private YamlSequence parameters() {
+        YamlSequence parameters = new YamlSequence();
         if (StringUtils.isNotEmpty(pathParams)) {
-            yaml.raw(pathParams);
+            parameters.item(new YamlRaw(pathParams));
         }
         if (StringUtils.isNotEmpty(queryParams)) {
-            yaml.raw(queryParams);
+            parameters.item(new YamlRaw(queryParams));
         }
-        return yaml.toString();
+        return parameters;
     }
 }

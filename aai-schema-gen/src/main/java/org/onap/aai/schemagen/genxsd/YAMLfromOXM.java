@@ -41,6 +41,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.schemagen.yaml.YamlBlock;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlSerializer;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
@@ -164,7 +167,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
             throw e;
         }
         pathSb.append(getDocumentHeader());
-        YamlWriter definitions = new YamlWriter();
         Element elem;
         String javaTypeName;
         combinedJavaTypes = new HashMap<>();
@@ -194,8 +196,8 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 throw new SAXException(msg);
             }
             namespaceFilter.add(getXmlRootElementName(javaTypeName));
-            processJavaTypeElementSwagger(javaTypeName, javaTypeElement.getElement(), pathSb,
-                definitions, null, null, null, null);
+            processJavaTypeElementSwagger(javaTypeName, javaTypeElement.getElement(), pathSb, null,
+                null, null, null);
         }
         sb.append(pathSb);
 
@@ -246,18 +248,19 @@ public class YAMLfromOXM extends OxmFileProcessor {
         return sb.toString();
     }
 
+    /**
+     * The wrapper definition stored under a resource's plain name. Its single property is an array
+     * of the {@code -dict} definition, which holds the actual schema.
+     */
     private String getDictionary(String resource) {
-        YamlWriter dictionary = new YamlWriter();
-        dictionary.key(1, resource);
-        dictionary.entry(2, "type", "object");
-        dictionary.blockScalar(2, "description");
-        dictionary.text(3, "dictionary of " + resource);
-        dictionary.key(2, "properties");
-        dictionary.key(3, resource);
-        dictionary.entry(4, "type", "array");
-        dictionary.key(4, "items");
-        dictionary.entry(5, "$ref", "\"#/definitions/" + resource + "-dict\"");
-        return dictionary.toString();
+        YamlMapping collection = new YamlMapping().entry("type", "array").entry("items",
+            new YamlMapping().entry("$ref", "\"#/definitions/" + resource + "-dict\""));
+        YamlMapping dictionary = new YamlMapping().entry(resource,
+            new YamlMapping().entry("type", "object")
+                .entry("description", new YamlBlock().line("dictionary of " + resource))
+                .entry("properties", new YamlMapping().entry(resource, collection)));
+        // one entry of the document's definitions block, which sits one level in
+        return YamlSerializer.serialize(dictionary, 1);
     }
 
     /**
@@ -270,8 +273,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
      * definition - and each step is a method on that scope.
      */
     private void processJavaTypeElementSwagger(String javaTypeName, Element javaTypeElement,
-        StringBuilder pathSb, YamlWriter definitions, String path, String tag, String opId,
-        StringBuilder pathParams) {
+        StringBuilder pathSb, String path, String tag, String opId, StringBuilder pathParams) {
 
         logger.debug("tag=" + tag);
         // ignoreActionsSearch=true: Actions and Search are handled as if not top level
@@ -287,8 +289,8 @@ public class YAMLfromOXM extends OxmFileProcessor {
             return;
         }
 
-        JavaTypeScope scope = new JavaTypeScope(javaTypeName, javaTypeElement, path, tag, opId,
-            pathParams, pathSb, definitions);
+        JavaTypeScope scope =
+            new JavaTypeScope(javaTypeName, javaTypeElement, path, tag, opId, pathParams, pathSb);
         if (appliedPaths.containsKey(scope.path)) {
             return;
         }
@@ -369,8 +371,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
          */
         private StringBuilder inheritedPathParams;
         private final StringBuilder pathSb;
-        /** The run-wide definitions block, which every java-type appends its definition to. */
-        private final YamlWriter definitions;
 
         private final String pathDescriptionProperty;
         private final String container;
@@ -388,16 +388,20 @@ public class YAMLfromOXM extends OxmFileProcessor {
         private final DefinitionProperties definition = new DefinitionProperties();
 
         /** This type's definition body, and its PATCH flavour, before they are stored. */
-        private final YamlWriter definitionsLocal = new YamlWriter(new StringBuilder(256));
-        private final YamlWriter definitionsLocalPatch = new YamlWriter(new StringBuilder(256));
+        private final YamlMapping definitionBody = new YamlMapping();
+        private final YamlMapping patchDefinitionBody = new YamlMapping();
         /** Only for {@code relationship}: the dictionary wrapper stored under the plain name. */
         private String dict;
-        private boolean processingInventoryDef;
+        /**
+         * The name this definition is stored under, which is the schema name except for
+         * {@code relationship}, whose body is the dictionary entry.
+         */
+        private String definitionName;
         /** The "Related Nodes" block; read by three of the description emitters. */
         private String validEdges;
 
         private JavaTypeScope(String javaTypeName, Element javaTypeElement, String path, String tag,
-            String opId, StringBuilder pathParams, StringBuilder pathSb, YamlWriter definitions) {
+            String opId, StringBuilder pathParams, StringBuilder pathSb) {
             this.xmlRootElementName = getXMLRootElementName(javaTypeElement);
             this.tag = tag;
             this.opId = opId;
@@ -408,7 +412,6 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 : (path == null) ? "/" + xmlRootElementName : path + "/" + xmlRootElementName;
             this.inheritedPathParams = pathParams;
             this.pathSb = pathSb;
-            this.definitions = definitions;
 
             XSDJavaType javaType = new XSDJavaType(javaTypeElement);
             this.pathDescriptionProperty = javaType.getPathDescriptionProperty();
@@ -480,29 +483,22 @@ public class YAMLfromOXM extends OxmFileProcessor {
         }
 
         private void appendRequired(String name, Vector<String> addTypeV) {
-            if (definition.requiredCount == 0) {
-                definition.required.key(2, "required");
-            }
-            ++definition.requiredCount;
             if (addTypeV == null || addTypeV.isEmpty()) {
-                definition.required.item(2, name);
+                definition.required.item(name);
             } else {
                 for (int k = 0; k < addTypeV.size(); ++k) {
-                    definition.required.item(2, getXmlRootElementName(addTypeV.elementAt(k)));
+                    definition.required.item(getXmlRootElementName(addTypeV.elementAt(k)));
                 }
             }
         }
 
         private void appendStandardTypeProperty(XSDElement xmlElementElement, String name) {
             boolean isDslStartNode = dslStartNodeProps.contains(name);
-            definition.properties.raw(xmlElementElement.getTypePropertyYAML(isDslStartNode));
+            xmlElementElement.addTypeProperty(definition.properties, isDslStartNode);
             // resource-version is server-owned, so it is not part of a PATCH payload
             if (!"resource-version".equals(name)) {
-                definition.patchProperties
-                    .raw(xmlElementElement.getTypePropertyYAML(isDslStartNode));
-                ++definition.patchPropertyCount;
+                xmlElementElement.addTypeProperty(definition.patchProperties, isDslStartNode);
             }
-            ++definition.propertyCount;
         }
 
         /**
@@ -520,7 +516,7 @@ public class YAMLfromOXM extends OxmFileProcessor {
 
             if (opId == null || !opId.contains(addType)) {
                 processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType), pathSb,
-                    definitions, path, childTag(), useOpId, newPathParams);
+                    path, childTag(), useOpId, newPathParams);
             }
             // need item name of array
             String itemName =
@@ -541,73 +537,78 @@ public class YAMLfromOXM extends OxmFileProcessor {
                     (inheritedPathParams == null ? "" : inheritedPathParams.toString())
                         + parameters);
                 processJavaTypeElementSwagger(addType, getJavaTypeElementSwagger(addType), pathSb,
-                    definitions, path, childTag(), useOpId, newPathParams);
+                    path, childTag(), useOpId, newPathParams);
                 appendArrayProperty(addType, elementDescription);
             } else if (!nodeFilter.contains(getXmlRootElementName(addType))) {
                 // Make sure certain types added to the filter don't appear
-                definition.properties.key(3, getXmlRootElementName(addType));
-                definition.properties.entry(4, "$ref",
-                    "\"#/definitions/" + getXmlRootElementName(addType) + "\"");
+                appendReferenceProperty(getXmlRootElementName(addType), elementDescription);
             }
-            if (StringUtils.isNotEmpty(elementDescription)) {
-                definition.properties.entry(4, "description", elementDescription);
-            }
-            ++definition.propertyCount;
             return newPathParams;
+        }
+
+        /** A property that is just a reference to the definition of the type it holds. */
+        private void appendReferenceProperty(String useName, String elementDescription) {
+            YamlMapping property =
+                new YamlMapping().entry("$ref", "\"#/definitions/" + useName + "\"");
+            definition.properties.entry(useName, property);
+            describe(property, elementDescription);
         }
 
         /** A property that holds a collection of the referenced type, keyed by its item name. */
         private void appendCollectionProperty(String addType, String itemName,
             String elementDescription) {
-            ++definition.propertyCount;
-            definition.properties.key(3, getXmlRootElementName(addType));
+            String useName = getXmlRootElementName(addType);
+            YamlMapping property = new YamlMapping();
+            definition.properties.entry(useName, property);
             if ("RelationshipList".equals(addType)) {
-                definition.properties.entry(4, "$ref", "\"#/definitions/" + itemName + "\"");
-                definition.patchProperties.key(3, getXmlRootElementName(addType));
-                definition.patchProperties.entry(4, "$ref", "\"#/definitions/" + itemName + "\"");
-                ++definition.patchPropertyCount;
+                property.entry("$ref", "\"#/definitions/" + itemName + "\"");
+                // the only property a PATCH payload carries besides its own scalars
+                definition.patchProperties.entry(useName,
+                    new YamlMapping().entry("$ref", "\"#/definitions/" + itemName + "\""));
             } else {
                 if ("relationship".equals(itemName)) {
                     System.out.println(v + "-relationship added as array for getItemName null");
                 }
-                definition.properties.entry(4, "type", "object");
-                definition.properties.key(4, "properties");
-                definition.properties.key(5, itemName);
-                definition.properties.entry(6, "type", "array");
-                definition.properties.key(6, "items");
-                definition.properties.entry(7, "$ref", "\"#/definitions/"
-                    + ("".equals(itemName) ? "inventory-item-data" : itemName) + "\"");
+                String definitionName = "".equals(itemName) ? "inventory-item-data" : itemName;
+                YamlMapping collection = new YamlMapping().entry("type", "array").entry("items",
+                    new YamlMapping().entry("$ref", "\"#/definitions/" + definitionName + "\""));
+                property.entry("type", "object").entry("properties",
+                    new YamlMapping().entry(itemName, collection));
             }
-            if (StringUtils.isNotEmpty(elementDescription)) {
-                definition.properties.entry(4, "description", elementDescription);
-            }
+            describe(property, elementDescription);
         }
 
         /**
-         * A property for an {@code java.util.ArrayList}-container child: an array of the referenced
+         * A property for a {@code java.util.ArrayList}-container child: an array of the referenced
          * type, or a plain {@code $ref} when that type is {@code relationship}.
-         *
-         * <p>
-         * The description is emitted here and again by the caller, so an array property carries it
-         * twice - long-standing output that the byte-identity constraint keeps in place.
          */
         private void appendArrayProperty(String addType, String elementDescription) {
             String useName = getXmlRootElementName(addType);
-            definition.properties.key(3, useName);
+            YamlMapping property = new YamlMapping();
+            definition.properties.entry(useName, property);
             if ("relationship".equals(useName)) {
-                definition.properties.entry(4, "$ref", "\"#/definitions/relationship\"");
-                definition.patchProperties.entry(4, "$ref", "\"#/definitions/relationship\"");
-                ++definition.patchPropertyCount;
+                property.entry("$ref", "\"#/definitions/relationship\"");
                 return;
             }
-            definition.properties.entry(4, "type", "array");
-            // the items key of an array property trails whitespace in the current documents, so it
-            // is written as a line rather than as a key
-            definition.properties.text(4, "items:" + " ".repeat(ITEMS_TRAILING_SPACES));
-            definition.properties.entry(5, "$ref",
-                "\"#/definitions/" + getXmlRootElementName(addType) + "\"");
+            YamlMapping items =
+                new YamlMapping().entry("$ref", "\"#/definitions/" + useName + "\"");
+            property.entry("type", "array").entryWithPaddedKey("items", items, ITEMS_KEY_PADDING);
+            describe(property, elementDescription);
+        }
+
+        /**
+         * Adds a property's description, if it has one.
+         *
+         * <p>
+         * Only the properties that carry a description reach this; the ones that cannot - a
+         * reference
+         * to a type in the node filter, an array of a referenced type - have none in any version's
+         * OXM, which is why the original code could append the description outside the branch that
+         * opened the property and still produce a well-formed document.
+         */
+        private void describe(YamlMapping property, String elementDescription) {
             if (StringUtils.isNotEmpty(elementDescription)) {
-                definition.properties.entry(4, "description", elementDescription);
+                property.entry("description", elementDescription);
             }
         }
 
@@ -655,51 +656,50 @@ public class YAMLfromOXM extends OxmFileProcessor {
             appendDefinitionHeader();
             validEdges = getRelatedNodesDescription(xmlRootElementName);
             appendDescription();
-            appendPatchDefinitionHeader();
             appendRequiredAndProperties();
         }
 
+        /** Decides the name this definition is stored under, and what precedes its description. */
         private void appendDefinitionHeader() {
             if (xmlRootElementName.equals("inventory")) {
-                // inventory properties for each oxm to be concatenated
-                processingInventoryDef = true;
+                // inventory properties are accumulated separately and added by appendDefinitions()
+                definitionName = xmlRootElementName;
                 if (inventoryDefSb == null) {
                     inventoryDefSb = new StringBuilder();
-                    definitions.key(1, xmlRootElementName);
-                    definitionsLocal.key(1, xmlRootElementName);
-                    definitionsLocal.key(2, "properties");
                 }
             } else if (xmlRootElementName.equals("relationship")) {
-                // a relationship is stored under the dictionary name; getDictionary() writes the
+                // a relationship is stored under the dictionary name; getDictionary() builds the
                 // wrapper that points back at this definition
-                definitions.key(1, "relationship-dict");
-                definitionsLocal.key(1, "relationship-dict");
-                definitions.entry(2, "type", "object");
-                definitionsLocal.entry(2, "type", "object");
+                definitionName = "relationship-dict";
+                definitionBody.entry("type", "object");
                 dict = getDictionary(xmlRootElementName);
             } else {
-                definitions.key(1, xmlRootElementName);
-                definitionsLocal.key(1, xmlRootElementName);
+                definitionName = xmlRootElementName;
             }
         }
 
         /**
          * Might have a description OR valid edges OR both OR neither: only open a
          * {@code description:} tag if there is at least one.
+         *
+         * <p>
+         * The same block goes into the PATCH flavour of the definition, which describes the same
+         * node.
          */
         private void appendDescription() {
             if (!hasDescription()) {
                 return;
             }
-            definitions.blockScalar(2, "description");
-            definitionsLocal.blockScalar(2, "description");
+            YamlBlock description = new YamlBlock();
             if (pathDescriptionProperty != null) {
-                definitions.text(3, pathDescriptionProperty);
-                definitionsLocal.text(3, pathDescriptionProperty);
+                description.line(pathDescriptionProperty);
             }
             if (StringUtils.isNotEmpty(validEdges)) {
-                definitions.raw(validEdges);
-                definitionsLocal.raw(validEdges);
+                description.trailingRaw(validEdges);
+            }
+            definitionBody.entry("description", description);
+            if (hasPatchDefinition()) {
+                patchDefinitionBody.entry("description", description);
             }
         }
 
@@ -708,59 +708,54 @@ public class YAMLfromOXM extends OxmFileProcessor {
                 || StringUtils.isNotEmpty(validEdges);
         }
 
-        private void appendPatchDefinitionHeader() {
-            if (definition.patchPropertyCount <= 0) {
-                return;
-            }
-            definitionsLocalPatch.key(1, patchDefinePrefix + xmlRootElementName);
-            if (hasDescription()) {
-                definitionsLocalPatch.blockScalar(2, "description");
-            }
-            if (pathDescriptionProperty != null) {
-                definitionsLocalPatch.text(3, pathDescriptionProperty);
-            }
-            if (StringUtils.isNotEmpty(validEdges)) {
-                definitionsLocalPatch.raw(validEdges);
-            }
-            definitionsLocalPatch.key(2, "properties");
+        /** A node with nothing patchable gets no {@code zzzz-patch-} definition at all. */
+        private boolean hasPatchDefinition() {
+            return !definition.patchProperties.isEmpty();
         }
 
         private void appendRequiredAndProperties() {
-            if (definition.requiredCount > 0) {
-                definitions.raw(definition.required.toString());
-                definitionsLocal.raw(definition.required.toString());
+            if (!definition.required.isEmpty()) {
+                // the "-" indicators of a required list are aligned with its key, not indented
+                // past it
+                definitionBody.entryAtShiftedDepth("required", definition.required, -1);
             }
-            if (definition.propertyCount > 0) {
-                definitions.key(2, "properties");
-                definitions.raw(definition.properties.toString());
-                if (!processingInventoryDef) {
-                    definitionsLocal.key(2, "properties");
-                }
-                definitionsLocal.raw(definition.properties.toString());
-                definitionsLocalPatch.raw(definition.patchProperties.toString());
+            if (!definition.properties.isEmpty()) {
+                definitionBody.entry("properties", definition.properties);
+            }
+            if (hasPatchDefinition()) {
+                patchDefinitionBody.entry("properties", definition.patchProperties);
             }
         }
 
         private void storeDefinition() {
             try {
                 namespaceFilter.add(xmlRootElementName);
+                String body = serializeDefinition(definitionName, definitionBody);
                 if (xmlRootElementName.equals("inventory")) {
                     // will add to javaTypeDefinitions at end
-                    inventoryDefSb.append(definitionsLocal.toString());
+                    inventoryDefSb.append(body);
                 } else if (xmlRootElementName.equals("relationship")) {
                     javaTypeDefinitions.put(xmlRootElementName, dict);
-                    javaTypeDefinitions.put(xmlRootElementName + "-dict",
-                        definitionsLocal.toString());
+                    javaTypeDefinitions.put(xmlRootElementName + "-dict", body);
                 } else {
-                    javaTypeDefinitions.put(xmlRootElementName, definitionsLocal.toString());
+                    javaTypeDefinitions.put(xmlRootElementName, body);
                     if (!"relationship-list".equals(xmlRootElementName)) {
                         javaTypeDefinitions.put(patchDefinePrefix + xmlRootElementName,
-                            definitionsLocalPatch.toString());
+                            serializeDefinition(patchDefinePrefix + xmlRootElementName,
+                                patchDefinitionBody));
                     }
                 }
             } catch (Exception e) {
                 logger.error("Exception adding in javaTypeDefinitions", e);
             }
+        }
+
+        /** One entry of the document's definitions block, which sits one level in. */
+        private String serializeDefinition(String name, YamlMapping body) {
+            if (body.isEmpty()) {
+                return "";
+            }
+            return YamlSerializer.serialize(new YamlMapping().entry(name, body), 1);
         }
     }
 

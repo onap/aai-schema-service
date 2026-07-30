@@ -23,6 +23,11 @@ package org.onap.aai.schemagen.genxsd;
 import java.util.StringTokenizer;
 
 import org.onap.aai.schemagen.GenerateXsd;
+import org.onap.aai.schemagen.yaml.YamlFragment;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlRaw;
+import org.onap.aai.schemagen.yaml.YamlSequence;
+import org.onap.aai.schemagen.yaml.YamlSerializer;
 
 public class DeleteOperation {
     private String useOpId;
@@ -65,32 +70,24 @@ public class DeleteOperation {
         if (!path.endsWith("/relationship") && !path.endsWith("}")) {
             return "";
         }
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(2, "delete");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-        yaml.entry(3, "summary", "delete an existing " + xmlRootElementName);
-        yaml.entry(3, "description", "delete an existing " + xmlRootElementName);
-        yaml.entry(3, "operationId", "delete" + useOpId);
-        yaml.key(3, "consumes");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        yaml.key(3, "parameters");
-        yaml.raw(pathParams); // for nesting
+        YamlSequence parameters = new YamlSequence().item(new YamlRaw(pathParams));
         if (!path.endsWith("/relationship")) {
-            yaml.item(4, "name: resource-version");
-            yaml.entry(5, "in", "query");
-            yaml.entry(5, "description", "resource-version for concurrency");
-            yaml.entry(5, "required", "true");
-            yaml.entry(5, "type", "string");
+            parameters.item(new YamlMapping().entry("name", "resource-version").entry("in", "query")
+                .entry("description", "resource-version for concurrency").entry("required", "true")
+                .entry("type", "string"));
         }
-        return yaml.toString();
+        YamlMapping operation = new YamlMapping().entry("tags", new YamlSequence().item(tag))
+            .entry("summary", "delete an existing " + xmlRootElementName)
+            .entry("description", "delete an existing " + xmlRootElementName)
+            .entry("operationId", "delete" + useOpId)
+            .entry("consumes", new YamlSequence().item("application/json").item("application/xml"))
+            .entry("produces", new YamlSequence().item("application/json").item("application/xml"))
+            .entry("responses",
+                new YamlMapping().entry("\"default\"",
+                    new YamlFragment(GenerateXsd.getResponsesUrl())))
+            .entry("parameters", parameters);
+        // the path key was already emitted by the GET, so this starts at the operation level
+        return YamlSerializer.serialize(new YamlMapping().entry("delete", operation), 2);
     }
 
     /**

@@ -23,6 +23,12 @@ package org.onap.aai.schemagen.genxsd;
 import java.util.StringTokenizer;
 
 import org.onap.aai.schemagen.GenerateXsd;
+import org.onap.aai.schemagen.yaml.YamlBlock;
+import org.onap.aai.schemagen.yaml.YamlFragment;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlRaw;
+import org.onap.aai.schemagen.yaml.YamlSequence;
+import org.onap.aai.schemagen.yaml.YamlSerializer;
 import org.onap.aai.setup.SchemaVersion;
 
 public class PatchOperation {
@@ -77,57 +83,45 @@ public class PatchOperation {
             return "";
         }
 
-        YamlWriter yaml = new YamlWriter();
-        String relationshipExamples = "";
-        // unreachable given the guard above, but kept so this emitter stays symmetric with the PUT
-        if (path.endsWith("/relationship")) {
-            yaml.key(1, path);
-        }
-        yaml.key(2, "patch");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
+        // the guards above have already returned for a relationship path, so unlike the PUT this
+        // emitter has only the one shape: it never opens a path key of its own
+        String relationshipExamples = "[See Examples](apidocs" + basePath + "/relations/"
+            + version.toString() + "/" + useOpId + ".json)";
+        YamlMapping operation = new YamlMapping().entry("tags", new YamlSequence().item(tag))
+            .entry("summary", "update an existing " + xmlRootElementName)
+            .entry("description", description()).entry("operationId", "Update" + useOpId)
+            .entry("consumes", new YamlSequence().item("application/json"))
+            .entry("produces", new YamlSequence().item("application/json"))
+            .entry("responses",
+                new YamlMapping().entry("\"default\"",
+                    new YamlFragment(GenerateXsd.getResponsesUrl())))
+            .entry("parameters", new YamlSequence().item(new YamlRaw(pathParams))
+                .item(bodyParameter(relationshipExamples)));
+        // the path key was already emitted by the GET, so this starts at the operation level
+        return YamlSerializer.serialize(new YamlMapping().entry("patch", operation), 2);
+    }
 
-        if (path.endsWith("/relationship")) {
-            yaml.entry(3, "summary", "see node definition for valid relationships");
-        } else {
-            relationshipExamples = "[See Examples](apidocs" + basePath + "/relations/"
-                + version.toString() + "/" + useOpId + ".json)";
-            yaml.entry(3, "summary", "update an existing " + xmlRootElementName);
-            yaml.blockScalar(3, "description");
-            yaml.text(4, "Update an existing " + xmlRootElementName);
-            yaml.text(4, "#");
-            yaml.text(4,
-                "Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.");
-            yaml.text(4, "The PUT operation will entirely replace an existing object.");
-            yaml.text(4,
-                "The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.");
-            yaml.text(4, "#");
-            yaml.text(4, "Other differences between PUT and PATCH are:");
-            yaml.text(4, "#");
-            yaml.text(4,
-                "- For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.");
-            yaml.text(4,
-                "- For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.");
-            yaml.text(4,
+    /** The markdown note on how PATCH differs from PUT, as a literal block. */
+    private YamlBlock description() {
+        return new YamlBlock().line("Update an existing " + xmlRootElementName).line("#").line(
+            "Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.")
+            .line("The PUT operation will entirely replace an existing object.")
+            .line(
+                "The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.")
+            .line("#").line("Other differences between PUT and PATCH are:").line("#")
+            .line(
+                "- For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.")
+            .line(
+                "- For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.")
+            .line(
                 "- PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.");
-        }
-        yaml.entry(3, "operationId", "Update" + useOpId);
-        yaml.key(3, "consumes");
-        yaml.item(4, "application/json");
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        yaml.key(3, "parameters");
-        yaml.raw(pathParams); // for nesting
-        yaml.item(4, "name: body");
-        yaml.entry(5, "in", "body");
-        yaml.entry(5, "description",
-            xmlRootElementName + " object that needs to be updated." + relationshipExamples);
-        yaml.entry(5, "required", "true");
-        yaml.key(5, "schema");
-        yaml.entry(6, "$ref", "\"#/definitions/" + prefixForPatch + xmlRootElementName + "\"");
-        return yaml.toString();
+    }
+
+    private YamlMapping bodyParameter(String relationshipExamples) {
+        return new YamlMapping().entry("name", "body").entry("in", "body")
+            .entry("description",
+                xmlRootElementName + " object that needs to be updated." + relationshipExamples)
+            .entry("required", "true").entry("schema", new YamlMapping().entry("$ref",
+                "\"#/definitions/" + prefixForPatch + xmlRootElementName + "\""));
     }
 }

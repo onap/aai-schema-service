@@ -48,6 +48,9 @@ import org.onap.aai.edges.EdgeRule;
 import org.onap.aai.edges.EdgeRuleQuery;
 import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
+import org.onap.aai.schemagen.yaml.YamlMapping;
+import org.onap.aai.schemagen.yaml.YamlNode;
+import org.onap.aai.schemagen.yaml.YamlSequence;
 import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
@@ -68,20 +71,21 @@ public abstract class OxmFileProcessor {
     /**
      * The definition body accumulated for a single java-type while its {@code xml-element} children
      * are walked: the {@code required:} list, the property block, and the PATCH flavour of that
-     * block (the same properties minus {@code resource-version}). The counts decide whether the
-     * corresponding tag is emitted at all, so they live next to the buffers they describe.
+     * block (the same properties minus {@code resource-version}).
      *
      * <p>
      * One instance per invocation, not per generator instance - the walk recurses into referenced
      * java-types. Node-only generation emits no PATCH operations and leaves that flavour empty.
+     *
+     * <p>
+     * These are the nodes themselves rather than rendered text, so whether a tag is emitted follows
+     * from {@link YamlNode#isEmpty()} on the node it would introduce. The former parallel counters
+     * said the same thing in a form that could drift from it.
      */
     protected static final class DefinitionProperties {
-        final YamlWriter required = new YamlWriter();
-        final YamlWriter properties = new YamlWriter();
-        final YamlWriter patchProperties = new YamlWriter();
-        int requiredCount;
-        int propertyCount;
-        int patchPropertyCount;
+        final YamlSequence required = new YamlSequence();
+        final YamlMapping properties = new YamlMapping();
+        final YamlMapping patchProperties = new YamlMapping();
     }
 
     /**
@@ -90,7 +94,7 @@ public abstract class OxmFileProcessor {
      * A count rather than a literal, since trailing spaces in a literal are invisible in the source
      * and any editor that strips whitespace on save would silently change the generated documents.
      */
-    protected static final int ITEMS_TRAILING_SPACES = 10;
+    protected static final int ITEMS_KEY_PADDING = 10;
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String DOUBLE_LINE_SEPARATOR =
