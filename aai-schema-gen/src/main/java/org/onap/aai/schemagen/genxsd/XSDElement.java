@@ -22,6 +22,20 @@ package org.onap.aai.schemagen.genxsd;
 
 import com.google.common.base.Joiner;
 
+import io.swagger.models.parameters.AbstractSerializableParameter;
+import io.swagger.models.parameters.PathParameter;
+import io.swagger.models.parameters.QueryParameter;
+import io.swagger.models.properties.AbstractNumericProperty;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.DoubleProperty;
+import io.swagger.models.properties.FloatProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.StringProperty;
+import io.swagger.models.properties.UntypedProperty;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -394,43 +408,53 @@ public class XSDElement {
         return container;
     }
 
-    public String getQueryParamYAML() {
-        return parameterYAML("query", this.getAttribute("name"), this.getAttribute("description"),
-            false);
+    /** This element as a swagger query parameter, for a container's indexed property. */
+    public QueryParameter getQueryParameter() {
+        QueryParameter parameter = new QueryParameter();
+        // an indexed property carries no description of its own in the OXM
+        describe(parameter, this.getAttribute("name"), this.getAttribute("description"), false);
+        return parameter;
     }
 
-    public String getPathParamYAML(String elementDescription) {
-        return getPathParamYAML(elementDescription, null);
-    }
-
-    public String getPathParamYAML(String elementDescription, String overrideName) {
-        // updated to allow caller to provide parameter name to use in API
-        return parameterYAML("path",
-            overrideName == null ? this.getAttribute("name") : overrideName, elementDescription,
-            true);
+    public PathParameter getPathParameter(String elementDescription) {
+        return getPathParameter(elementDescription, null);
     }
 
     /**
-     * One entry of an operation's {@code parameters:} sequence. A path parameter is required and a
-     * query parameter is not, which is the only structural difference between the two.
+     * This element as a swagger path parameter. {@code overrideName} lets the caller name the
+     * parameter for its place in the path rather than after the schema property, which is how a
+     * child whose name already appears in the path is disambiguated.
      */
-    private String parameterYAML(String in, String name, String description, boolean required) {
-        YamlWriter yaml = new YamlWriter();
-        yaml.item(4, "name: " + name);
-        yaml.entry(5, "in", in);
+    public PathParameter getPathParameter(String elementDescription, String overrideName) {
+        PathParameter parameter = new PathParameter();
+        describe(parameter, overrideName == null ? this.getAttribute("name") : overrideName,
+            elementDescription, true);
+        return parameter;
+    }
+
+    /**
+     * Fills in the members every parameter has. A path parameter is required and a query parameter
+     * is not, which is the only structural difference between the two.
+     */
+    private void describe(AbstractSerializableParameter<?> parameter, String name,
+        String description, boolean required) {
+        parameter.setName(name);
         if (description != null && description.length() > 0) {
-            yaml.entry(5, "description", description);
+            parameter.setDescription(description);
         }
-        yaml.entry(5, "required", Boolean.toString(required));
-        appendParameterType(yaml);
-        return yaml.toString();
+        parameter.setRequired(required);
+        SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
+        // a non-standard type is left untyped, as it has always been
+        if (swaggerType != null) {
+            parameter.setType(swaggerType.type());
+            parameter.setFormat(swaggerType.format());
+        }
     }
 
     /**
      * The swagger {@code type} and (optional) {@code format} for a Java primitive-wrapper type.
-     * Single source of truth for the mapping that was previously spelled out in
-     * {@link #getQueryParamYAML()}, {@link #getPathParamYAML(String, String)} and
-     * {@link #getTypePropertyYAML(boolean)}.
+     * Single source of truth for the mapping that was previously spelled out in each of the
+     * parameter and property emitters.
      */
     private record SwaggerType(String type, String format) {
     }
@@ -455,23 +479,6 @@ public class XSDElement {
                 return new SwaggerType("boolean", null);
             default:
                 return null;
-        }
-    }
-
-    /**
-     * Appends the swagger {@code type}/{@code format} lines for a path or query parameter, at the
-     * level of the parameter's own keys. Shared by {@link #getQueryParamYAML()} and
-     * {@link #getPathParamYAML(String, String)}, which previously duplicated this mapping verbatim.
-     * Non-standard types append nothing, exactly as before.
-     */
-    private void appendParameterType(YamlWriter yaml) {
-        SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
-        if (swaggerType == null) {
-            return;
-        }
-        yaml.entry(5, "type", swaggerType.type());
-        if (swaggerType.format() != null) {
-            yaml.entry(5, "format", swaggerType.format());
         }
     }
 
@@ -685,58 +692,120 @@ public class XSDElement {
         return sb.toString();
     }
 
-    public String getTypePropertyYAML(boolean isDslStartNode) {
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(3, this.getAttribute("name"));
-
+    /**
+     * This element as a swagger schema property: its type, the constraint facets it declares, and
+     * its description.
+     *
+     * @param isDslStartNode whether the containing node type indexes this property as a dsl start
+     *        node, which appends a note to the description saying so
+     */
+    public Property getTypeProperty(boolean isDslStartNode) {
         SwaggerType swaggerType = swaggerTypeFor(this.getAttribute("type"));
-        if (swaggerType != null) {
-            yaml.entry(4, "type", swaggerType.type());
-            if (swaggerType.format() != null) {
-                yaml.entry(4, "format", swaggerType.format());
-            }
-        } else {
-            // a non-standard type still opens the key, and leaves it without a value - long
-            // standing output that the byte-identity constraint keeps in place
-            yaml.fragment(4, "type: ");
+        Property property = newProperty(swaggerType);
+        applyFacets(property);
+        String description = describeProperty(isDslStartNode);
+        if (description != null) {
+            property.setDescription(description);
         }
-        appendPropertyFacetsYAML(yaml);
-        String attrDescription = this.getPathDescriptionProperty();
-        boolean hasDescription = attrDescription != null && attrDescription.length() > 0;
-        if (hasDescription && !isDslStartNode) {
-            yaml.entry(4, "description", attrDescription);
-        } else if (hasDescription || isDslStartNode) {
-            // the dsl note has to sit on its own line, so the description becomes a block scalar
-            yaml.blockScalar(4, "description");
-            yaml.text(5, hasDescription ? attrDescription : "");
-            yaml.text(5,
-                "*This property can be used as a filter to find the start node for a dsl query");
-        }
-        return yaml.toString();
+        return property;
     }
 
     /**
-     * Appends the swagger validation keywords for the constraint facets this element declares. All
-     * six are Swagger 2.0 keywords, so no {@code x-} extension is needed. Nothing is appended when
-     * the element declares no facet that applies to its type, which is why generating a schema
-     * version whose OXM carries no facet is byte-for-byte unchanged.
+     * An empty property of the given swagger type. A non-standard type has no swagger type at all
+     * and becomes an untyped property, which is what such a property has always serialized as.
      */
-    private void appendPropertyFacetsYAML(YamlWriter yaml) {
+    private static Property newProperty(SwaggerType swaggerType) {
+        if (swaggerType == null) {
+            return new UntypedProperty();
+        }
+        switch (swaggerType.type() + "/" + swaggerType.format()) {
+            case "string/null":
+                return new StringProperty();
+            case "integer/int64":
+                return new LongProperty();
+            case "integer/int32":
+                return new IntegerProperty();
+            case "number/float":
+                return new FloatProperty();
+            case "number/double":
+                return new DoubleProperty();
+            case "boolean/null":
+                return new BooleanProperty();
+            default:
+                throw new IllegalStateException("unmapped swagger type " + swaggerType);
+        }
+    }
+
+    /**
+     * The property's description: the one the OXM declares, plus the dsl-start-node note when the
+     * containing node type indexes it as one. {@code null} when there is neither.
+     */
+    private String describeProperty(boolean isDslStartNode) {
+        String declared = this.getPathDescriptionProperty();
+        boolean hasDescription = declared != null && declared.length() > 0;
+        if (!isDslStartNode) {
+            return hasDescription ? declared : null;
+        }
+        String note =
+            "*This property can be used as a filter to find the start node for a dsl query";
+        // the trailing newline is what makes this render as a literal block, not as one line
+        return (hasDescription ? declared : "") + "\n" + note + "\n";
+    }
+
+    /**
+     * Applies the swagger validation keywords for the constraint facets this element declares. All
+     * six are Swagger 2.0 keywords, so no {@code x-} extension is needed. A facet the property's
+     * own
+     * type has no keyword for cannot occur, because {@link #legalFacets()} already excluded it.
+     */
+    private void applyFacets(Property property) {
         for (String facetName : declaredFacets()) {
             String facetValue = getFacet(facetName);
-            if (FACET_ALLOWED_VALUES.equals(facetName)) {
-                yaml.key(4, "enum");
-                for (String value : splitAllowedValues(facetValue)) {
-                    // the sequence sits at its key's level rather than below it, which YAML allows
-                    yaml.item(4, value);
-                }
-            } else if (FACET_PATTERN.equals(facetName)) {
-                // a regular expression is full of YAML-significant characters, so it is always
-                // single quoted, with any embedded single quote doubled as YAML requires
-                yaml.entry(4, "pattern", "'" + facetValue.replace("'", "''") + "'");
-            } else {
-                yaml.entry(4, facetName, facetValue);
+            switch (facetName) {
+                case FACET_MIN_LENGTH:
+                    ((StringProperty) property).setMinLength(Integer.valueOf(facetValue));
+                    break;
+                case FACET_MAX_LENGTH:
+                    ((StringProperty) property).setMaxLength(Integer.valueOf(facetValue));
+                    break;
+                case FACET_PATTERN:
+                    ((StringProperty) property).setPattern(facetValue);
+                    break;
+                case FACET_ALLOWED_VALUES:
+                    applyAllowedValues(property, facetValue);
+                    break;
+                case FACET_MINIMUM:
+                    ((AbstractNumericProperty) property).setMinimum(new BigDecimal(facetValue));
+                    break;
+                case FACET_MAXIMUM:
+                    ((AbstractNumericProperty) property).setMaximum(new BigDecimal(facetValue));
+                    break;
+                default:
+                    throw new IllegalStateException("unmapped constraint facet " + facetName);
             }
+        }
+    }
+
+    /**
+     * Applies an {@code allowedValues} facet as the property's enumeration. Each property type
+     * keeps
+     * its enumeration in its own value type, so the values are parsed to match.
+     */
+    private static void applyAllowedValues(Property property, String facetValue) {
+        List<String> values = splitAllowedValues(facetValue);
+        if (property instanceof StringProperty stringProperty) {
+            stringProperty.setEnum(values);
+        } else if (property instanceof LongProperty longProperty) {
+            longProperty.setEnum(values.stream().map(Long::valueOf).toList());
+        } else if (property instanceof IntegerProperty integerProperty) {
+            integerProperty.setEnum(values.stream().map(Integer::valueOf).toList());
+        } else if (property instanceof FloatProperty floatProperty) {
+            floatProperty.setEnum(values.stream().map(Float::valueOf).toList());
+        } else if (property instanceof DoubleProperty doubleProperty) {
+            doubleProperty.setEnum(values.stream().map(Double::valueOf).toList());
+        } else {
+            throw new IllegalStateException(
+                "no enumeration for property type " + property.getClass().getName());
         }
     }
 

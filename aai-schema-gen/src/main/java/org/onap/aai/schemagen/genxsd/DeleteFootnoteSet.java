@@ -54,11 +54,16 @@ public class DeleteFootnoteSet {
         footnotes.add(fullnote);
     }
 
+    /**
+     * The footnotes as markdown: one dash-prefixed line each, opening with a blank line that
+     * separates them from the edge bullets they annotate.
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (footnotes.size() > 0)
-            sb.append("\n      -");
-        sb.append(String.join("\n      -", footnotes) + "\n");
+        if (!footnotes.isEmpty()) {
+            sb.append("\n-");
+        }
+        sb.append(String.join("\n-", footnotes)).append("\n");
         return sb.toString();
     }
 }

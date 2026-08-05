@@ -20,130 +20,91 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.StringTokenizer;
-import java.util.Vector;
+import io.swagger.models.Operation;
+import io.swagger.models.parameters.Parameter;
 
-import org.apache.commons.lang3.StringUtils;
-import org.onap.aai.schemagen.GenerateXsd;
+import java.util.List;
 
+/**
+ * The GET of a {@code /nodes/...} endpoint: the same object as the CRUD GET, reached by node type
+ * instead of by its place in the inventory tree. One per node type, tagged {@code Operations}.
+ */
 public class NodeGetOperation {
 
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String CRUDpath;
-    private String pathParams;
-    private String queryParams;
+    private final String useOpId;
+    private final String xmlRootElementName;
+    private final String tag;
+    /** The CRUD path this node endpoint is derived from; all the guards apply to it. */
+    private final String crudPath;
+    private final String path;
+    private final List<Parameter> pathParams;
+    /** The indexed properties of this container, as query parameters. */
+    private final List<Parameter> queryParams;
     private final NodeGenerationContext context;
 
     public NodeGetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, NodeGenerationContext context) {
-        super();
+        List<Parameter> pathParams, NodeGenerationContext context) {
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
-        this.CRUDpath = path;
+        this.crudPath = path;
         this.path = nodePath();
-        this.pathParams = pathParams;
+        this.pathParams = pathParams == null ? List.of() : List.copyOf(pathParams);
         this.context = context;
-
-        Vector<String> containerProps = context.getContainerProps(xmlRootElementName);
-        if (containerProps == null) {
-            this.queryParams = "";
-        } else {
-            this.queryParams = String.join("", containerProps);
-        }
+        List<Parameter> containerProps = context.getContainerProps(xmlRootElementName);
+        // copied, not held: the generator keeps adding to that list as it walks the container
+        this.queryParams = containerProps == null ? List.of() : List.copyOf(containerProps);
     }
 
     String nodePath() {
-        String path = null;
-        int loc = CRUDpath.indexOf(xmlRootElementName);
-        if (loc > 0) {
-            path = "/nodes/" + CRUDpath.substring(loc);
-        }
-        return path;
-    }
-
-    @Override
-    public String toString() {
-        StringTokenizer st;
-        st = new StringTokenizer(CRUDpath, "/");
-        // Path has to be longer than one element
-        /*
-         * if ( st.countTokens() <= 1) {
-         * return "";
-         * }
-         */
-        // a valid tag is necessary
-        if (OperationFilter.hasNoTag(tag)) {
-            return "";
-        }
-        if (CRUDpath.endsWith("/relationship")) {
-            return "";
-        }
-        if (OperationFilter.isRelationshipChildPath(CRUDpath)) { // filter paths with
-                                                                 // relationship-list
-            return "";
-        }
-        if (OperationFilter.isRelationshipListPath(CRUDpath)) {
-            return "";
-        }
-        if (OperationFilter.isSearchPath(CRUDpath)) {
-            return "";
-        }
-        if (CRUDpath.startsWith("/actions")) {
-            return "";
-        }
-        if (CRUDpath.startsWith("/nodes")) {
-            return "";
-        }
-        if (context.isAlreadyEmitted(xmlRootElementName)) {
-            return "";
-        }
-        YamlWriter yaml = new YamlWriter();
-        if (path.indexOf('{') == -1) {
-            path += "?parameter=value[&parameter2=value2]";
-        }
-        yaml.key(1, path);
-        yaml.key(2, "get");
-        yaml.key(3, "tags");
-        yaml.item(4, "Operations");
-        yaml.entry(3, "summary", "returns " + xmlRootElementName);
-        yaml.entry(3, "description", "returns " + xmlRootElementName);
-        yaml.entry(3, "operationId", "get" + useOpId);
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"200\"");
-        yaml.entry(5, "description", "successful operation");
-        yaml.key(5, "schema");
-        // the $ref sits two levels below its schema key, as the current documents have it
-        yaml.entry(7, "$ref", "\"#/definitions/" + xmlRootElementName + "\"");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        if (StringUtils.isNotEmpty(pathParams) || StringUtils.isNotEmpty(queryParams)) {
-            yaml.blankLine();
-            yaml.key(3, "parameters");
-        }
-        if (StringUtils.isNotEmpty(pathParams)) {
-            yaml.raw(pathParams);
-        }
-        if (StringUtils.isNotEmpty(pathParams) && StringUtils.isNotEmpty(queryParams)) {
-            yaml.blankLine();
-        }
-        if (StringUtils.isNotEmpty(queryParams)) {
-            yaml.raw(queryParams);
-        }
-        return yaml.toString();
+        int loc = crudPath.indexOf(xmlRootElementName);
+        return loc > 0 ? "/nodes/" + crudPath.substring(loc) : null;
     }
 
     /**
-     * Marks this object as having had its node-GET operation emitted, so that later occurrences are
-     * suppressed. Kept separate from {@link #toString()} so that rendering is free of side effects;
-     * call this once, after a non-empty operation has been emitted — which is exactly when the
-     * original code reached the tail of {@code toString()}.
+     * The path this operation is keyed under. An endpoint that addresses no single object is
+     * queried
+     * by property instead, which the key spells out.
+     */
+    public String getPath() {
+        return path.indexOf('{') == -1 ? path + "?parameter=value[&parameter2=value2]" : path;
+    }
+
+    /** This node type's GET, or null when it does not have one. */
+    public Operation build() {
+        if (isFilteredOut()) {
+            return null;
+        }
+        Operation get = new Operation();
+        get.addTag("Operations");
+        get.setSummary("returns " + xmlRootElementName);
+        get.setDescription("returns " + xmlRootElementName);
+        get.setOperationId("get" + useOpId);
+        get.setProduces(OperationDefaults.JSON_AND_XML);
+        get.addResponse("200", OperationDefaults.successResponse(xmlRootElementName));
+        get.addResponse("default", OperationDefaults.uniformResponse());
+        pathParams.forEach(get::addParameter);
+        queryParams.forEach(get::addParameter);
+        return get;
+    }
+
+    /**
+     * On top of the shared guards: the {@code actions} and {@code nodes} trees have no node
+     * endpoints of their own, and a node type yields at most one endpoint, so the first occurrence
+     * of a type wins and later ones are suppressed.
+     */
+    private boolean isFilteredOut() {
+        return OperationFilter.hasNoTag(tag) || crudPath.endsWith("/relationship")
+            || OperationFilter.isRelationshipChildPath(crudPath)
+            || OperationFilter.isRelationshipListPath(crudPath)
+            || OperationFilter.isSearchPath(crudPath) || crudPath.startsWith("/actions")
+            || crudPath.startsWith("/nodes") || context.isAlreadyEmitted(xmlRootElementName);
+    }
+
+    /**
+     * Marks this node type as having had its GET emitted, so that later occurrences are suppressed.
+     * Kept separate from {@link #build()} so that building is free of side effects; call this once,
+     * after the operation has been emitted.
      */
     public void register() {
         context.markEmitted(xmlRootElementName);

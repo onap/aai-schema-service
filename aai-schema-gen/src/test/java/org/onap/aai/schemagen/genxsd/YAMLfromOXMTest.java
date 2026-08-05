@@ -4,7 +4,7 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
- * Modifications Copyright © 2025 Deutsche Telekom.
+ * Modifications Copyright © 2025-2026 Deutsche Telekom.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,25 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.google.common.collect.Multimap;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import lombok.SneakyThrows;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,30 +56,10 @@ import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.yaml.snakeyaml.Yaml;
-import lombok.SneakyThrows;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -80,10 +78,8 @@ public class YAMLfromOXMTest {
     private static final String OXMFILENAME = "src/test/resources/oxm/business_oxm_v11.xml";
     private static final String EDGEFILENAME =
         "src/test/resources/dbedgerules/DbEdgeBusinessRules_test.json";
-    public static AnnotationConfigApplicationContext ctx = null;
     private static String testXML;
     protected static final String SERVICE_NAME = "JUNIT";
-    boolean first = true;
 
     @Autowired
     YAMLfromOXM yamlFromOxm;
@@ -102,31 +98,24 @@ public class YAMLfromOXMTest {
     public void setUp() throws Exception {
         XSDElementTest x = new XSDElementTest();
         x.setUp();
-        testXML = x.testXML;
-        logger.debug(testXML);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
-        bw.write(testXML);
-        bw.close();
-        BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
-        bw1.write(EdgeDefs());
-        bw1.close();
+        writeSchema(x.testXML);
     }
 
     public void setupRelationship() throws Exception {
         XSDElementTest x = new XSDElementTest();
-
         x.setUpRelationship();
+        writeSchema(x.testXML);
+    }
 
-        testXML = x.testXML;
+    private static void writeSchema(String oxm) throws Exception {
+        testXML = oxm;
         logger.debug(testXML);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME));
-
-        bw.write(testXML);
-
-        bw.close();
-        BufferedWriter bw1 = new BufferedWriter(new FileWriter(EDGEFILENAME));
-        bw1.write(EdgeDefs());
-        bw1.close();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(OXMFILENAME))) {
+            bw.write(testXML);
+        }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(EDGEFILENAME))) {
+            bw.write(EdgeDefs());
+        }
     }
 
     @Test
@@ -144,33 +133,53 @@ public class YAMLfromOXMTest {
         assertNotNull(doc);
     }
 
+    /**
+     * The whole document for this six-type OXM, pinned byte for byte. The larger v13 fixture set is
+     * pinned the same way by {@link SwaggerGenerationCharacterizationTest}, which also explains how
+     * to regenerate a golden.
+     */
     @Test
-    public void testGetDocumentHeader() {
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String header = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            yamlFromOxm.process();
-            header = yamlFromOxm.getDocumentHeader();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("Header:\n" + header, header, is(YAMLheader()));
+    public void theDocumentMatchesTheGolden() throws Exception {
+        GoldenFile.assertMatches("aai_swagger_v11.business.golden.yaml", generate());
     }
 
     @Test
-    public void testProcess() {
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String fileContent = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            fileContent = yamlFromOxm.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("FileContent-TestProcess:\n" + fileContent, fileContent, is(YAMLresult()));
+    public void theDocumentDescribesTheApiVersionItWasGeneratedFor() throws Exception {
+        YamlDocument document = YamlDocument.parse(generate());
+
+        assertEquals("2.0", document.map().get("swagger"));
+        assertEquals("localhost", document.map().get("host"));
+        assertEquals("/aai/v11", document.map().get("basePath"));
+        assertEquals(List.of("https"), document.map().get("schemes"));
+
+        Map<String, Object> info = document.map("info");
+        assertEquals("v11", info.get("version"));
+        assertEquals("Active and Available Inventory REST API", info.get("title"));
+        assertEquals(
+            Map.of("name", "Apache 2.0", "url", "http://www.apache.org/licenses/LICENSE-2.0.html"),
+            info.get("license"));
+        assertThat((String) info.get("description"),
+            containsString("[Differences versus the previous schema version]"
+                + "(apidocs/aai/aai_swagger_v11.diff)"));
+    }
+
+    @Test
+    public void everyJavaTypeGetsADefinition() throws Exception {
+        // sorted by name, so the PATCH flavours follow the definitions they are derived from
+        assertEquals(
+            List.of("business", "customer", "customers", "inventory", "nodes",
+                "service-subscription", "service-subscriptions", "zzzz-patch-customer",
+                "zzzz-patch-service-subscription"),
+            YamlDocument.parse(generate()).keys("definitions"));
+    }
+
+    @Test
+    public void everyAddressableObjectGetsAPath() throws Exception {
+        assertEquals(List.of(
+            "/business/customers/customer/{global-customer-id}/service-subscriptions/service-subscription/{service-type}",
+            "/business/customers/customer/{global-customer-id}/service-subscriptions",
+            "/business/customers/customer/{global-customer-id}", "/business/customers"),
+            YamlDocument.parse(generate()).keys("paths"));
     }
 
     /**
@@ -183,729 +192,94 @@ public class YAMLfromOXMTest {
         x.setUpWithFacets();
         SchemaVersion v = schemaConfigVersions.getAppRootVersion();
         yamlFromOxm.setXmlVersion(x.testXML, v);
-        String fileContent = yamlFromOxm.process();
 
-        assertNotNull(fileContent);
-        // the facets sit between type/format and description, in declaration order
-        assertThat(fileContent, containsString("      global-customer-id:\n"
-            + "        type: string\n" + "        minLength: 1\n" + "        maxLength: 36\n"
-            + "        pattern: '^[A-Za-z0-9-]+$'\n"
-            + "        description: Global customer id used across to uniquely identify customer.\n"));
+        Map<String, Object> properties =
+            YamlDocument.parse(yamlFromOxm.process()).map("definitions", "customer", "properties");
+
+        assertEquals(
+            Map.of("type", "string", "minLength", 1, "maxLength", 36, "pattern", "^[A-Za-z0-9-]+$",
+                "description", "Global customer id used across to uniquely identify customer."),
+            properties.get("global-customer-id"));
         // allowedValues becomes a swagger enum
-        assertThat(fileContent, containsString("      subscriber-type:\n" + "        type: string\n"
-            + "        enum:\n" + "        - CUST\n" + "        - INFRA\n"));
-        // numeric facets keep the format line ahead of them
-        assertThat(fileContent, containsString("      customer-rank:\n" + "        type: integer\n"
-            + "        format: int32\n" + "        minimum: 0\n" + "        maximum: 100\n"));
+        assertEquals(
+            Map.of("type", "string", "enum", List.of("CUST", "INFRA"), "description",
+                "Subscriber type, a way to provide VID with only the INFRA customers."),
+            properties.get("subscriber-type"));
+        assertEquals(Map.of("type", "integer", "format", "int32", "minimum", 0, "maximum", 100,
+            "description", "Rank of the customer."), properties.get("customer-rank"));
         // a property without facets is untouched
-        assertThat(fileContent, containsString("      subscriber-name:\n" + "        type: string\n"
-            + "        description: Subscriber name, an alternate way to retrieve a customer.\n"));
-        // and the definitions block, which is what the facets are emitted into, parses as YAML
-        assertNotNull(new Yaml().load(fileContent.substring(fileContent.indexOf("definitions:"))));
+        assertEquals(
+            Map.of("type", "string", "description",
+                "Subscriber name, an alternate way to retrieve a customer."),
+            properties.get("subscriber-name"));
     }
 
     @Test
-    public void testYAMLfromOXMFileVersionFile() throws IOException {
-        String outfileName = "testXML.xml";
-        File XMLfile = new File(outfileName);
-        XMLfile.createNewFile();
-        BufferedWriter bw = null;
-        Charset charset = Charset.forName("UTF-8");
-        Path path = Path.of(outfileName);
-        bw = Files.newBufferedWriter(path, charset);
-        bw.write(testXML);
-        bw.close();
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String fileContent = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            fileContent = yamlFromOxm.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        XMLfile.delete();
-        assertThat("FileContent-OXMFileVersionFile:\n" + fileContent, fileContent,
-            is(YAMLresult()));
+    public void aRelationshipListRefersToTheRelationshipDefinition() throws Exception {
+        setupRelationship();
+
+        assertEquals(Map.of("$ref", "#/definitions/relationship"), YamlDocument.parse(generate())
+            .map("definitions", "relationship-list", "properties").get("relationship"));
     }
 
     @Test
-    public void testYAMLfromOXMStringVersionFile() {
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String fileContent = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            fileContent = yamlFromOxm.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("FileContent-OXMStringVersionFile:\n" + fileContent, fileContent,
-            is(YAMLresult()));
+    public void testGetXMLRootElementName() throws Exception {
+        generate();
+        Element customer = yamlFromOxm.getJavaTypeElementSwagger("Customer");
+        assertEquals("customer", yamlFromOxm.getXMLRootElementName(customer));
     }
 
     @Test
-    public void testRelationshipListYAMLfromOXMStringVersionFile() {
-        try {
-            setupRelationship();
-        } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String fileContent = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            fileContent = yamlFromOxm.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        boolean matchFound = fileContent.contains((YAMLRelationshipList()));
-        assertTrue(matchFound, "RelationshipListFormat:\n");
+    public void testGetXmlRootElementName() throws Exception {
+        generate();
+        assertEquals("customer", yamlFromOxm.getXmlRootElementName("Customer"));
     }
 
     @Test
-    public void testAppendDefinitions() {
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String definitions = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            yamlFromOxm.process();
-            definitions = yamlFromOxm.appendDefinitions();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("Definitions:\n" + definitions, definitions,
-            is(YAMLdefs() + YAMLdefsAddPatch()));
+    public void testGetJavaTypeElementSwagger() throws Exception {
+        generate();
+        Element customer = yamlFromOxm.getJavaTypeElementSwagger("Customer");
+        assertEquals("java-type", customer.getNodeName());
+        assertEquals("Customer", customer.getAttribute("name"));
     }
 
     @Test
-    public void testGetXMLRootElementName() {
-        String target = "RootElement=customer";
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        Element customer = null;
-        String root = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            yamlFromOxm.process();
-            customer = yamlFromOxm.getJavaTypeElementSwagger("Customer");
-            root = yamlFromOxm.getXMLRootElementName(customer);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("RootElement=" + root, is(target));
+    public void testInvalidTopLevelTag_Actions_ShouldReturnFalse() {
+        assertFalse(yamlFromOxm.validTag("Actions"));
     }
 
     @Test
-    public void testGetXmlRootElementName() {
-        String target = "RootElement=customer";
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        String root = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            yamlFromOxm.process();
-            root = yamlFromOxm.getXmlRootElementName("Customer");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("RootElement=" + root, is(target));
+    public void testValidTagNull() {
+        assertFalse(yamlFromOxm.validTag(null));
     }
 
     @Test
-    public void testGetJavaTypeElementSwagger() {
-        String target = "Element=java-type/Customer";
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-        Element customer = null;
-        try {
-            yamlFromOxm.setXmlVersion(testXML, v);
-            yamlFromOxm.process();
-            customer = yamlFromOxm.getJavaTypeElementSwagger("Customer");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertThat("Element=" + customer.getNodeName() + "/" + customer.getAttribute("name"),
-            is(target));
+    @SneakyThrows
+    public void testSetVersion() {
+        yamlFromOxm.setVersion(new SchemaVersion("v1"));
+        assertEquals("v1", fieldOf(yamlFromOxm, "v").toString());
     }
 
-    public String YAMLresult() {
-        StringBuilder sb = new StringBuilder(32368);
-        sb.append(YAMLheader());
-        sb.append(YAMLops());
-        sb.append(YAMLdefs());
-        sb.append(YAMLdefsAddPatch());
-        return sb.toString();
+    @Test
+    @SneakyThrows
+    public void testSetOxmVersion() {
+        File oxmFile = new File("path/to/oxm/file");
+
+        yamlFromOxm.setOxmVersion(oxmFile, new SchemaVersion("v1"));
+
+        assertEquals("v1", fieldOf(yamlFromOxm, "v").toString());
+        assertEquals(oxmFile, fieldOf(yamlFromOxm, "oxmFile"));
     }
 
-    public String YAMLheader() {
-        StringBuilder sb = new StringBuilder(1500);
-        sb.append("#").append(OxmFileProcessor.LINE_SEPARATOR).append(
-            "# ============LICENSE_START=======================================================")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append("# org.onap.aai")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append(
-                "# ================================================================================")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append(
-                "# ================================================================================")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append(
-                "# Licensed under the Creative Commons License, Attribution 4.0 Intl. (the \"License\");")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# you may not use this file except in compliance with the License.")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# You may obtain a copy of the License at")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append("# <p>")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# https://creativecommons.org/licenses/by/4.0/")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append("# <p>")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# Unless required by applicable law or agreed to in writing, software")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# distributed under the License is distributed on an \"AS IS\" BASIS,")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append("# See the License for the specific language governing permissions and")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append("# limitations under the License.")
-            .append(OxmFileProcessor.LINE_SEPARATOR)
-            .append(
-                "# ============LICENSE_END=========================================================")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append("#")
-            .append(OxmFileProcessor.LINE_SEPARATOR).append(OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("swagger: \"2.0\"\n");
-        sb.append("info:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  description: |\n");
-        sb.append(
-            "    [Differences versus the previous schema version](apidocs/aai/aai_swagger_v11.diff)"
-                + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
-        sb.append(
-            "    This document is best viewed with Firefox or Chrome. Nodes can be found by opening the models link below and finding the node-type. Edge definitions can be found with the node definitions."
-                + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  version: \"v11\"" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append(
-            "  title: Active and Available Inventory REST API" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  license:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    name: Apache 2.0\n");
-        sb.append("    url: http://www.apache.org/licenses/LICENSE-2.0.html"
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("host: localhost" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("basePath: /aai/v11" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("schemes:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  - https\n");
-        sb.append("paths:" + OxmFileProcessor.LINE_SEPARATOR);
-        return sb.toString();
+    private String generate() throws Exception {
+        yamlFromOxm.setXmlVersion(testXML, schemaConfigVersions.getAppRootVersion());
+        return yamlFromOxm.process();
     }
 
-    public String YAMLops() {
-        StringBuilder sb = new StringBuilder(16384);
-        sb.append(
-            "  /business/customers/customer/{global-customer-id}/service-subscriptions/service-subscription/{service-type}:\n");
-        sb.append("    get:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: returns service-subscription\n");
-        sb.append("      description: returns service-subscription\n");
-        sb.append(
-            "      operationId: getBusinessCustomersCustomerServiceSubscriptionsServiceSubscription\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"200\":\n");
-        sb.append("          description: successful operation\n");
-        sb.append("          schema:\n");
-        sb.append("              $ref: \"#/definitions/service-subscription\"\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: service-type\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Value defined by orchestration to identify this service.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("    put:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: create or update an existing service-subscription\n");
-        sb.append("      description: |\n");
-        sb.append("        Create or update an existing service-subscription.\n");
-        sb.append("        #\n");
-        sb.append(
-            "        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
-        sb.append(
-            "      operationId: createOrUpdateBusinessCustomersCustomerServiceSubscriptionsServiceSubscription\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: service-type\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Value defined by orchestration to identify this service.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: body\n");
-        sb.append("          in: body\n");
-        sb.append(
-            "          description: service-subscription object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
-        sb.append("          required: true\n");
-        sb.append("          schema:\n");
-        sb.append("            $ref: \"#/definitions/service-subscription\"\n");
-        sb.append("    patch:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: update an existing service-subscription\n");
-        sb.append("      description: |\n");
-        sb.append("        Update an existing service-subscription\n");
-        sb.append("        #\n");
-        sb.append(
-            "        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.\n");
-        sb.append("        The PUT operation will entirely replace an existing object.\n");
-        sb.append(
-            "        The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.\n");
-        sb.append("        #\n");
-        sb.append("        Other differences between PUT and PATCH are:\n");
-        sb.append("        #\n");
-        sb.append(
-            "        - For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.\n");
-        sb.append(
-            "        - For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.\n");
-        sb.append(
-            "        - PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.\n");
-        sb.append(
-            "      operationId: UpdateBusinessCustomersCustomerServiceSubscriptionsServiceSubscription\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: service-type\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Value defined by orchestration to identify this service.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: body\n");
-        sb.append("          in: body\n");
-        sb.append("          description: service-subscription object that needs to be updated.");
-        sb.append(
-            "[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)\n");
-        sb.append("          required: true\n");
-        sb.append("          schema:\n");
-        sb.append("            $ref: \"#/definitions/zzzz-patch-service-subscription\"\n");
-        sb.append("    delete:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: delete an existing service-subscription\n");
-        sb.append("      description: delete an existing service-subscription\n");
-        sb.append(
-            "      operationId: deleteBusinessCustomersCustomerServiceSubscriptionsServiceSubscription\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: service-type\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Value defined by orchestration to identify this service.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: resource-version\n");
-        sb.append("          in: query\n");
-        sb.append("          description: resource-version for concurrency\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("  /business/customers/customer/{global-customer-id}/service-subscriptions:\n");
-        sb.append("    get:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: returns service-subscriptions\n");
-        sb.append("      description: returns service-subscriptions\n");
-        sb.append("      operationId: getBusinessCustomersCustomerServiceSubscriptions\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"200\":\n");
-        sb.append("          description: successful operation\n");
-        sb.append("          schema:\n");
-        sb.append("              $ref: \"#/definitions/service-subscriptions\"\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: service-type\n");
-        sb.append("          in: query\n");
-        sb.append("          required: false\n");
-        sb.append("          type: string\n");
-        sb.append("  /business/customers/customer/{global-customer-id}:\n");
-        sb.append("    get:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: returns customer\n");
-        sb.append("      description: returns customer\n");
-        sb.append("      operationId: getBusinessCustomersCustomer\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"200\":\n");
-        sb.append("          description: successful operation\n");
-        sb.append("          schema:\n");
-        sb.append("              $ref: \"#/definitions/customer\"\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("    put:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: create or update an existing customer\n");
-        sb.append("      description: |\n");
-        sb.append("        Create or update an existing customer.\n");
-        sb.append("        #\n");
-        sb.append(
-            "        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n");
-        sb.append("      operationId: createOrUpdateBusinessCustomersCustomer\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: body\n");
-        sb.append("          in: body\n");
-        sb.append(
-            "          description: customer object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)\n");
-        sb.append("          required: true\n");
-        sb.append("          schema:\n");
-        sb.append("            $ref: \"#/definitions/customer\"\n");
-        sb.append("    patch:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: update an existing customer\n");
-        sb.append("      description: |\n");
-        sb.append("        Update an existing customer\n");
-        sb.append("        #\n");
-        sb.append(
-            "        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.\n");
-        sb.append("        The PUT operation will entirely replace an existing object.\n");
-        sb.append(
-            "        The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.\n");
-        sb.append("        #\n");
-        sb.append("        Other differences between PUT and PATCH are:\n");
-        sb.append("        #\n");
-        sb.append(
-            "        - For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.\n");
-        sb.append(
-            "        - For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.\n");
-        sb.append(
-            "        - PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.\n");
-        sb.append("      operationId: UpdateBusinessCustomersCustomer\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: body\n");
-        sb.append("          in: body\n");
-        sb.append("          description: customer object that needs to be updated.");
-        sb.append("[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)\n");
-        sb.append("          required: true\n");
-        sb.append("          schema:\n");
-        sb.append("            $ref: \"#/definitions/zzzz-patch-customer\"\n");
-        sb.append("    delete:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: delete an existing customer\n");
-        sb.append("      description: delete an existing customer\n");
-        sb.append("      operationId: deleteBusinessCustomersCustomer\n");
-        sb.append("      consumes:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: path\n");
-        sb.append(
-            "          description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: resource-version\n");
-        sb.append("          in: query\n");
-        sb.append("          description: resource-version for concurrency\n");
-        sb.append("          required: true\n");
-        sb.append("          type: string\n");
-        sb.append("  /business/customers:\n");
-        sb.append("    get:\n");
-        sb.append("      tags:\n");
-        sb.append("        - Business\n");
-        sb.append("      summary: returns customers\n");
-        sb.append("      description: returns customers\n");
-        sb.append("      operationId: getBusinessCustomers\n");
-        sb.append("      produces:\n");
-        sb.append("        - application/json\n");
-        sb.append("        - application/xml\n");
-        sb.append("      responses:\n");
-        sb.append("        \"200\":\n");
-        sb.append("          description: successful operation\n");
-        sb.append("          schema:\n");
-        sb.append("              $ref: \"#/definitions/customers\"\n");
-        sb.append("        \"default\":\n");
-        sb.append("          null      parameters:\n");
-        sb.append("        - name: global-customer-id\n");
-        sb.append("          in: query\n");
-        sb.append("          required: false\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: subscriber-name\n");
-        sb.append("          in: query\n");
-        sb.append("          required: false\n");
-        sb.append("          type: string\n");
-        sb.append("        - name: subscriber-type\n");
-        sb.append("          in: query\n");
-        sb.append("          required: false\n");
-        sb.append("          type: string\n");
-        return sb.toString();
-    }
-
-    public String YAMLdefs() {
-        StringBuilder sb = new StringBuilder(8092);
-        sb.append("definitions:\n");
-        sb.append("  business:\n");
-        sb.append("    description: |\n");
-        sb.append("      Namespace for business related constructs\n");
-        sb.append("    properties:\n");
-        sb.append("      customers:\n");
-        sb.append("        type: object\n");
-        sb.append("        properties:\n");
-        sb.append("          customer:\n");
-        sb.append("            type: array\n");
-        sb.append("            items:\n");
-        sb.append("              $ref: \"#/definitions/customer\"\n");
-        sb.append("  customer:\n");
-        sb.append("    description: |\n");
-        sb.append("      customer identifiers to provide linkage back to BSS information.\n");
-        sb.append("      ###### Related Nodes\n");
-        sb.append(
-            "      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)\n");
-        sb.append("\n");
-        sb.append("      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also\n");
-        sb.append("    required:\n");
-        sb.append("    - global-customer-id\n");
-        sb.append("    - subscriber-name\n");
-        sb.append("    - subscriber-type\n");
-        sb.append("    properties:\n");
-        sb.append("      global-customer-id:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("      subscriber-name:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Subscriber name, an alternate way to retrieve a customer.\n");
-        sb.append("      subscriber-type:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Subscriber type, a way to provide VID with only the INFRA customers.\n");
-        sb.append("      resource-version:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
-        sb.append("      service-subscriptions:\n");
-        sb.append("        type: object\n");
-        sb.append("        properties:\n");
-        sb.append("          service-subscription:\n");
-        sb.append("            type: array\n");
-        sb.append("            items:\n");
-        sb.append("              $ref: \"#/definitions/service-subscription\"\n");
-        sb.append("  customers:\n");
-        sb.append("    description: |\n");
-        sb.append(
-            "      Collection of customer identifiers to provide linkage back to BSS information.\n");
-        sb.append("    properties:\n");
-        sb.append("      customer:\n");
-        sb.append("        type: array\n");
-        sb.append("        items:          \n");
-        sb.append("          $ref: \"#/definitions/customer\"\n");
-        sb.append("  inventory:\n");
-        sb.append("    properties:\n");
-        sb.append("      business:\n");
-        sb.append("        $ref: \"#/definitions/business\"\n");
-        sb.append("  nodes:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("    properties:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("      inventory-item-data:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        type: array" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("        items:" + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("          $ref: \"#/definitions/inventory-item-data\""
-            + OxmFileProcessor.LINE_SEPARATOR);
-        sb.append("  service-subscription:\n");
-        sb.append("    description: |\n");
-        sb.append("      Object that group service instances.\n");
-        sb.append("      ###### Related Nodes\n");
-        sb.append(
-            "      - TO customer (PARENT of service-subscription, service-subscription BelongsTo customer, MANY2ONE)(4)\n");
-        sb.append("      - TO tenant( service-subscription Uses tenant, MANY2MANY)\n");
-        sb.append(
-            "      - FROM service-instance (CHILD of service-subscription, service-instance BelongsTo service-subscription, MANY2ONE)(1)\n");
-        sb.append("\n");
-        sb.append(
-            "      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also\n");
-        sb.append(
-            "      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also\n");
-        sb.append("    required:\n");
-        sb.append("    - service-type\n");
-        sb.append("    properties:\n");
-        sb.append("      service-type:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Value defined by orchestration to identify this service.\n");
-        sb.append("      temp-ub-sub-account-id:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: This property will be deleted from A&AI in the near future. Only stop gap solution.\n");
-        sb.append("      resource-version:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.\n");
-        sb.append("  service-subscriptions:\n");
-        sb.append("    description: |\n");
-        sb.append("      Collection of objects that group service instances.\n");
-        sb.append("    properties:\n");
-        sb.append("      service-subscription:\n");
-        sb.append("        type: array\n");
-        sb.append("        items:          \n");
-        sb.append("          $ref: \"#/definitions/service-subscription\"\n");
-        return sb.toString();
-    }
-
-    public String YAMLdefsAddPatch() {
-        StringBuilder sb = new StringBuilder(8092);
-        sb.append("  zzzz-patch-customer:\n");
-        sb.append("    description: |\n");
-        sb.append("      customer identifiers to provide linkage back to BSS information.\n");
-        sb.append("      ###### Related Nodes\n");
-        sb.append(
-            "      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)\n");
-        sb.append("\n");
-        sb.append("      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also\n");
-        sb.append("    properties:\n");
-        sb.append("      global-customer-id:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Global customer id used across to uniquely identify customer.\n");
-        sb.append("      subscriber-name:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Subscriber name, an alternate way to retrieve a customer.\n");
-        sb.append("      subscriber-type:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Subscriber type, a way to provide VID with only the INFRA customers.\n");
-        sb.append("  zzzz-patch-service-subscription:\n");
-        sb.append("    description: |\n");
-        sb.append("      Object that group service instances.\n");
-        sb.append("      ###### Related Nodes\n");
-        sb.append(
-            "      - TO customer (PARENT of service-subscription, service-subscription BelongsTo customer, MANY2ONE)(4)\n");
-        sb.append("      - TO tenant( service-subscription Uses tenant, MANY2MANY)\n");
-        sb.append(
-            "      - FROM service-instance (CHILD of service-subscription, service-instance BelongsTo service-subscription, MANY2ONE)(1)\n");
-        sb.append("\n");
-        sb.append(
-            "      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also\n");
-        sb.append(
-            "      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also\n");
-        sb.append("    properties:\n");
-        sb.append("      service-type:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: Value defined by orchestration to identify this service.\n");
-        sb.append("      temp-ub-sub-account-id:\n");
-        sb.append("        type: string\n");
-        sb.append(
-            "        description: This property will be deleted from A&AI in the near future. Only stop gap solution.\n");
-        return sb.toString();
-    }
-
-    public String YAMLRelationshipList() {
-        StringBuilder sb = new StringBuilder(8092);
-        sb.append("  relationship-list:\n");
-        sb.append("    properties:\n");
-        sb.append("      relationship:\n");
-        sb.append("        $ref: \"#/definitions/relationship\"\n");
-        return sb.toString();
+    private static Object fieldOf(YAMLfromOXM generator, String name) throws Exception {
+        Field field = OxmFileProcessor.class.getDeclaredField(name);
+        field.setAccessible(true);
+        return field.get(generator);
     }
 
     public static String EdgeDefs() {
@@ -956,55 +330,4 @@ public class YAMLfromOXMTest {
         sb.append("  ]\n" + "}\n");
         return sb.toString();
     }
-
-    @Test
-    public void testInvalidTopLevelTag_Actions_ShouldReturnFalse() {
-        String invalidTag = "Actions";
-        Boolean result = yamlFromOxm.validTag(invalidTag);
-        assertFalse(result);
-    }
-
-    @Test
-    public void testValidTagNull() {
-        assertFalse(yamlFromOxm.validTag(null));
-    }
-
-
-    @Test
-    @SneakyThrows
-    public void testSetVersion() {
-        SchemaVersion validVersion = new SchemaVersion("v1");
-
-        Method setVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setVersion", SchemaVersion.class);
-        setVersionMethod.setAccessible(true);
-        setVersionMethod.invoke(yamlFromOxm, validVersion);
-
-        Field versionField = YAMLfromOXM.class.getSuperclass().getDeclaredField("v");
-        versionField.setAccessible(true);
-
-        Object actualVersion = versionField.get(yamlFromOxm);
-        assertEquals("v1", actualVersion.toString());
-    }
-
-    @Test
-    @SneakyThrows
-    public void testSetOxmVersion() {
-        SchemaVersion validVersion = new SchemaVersion("v1");
-        File oxmFile = new File("path/to/oxm/file");
-
-        Method setOxmVersionMethod = YAMLfromOXM.class.getDeclaredMethod("setOxmVersion", File.class, SchemaVersion.class);
-        setOxmVersionMethod.setAccessible(true);
-        setOxmVersionMethod.invoke(yamlFromOxm, oxmFile, validVersion);
-
-        Field versionField = YAMLfromOXM.class.getSuperclass().getDeclaredField("v");
-        versionField.setAccessible(true);
-        Object actualVersion = versionField.get(yamlFromOxm);
-        assertEquals("v1", actualVersion.toString());
-
-        Field oxmFileField = YAMLfromOXM.class.getSuperclass().getDeclaredField("oxmFile");
-        oxmFileField.setAccessible(true);
-        Object actualFile = oxmFileField.get(yamlFromOxm);
-        assertEquals(oxmFile, actualFile);
-    }
-
 }

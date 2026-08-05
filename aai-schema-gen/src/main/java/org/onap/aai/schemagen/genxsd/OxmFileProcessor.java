@@ -22,6 +22,16 @@ package org.onap.aai.schemagen.genxsd;
 
 import com.google.common.collect.Multimap;
 
+import io.swagger.models.Info;
+import io.swagger.models.License;
+import io.swagger.models.Model;
+import io.swagger.models.ModelImpl;
+import io.swagger.models.Scheme;
+import io.swagger.models.Swagger;
+import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.RefProperty;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.xml.XMLConstants;
@@ -65,36 +76,37 @@ public abstract class OxmFileProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(OxmFileProcessor.class);
 
-    /**
-     * The definition body accumulated for a single java-type while its {@code xml-element} children
-     * are walked: the {@code required:} list, the property block, and the PATCH flavour of that
-     * block (the same properties minus {@code resource-version}). The counts decide whether the
-     * corresponding tag is emitted at all, so they live next to the buffers they describe.
-     *
-     * <p>
-     * One instance per invocation, not per generator instance - the walk recurses into referenced
-     * java-types. Node-only generation emits no PATCH operations and leaves that flavour empty.
-     */
-    protected static final class DefinitionProperties {
-        final YamlWriter required = new YamlWriter();
-        final YamlWriter properties = new YamlWriter();
-        final YamlWriter patchProperties = new YamlWriter();
-        int requiredCount;
-        int propertyCount;
-        int patchPropertyCount;
-    }
-
-    /**
-     * Trailing spaces carried by the {@code items:} key of an array property. YAML does not care,
-     * but the generated documents have them and this refactoring leaves the output byte-identical.
-     * A count rather than a literal, since trailing spaces in a literal are invisible in the source
-     * and any editor that strips whitespace on save would silently change the generated documents.
-     */
-    protected static final int ITEMS_TRAILING_SPACES = 10;
-
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     public static final String DOUBLE_LINE_SEPARATOR =
         System.getProperty("line.separator") + System.getProperty("line.separator");
+
+    /**
+     * The one part of a swagger document that is not part of the document model: YAML has no place
+     * for a licence notice, so it is carried as a comment block ahead of the serialized document.
+     */
+    protected static final String LICENSE_PREFIX = """
+        #
+        # ============LICENSE_START=======================================================
+        # org.onap.aai
+        # ================================================================================
+        # Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
+        # ================================================================================
+        # Licensed under the Creative Commons License, Attribution 4.0 Intl. (the "License");
+        # you may not use this file except in compliance with the License.
+        # You may obtain a copy of the License at
+        # <p>
+        # https://creativecommons.org/licenses/by/4.0/
+        # <p>
+        # Unless required by applicable law or agreed to in writing, software
+        # distributed under the License is distributed on an "AS IS" BASIS,
+        # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        # See the License for the specific language governing permissions and
+        # limitations under the License.
+        # ============LICENSE_END=========================================================
+        #
+
+        """;
+
     protected static int annotationsStartVersion = 9; // minimum version to support annotations in
     // xsd
     protected static int annotationsMinVersion = 6; // lower versions support annotations in xsd
@@ -116,7 +128,7 @@ public abstract class OxmFileProcessor {
     protected HashMap<String, String> generatedJavaType = new HashMap<String, String>();
     protected HashMap<String, String> appliedPaths = new HashMap<String, String>();
     protected NodeList javaTypeNodes = null;
-    protected Map<String, String> javaTypeDefinitions = createJavaTypeDefinitions();
+    protected Map<String, Model> javaTypeDefinitions = createJavaTypeDefinitions();
     EdgeIngestor ei;
     NodeIngestor ni;
 
@@ -131,27 +143,121 @@ public abstract class OxmFileProcessor {
         return Arrays.asList("search", "actions", "aai-internal", "nodes");
     }
 
-    private Map<String, String> createJavaTypeDefinitions() {
-        StringBuilder aaiInternal = new StringBuilder();
-        StringBuilder nodes = new StringBuilder();
-        Map<String, String> javaTypeDefinitions = new HashMap<String, String>();
-        // update to use platform portable line separator
-        aaiInternal.append("  aai-internal:").append(LINE_SEPARATOR);
-        aaiInternal.append("    properties:").append(LINE_SEPARATOR);
-        aaiInternal.append("      property-name:").append(LINE_SEPARATOR);
-        aaiInternal.append("        type: string").append(LINE_SEPARATOR);
-        aaiInternal.append("      property-value:").append(LINE_SEPARATOR);
-        aaiInternal.append("        type: string").append(LINE_SEPARATOR);
-        // javaTypeDefinitions.put("aai-internal", aaiInternal.toString());
-        nodes.append("  nodes:").append(LINE_SEPARATOR);
-        nodes.append("    properties:").append(LINE_SEPARATOR);
-        nodes.append("      inventory-item-data:").append(LINE_SEPARATOR);
-        nodes.append("        type: array").append(LINE_SEPARATOR);
-        nodes.append("        items:").append(LINE_SEPARATOR);
-        nodes.append("          $ref: \"#/definitions/inventory-item-data\"")
-            .append(LINE_SEPARATOR);
-        javaTypeDefinitions.put("nodes", nodes.toString());
+    /**
+     * The definitions that are not derived from the OXM. {@code nodes} has no java-type of its own
+     * -
+     * it is the container the {@code /nodes} endpoints hang off - so its definition is stated here.
+     */
+    private Map<String, Model> createJavaTypeDefinitions() {
+        ModelImpl nodes = new ModelImpl();
+        nodes.addProperty("inventory-item-data",
+            new ArrayProperty(new RefProperty("inventory-item-data")));
+        Map<String, Model> javaTypeDefinitions = new HashMap<>();
+        javaTypeDefinitions.put("nodes", nodes);
         return javaTypeDefinitions;
+    }
+
+    /**
+     * The document every generated swagger file starts from: everything above {@code paths:}, which
+     * is the same for both documents of a version.
+     */
+    protected Swagger newDocument(String basePath) {
+        Swagger document = new Swagger();
+        document.setInfo(documentInfo(basePath));
+        document.setHost("localhost");
+        document.setBasePath(basePath + "/" + v.toString());
+        document.setSchemes(List.of(Scheme.HTTPS));
+        return document;
+    }
+
+    private Info documentInfo(String basePath) {
+        StringBuilder description = new StringBuilder();
+        if (versionSupportsSwaggerDiff(v.toString())) {
+            description.append("[Differences versus the previous schema version](apidocs")
+                .append(basePath).append("/aai_swagger_").append(v.toString()).append(".diff)\n\n");
+        }
+        description.append(
+            "This document is best viewed with Firefox or Chrome. Nodes can be found by opening the models link below and finding the node-type. Edge definitions can be found with the node definitions.\n");
+
+        License license = new License();
+        license.setName("Apache 2.0");
+        license.setUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
+
+        Info info = new Info();
+        info.setDescription(description.toString());
+        info.setVersion(v.toString());
+        info.setTitle("Active and Available Inventory REST API");
+        info.setLicense(license);
+        return info;
+    }
+
+    /** The document's definitions, sorted by name. */
+    public Map<String, Model> definitions() {
+        return definitions(null);
+    }
+
+    /**
+     * The document's definitions, sorted by name, restricted to the java-types of one OXM
+     * namespace.
+     */
+    public Map<String, Model> definitions(Set<String> namespaceFilter) {
+        Map<String, Model> definitions = new TreeMap<>();
+        for (Map.Entry<String, Model> entry : javaTypeDefinitions.entrySet()) {
+            if (namespaceFilter != null && !namespaceFilter.contains(entry.getKey())) {
+                continue;
+            }
+            definitions.put(entry.getKey(), entry.getValue());
+        }
+        return definitions;
+    }
+
+    /** The wrapper definition a {@code relationship} is published under: a dictionary of them. */
+    protected ModelImpl dictionaryOf(String resource) {
+        ModelImpl dictionary = new ModelImpl();
+        dictionary.setType(ModelImpl.OBJECT);
+        dictionary.setDescription("dictionary of " + resource + "\n");
+        dictionary.addProperty(resource, new ArrayProperty(new RefProperty(resource + "-dict")));
+        return dictionary;
+    }
+
+    /**
+     * The published form of the {@code relationship} definition: the properties from
+     * {@code related-to-property} onwards are dropped.
+     *
+     * <p>
+     * Those describe a relationship as it is stored rather than as it is exchanged, so the
+     * documents
+     * have never published them. The cut is by property name - the OXM declares them last in every
+     * version - rather than by position.
+     */
+    protected ModelImpl publishedRelationshipDict(ModelImpl relationship) {
+        Map<String, Property> properties = relationship.getProperties();
+        if (properties == null) {
+            return relationship;
+        }
+        boolean drop = false;
+        for (String name : List.copyOf(properties.keySet())) {
+            drop |= "related-to-property".equals(name);
+            if (drop) {
+                properties.remove(name);
+            }
+        }
+        return relationship;
+    }
+
+    /**
+     * {@code inventory} is the one definition several java-types contribute to, so it accumulates
+     * across the encounters rather than being replaced by the last of them.
+     */
+    protected void mergeInventoryDefinition(ModelImpl contribution) {
+        ModelImpl inventory = (ModelImpl) javaTypeDefinitions.get("inventory");
+        if (inventory == null) {
+            javaTypeDefinitions.put("inventory", contribution);
+            return;
+        }
+        if (contribution.getProperties() != null) {
+            contribution.getProperties().forEach(inventory::addProperty);
+        }
     }
 
     public void setOxmVersion(File oxmFile, SchemaVersion v) {
@@ -283,8 +389,6 @@ public abstract class OxmFileProcessor {
             doc = dBuilder.parse(isInput);
         }
     }
-
-    public abstract String getDocumentHeader();
 
     public abstract String process() throws ParserConfigurationException, SAXException, IOException,
         FileNotFoundException, EdgeRuleNotFoundException;
@@ -476,7 +580,6 @@ public abstract class OxmFileProcessor {
     protected void combineXmlProperties(int useElement, List<Element> combineElementList) {
         // add or update xml-properties to the referenced element from the combined list
         Element javaTypeElement = combineElementList.get(useElement);
-        NodeList nl = javaTypeElement.getChildNodes();
         Node useChildProperties = getXmlPropertiesNode(javaTypeElement);
         int cloneChild = -1;
         Node childProperties;
@@ -588,7 +691,7 @@ public abstract class OxmFileProcessor {
         DeleteFootnoteSet footnotes = new DeleteFootnoteSet(xmlRootElementName);
         StringBuilder sbEdge = new StringBuilder();
         LinkedHashSet<String> preventDelete = new LinkedHashSet<>();
-        String nodeCaption = "      ###### Related Nodes\n";
+        String nodeCaption = "###### Related Nodes\n";
         try {
             EdgeRuleQuery q =
                 new EdgeRuleQuery.Builder(xmlRootElementName).version(v).fromOnly().build();
@@ -648,7 +751,7 @@ public abstract class OxmFileProcessor {
         String direction, String otherNode, String xmlRootElementName) {
         logger.info("      - " + direction + " " + otherNode + rule.getDirection().toString()
             + rule.getContains());
-        sbEdge.append("      - ").append(direction).append(" ").append(otherNode);
+        sbEdge.append("- ").append(direction).append(" ").append(otherNode);
         EdgeDescription ed = new EdgeDescription(rule);
         String footnote = ed.getAlsoDeleteFootnote(xmlRootElementName);
         sbEdge.append(ed.getRelationshipDescription(direction, xmlRootElementName)).append(footnote)

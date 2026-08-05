@@ -20,92 +20,56 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.StringTokenizer;
-import java.util.Vector;
+import io.swagger.models.Operation;
+import io.swagger.models.parameters.Parameter;
 
-import org.apache.commons.lang3.StringUtils;
-import org.onap.aai.schemagen.GenerateXsd;
+import java.util.List;
 
+/** The GET of a CRUD endpoint: it returns the object the path addresses. */
 public class GetOperation {
 
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
-    private String queryParams;
+    private final String useOpId;
+    private final String xmlRootElementName;
+    private final String tag;
+    private final String path;
+    private final List<Parameter> pathParams;
+    /** The indexed properties of this container, as query parameters. */
+    private final List<Parameter> queryParams;
 
     public GetOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, GenerationContext context) {
-        super();
+        List<Parameter> pathParams, GenerationContext context) {
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
-        this.pathParams = pathParams;
-
-        Vector<String> containerProps = context.getContainerProps(xmlRootElementName);
-        if (containerProps == null) {
-            this.queryParams = "";
-        } else {
-            this.queryParams = String.join("", containerProps);
-        }
+        this.pathParams = pathParams == null ? List.of() : List.copyOf(pathParams);
+        List<Parameter> containerProps = context.getContainerProps(xmlRootElementName);
+        // copied, not held: the generator keeps adding to that list as it walks the container
+        this.queryParams = containerProps == null ? List.of() : List.copyOf(containerProps);
     }
 
-    @Override
-    public String toString() {
-        StringTokenizer st;
-        st = new StringTokenizer(path, "/");
-        // Path has to be longer than one element
-        /*
-         * if ( st.countTokens() <= 1) {
-         * return "";
-         * }
-         */
-        // a valid tag is necessary
-        if (OperationFilter.hasNoTag(tag)) {
-            return "";
+    /** This endpoint's GET, or null when the endpoint does not have one. */
+    public Operation build() {
+        if (isFilteredOut()) {
+            return null;
         }
-        if (path.endsWith("/relationship")) {
-            return "";
-        }
-        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
-            return "";
-        }
-        if (OperationFilter.isRelationshipListPath(path)) {
-            return "";
-        }
-        if (OperationFilter.isSearchPath(path)) {
-            return "";
-        }
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(1, path);
-        yaml.key(2, "get");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-        yaml.entry(3, "summary", "returns " + xmlRootElementName);
-        yaml.entry(3, "description", "returns " + xmlRootElementName);
-        yaml.entry(3, "operationId", "get" + useOpId);
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"200\"");
-        yaml.entry(5, "description", "successful operation");
-        yaml.key(5, "schema");
-        // the $ref sits two levels below its schema key, as the current documents have it
-        yaml.entry(7, "$ref", "\"#/definitions/" + xmlRootElementName + "\"");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        if (StringUtils.isNotEmpty(pathParams) || StringUtils.isNotEmpty(queryParams)) {
-            yaml.key(3, "parameters");
-        }
-        if (StringUtils.isNotEmpty(pathParams)) {
-            yaml.raw(pathParams);
-        }
-        if (StringUtils.isNotEmpty(queryParams)) {
-            yaml.raw(queryParams);
-        }
-        return yaml.toString();
+        Operation get = new Operation();
+        get.addTag(tag);
+        get.setSummary("returns " + xmlRootElementName);
+        get.setDescription("returns " + xmlRootElementName);
+        get.setOperationId("get" + useOpId);
+        get.setProduces(OperationDefaults.JSON_AND_XML);
+        get.addResponse("200", OperationDefaults.successResponse(xmlRootElementName));
+        get.addResponse("default", OperationDefaults.uniformResponse());
+        pathParams.forEach(get::addParameter);
+        queryParams.forEach(get::addParameter);
+        return get;
+    }
+
+    /** A relationship endpoint is written to, not read: its node definition documents it. */
+    private boolean isFilteredOut() {
+        return OperationFilter.hasNoTag(tag) || path.endsWith("/relationship")
+            || OperationFilter.isRelationshipChildPath(path)
+            || OperationFilter.isRelationshipListPath(path) || OperationFilter.isSearchPath(path);
     }
 }

@@ -4,7 +4,7 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
- * Modifications Copyright © 2025 Deutsche Telekom.
+ * Modifications Copyright © 2025-2026 Deutsche Telekom.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,41 +22,30 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Vector;
+import io.swagger.models.Operation;
+import io.swagger.models.RefModel;
+import io.swagger.models.parameters.Parameter;
+import io.swagger.models.parameters.PathParameter;
+import io.swagger.models.parameters.QueryParameter;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class NodeGetOperationTest {
-    private String xmlRootElementName;
-    private String result;
 
-    public static Collection<String[]> testConditions() {
-        String inputs[][] = {{"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
-            "/network/generic-vnfs/generic-vnf/{vnf-id}",
-            "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
-            "  /nodes/generic-vnfs/generic-vnf/{vnf-id}:\n    get:\n      tags:\n        - Operations\n      summary: returns generic-vnf\n      description: returns generic-vnf\n      operationId: getNetworkGenericVnfsGenericVnf\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"200\":\n          description: successful operation\n          schema:\n              $ref: \"#/definitions/generic-vnf\"\n        \"default\":\n          null\n      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__"},
-            {"GenericVnf", "generic-vnf", "", "/Network/generic-vnf/{vnf-id}",
-                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
-                ""},
-            {"CloudInfrastructurePserversPserverPInterfaces", "p-interfaces", "CloudInfrastructure",
-                "/cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces",
-                "        - name: hostname\n          in: path\n          description: Value from executing hostname on the compute node.\n          required: true\n          type: string\n          example: __HOSTNAME__",
-                "  /nodes/p-interfaces?parameter=value[&parameter2=value2]:\n    get:\n      tags:\n        - Operations\n      summary: returns p-interfaces\n      description: returns p-interfaces\n      operationId: getCloudInfrastructurePserversPserverPInterfaces\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"200\":\n          description: successful operation\n          schema:\n              $ref: \"#/definitions/p-interfaces\"\n        \"default\":\n          null\n      parameters:\n        - name: hostname\n          in: path\n          description: Value from executing hostname on the compute node.\n          required: true\n          type: string\n          example: __HOSTNAME__\n        - name: interface-name\n          in: query\n          description:\n          required: false\n          type: string        - name: prov-status\n          in: query\n          description:\n          required: false\n          type: string"}};
-        return Arrays.asList(inputs);
-    }
-
-    public void initNodeGetOperationTest(String useOpId, String xmlRootElementName, String tag,
-        String path, String pathParams, String result) {
-        this.xmlRootElementName = xmlRootElementName;
-        this.result = result;
-    }
+    private static final String VNF_PATH = "/network/generic-vnfs/generic-vnf/{vnf-id}";
+    private static final String CONTAINER_PATH =
+        "/cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces";
+    private static final String CONTAINER = "p-interfaces";
 
     /**
      * A fresh context per test. Previously the container map and checklist were static, so tests
@@ -67,96 +56,119 @@ public class NodeGetOperationTest {
     @BeforeEach
     public void setUp() {
         context = new NodeGenerationContext();
-        String container = "p-interfaces";
-        String queryProps[] = {
-            "        - name: interface-name\n          in: query\n          description:\n          required: false\n          type: string",
-            "        - name: prov-status\n          in: query\n          description:\n          required: false\n          type: string"};
-        Vector<String> containerProps = new Vector<String>();
-        for (String prop : queryProps) {
-            containerProps.add(prop);
-        }
-        context.addContainerProps(container, containerProps);
+        context.addContainerProps(CONTAINER,
+            List.of(indexedProperty("interface-name"), indexedProperty("prov-status")));
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathEndsWithRelationship(String useOpId,
-        String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        String modifiedPath = path + "/relationship";
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @Test
+    public void buildsTheGetOfANodeType() {
+        NodeGetOperation get = new NodeGetOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), context);
+
+        Operation getOperation = get.build();
+
+        assertNotNull(getOperation);
+        // every node endpoint is tagged Operations, whatever the CRUD path's own tag was
+        assertEquals(List.of("Operations"), getOperation.getTags());
+        assertEquals("returns generic-vnf", getOperation.getSummary());
+        assertEquals("returns generic-vnf", getOperation.getDescription());
+        assertEquals("getNetworkGenericVnfsGenericVnf", getOperation.getOperationId());
+        assertEquals(OperationDefaults.JSON_AND_XML, getOperation.getProduces());
+        assertEquals(List.of("200", "default"), List.copyOf(getOperation.getResponses().keySet()));
+        assertEquals("#/definitions/generic-vnf", assertInstanceOf(RefModel.class,
+            getOperation.getResponses().get("200").getResponseSchema()).get$ref());
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathContainsRelationship(String useOpId,
-        String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        String modifiedPath = path + "/relationship/some-id";
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @Test
+    public void aNodeIsReachedByItsTypeRatherThanItsPlaceInTheTree() {
+        NodeGetOperation get = new NodeGetOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), context);
+
+        assertEquals("/nodes/generic-vnfs/generic-vnf/{vnf-id}", get.getPath());
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathEndsWithRelationshipList(String useOpId,
-        String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        String modifiedPath = path + "/relationship-list";
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @Test
+    public void anEndpointAddressingNoSingleObjectIsQueriedByProperty() {
+        NodeGetOperation get = new NodeGetOperation("CloudInfrastructurePserversPserverPInterfaces",
+            CONTAINER, "CloudInfrastructure", CONTAINER_PATH, List.of(hostname()), context);
+
+        assertEquals("/nodes/p-interfaces?parameter=value[&parameter2=value2]", get.getPath());
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathStartsWithSearch(String useOpId, String xmlRootElementName,
-        String tag, String path, String pathParams, String result) {
-        String modifiedPath = "/search" + path;
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @Test
+    public void aContainerIsFilterableByItsIndexedProperties() {
+        NodeGetOperation get = new NodeGetOperation("CloudInfrastructurePserversPserverPInterfaces",
+            CONTAINER, "CloudInfrastructure", CONTAINER_PATH, List.of(hostname()), context);
+
+        List<String> parameters =
+            get.build().getParameters().stream().map(Parameter::getName).toList();
+
+        assertEquals(List.of("hostname", "interface-name", "prov-status"), parameters);
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathStartsWithActions(String useOpId,
-        String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        String modifiedPath = "/actions" + path;
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @ParameterizedTest(name = "no node get for a crud path {0}")
+    @ValueSource(
+        strings = {VNF_PATH + "/relationship", VNF_PATH + "/relationship/some-id",
+            VNF_PATH + "/relationship-list", "/search" + VNF_PATH, "/actions" + VNF_PATH,
+            "/nodes" + VNF_PATH})
+    public void buildsNothingForCrudPath(String crudPath) {
+        NodeGetOperation get = new NodeGetOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", crudPath, List.of(vnfId()), context);
+        assertNull(get.build());
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenCrudPathStartsWithNodes(String useOpId, String xmlRootElementName,
-        String tag, String path, String pathParams, String result) {
-        String modifiedPath = "/nodes" + path;
-        assertModResult(useOpId, xmlRootElementName, tag, modifiedPath, pathParams);
+    @Test
+    public void buildsNothingForAnUntaggedEndpoint() {
+        NodeGetOperation get = new NodeGetOperation("GenericVnf", "generic-vnf", "", VNF_PATH,
+            List.of(vnfId()), context);
+        assertNull(get.build());
     }
 
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString_whenChecklistContainsXmlRootElementName(String useOpId,
-        String xmlRootElementName, String tag, String path, String pathParams, String result) {
-        context.markEmitted(xmlRootElementName);
-        assertModResult(useOpId, xmlRootElementName, tag, path, pathParams);
+    @Test
+    public void aNodeTypeYieldsAtMostOneEndpoint() {
+        NodeGetOperation first = new NodeGetOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), context);
+        assertNotNull(first.build());
+        first.register();
+
+        NodeGetOperation second = new NodeGetOperation("BusinessCustomersGenericVnf", "generic-vnf",
+            "Business", "/business/customers/customer/{global-customer-id}/generic-vnf/{vnf-id}",
+            List.of(vnfId()), context);
+
+        assertNull(second.build());
     }
 
-    private void assertModResult(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams) {
-        NodeGetOperation get =
-            new NodeGetOperation(useOpId, xmlRootElementName, tag, path, pathParams, context);
-        String modResult = get.toString();
-        assertThat(modResult, is(""));
+    @Test
+    public void buildDoesNotRegister() {
+        // build() must be free of side effects; registration only happens via register()
+        NodeGetOperation get = new NodeGetOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), context);
+        get.build();
+        assertNotNull(get.build());
     }
 
-    // Test case for adding container properties
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testAddContainerProps(String useOpId, String xmlRootElementName, String tag,
-        String path, String pathParams, String result) {
-        initNodeGetOperationTest(useOpId, xmlRootElementName, tag, path, pathParams, result);
-        String container = this.xmlRootElementName;
-        String prop = "        - name: " + container
-            + "\n          in: query\n          description:\n          required: false\n          type: string";
-
-        Vector<String> queryProps = new Vector<>();
-        queryProps.add(prop);
-
-        context.addContainerProps(container, queryProps);
-        assertThat(context.getContainerProps(container).get(0), is(prop));
+    private static PathParameter vnfId() {
+        return pathParameter("vnf-id", "Unique id of VNF. This is unique across the graph.");
     }
 
+    private static PathParameter hostname() {
+        return pathParameter("hostname", "Value from executing hostname on the compute node.");
+    }
+
+    private static PathParameter pathParameter(String name, String description) {
+        PathParameter parameter = new PathParameter();
+        parameter.setName(name);
+        parameter.setDescription(description);
+        parameter.setRequired(true);
+        parameter.setType("string");
+        return parameter;
+    }
+
+    private static QueryParameter indexedProperty(String name) {
+        QueryParameter property = new QueryParameter();
+        property.setName(name);
+        property.setRequired(false);
+        property.setType("string");
+        return property;
+    }
 }

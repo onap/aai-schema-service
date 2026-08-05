@@ -22,122 +22,106 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import org.onap.aai.schemagen.GenerateXsd;
+import io.swagger.models.Operation;
+import io.swagger.models.RefModel;
+import io.swagger.models.parameters.BodyParameter;
+import io.swagger.models.parameters.Parameter;
+
+import java.util.List;
+
 import org.onap.aai.setup.SchemaVersion;
 
+/** The PUT of a CRUD endpoint: it creates or wholly replaces the object the path addresses. */
 public class PutOperation {
     public static final String RELATIONSHIP = "relationship";
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
-    private SchemaVersion version;
-    private String basePath;
+
+    private final String useOpId;
+    private final String xmlRootElementName;
+    private final String tag;
+    private final String path;
+    private final List<Parameter> pathParams;
+    private final SchemaVersion version;
+    private final String basePath;
 
     public PutOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, SchemaVersion v, String basePath) {
-        super();
+        List<Parameter> pathParams, SchemaVersion v, String basePath) {
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
-        this.pathParams = pathParams;
+        this.pathParams = pathParams == null ? List.of() : List.copyOf(pathParams);
         this.version = v;
         this.basePath = basePath;
     }
 
-    @Override
-    public String toString() {
-        // a valid tag is necessary
-        if (OperationFilter.hasNoTag(tag)) {
-            return "";
+    /** This endpoint's PUT, or null when the endpoint does not have one. */
+    public Operation build() {
+        if (isFilteredOut()) {
+            return null;
         }
-        // All Put operation paths end with "relationship"
-        // or there is a parameter at the end of the path
-        // and there is a parameter in the path
-        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
-            return "";
-        }
-        if (OperationFilter.isRelationshipListPath(path)) {
-            return "";
-        }
-        if (!path.endsWith("/" + RELATIONSHIP) && !path.endsWith("}")) {
-            return "";
-        }
-        if (OperationFilter.isSearchPath(path)) {
-            return "";
-        }
-        YamlWriter yaml = new YamlWriter();
-        boolean isRelationshipPath = path.endsWith("/" + RELATIONSHIP);
-        // a relationship endpoint is not reached by any other operation, so it opens its own path;
-        // otherwise the path key was already emitted by the GET
-        if (isRelationshipPath) {
-            yaml.key(1, path);
-        }
-        yaml.key(2, "put");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-
-        if (isRelationshipPath) {
-            yaml.entry(3, "summary", "see node definition for valid relationships");
+        Operation put = new Operation();
+        put.addTag(tag);
+        if (isRelationshipPath()) {
+            put.setSummary("see node definition for valid relationships");
         } else {
-            yaml.entry(3, "summary", "create or update an existing " + xmlRootElementName);
-            yaml.blockScalar(3, "description");
-            yaml.text(4, "Create or update an existing " + xmlRootElementName + ".");
-            yaml.text(4, "#");
-            yaml.text(4,
-                "Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below");
+            put.setSummary("create or update an existing " + xmlRootElementName);
+            // the trailing newline is what makes this render as a literal block, not as one line
+            put.setDescription(String.join("\n",
+                "Create or update an existing " + xmlRootElementName + ".", "#",
+                "Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below",
+                ""));
         }
-        String relationshipExamples = "[Valid relationship examples shown here](apidocs" + basePath
-            + "/relations/" + version.toString() + "/"
-            + useOpId.replace("RelationshipListRelationship", "") + ".json)";
-        yaml.entry(3, "operationId", "createOrUpdate" + useOpId);
-        yaml.key(3, "consumes");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        yaml.key(3, "parameters");
-        yaml.raw(pathParams); // for nesting
-        yaml.item(4, "name: body");
-        yaml.entry(5, "in", "body");
-        yaml.entry(5, "description", xmlRootElementName
-            + " object that needs to be created or updated. " + relationshipExamples);
-        yaml.entry(5, "required", "true");
-        yaml.key(5, "schema");
-        String useElement = xmlRootElementName;
-        if (xmlRootElementName.equals("relationship")) {
-            useElement += "-dict";
-        }
-        yaml.entry(6, "$ref", "\"#/definitions/" + useElement + "\"");
-        return yaml.toString();
+        put.setOperationId("createOrUpdate" + useOpId);
+        put.setConsumes(OperationDefaults.JSON_AND_XML);
+        put.setProduces(OperationDefaults.JSON_AND_XML);
+        put.addResponse("default", OperationDefaults.uniformResponse());
+        pathParams.forEach(put::addParameter);
+        put.addParameter(bodyParameter());
+        return put;
+    }
+
+    private BodyParameter bodyParameter() {
+        BodyParameter body = new BodyParameter();
+        body.setName("body");
+        body.setDescription(xmlRootElementName + " object that needs to be created or updated. "
+            + relationshipExamples());
+        body.setRequired(true);
+        // a relationship is defined as a dictionary; the payload is one of its entries
+        body.setSchema(
+            new RefModel(RELATIONSHIP.equals(xmlRootElementName) ? xmlRootElementName + "-dict"
+                : xmlRootElementName));
+        return body;
+    }
+
+    private String relationshipExamples() {
+        return "[Valid relationship examples shown here](apidocs" + basePath + "/relations/"
+            + version.toString() + "/" + useOpId.replace("RelationshipListRelationship", "")
+            + ".json)";
+    }
+
+    /**
+     * A PUT exists where there is something to address: an endpoint ending in a path parameter, or
+     * a
+     * relationship endpoint.
+     */
+    private boolean isFilteredOut() {
+        return OperationFilter.hasNoTag(tag) || OperationFilter.isRelationshipChildPath(path)
+            || OperationFilter.isRelationshipListPath(path)
+            || (!isRelationshipPath() && !path.endsWith("}")) || OperationFilter.isSearchPath(path);
+    }
+
+    private boolean isRelationshipPath() {
+        return path.endsWith("/" + RELATIONSHIP);
     }
 
     /**
      * Registers this operation's relationship path in the run's {@link GenerationContext} when the
-     * path is a relationship endpoint. Kept separate from {@link #toString()} so that rendering is
-     * free of side effects; call this once, after the operation has been emitted.
+     * path is a relationship endpoint. Kept separate from {@link #build()} so that building is free
+     * of side effects; call this once, after the operation has been emitted.
      */
     public void register(GenerationContext context) {
-        if (path.endsWith("/" + RELATIONSHIP)) {
+        if (isRelationshipPath()) {
             context.addPutRelationPath(useOpId, path);
         }
     }
-
-    /**
-     * @deprecated retained for backwards compatibility; use {@link #register(GenerationContext)}
-     *             instead. The return value was always the empty string and is never used by
-     *             callers.
-     */
-    @Deprecated
-    public String tagRelationshipPathMapEntry(GenerationContext context) {
-        register(context);
-        return "";
-    }
-
 }

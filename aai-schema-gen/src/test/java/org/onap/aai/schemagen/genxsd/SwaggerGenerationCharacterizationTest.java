@@ -20,16 +20,8 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,10 +45,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  * here.
  *
  * <p>
- * The expected YAML lives in a committed golden resource. To (re)generate it after an
- * intentional output change, delete the golden file and run this test once: it writes the current
- * output to {@code target/characterization/} and fails with instructions to review and copy it into
- * {@code src/test/resources/}.
+ * The expected YAML lives in a committed golden resource; see {@link GoldenFile} for how to
+ * regenerate it after an intentional output change.
  */
 @SpringJUnitConfig(
     classes = {SchemaConfigVersions.class, SchemaLocationsBean.class,
@@ -66,10 +56,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 public class SwaggerGenerationCharacterizationTest {
 
     private static final SchemaVersion VERSION = new SchemaVersion("v13");
-    private static final Path GOLDEN =
-        Paths.get("src/test/resources/characterization/aai_swagger_v13.golden.yaml");
-    private static final Path ACTUAL_OUT =
-        Paths.get("target/characterization/aai_swagger_v13.actual.yaml");
 
     @Autowired
     YAMLfromOXM yamlFromOxm;
@@ -86,25 +72,8 @@ public class SwaggerGenerationCharacterizationTest {
     @Test
     public void yamlOutputMatchesGolden() throws Exception {
         yamlFromOxm.setVersion(VERSION);
-        String actual = yamlFromOxm.process();
 
-        assertFalse(actual == null || actual.isBlank(),
-            "generation produced empty output - the OXM version/namespace wiring is probably wrong");
-
-        if (!Files.exists(GOLDEN)) {
-            writeActual(actual);
-            fail("No golden file at " + GOLDEN + ". Wrote current output to " + ACTUAL_OUT
-                + " - review it and, if correct, commit it as the golden file.");
-        }
-
-        String expected = Files.readString(GOLDEN, StandardCharsets.UTF_8);
-        if (!expected.equals(actual)) {
-            writeActual(actual);
-            assertEquals(expected, actual,
-                "Generated v13 swagger YAML differs from the golden file."
-                    + " If the change is intentional, replace " + GOLDEN + " with " + ACTUAL_OUT
-                    + ".");
-        }
+        GoldenFile.assertMatches("aai_swagger_v13.golden.yaml", yamlFromOxm.process());
     }
 
     @Test
@@ -124,10 +93,5 @@ public class SwaggerGenerationCharacterizationTest {
         generationContext.getPutRelationPaths()
             .forEach((opId, path) -> assertTrue(path.endsWith("/relationship-list/relationship"),
                 "registered non-relationship path for " + opId + ": " + path));
-    }
-
-    private static void writeActual(String content) throws IOException {
-        Files.createDirectories(ACTUAL_OUT.getParent());
-        Files.writeString(ACTUAL_OUT, content, StandardCharsets.UTF_8);
     }
 }

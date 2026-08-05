@@ -33,6 +33,9 @@
     <name>aai-schema-gen</name>
     <properties>
         <onap.nexus.url>https://nexus.onap.org</onap.nexus.url>
+        <!-- the 1.6.x line is the Swagger 2.0 model; the 2.x io.swagger.core.v3 artifacts are
+             the OpenAPI 3 model and are not interchangeable with it -->
+        <swagger.models.version>1.6.16</swagger.models.version>
         <!-- Start of Default ONAP Schema Properties -->
         <aai.wiki.link>https://wiki.onap.org/</aai.wiki.link>
         <gendoc.version>v19</gendoc.version>
@@ -103,14 +106,6 @@
                                         <systemProperty>
                                             <key>schema.xsd.maxoccurs</key>
                                             <value>${schema.xsd.maxoccurs}</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value></value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value></value>
                                         </systemProperty>
                                         <systemProperty>
                                             <key>schema.configuration.location</key>
@@ -196,16 +191,6 @@
                                         <systemProperty>
                                             <key>gen_type</key>
                                             <value>YAML</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value>
-                                                https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
-                                            </value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value>Response codes are uniform across all endpoints.</value>
                                         </systemProperty>
                                         <systemProperty>
                                             <key>schema.configuration.location</key>
@@ -398,14 +383,6 @@
                                             <value>${schema.xsd.maxoccurs}</value>
                                         </systemProperty>
                                         <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value></value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value></value>
-                                        </systemProperty>
-                                        <systemProperty>
                                             <key>schema.configuration.location</key>
                                             <value>${schema.configuration.location}</value>
                                         </systemProperty>
@@ -476,16 +453,6 @@
                                         <systemProperty>
                                             <key>gen_type</key>
                                             <value>YAML</value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_url</key>
-                                            <value>
-                                                https://wiki.web.att.com/pages/viewpage.action?pageId=607391054
-                                            </value>
-                                        </systemProperty>
-                                        <systemProperty>
-                                            <key>yamlresponses_label</key>
-                                            <value>Response codes are uniform across all endpoints.</value>
                                         </systemProperty>
                                         <systemProperty>
                                             <key>schema.configuration.location</key>
@@ -613,6 +580,15 @@
         </profile>
     </profiles>
     <dependencies>
+        <!-- The Swagger 2.0 specification's own document model (Swagger/Info/Path/Operation/Model),
+             which the generators build instead of assembling YAML text. Everything it needs beyond
+             this - jackson-databind, jackson-dataformat-yaml, snakeyaml - is already on this
+             module's classpath. -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>${swagger.models.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>

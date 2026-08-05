@@ -1,0 +1,468 @@
+#
+# ============LICENSE_START=======================================================
+# org.onap.aai
+# ================================================================================
+# Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
+# ================================================================================
+# Licensed under the Creative Commons License, Attribution 4.0 Intl. (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# <p>
+# https://creativecommons.org/licenses/by/4.0/
+# <p>
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+#
+
+swagger: "2.0"
+info:
+  description: |
+    [Differences versus the previous schema version](apidocs/aai/aai_swagger_v11.diff)
+
+    This document is best viewed with Firefox or Chrome. Nodes can be found by opening the models link below and finding the node-type. Edge definitions can be found with the node definitions.
+  version: v11
+  title: Active and Available Inventory REST API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost
+basePath: /aai/v11
+schemes:
+  - https
+paths:
+  /business/customers/customer/{global-customer-id}/service-subscriptions/service-subscription/{service-type}:
+    get:
+      tags:
+        - Business
+      summary: returns service-subscription
+      description: returns service-subscription
+      operationId: getBusinessCustomersCustomerServiceSubscriptionsServiceSubscription
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/service-subscription"
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: service-type
+          in: path
+          description: Value defined by orchestration to identify this service.
+          required: true
+          type: string
+    put:
+      tags:
+        - Business
+      summary: create or update an existing service-subscription
+      description: |
+        Create or update an existing service-subscription.
+        #
+        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below
+      operationId: createOrUpdateBusinessCustomersCustomerServiceSubscriptionsServiceSubscription
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: service-type
+          in: path
+          description: Value defined by orchestration to identify this service.
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: service-subscription object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)
+          required: true
+          schema:
+            $ref: "#/definitions/service-subscription"
+    patch:
+      tags:
+        - Business
+      summary: update an existing service-subscription
+      description: |
+        Update an existing service-subscription
+        #
+        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.
+        The PUT operation will entirely replace an existing object.
+        The PATCH operation sends a "description of changes" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.
+        #
+        Other differences between PUT and PATCH are:
+        #
+        - For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.
+        - For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.
+        - PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.
+      operationId: UpdateBusinessCustomersCustomerServiceSubscriptionsServiceSubscription
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: service-type
+          in: path
+          description: Value defined by orchestration to identify this service.
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: service-subscription object that needs to be updated.[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomerServiceSubscriptionsServiceSubscription.json)
+          required: true
+          schema:
+            $ref: "#/definitions/zzzz-patch-service-subscription"
+    delete:
+      tags:
+        - Business
+      summary: delete an existing service-subscription
+      description: delete an existing service-subscription
+      operationId: deleteBusinessCustomersCustomerServiceSubscriptionsServiceSubscription
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: service-type
+          in: path
+          description: Value defined by orchestration to identify this service.
+          required: true
+          type: string
+        - name: resource-version
+          in: query
+          description: resource-version for concurrency
+          required: true
+          type: string
+  /business/customers/customer/{global-customer-id}/service-subscriptions:
+    get:
+      tags:
+        - Business
+      summary: returns service-subscriptions
+      description: returns service-subscriptions
+      operationId: getBusinessCustomersCustomerServiceSubscriptions
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/service-subscriptions"
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: service-type
+          in: query
+          required: false
+          type: string
+  /business/customers/customer/{global-customer-id}:
+    get:
+      tags:
+        - Business
+      summary: returns customer
+      description: returns customer
+      operationId: getBusinessCustomersCustomer
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/customer"
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+    put:
+      tags:
+        - Business
+      summary: create or update an existing customer
+      description: |
+        Create or update an existing customer.
+        #
+        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below
+      operationId: createOrUpdateBusinessCustomersCustomer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: customer object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)
+          required: true
+          schema:
+            $ref: "#/definitions/customer"
+    patch:
+      tags:
+        - Business
+      summary: update an existing customer
+      description: |
+        Update an existing customer
+        #
+        Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.
+        The PUT operation will entirely replace an existing object.
+        The PATCH operation sends a "description of changes" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.
+        #
+        Other differences between PUT and PATCH are:
+        #
+        - For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.
+        - For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.
+        - PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.
+      operationId: UpdateBusinessCustomersCustomer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: customer object that needs to be updated.[See Examples](apidocs/aai/relations/v11/BusinessCustomersCustomer.json)
+          required: true
+          schema:
+            $ref: "#/definitions/zzzz-patch-customer"
+    delete:
+      tags:
+        - Business
+      summary: delete an existing customer
+      description: delete an existing customer
+      operationId: deleteBusinessCustomersCustomer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: path
+          description: Global customer id used across to uniquely identify customer.
+          required: true
+          type: string
+        - name: resource-version
+          in: query
+          description: resource-version for concurrency
+          required: true
+          type: string
+  /business/customers:
+    get:
+      tags:
+        - Business
+      summary: returns customers
+      description: returns customers
+      operationId: getBusinessCustomers
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/customers"
+        "default":
+          description: Response codes are uniform across all endpoints.
+      parameters:
+        - name: global-customer-id
+          in: query
+          required: false
+          type: string
+        - name: subscriber-name
+          in: query
+          required: false
+          type: string
+        - name: subscriber-type
+          in: query
+          required: false
+          type: string
+definitions:
+  business:
+    description: |
+      Namespace for business related constructs
+    properties:
+      customers:
+        type: object
+        properties:
+          customer:
+            type: array
+            items:
+              $ref: "#/definitions/customer"
+  customer:
+    description: |
+      customer identifiers to provide linkage back to BSS information.
+      ###### Related Nodes
+      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)
+
+      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also
+    required:
+      - global-customer-id
+      - subscriber-name
+      - subscriber-type
+    properties:
+      global-customer-id:
+        type: string
+        description: Global customer id used across to uniquely identify customer.
+      subscriber-name:
+        type: string
+        description: Subscriber name, an alternate way to retrieve a customer.
+      subscriber-type:
+        type: string
+        description: Subscriber type, a way to provide VID with only the INFRA customers.
+      resource-version:
+        type: string
+        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.
+      service-subscriptions:
+        type: object
+        properties:
+          service-subscription:
+            type: array
+            items:
+              $ref: "#/definitions/service-subscription"
+  customers:
+    description: |
+      Collection of customer identifiers to provide linkage back to BSS information.
+    properties:
+      customer:
+        type: array
+        items:
+          $ref: "#/definitions/customer"
+  inventory:
+    properties:
+      business:
+        $ref: "#/definitions/business"
+  nodes:
+    properties:
+      inventory-item-data:
+        type: array
+        items:
+          $ref: "#/definitions/inventory-item-data"
+  service-subscription:
+    description: |
+      Object that group service instances.
+      ###### Related Nodes
+      - TO customer (PARENT of service-subscription, service-subscription BelongsTo customer, MANY2ONE)(4)
+      - TO tenant( service-subscription Uses tenant, MANY2MANY)
+      - FROM service-instance (CHILD of service-subscription, service-instance BelongsTo service-subscription, MANY2ONE)(1)
+
+      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also
+      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also
+    required:
+      - service-type
+    properties:
+      service-type:
+        type: string
+        description: Value defined by orchestration to identify this service.
+      temp-ub-sub-account-id:
+        type: string
+        description: This property will be deleted from A&AI in the near future. Only stop gap solution.
+      resource-version:
+        type: string
+        description: Used for optimistic concurrency.  Must be empty on create, valid on update and delete.
+  service-subscriptions:
+    description: |
+      Collection of objects that group service instances.
+    properties:
+      service-subscription:
+        type: array
+        items:
+          $ref: "#/definitions/service-subscription"
+  zzzz-patch-customer:
+    description: |
+      customer identifiers to provide linkage back to BSS information.
+      ###### Related Nodes
+      - FROM service-subscription (CHILD of customer, service-subscription BelongsTo customer, MANY2ONE)(1)
+
+      -(1) IF this CUSTOMER node is deleted, this FROM node is DELETED also
+    properties:
+      global-customer-id:
+        type: string
+        description: Global customer id used across to uniquely identify customer.
+      subscriber-name:
+        type: string
+        description: Subscriber name, an alternate way to retrieve a customer.
+      subscriber-type:
+        type: string
+        description: Subscriber type, a way to provide VID with only the INFRA customers.
+  zzzz-patch-service-subscription:
+    description: |
+      Object that group service instances.
+      ###### Related Nodes
+      - TO customer (PARENT of service-subscription, service-subscription BelongsTo customer, MANY2ONE)(4)
+      - TO tenant( service-subscription Uses tenant, MANY2MANY)
+      - FROM service-instance (CHILD of service-subscription, service-instance BelongsTo service-subscription, MANY2ONE)(1)
+
+      -(1) IF this SERVICE-SUBSCRIPTION node is deleted, this FROM node is DELETED also
+      -(4) IF this TO node is deleted, this SERVICE-SUBSCRIPTION is DELETED also
+    properties:
+      service-type:
+        type: string
+        description: Value defined by orchestration to identify this service.
+      temp-ub-sub-account-id:
+        type: string
+        description: This property will be deleted from A&AI in the near future. Only stop gap solution.

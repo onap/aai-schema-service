@@ -19,13 +19,25 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemagen;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Method;
+
+import lombok.SneakyThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.aai.edges.EdgeIngestor;
-import org.onap.aai.edges.exceptions.EdgeRuleNotFoundException;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.schemagen.genxsd.*;
 import org.onap.aai.schemagen.testutils.TestUtilConfigTranslatorforBusiness;
@@ -38,22 +50,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.xml.sax.SAXException;
-import lombok.SneakyThrows;
-
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Method;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringJUnitConfig(
     classes = {SchemaLocationsBean.class, TestUtilConfigTranslatorforBusiness.class,
@@ -68,9 +64,6 @@ public class GenerateXsdTest {
         "src/test/resources/dbedgerules/DbEdgeBusinessRules_test.json";
     public static AnnotationConfigApplicationContext ctx = null;
     private static String testXML;
-
-    @Autowired
-    YAMLfromOXM yamlFromOxm;
 
     @Autowired
     HTMLfromOXM htmlFromOxm;
@@ -101,17 +94,7 @@ public class GenerateXsdTest {
         testXML = x.getTestXML();
     }
 
-    @Test
-    @SneakyThrows
-    public void test_generateSwaggerFromOxmFile() {
-        SchemaVersion v = schemaConfigVersions.getAppRootVersion();
-        String apiVersion = v.toString();
-
-        yamlFromOxm.setXmlVersion(testXML, v);
-        String fileContent = yamlFromOxm.process();
-
-        assertThat(fileContent, is(new YAMLfromOXMTest().YAMLresult()));
-    }
+    // the swagger of this same OXM is pinned byte for byte by YAMLfromOXMTest against a golden file
 
     @Test
     @SneakyThrows
@@ -139,7 +122,8 @@ public class GenerateXsdTest {
     @Test
     public void testValidVersionWithAll() throws Exception {
         // Access the private method using reflection
-        Method validVersionMethod = GenerateXsd.class.getDeclaredMethod("validVersion", String.class);
+        Method validVersionMethod =
+            GenerateXsd.class.getDeclaredMethod("validVersion", String.class);
         validVersionMethod.setAccessible(true);
 
         // Test "ALL"
@@ -151,7 +135,8 @@ public class GenerateXsdTest {
     @Test
     public void testVersionSupportsSwaggerWithValidVersion() throws Exception {
         // Accessing the private method using reflection
-        Method versionSupportsSwaggerMethod = GenerateXsd.class.getDeclaredMethod("versionSupportsSwagger", String.class);
+        Method versionSupportsSwaggerMethod =
+            GenerateXsd.class.getDeclaredMethod("versionSupportsSwagger", String.class);
         versionSupportsSwaggerMethod.setAccessible(true);
 
         // Test version >= v1
@@ -165,7 +150,8 @@ public class GenerateXsdTest {
     @Test
     public void testVersionSupportsSwaggerWithInvalidVersion() throws Exception {
         // Accessing the private method using reflection
-        Method versionSupportsSwaggerMethod = GenerateXsd.class.getDeclaredMethod("versionSupportsSwagger", String.class);
+        Method versionSupportsSwaggerMethod =
+            GenerateXsd.class.getDeclaredMethod("versionSupportsSwagger", String.class);
         versionSupportsSwaggerMethod.setAccessible(true);
 
         // Test version < v1
@@ -175,9 +161,9 @@ public class GenerateXsdTest {
 
     @Test
     public void mainMethod() throws IOException {
-        System.setProperty("gen_version","v12");
-        System.setProperty("gen_type","xsd");
-        GenerateXsd.main(new String[]{});
+        System.setProperty("gen_version", "v12");
+        System.setProperty("gen_type", "xsd");
+        GenerateXsd.main(new String[] {});
     }
 
 }

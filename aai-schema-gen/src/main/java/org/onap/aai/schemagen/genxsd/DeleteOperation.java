@@ -20,97 +20,86 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.StringTokenizer;
+import io.swagger.models.Operation;
+import io.swagger.models.parameters.Parameter;
+import io.swagger.models.parameters.QueryParameter;
 
-import org.onap.aai.schemagen.GenerateXsd;
+import java.util.List;
 
+/** The DELETE of a CRUD endpoint: it removes the object the path addresses. */
 public class DeleteOperation {
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
+
+    private final String useOpId;
+    private final String xmlRootElementName;
+    private final String tag;
+    private final String path;
+    private final List<Parameter> pathParams;
 
     public DeleteOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams) {
-        super();
+        List<Parameter> pathParams) {
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
-        this.pathParams = pathParams;
+        this.pathParams = pathParams == null ? List.of() : List.copyOf(pathParams);
     }
 
-    @Override
-    public String toString() {
-        StringTokenizer st;
-        st = new StringTokenizer(path, "/");
-        // a valid tag is necessary
-        if (OperationFilter.hasNoTag(tag)) {
-            return "";
+    /** This endpoint's DELETE, or null when the endpoint does not have one. */
+    public Operation build() {
+        if (isFilteredOut()) {
+            return null;
         }
-        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
-            return "";
+        Operation delete = new Operation();
+        delete.addTag(tag);
+        delete.setSummary("delete an existing " + xmlRootElementName);
+        delete.setDescription("delete an existing " + xmlRootElementName);
+        delete.setOperationId("delete" + useOpId);
+        delete.setConsumes(OperationDefaults.JSON_AND_XML);
+        delete.setProduces(OperationDefaults.JSON_AND_XML);
+        delete.addResponse("default", OperationDefaults.uniformResponse());
+        pathParams.forEach(delete::addParameter);
+        if (!isRelationshipPath()) {
+            delete.addParameter(resourceVersionParameter());
         }
-        if (OperationFilter.isRelationshipListPath(path)) {
-            return "";
-        }
-        if (OperationFilter.isSearchPath(path)) {
-            return "";
-        }
-        // All Delete operation paths end with "relationship"
-        // or there is a parameter at the end of the path
-        // and there is a parameter in the path
+        return delete;
+    }
 
-        if (!path.endsWith("/relationship") && !path.endsWith("}")) {
-            return "";
-        }
-        YamlWriter yaml = new YamlWriter();
-        yaml.key(2, "delete");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-        yaml.entry(3, "summary", "delete an existing " + xmlRootElementName);
-        yaml.entry(3, "description", "delete an existing " + xmlRootElementName);
-        yaml.entry(3, "operationId", "delete" + useOpId);
-        yaml.key(3, "consumes");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.item(4, "application/xml");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        yaml.key(3, "parameters");
-        yaml.raw(pathParams); // for nesting
-        if (!path.endsWith("/relationship")) {
-            yaml.item(4, "name: resource-version");
-            yaml.entry(5, "in", "query");
-            yaml.entry(5, "description", "resource-version for concurrency");
-            yaml.entry(5, "required", "true");
-            yaml.entry(5, "type", "string");
-        }
-        return yaml.toString();
+    /**
+     * Deleting an object requires the caller to state which revision they saw; deleting a
+     * relationship does not, as a relationship carries no revision of its own.
+     */
+    private static QueryParameter resourceVersionParameter() {
+        QueryParameter resourceVersion = new QueryParameter();
+        resourceVersion.setName("resource-version");
+        resourceVersion.setDescription("resource-version for concurrency");
+        resourceVersion.setRequired(true);
+        resourceVersion.setType("string");
+        return resourceVersion;
+    }
+
+    /**
+     * A DELETE exists where there is something to address: an endpoint ending in a path parameter,
+     * or
+     * a relationship endpoint.
+     */
+    private boolean isFilteredOut() {
+        return OperationFilter.hasNoTag(tag) || OperationFilter.isRelationshipChildPath(path)
+            || OperationFilter.isRelationshipListPath(path) || OperationFilter.isSearchPath(path)
+            || (!isRelationshipPath() && !path.endsWith("}"));
+    }
+
+    private boolean isRelationshipPath() {
+        return path.endsWith("/" + PutOperation.RELATIONSHIP);
     }
 
     /**
      * Registers this operation's path in the run's {@link GenerationContext} (unless it is a
-     * relationship endpoint). Kept separate from {@link #toString()} so that rendering is free of
-     * side effects; call this once, after the operation has been emitted.
+     * relationship endpoint). Kept separate from {@link #build()} so that building is free of side
+     * effects; call this once, after the operation has been emitted.
      */
     public void register(GenerationContext context) {
-        if (!path.endsWith("/relationship")) {
+        if (!isRelationshipPath()) {
             context.addDeletePath(path, xmlRootElementName);
         }
-    }
-
-    /**
-     * @deprecated retained for backwards compatibility; use {@link #register(GenerationContext)}
-     *             instead. The return value is never used by callers.
-     */
-    @Deprecated
-    public String objectPathMapEntry(GenerationContext context) {
-        register(context);
-        return (xmlRootElementName + ":" + path);
     }
 }

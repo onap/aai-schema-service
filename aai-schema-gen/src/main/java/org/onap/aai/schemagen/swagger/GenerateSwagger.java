@@ -20,10 +20,6 @@
 
 package org.onap.aai.schemagen.swagger;
 
-import org.yaml.snakeyaml.LoaderOptions;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -47,6 +43,9 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.onap.aai.setup.SchemaConfigVersions;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 public class GenerateSwagger {
 
@@ -488,8 +487,7 @@ public class GenerateSwagger {
                 String headerId = line.toLowerCase().replaceAll("\\s", "-");
 
                 if (line.contains("Related Nodes")) {
-                    return "<h6 id=\"%s\">%s</h6>%s<ul>".formatted(headerId, line,
-                        LINE_SEPARATOR);
+                    return "<h6 id=\"%s\">%s</h6>%s<ul>".formatted(headerId, line, LINE_SEPARATOR);
                 } else {
                     return "<h6 id=\"%s\">%s</h6>".formatted(headerId, line);
                 }

@@ -301,15 +301,13 @@ public class HTMLfromOXMTest {
 
     public String HTMLheader() {
         StringBuilder sb = new StringBuilder(1500);
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
-            + LINE_SEPARATOR);
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + LINE_SEPARATOR);
         sb.append(
             "<xs:schema elementFormDefault=\"qualified\" version=\"1.0\" targetNamespace=\"http://org.onap.aai.inventory/v11\" xmlns:tns=\"http://org.onap.aai.inventory/v11\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""
                 + LINE_SEPARATOR + "xmlns:jaxb=\"https://jakarta.ee/xml/ns/jaxb\""
                 + LINE_SEPARATOR);
         sb.append("    jaxb:version=\"3.0\"" + LINE_SEPARATOR);
-        sb.append(
-            "    xmlns:annox=\"urn:jaxb.jvnet.org:annox\"" + LINE_SEPARATOR);
+        sb.append("    xmlns:annox=\"urn:jaxb.jvnet.org:annox\"" + LINE_SEPARATOR);
         sb.append("    jaxb:extensionBindingPrefixes=\"annox\">"
             + OxmFileProcessor.DOUBLE_LINE_SEPARATOR);
         return sb.toString();
@@ -366,8 +364,7 @@ public class HTMLfromOXMTest {
         sb.append("      </xs:sequence>" + LINE_SEPARATOR);
         sb.append("    </xs:complexType>" + LINE_SEPARATOR);
         sb.append("  </xs:element>" + LINE_SEPARATOR);
-        sb.append(
-            "  <xs:element name=\"service-subscriptions\">" + LINE_SEPARATOR);
+        sb.append("  <xs:element name=\"service-subscriptions\">" + LINE_SEPARATOR);
         sb.append("    <xs:complexType>" + LINE_SEPARATOR);
         sb.append("      <xs:annotation>" + LINE_SEPARATOR);
         sb.append("        <xs:appinfo>" + LINE_SEPARATOR);
@@ -498,16 +495,14 @@ public class HTMLfromOXMTest {
         sb.append("        </xs:appinfo>" + LINE_SEPARATOR);
         sb.append("      </xs:annotation>" + LINE_SEPARATOR);
         sb.append("      <xs:sequence>" + LINE_SEPARATOR);
-        sb.append("        <xs:element ref=\"tns:customers\" minOccurs=\"0\"/>"
-            + LINE_SEPARATOR);
+        sb.append("        <xs:element ref=\"tns:customers\" minOccurs=\"0\"/>" + LINE_SEPARATOR);
         sb.append("      </xs:sequence>" + LINE_SEPARATOR);
         sb.append("    </xs:complexType>" + LINE_SEPARATOR);
         sb.append("  </xs:element>" + LINE_SEPARATOR);
         sb.append("  <xs:element name=\"inventory\">" + LINE_SEPARATOR);
         sb.append("    <xs:complexType>" + LINE_SEPARATOR);
         sb.append("      <xs:sequence>" + LINE_SEPARATOR);
-        sb.append("        <xs:element ref=\"tns:business\" minOccurs=\"0\"/>"
-            + LINE_SEPARATOR);
+        sb.append("        <xs:element ref=\"tns:business\" minOccurs=\"0\"/>" + LINE_SEPARATOR);
         sb.append("      </xs:sequence>" + LINE_SEPARATOR);
         sb.append("    </xs:complexType>" + LINE_SEPARATOR);
         sb.append("  </xs:element>" + LINE_SEPARATOR);
@@ -523,13 +518,14 @@ public class HTMLfromOXMTest {
 
         // Act
         try {
-            htmlFromOxm.setOxmVersion(oxmFile, version);  // Setting the version
+            htmlFromOxm.setOxmVersion(oxmFile, version); // Setting the version
             // Check the document header which should reflect the version set
             String header = htmlFromOxm.getDocumentHeader();
             logger.debug("Header: " + header);
 
             // Verify that the version is properly included in the header
-            assertThat(header.contains(version.toString()), is(true));  // Check if version is part of the header
+            assertThat(header.contains(version.toString()), is(true)); // Check if version is part
+                                                                       // of the header
         } catch (Exception e) {
             e.printStackTrace();
             fail("Exception occurred while setting OXM version");
@@ -608,13 +604,15 @@ public class HTMLfromOXMTest {
         // Mock getNamedItem("name") to return the correct attribute value "Customer"
         Attr nameAttr = mock(Attr.class);
         when(attributes.getNamedItem("name")).thenReturn(nameAttr);
-        when(nameAttr.getNodeValue()).thenReturn("Customer");  // Ensure the value is set to "Customer"
+        when(nameAttr.getNodeValue()).thenReturn("Customer"); // Ensure the value is set to
+                                                              // "Customer"
 
         // Create a StringBuilder for inventory
         StringBuilder sbInventory = new StringBuilder();
 
         // Call the method that processes the Java type element
-        String result = htmlFromOxm.processJavaTypeElement(javaTypeName, javaTypeElement, sbInventory);
+        String result =
+            htmlFromOxm.processJavaTypeElement(javaTypeName, javaTypeElement, sbInventory);
 
         // Debugging: Verify the name is correctly set
         assertNotNull("The name attribute should not be null", nameAttr);
@@ -623,12 +621,11 @@ public class HTMLfromOXMTest {
         // Debugging Output: Print the generated XML
         System.out.println("Generated XML: " + result);
 
-        // Expected result format (adjusted to match generated XML structure for no xml-element nodes)
+        // Expected result format (adjusted to match generated XML structure for no xml-element
+        // nodes)
         String expected = "  <xs:element name=\"" + null + "\">" + LINE_SEPARATOR
-            + "    <xs:complexType>" + LINE_SEPARATOR
-            + "      <xs:sequence/>" + LINE_SEPARATOR
-            + "    </xs:complexType>" + LINE_SEPARATOR
-            + "  </xs:element>" + LINE_SEPARATOR;
+            + "    <xs:complexType>" + LINE_SEPARATOR + "      <xs:sequence/>" + LINE_SEPARATOR
+            + "    </xs:complexType>" + LINE_SEPARATOR + "  </xs:element>" + LINE_SEPARATOR;
 
         assertThat(result, is(expected));
 

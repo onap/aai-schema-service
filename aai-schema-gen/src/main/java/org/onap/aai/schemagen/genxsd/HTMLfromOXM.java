@@ -69,7 +69,7 @@ public class HTMLfromOXM extends OxmFileProcessor {
         this.v = v;
     }
 
-    @Override
+    /** Everything above the first type definition: the XSD schema element and its namespaces. */
     public String getDocumentHeader() {
         StringBuilder sb = new StringBuilder();
         logger.trace("processing starts");

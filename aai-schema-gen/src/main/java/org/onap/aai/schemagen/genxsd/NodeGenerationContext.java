@@ -20,11 +20,12 @@
 
 package org.onap.aai.schemagen.genxsd;
 
+import io.swagger.models.parameters.Parameter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * Mutable state shared by the node-GET emitter while generating one version's {@code nodes} swagger
@@ -44,10 +45,10 @@ import java.util.Vector;
 public class NodeGenerationContext {
 
     /**
-     * Maps a container name to the rendered YAML query parameters contributed by its indexed
-     * properties, used by {@link NodeGetOperation} to emit query parameters.
+     * Maps a container name to the query parameters contributed by its indexed properties, used by
+     * {@link NodeGetOperation} to emit query parameters.
      */
-    private final Map<String, Vector<String>> containers = new HashMap<>();
+    private final Map<String, List<Parameter>> containers = new HashMap<>();
 
     /**
      * Objects for which a node-GET operation has already been emitted. Each object yields at most
@@ -56,17 +57,17 @@ public class NodeGenerationContext {
      */
     private final List<String> emittedObjects = new ArrayList<>();
 
-    /** Associates the rendered query parameters of a container with that container's name. */
-    public void addContainerProps(String container, Vector<String> containerProps) {
+    /** Associates the query parameters of a container with that container's name. */
+    public void addContainerProps(String container, List<Parameter> containerProps) {
         containers.put(container, containerProps);
     }
 
     /**
-     * Returns the rendered query parameters for a container, or {@code null} when the container has
-     * no indexed properties. A {@code null} return is meaningful to callers and distinct from an
-     * empty list.
+     * Returns the query parameters for a container, or {@code null} when the container has no
+     * indexed properties. A {@code null} return is meaningful to callers and distinct from an empty
+     * list.
      */
-    public Vector<String> getContainerProps(String container) {
+    public List<Parameter> getContainerProps(String container) {
         return containers.get(container);
     }
 

@@ -29,14 +29,29 @@ import static org.hamcrest.collection.IsIn.in;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.core.Every.everyItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.AssertionErrors.fail;
 
+import io.swagger.models.parameters.Parameter;
+import io.swagger.models.parameters.PathParameter;
+import io.swagger.models.parameters.QueryParameter;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.StringProperty;
+
 import java.io.IOException;
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Stream;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -47,6 +62,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.mockito.Mockito;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
@@ -691,66 +710,57 @@ public class XSDElementTest {
     }
 
     @Test
-    public void testGetQueryParamYAML() {
-        ArrayList<String> target = new ArrayList<String>();
-        target.add(
-            "        - name: global-customer-id\n          in: query\n          required: false\n          type: string\n");
-        target.add(
-            "        - name: subscriber-name\n          in: query\n          required: false\n          type: string\n");
-        target.add(
-            "        - name: subscriber-type\n          in: query\n          required: false\n          type: string\n");
+    public void testGetQueryParameter() {
         GenerationContext context = new GenerationContext();
-        Vector<String> indexedProps = new Vector<String>();
+        List<String> indexedProps = new ArrayList<>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
             if (javaTypeElement.getContainerProperty() != null) {
                 indexedProps.addAll(javaTypeElement.getIndexedProps());
                 String container = javaTypeElement.getContainerProperty();
-                Vector<String> containerProps = new Vector<String>();
+                List<Parameter> containerProps = new ArrayList<>();
                 NodeList xmlElementNodes = javaTypeElement.getElementsByTagName("xml-element");
                 for (int j = 0; j < xmlElementNodes.getLength(); ++j) {
                     XSDElement xmlElement = new XSDElement((Element) xmlElementNodes.item(j));
                     if (indexedProps.contains(xmlElement.name()))
-                        containerProps.add(xmlElement.getQueryParamYAML());
+                        containerProps.add(xmlElement.getQueryParameter());
                 }
                 context.addContainerProps(container, containerProps);
             }
         }
-        /*
-         * List<String> queryParams = new ArrayList<String>();
-         * for ( int i = 0; i < javaTypeNodes.getLength(); ++ i ) {
-         * XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
-         * if(javaTypeElement.getQueryParamYAML() != null)
-         * queryParams.add(javaTypeElement.getQueryParamYAML());
-         * }
-         */
-        assertThat(context.getContainerProps("customers"), equalTo(target));
+
+        List<Parameter> customers = context.getContainerProps("customers");
+
+        assertEquals(List.of("global-customer-id", "subscriber-name", "subscriber-type"),
+            customers.stream().map(Parameter::getName).toList());
+        customers.forEach(parameter -> {
+            QueryParameter query = (QueryParameter) parameter;
+            assertEquals("query", query.getIn());
+            assertEquals("string", query.getType());
+            // an indexed property is a filter, so it is never required
+            assertFalse(query.getRequired());
+        });
     }
 
     @Test
-    public void testGetPathParamYAML() {
-        ArrayList<String> target = new ArrayList<String>();
-        target.add(
-            "        - name: Inventory\n          in: path\n          description: Inventory\n          required: true\n");
-        target.add(
-            "        - name: Business\n          in: path\n          description: Business\n          required: true\n");
-        target.add(
-            "        - name: Customers\n          in: path\n          description: Customers\n          required: true\n");
-        target.add(
-            "        - name: Customer\n          in: path\n          description: Customer\n          required: true\n");
-        target.add(
-            "        - name: ServiceSubscriptions\n          in: path\n          description: ServiceSubscriptions\n          required: true\n");
-        target.add(
-            "        - name: ServiceSubscription\n          in: path\n          description: ServiceSubscription\n          required: true\n");
-        List<String> pathParams = new ArrayList<String>();
+    public void testGetPathParameter() {
+        List<Parameter> pathParams = new ArrayList<>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
-            if (javaTypeElement.getPathParamYAML(javaTypeElement.name()) != null)
-                pathParams.add(javaTypeElement.getPathParamYAML(javaTypeElement.name()));
+            pathParams.add(javaTypeElement.getPathParameter(javaTypeElement.name()));
         }
-        logger.debug(String.join("|", pathParams));
-        assertThat(new ArrayList<>(pathParams),
-            both(everyItem(is(in(target.toArray())))).and(containsInAnyOrder(target.toArray())));
+
+        assertThat(pathParams.stream().map(Parameter::getName).toList(),
+            containsInAnyOrder("Inventory", "Business", "Customers", "Customer",
+                "ServiceSubscriptions", "ServiceSubscription"));
+        pathParams.forEach(parameter -> {
+            assertEquals("path", parameter.getIn());
+            // a java type is not a standard type, so it is left untyped
+            assertNull(((PathParameter) parameter).getType());
+            // an object the path addresses must be named for the path to address it
+            assertTrue(parameter.getRequired());
+            assertEquals(parameter.getName(), parameter.getDescription());
+        });
     }
 
     @Test
@@ -803,39 +813,54 @@ public class XSDElementTest {
     }
 
     @Test
-    public void testGetTypePropertyYAML() {
-        ArrayList<String> target = new ArrayList<String>();
-        target.add("      Inventory:\n        type: ");
-        target.add(
-            "      Business:\n        type:         description: Namespace for business related constructs\n");
-        target.add(
-            "      Customers:\n        type:         description: Collection of customer identifiers to provide linkage back to BSS information.\n");
-        target.add(
-            "      Customer:\n        type:         description: customer identifiers to provide linkage back to BSS information.\n");
-        target.add(
-            "      ServiceSubscriptions:\n        type:         description: Collection of objects that group service instances.\n");
-        target.add(
-            "      ServiceSubscription:\n        type:         description: Object that group service instances.\n");
-        StringBuilder sb = new StringBuilder(
-            "      Customer:\n        type:         description: |\n          customer identifiers to provide linkage back to BSS information.\n");
-        sb.append(
-            "          *This property can be used as a filter to find the start node for a dsl query\n");
-        String yamlDesc = sb.toString();
-        List<String> types = new ArrayList<String>();
-        String container;
-        String customerDesc = null;
+    public void testGetTypeProperty() {
+        Map<String, Property> byName = new LinkedHashMap<>();
         for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
             XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
-            if (javaTypeElement.getTypePropertyYAML(false) != null)
-                types.add(javaTypeElement.getTypePropertyYAML(false));
-            container = javaTypeElement.getContainerProperty();
-            if ("customers".equals(container)) {
-                customerDesc = javaTypeElement.getTypePropertyYAML(true);
+            byName.put(javaTypeElement.name(), javaTypeElement.getTypeProperty(false));
+        }
+
+        assertEquals(List.of("Inventory", "Business", "Customers", "Customer",
+            "ServiceSubscriptions", "ServiceSubscription"), List.copyOf(byName.keySet()));
+        // a java type is not a standard type, so it is left untyped
+        byName.values().forEach(property -> assertNull(property.getType()));
+        // the root has no description of its own in the OXM
+        assertNull(byName.get("Inventory").getDescription());
+        assertEquals("Namespace for business related constructs",
+            byName.get("Business").getDescription());
+        assertEquals(
+            "Collection of customer identifiers to provide linkage back to BSS information.",
+            byName.get("Customers").getDescription());
+        assertEquals("customer identifiers to provide linkage back to BSS information.",
+            byName.get("Customer").getDescription());
+        assertEquals("Collection of objects that group service instances.",
+            byName.get("ServiceSubscriptions").getDescription());
+        assertEquals("Object that group service instances.",
+            byName.get("ServiceSubscription").getDescription());
+    }
+
+    @Test
+    public void testGetTypeProperty_asDslStartNode() {
+        XSDElement customer = javaTypeNamed("Customer");
+
+        String description = customer.getTypeProperty(true).getDescription();
+
+        assertEquals(
+            List.of("customer identifiers to provide linkage back to BSS information.",
+                "*This property can be used as a filter to find the start node for a dsl query"),
+            description.lines().toList());
+        // the trailing newline is what makes this render as a literal block, not as one line
+        assertTrue(description.endsWith("\n"));
+    }
+
+    private XSDElement javaTypeNamed(String name) {
+        for (int i = 0; i < javaTypeNodes.getLength(); ++i) {
+            XSDElement javaTypeElement = new XSDElement((Element) javaTypeNodes.item(i));
+            if (name.equals(javaTypeElement.name())) {
+                return javaTypeElement;
             }
         }
-        assertThat(new ArrayList<>(types),
-            both(everyItem(is(in(target.toArray())))).and(containsInAnyOrder(target.toArray())));
-        assertEquals(customerDesc, yamlDesc);
+        throw new AssertionError("no java-type named " + name + " in the test OXM");
     }
 
     @Test
@@ -996,438 +1021,111 @@ public class XSDElementTest {
         }
     }
 
+    /**
+     * The Java types an OXM element can declare, with the swagger type and format each maps to. A
+     * type outside this set is not a standard type and is left untyped.
+     */
+    public static Stream<Arguments> javaTypes() {
+        return Stream.of(arguments("java.lang.String", "string", null),
+            arguments("java.lang.Long", "integer", "int64"),
+            arguments("java.lang.Integer", "integer", "int32"),
+            arguments("java.lang.Float", "number", "float"),
+            arguments("java.lang.Double", "number", "double"),
+            arguments("java.lang.Boolean", "boolean", null),
+            arguments("java.lang.Unknown", null, null));
+    }
+
+    @ParameterizedTest(name = "a {0} query parameter is a {1}")
+    @MethodSource("javaTypes")
+    public void testGetQueryParameter_type(String javaType, String type, String format) {
+        QueryParameter parameter = elementOfType("customer-id", javaType).getQueryParameter();
+
+        assertEquals(type, parameter.getType());
+        assertEquals(format, parameter.getFormat());
+    }
+
+    @ParameterizedTest(name = "a {0} path parameter is a {1}")
+    @MethodSource("javaTypes")
+    public void testGetPathParameter_type(String javaType, String type, String format) {
+        PathParameter parameter =
+            elementOfType("customer-id", javaType).getPathParameter("Customer ID");
+
+        assertEquals(type, parameter.getType());
+        assertEquals(format, parameter.getFormat());
+    }
+
     @Test
-    public void testGetQueryParamYAML_withDescription() {
-        // Mock Element with description
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
+    public void testGetQueryParameter_withDescription() {
+        Element element = elementNamed("global-customer-id", "java.lang.String");
         Mockito.when(element.getAttribute("description")).thenReturn("Customer ID description");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
 
-        XSDElement xsdElement = new XSDElement(element);
+        QueryParameter parameter = new XSDElement(element).getQueryParameter();
 
-        String expectedYAML = """
-                    - name: global-customer-id
-                      in: query
-                      description: Customer ID description
-                      required: false
-                      type: string
-            """;
+        assertEquals("global-customer-id", parameter.getName());
+        assertEquals("query", parameter.getIn());
+        assertEquals("Customer ID description", parameter.getDescription());
+        // a query parameter is a filter, so it is never required
+        assertFalse(parameter.getRequired());
+    }
 
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
+    @ParameterizedTest(name = "a query parameter described by {0} has no description")
+    @NullAndEmptySource
+    public void testGetQueryParameter_withoutDescription(String description) {
+        Element element = elementNamed("global-customer-id", "java.lang.String");
+        Mockito.when(element.getAttribute("description")).thenReturn(description);
+
+        assertNull(new XSDElement(element).getQueryParameter().getDescription());
     }
 
     @Test
-    public void testGetQueryParamYAML_withoutDescription() {
-        // Mock Element without description (empty description)
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
-        Mockito.when(element.getAttribute("description")).thenReturn(""); // Empty description
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+    public void testGetPathParameter_withDescription() {
+        PathParameter parameter =
+            elementOfType("Inventory", "java.lang.String").getPathParameter("Inventory");
 
-        XSDElement xsdElement = new XSDElement(element);
+        assertEquals("Inventory", parameter.getName());
+        assertEquals("path", parameter.getIn());
+        assertEquals("Inventory", parameter.getDescription());
+        // the object a path addresses has to be given for the path to address it
+        assertTrue(parameter.getRequired());
+    }
 
-        String expectedYAML = """
-                    - name: global-customer-id
-                      in: query
-                      required: false
-                      type: string
-            """;
+    @ParameterizedTest(name = "a path parameter described by {0} has no description")
+    @NullAndEmptySource
+    public void testGetPathParameter_withoutDescription(String description) {
+        PathParameter parameter =
+            elementOfType("Inventory", "java.lang.String").getPathParameter(description);
 
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
+        assertNull(parameter.getDescription());
     }
 
     @Test
-    public void testGetQueryParamYAML_withNullDescription() {
-        // Mock Element with null description
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("global-customer-id");
-        Mockito.when(element.getAttribute("description")).thenReturn(null); // Null description
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
+    public void testGetPathParameter_withOverrideName() {
+        PathParameter parameter = elementOfType("Inventory", "java.lang.String")
+            .getPathParameter("Inventory", "CustomInventory");
 
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: global-customer-id
-                      in: query
-                      required: false
-                      type: string
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
+        assertEquals("CustomInventory", parameter.getName());
+        // the override names the parameter for its place in the path; the description still
+        // describes the schema property it came from
+        assertEquals("Inventory", parameter.getDescription());
     }
 
     @Test
-    public void testGetQueryParamYAML_withLongType() {
-        // Mock Element with Long type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("customer-id");
-        Mockito.when(element.getAttribute("description")).thenReturn("Customer ID");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Long");
+    public void testGetPathParameter_withoutOverrideName() {
+        PathParameter parameter = elementOfType("inventory-id", "java.lang.String")
+            .getPathParameter("Inventory ID", null);
 
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: customer-id
-                      in: query
-                      description: Customer ID
-                      required: false
-                      type: integer
-                      format: int64
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
+        assertEquals("inventory-id", parameter.getName());
     }
 
-    @Test
-    public void testGetQueryParamYAML_withIntegerType() {
-        // Mock Element with Integer type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("order-id");
-        Mockito.when(element.getAttribute("description")).thenReturn("Order ID");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Integer");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: order-id
-                      in: query
-                      description: Order ID
-                      required: false
-                      type: integer
-                      format: int32
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
+    private static XSDElement elementOfType(String name, String javaType) {
+        return new XSDElement(elementNamed(name, javaType));
     }
 
-    @Test
-    public void testGetQueryParamYAML_withFloatType() {
-        // Mock Element with Float type
+    private static Element elementNamed(String name, String javaType) {
         Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("price");
-        Mockito.when(element.getAttribute("description")).thenReturn("Price of the product");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Float");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: price
-                      in: query
-                      description: Price of the product
-                      required: false
-                      type: number
-                      format: float
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetQueryParamYAML_withDoubleType() {
-        // Mock Element with Double type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("amount");
-        Mockito.when(element.getAttribute("description")).thenReturn("Amount in dollars");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Double");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: amount
-                      in: query
-                      description: Amount in dollars
-                      required: false
-                      type: number
-                      format: double
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetQueryParamYAML_withBooleanType() {
-        // Mock Element with Boolean type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("active");
-        Mockito.when(element.getAttribute("description")).thenReturn("Active status of user");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Boolean");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: active
-                      in: query
-                      description: Active status of user
-                      required: false
-                      type: boolean
-            """;
-
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
-    }
-
-    // Add a test for when type is unrecognized, to ensure the method handles unexpected types
-    // correctly
-    @Test
-    public void testGetQueryParamYAML_withUnrecognizedType() {
-        // Mock Element with an unrecognized type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("some-id");
-        Mockito.when(element.getAttribute("description")).thenReturn("Some ID");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Unknown");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String expectedYAML = """
-                    - name: some-id
-                      in: query
-                      description: Some ID
-                      required: false
-            """;
-        String result = xsdElement.getQueryParamYAML();
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withDescription() {
-        // Mock Element with description
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Inventory";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: Inventory
-                      in: path
-                      description: Inventory
-                      required: true
-                      type: string
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withoutDescription() {
-        // Mock Element without description
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: Inventory
-                      in: path
-                      required: true
-                      type: string
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withOverrideName() {
-        // Mock Element with override name
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("Inventory");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Inventory";
-        String overrideName = "CustomInventory";
-        String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
-
-        String expectedYAML = """
-                    - name: CustomInventory
-                      in: path
-                      description: Inventory
-                      required: true
-                      type: string
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withLongType() {
-        // Mock Element with Long type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("customer-id");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Long");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Customer ID";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: customer-id
-                      in: path
-                      description: Customer ID
-                      required: true
-                      type: integer
-                      format: int64
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withIntegerType() {
-        // Mock Element with Integer type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("order-id");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Integer");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Order ID";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: order-id
-                      in: path
-                      description: Order ID
-                      required: true
-                      type: integer
-                      format: int32
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withFloatType() {
-        // Mock Element with Float type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("price");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Float");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Price of the product";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: price
-                      in: path
-                      description: Price of the product
-                      required: true
-                      type: number
-                      format: float
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withDoubleType() {
-        // Mock Element with Double type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("amount");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Double");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Amount in dollars";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: amount
-                      in: path
-                      description: Amount in dollars
-                      required: true
-                      type: number
-                      format: double
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withBooleanType() {
-        // Mock Element with Boolean type
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("active");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.Boolean");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Active status of user";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: active
-                      in: path
-                      description: Active status of user
-                      required: true
-                      type: boolean
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withNullOverrideName() {
-        // Mock Element with null override name
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("inventory-id");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Inventory ID";
-        String result = xsdElement.getPathParamYAML(elementDescription, null);
-
-        String expectedYAML = """
-                    - name: inventory-id
-                      in: path
-                      description: Inventory ID
-                      required: true
-                      type: string
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetPathParamYAML_withEmptyOverrideName() {
-        // Mock Element with empty override name
-        Element element = Mockito.mock(Element.class);
-        Mockito.when(element.getAttribute("name")).thenReturn("inventory-id");
-        Mockito.when(element.getAttribute("type")).thenReturn("java.lang.String");
-
-        XSDElement xsdElement = new XSDElement(element);
-
-        String elementDescription = "Inventory ID";
-        String overrideName = "";
-        String result = xsdElement.getPathParamYAML(elementDescription, overrideName);
-
-        String expectedYAML = """
-                    - name:\s
-                      in: path
-                      description: Inventory ID
-                      required: true
-                      type: string
-            """;
-        assertEquals(expectedYAML, result);
+        Mockito.when(element.getAttribute("name")).thenReturn(name);
+        Mockito.when(element.getAttribute("type")).thenReturn(javaType);
+        return element;
     }
 
     @Test
@@ -1590,166 +1288,38 @@ public class XSDElementTest {
         assertThat(actualHtml, containsString("/>"));
     }
 
-    @Test
-    public void testGetTypePropertyYAML_withStringType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+    @ParameterizedTest(name = "a {0} property is a {1}")
+    @MethodSource("javaTypes")
+    public void testGetTypeProperty_type(String javaType, String type, String format) {
+        Property property = propertyElementOfType(javaType).getTypeProperty(false);
 
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.String");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: string
-            """;
-
-        assertEquals(expectedYAML, result);
+        assertEquals(type, property.getType());
+        assertEquals(format, property.getFormat());
+        assertNull(property.getDescription());
     }
 
     @Test
-    public void testGetTypePropertyYAML_withLongType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
+    public void testGetTypeProperty_withDslStartNode_noDescription() {
+        Property property = propertyElementOfType("java.lang.String").getTypeProperty(true);
 
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Long");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: integer
-                    format: int64
-            """;
-
-        assertEquals(expectedYAML, result);
+        // the note stands alone on the second line, so the property still describes only itself
+        assertEquals(
+            List.of("",
+                "*This property can be used as a filter to find the start node for a dsl query"),
+            property.getDescription().lines().toList());
     }
 
-    @Test
-    public void testGetTypePropertyYAML_withIntegerType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
-
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Integer");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: integer
-                    format: int32
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetTypePropertyYAML_withFloatType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
-
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Float");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: number
-                    format: float
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetTypePropertyYAML_withDoubleType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
-
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Double");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: number
-                    format: double
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetTypePropertyYAML_withBooleanType() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
-
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.Boolean");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        String result = xsdelement.getTypePropertyYAML(false);
-
-        String expectedYAML = """
-                  property-name:
-                    type: boolean
-            """;
-
-        assertEquals(expectedYAML, result);
-    }
-
-    @Test
-    public void testGetTypePropertyYAML_withDslStartNode_noDescription() {
-        when(xsdelement.getAttribute("name")).thenReturn("property-name");
-
-        // Mock the getAttribute method for the type
-        when(xsdelement.getAttribute("type")).thenReturn("java.lang.String");
-
-        // Mock the getElementsByTagName method to return a NodeList
-        NodeList mockNodeList = mock(NodeList.class);
-        when(mockNodeList.getLength()).thenReturn(0); // No xml-properties present
-        when(xsdelement.getElementsByTagName("xml-properties")).thenReturn(mockNodeList);
-
-        // Call the method with isDslStartNode set to true
-        String result = xsdelement.getTypePropertyYAML(true);
-
-        String expectedYAML = """
-                  property-name:
-                    type: string
-                    description: |
-                     \s
-                      *This property can be used as a filter to find the start node for a dsl query
-            """;
-
-        assertEquals(expectedYAML, result);
+    /**
+     * An {@code xml-element} of the given type declaring no {@code xml-properties} at all, which is
+     * the shape the type mapping alone is exercised on.
+     */
+    private XSDElement propertyElementOfType(String javaType) {
+        when(xmlElementElement.getAttribute("name")).thenReturn("property-name");
+        when(xmlElementElement.getAttribute("type")).thenReturn(javaType);
+        NodeList noProperties = mock(NodeList.class);
+        when(noProperties.getLength()).thenReturn(0);
+        when(xmlElementElement.getElementsByTagName("xml-properties")).thenReturn(noProperties);
+        return xsdelement;
     }
 
     /**
@@ -1776,117 +1346,86 @@ public class XSDElementTest {
     }
 
     @Test
-    public void testGetTypePropertyYAML_withStringFacets() throws Exception {
+    public void testGetTypeProperty_withStringFacets() throws Exception {
         XSDElement element = facetElement("java.lang.String", "minLength", "1", "maxLength", "64",
             "pattern", "^[0-9]{3}$");
 
-        String expectedYAML = """
-                  property-name:
-                    type: string
-                    minLength: 1
-                    maxLength: 64
-                    pattern: '^[0-9]{3}$'
-            """;
+        StringProperty property =
+            assertInstanceOf(StringProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertEquals(1, property.getMinLength());
+        assertEquals(64, property.getMaxLength());
+        assertEquals("^[0-9]{3}$", property.getPattern());
     }
 
     @Test
-    public void testGetTypePropertyYAML_withAllowedValuesBecomesEnum() throws Exception {
+    public void testGetTypeProperty_withAllowedValuesBecomesEnum() throws Exception {
         XSDElement element = facetElement("java.lang.String", "allowedValues",
             "in-service-path, planned ,, provisioned");
 
-        String expectedYAML = """
-                  property-name:
-                    type: string
-                    enum:
-                    - in-service-path
-                    - planned
-                    - provisioned
-            """;
+        StringProperty property =
+            assertInstanceOf(StringProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertEquals(List.of("in-service-path", "planned", "provisioned"), property.getEnum());
     }
 
     @Test
-    public void testGetTypePropertyYAML_withNumericFacets() throws Exception {
+    public void testGetTypeProperty_withNumericFacets() throws Exception {
         XSDElement element = facetElement("java.lang.Integer", "minimum", "0", "maximum", "65535");
 
-        String expectedYAML = """
-                  property-name:
-                    type: integer
-                    format: int32
-                    minimum: 0
-                    maximum: 65535
-            """;
+        IntegerProperty property =
+            assertInstanceOf(IntegerProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertEquals(new BigDecimal("0"), property.getMinimum());
+        assertEquals(new BigDecimal("65535"), property.getMaximum());
     }
 
     @Test
-    public void testGetTypePropertyYAML_facetsPrecedeDescription() throws Exception {
+    public void testGetTypeProperty_withFacetsAndDescription() throws Exception {
         XSDElement element = facetElement("java.lang.String", "maxLength", "8", "description",
             "Mobile country code.");
 
-        String expectedYAML = """
-                  property-name:
-                    type: string
-                    maxLength: 8
-                    description: Mobile country code.
-            """;
+        StringProperty property =
+            assertInstanceOf(StringProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertEquals(8, property.getMaxLength());
+        assertEquals("Mobile country code.", property.getDescription());
     }
 
     @Test
-    public void testGetTypePropertyYAML_patternSingleQuoteIsDoubled() throws Exception {
-        XSDElement element = facetElement("java.lang.String", "pattern", "^[^']+$");
-
-        assertThat(element.getTypePropertyYAML(false), containsString("pattern: '^[^'']+$'\n"));
-    }
-
-    @Test
-    public void testGetTypePropertyYAML_facetNotLegalForTypeIsSkipped() throws Exception {
+    public void testGetTypeProperty_facetNotLegalForTypeIsSkipped() throws Exception {
         // minLength/pattern are string-only, minimum/maximum are numeric-only
-        XSDElement numeric =
-            facetElement("java.lang.Long", "minLength", "1", "pattern", "^\\d+$", "minimum", "1");
-        String numericYAML = numeric.getTypePropertyYAML(false);
-        assertThat(numericYAML, containsString("minimum: 1"));
-        assertThat(numericYAML, not(containsString("minLength")));
-        assertThat(numericYAML, not(containsString("pattern")));
+        LongProperty numeric = assertInstanceOf(LongProperty.class,
+            facetElement("java.lang.Long", "minLength", "1", "pattern", "^\\d+$", "minimum", "1")
+                .getTypeProperty(false));
+        assertEquals(new BigDecimal("1"), numeric.getMinimum());
 
-        XSDElement string =
-            facetElement("java.lang.String", "minimum", "1", "maximum", "9", "maxLength", "9");
-        String stringYAML = string.getTypePropertyYAML(false);
-        assertThat(stringYAML, containsString("maxLength: 9"));
-        assertThat(stringYAML, not(containsString("minimum")));
-        assertThat(stringYAML, not(containsString("maximum")));
+        StringProperty string = assertInstanceOf(StringProperty.class,
+            facetElement("java.lang.String", "minimum", "1", "maximum", "9", "maxLength", "9")
+                .getTypeProperty(false));
+        assertEquals(9, string.getMaxLength());
     }
 
     @Test
-    public void testGetTypePropertyYAML_booleanTakesNoFacets() throws Exception {
+    public void testGetTypeProperty_booleanTakesNoFacets() throws Exception {
         XSDElement element = facetElement("java.lang.Boolean", "minLength", "1", "minimum", "0",
             "allowedValues", "true,false");
 
-        String expectedYAML = """
-                  property-name:
-                    type: boolean
-            """;
+        BooleanProperty property =
+            assertInstanceOf(BooleanProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertNull(property.getEnum());
     }
 
     @Test
-    public void testGetTypePropertyYAML_emptyFacetValueIsIgnored() throws Exception {
+    public void testGetTypeProperty_emptyFacetValueIsIgnored() throws Exception {
         XSDElement element = facetElement("java.lang.String", "pattern", "", "maxLength", "3");
 
-        String expectedYAML = """
-                  property-name:
-                    type: string
-                    maxLength: 3
-            """;
+        StringProperty property =
+            assertInstanceOf(StringProperty.class, element.getTypeProperty(false));
 
-        assertEquals(expectedYAML, element.getTypePropertyYAML(false));
+        assertNull(property.getPattern());
+        assertEquals(3, property.getMaxLength());
     }
 
     @Test

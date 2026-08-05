@@ -173,7 +173,7 @@ public class EdgeDescription {
         }
 
         if (ed.getDescription() != null && ed.getDescription().length() > 0) {
-            result = result + "\n      " + ed.getDescription(); // 6 spaces is important for yaml
+            result = result + "\n" + ed.getDescription();
         }
 
         return result;

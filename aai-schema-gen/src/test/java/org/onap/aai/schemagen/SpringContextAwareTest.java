@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,11 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemagen;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +29,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class SpringContextAwareTest {
 
@@ -51,8 +52,10 @@ public class SpringContextAwareTest {
         springContextAware.setApplicationContext(applicationContext);
 
         // Then
-        assertNotNull(SpringContextAware.getApplicationContext(), "Application context should be set.");
-        assertEquals(applicationContext, SpringContextAware.getApplicationContext(), "Application context is not correct.");
+        assertNotNull(SpringContextAware.getApplicationContext(),
+            "Application context should be set.");
+        assertEquals(applicationContext, SpringContextAware.getApplicationContext(),
+            "Application context is not correct.");
     }
 
     @Test
@@ -112,9 +115,12 @@ public class SpringContextAwareTest {
         SpringContextAware springContextAwareWithoutContext = new SpringContextAware();
 
         // When and Then
-        assertNull(SpringContextAware.getBean(MyBean.class), "Bean should be null when context is not set.");
-        assertNull(SpringContextAware.getBean("myBean"), "Bean should be null when context is not set.");
-        assertNull(SpringContextAware.getBean("myBean", MyBean.class), "Bean should be null when context is not set.");
+        assertNull(SpringContextAware.getBean(MyBean.class),
+            "Bean should be null when context is not set.");
+        assertNull(SpringContextAware.getBean("myBean"),
+            "Bean should be null when context is not set.");
+        assertNull(SpringContextAware.getBean("myBean", MyBean.class),
+            "Bean should be null when context is not set.");
     }
 
     // Example class for testing purposes

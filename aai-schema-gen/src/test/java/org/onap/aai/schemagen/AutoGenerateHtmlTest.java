@@ -8,7 +8,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,18 +17,17 @@
  * limitations under the License.
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.aai.schemagen;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestPropertySource;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @TestPropertySource(
-    properties = {
-        "schemaIngestPropLoc = src/test/resources/schema-ingest.properties"})
+    properties = {"schemaIngestPropLoc = src/test/resources/schema-ingest.properties"})
 public class AutoGenerateHtmlTest {
 
     @Test
@@ -36,9 +35,10 @@ public class AutoGenerateHtmlTest {
         // Set a system property before running the method
         System.setProperty("aai.generate.version", "1.0");
 
-        AutoGenerateHtml.main(new String[]{});
+        AutoGenerateHtml.main(new String[] {});
 
-        assertEquals("1.0", System.getProperty("aai.generate.version"), "The 'aai.generate.version' property should be set.");
+        assertEquals("1.0", System.getProperty("aai.generate.version"),
+            "The 'aai.generate.version' property should be set.");
         System.clearProperty("aai.generate.version");
     }
 
@@ -46,9 +46,10 @@ public class AutoGenerateHtmlTest {
     void testMain_shouldCompleteWithoutException() {
         assertDoesNotThrow(() -> {
             try {
-                AutoGenerateHtml.main(new String[]{});
+                AutoGenerateHtml.main(new String[] {});
             } catch (NullPointerException e) {
-                // This test isn't verifying functional behavior, just guarding against uncaught crashes
+                // This test isn't verifying functional behavior, just guarding against uncaught
+                // crashes
             }
         });
     }

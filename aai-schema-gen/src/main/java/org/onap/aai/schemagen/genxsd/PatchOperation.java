@@ -20,30 +20,41 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import java.util.StringTokenizer;
+import io.swagger.models.Operation;
+import io.swagger.models.RefModel;
+import io.swagger.models.parameters.BodyParameter;
+import io.swagger.models.parameters.Parameter;
 
-import org.onap.aai.schemagen.GenerateXsd;
+import java.util.List;
+
 import org.onap.aai.setup.SchemaVersion;
 
+/**
+ * The PATCH of a CRUD endpoint: it updates some fields of the object the path addresses.
+ *
+ * <p>
+ * A PATCH payload is a partial object, so it has a definition of its own - the same properties with
+ * none of them required, and without the server-owned {@code resource-version}. The generator names
+ * those definitions with a prefix it passes to {@link #setPrefixForPatchRef}.
+ */
 public class PatchOperation {
-    private String useOpId;
-    private String xmlRootElementName;
-    private String tag;
-    private String path;
-    private String pathParams;
-    private String prefixForPatch;
-    private SchemaVersion version;
-    private String basePath;
+
+    private final String useOpId;
+    private final String xmlRootElementName;
+    private final String tag;
+    private final String path;
+    private final List<Parameter> pathParams;
+    private final SchemaVersion version;
+    private final String basePath;
+    private String prefixForPatch = "";
 
     public PatchOperation(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, SchemaVersion v, String basePath) {
-        super();
+        List<Parameter> pathParams, SchemaVersion v, String basePath) {
         this.useOpId = useOpId;
         this.xmlRootElementName = xmlRootElementName;
         this.tag = tag;
         this.path = path;
-        this.pathParams = pathParams;
-        this.prefixForPatch = "";
+        this.pathParams = pathParams == null ? List.of() : List.copyOf(pathParams);
         this.version = v;
         this.basePath = basePath;
     }
@@ -52,82 +63,52 @@ public class PatchOperation {
         this.prefixForPatch = prefixForPatchRef;
     }
 
-    public String toString() {
-        StringTokenizer st;
-        st = new StringTokenizer(path, "/");
-        // a valid tag is necessary
-        if (OperationFilter.hasNoTag(tag)) {
-            return "";
+    /** This endpoint's PATCH, or null when the endpoint does not have one. */
+    public Operation build() {
+        if (isFilteredOut()) {
+            return null;
         }
-        if (OperationFilter.isRelationshipChildPath(path)) { // filter paths with relationship-list
-            return "";
-        }
-        if (OperationFilter.isRelationshipListPath(path)) {
-            return "";
-        }
-        if (OperationFilter.isSearchPath(path)) {
-            return "";
-        }
-        // No Patch operation paths end with "relationship"
+        Operation patch = new Operation();
+        patch.addTag(tag);
+        patch.setSummary("update an existing " + xmlRootElementName);
+        // the trailing newline is what makes this render as a literal block, not as one line
+        patch.setDescription(String.join("\n", "Update an existing " + xmlRootElementName, "#",
+            "Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.",
+            "The PUT operation will entirely replace an existing object.",
+            "The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.",
+            "#", "Other differences between PUT and PATCH are:", "#",
+            "- For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.",
+            "- For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.",
+            "- PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.",
+            ""));
+        patch.setOperationId("Update" + useOpId);
+        // a patch document has no XML form here
+        patch.setConsumes(OperationDefaults.JSON_ONLY);
+        patch.setProduces(OperationDefaults.JSON_ONLY);
+        patch.addResponse("default", OperationDefaults.uniformResponse());
+        pathParams.forEach(patch::addParameter);
+        patch.addParameter(bodyParameter());
+        return patch;
+    }
 
-        if (path.endsWith("/relationship")) {
-            return "";
-        }
-        if (!path.endsWith("}")) {
-            return "";
-        }
+    private BodyParameter bodyParameter() {
+        BodyParameter body = new BodyParameter();
+        body.setName("body");
+        body.setDescription(
+            xmlRootElementName + " object that needs to be updated." + "[See Examples](apidocs"
+                + basePath + "/relations/" + version.toString() + "/" + useOpId + ".json)");
+        body.setRequired(true);
+        body.setSchema(new RefModel(prefixForPatch + xmlRootElementName));
+        return body;
+    }
 
-        YamlWriter yaml = new YamlWriter();
-        String relationshipExamples = "";
-        // unreachable given the guard above, but kept so this emitter stays symmetric with the PUT
-        if (path.endsWith("/relationship")) {
-            yaml.key(1, path);
-        }
-        yaml.key(2, "patch");
-        yaml.key(3, "tags");
-        yaml.item(4, tag);
-
-        if (path.endsWith("/relationship")) {
-            yaml.entry(3, "summary", "see node definition for valid relationships");
-        } else {
-            relationshipExamples = "[See Examples](apidocs" + basePath + "/relations/"
-                + version.toString() + "/" + useOpId + ".json)";
-            yaml.entry(3, "summary", "update an existing " + xmlRootElementName);
-            yaml.blockScalar(3, "description");
-            yaml.text(4, "Update an existing " + xmlRootElementName);
-            yaml.text(4, "#");
-            yaml.text(4,
-                "Note:  Endpoints that are not devoted to object relationships support both PUT and PATCH operations.");
-            yaml.text(4, "The PUT operation will entirely replace an existing object.");
-            yaml.text(4,
-                "The PATCH operation sends a \"description of changes\" for an existing object.  The entire set of changes must be applied.  An error result means no change occurs.");
-            yaml.text(4, "#");
-            yaml.text(4, "Other differences between PUT and PATCH are:");
-            yaml.text(4, "#");
-            yaml.text(4,
-                "- For PATCH, you can send any of the values shown in sample REQUEST body.  There are no required values.");
-            yaml.text(4,
-                "- For PATCH, resource-id which is a required REQUEST body element for PUT, must not be sent.");
-            yaml.text(4,
-                "- PATCH cannot be used to update relationship elements; there are dedicated PUT operations for this.");
-        }
-        yaml.entry(3, "operationId", "Update" + useOpId);
-        yaml.key(3, "consumes");
-        yaml.item(4, "application/json");
-        yaml.key(3, "produces");
-        yaml.item(4, "application/json");
-        yaml.key(3, "responses");
-        yaml.key(4, "\"default\"");
-        yaml.fragment(5, GenerateXsd.getResponsesUrl());
-        yaml.key(3, "parameters");
-        yaml.raw(pathParams); // for nesting
-        yaml.item(4, "name: body");
-        yaml.entry(5, "in", "body");
-        yaml.entry(5, "description",
-            xmlRootElementName + " object that needs to be updated." + relationshipExamples);
-        yaml.entry(5, "required", "true");
-        yaml.key(5, "schema");
-        yaml.entry(6, "$ref", "\"#/definitions/" + prefixForPatch + xmlRootElementName + "\"");
-        return yaml.toString();
+    /**
+     * A PATCH exists where a single object is addressed. Unlike the PUT there is none on a
+     * relationship endpoint: relationships are replaced whole.
+     */
+    private boolean isFilteredOut() {
+        return OperationFilter.hasNoTag(tag) || OperationFilter.isRelationshipChildPath(path)
+            || OperationFilter.isRelationshipListPath(path) || OperationFilter.isSearchPath(path)
+            || path.endsWith("/" + PutOperation.RELATIONSHIP) || !path.endsWith("}");
     }
 }

@@ -20,6 +20,8 @@
 
 package org.onap.aai.schemagen;
 
+import ch.qos.logback.classic.LoggerContext;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +45,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.w3c.dom.NodeList;
-import ch.qos.logback.classic.LoggerContext;
 
 public class GenerateXsd {
 
@@ -52,28 +53,12 @@ public class GenerateXsd {
     public static AnnotationConfigApplicationContext ctx = null;
     static String apiVersionFmt = null;
     static boolean useAnnotationsInXsd = false;
-    static String responsesUrl = null;
-    static String responsesLabel = null;
     static String jsonEdges = null;
     static Map<String, String> generatedJavaType;
     static Map<String, String> appliedPaths;
     static String RELEASE = System.getProperty("aai.release", "onap");
 
     static NodeList javaTypeNodes;
-    static Map<String, String> javaTypeDefinitions = createJavaTypeDefinitions();
-
-    private static Map<String, String> createJavaTypeDefinitions() {
-        StringBuilder aaiInternal = new StringBuilder();
-        Map<String, String> javaTypeDefinitions = new HashMap<String, String>();
-        aaiInternal.append("  aai-internal:\n");
-        aaiInternal.append("    properties:\n");
-        aaiInternal.append("      property-name:\n");
-        aaiInternal.append("        type: string\n");
-        aaiInternal.append("      property-value:\n");
-        aaiInternal.append("        type: string\n");
-        // javaTypeDefinitions.put("aai-internal", aaiInternal.toString());
-        return javaTypeDefinitions;
-    }
 
     public static final int VALUE_NONE = 0;
     public static final int VALUE_DESCRIPTION = 1;
@@ -83,8 +68,6 @@ public class GenerateXsd {
     private static final String GENERATE_TYPE_XSD = "xsd";
     private static final String GENERATE_TYPE_YAML = "yaml";
 
-    private final static String NODE_DIR = System.getProperty("nodes.configuration.location");
-    private final static String EDGE_DIR = System.getProperty("edges.configuration.location");
     private static final String BASE_ROOT = "aai-schema/";
     private static final String BASE_AUTO_GEN_ROOT = "aai-schema/";
 
@@ -135,10 +118,6 @@ public class GenerateXsd {
         return YAML_DIR;
     }
 
-    public static String getResponsesUrl() {
-        return responsesUrl;
-    }
-
     public static void main(String[] args) throws IOException {
         String versionToGen = System.getProperty("gen_version");
         if (versionToGen == null) {
@@ -165,9 +144,6 @@ public class GenerateXsd {
                 System.exit(1);
             }
 
-            String responsesLabel = System.getProperty("yamlresponses_url");
-            responsesUrl = responsesLabel;
-
             List<SchemaVersion> versionsToGen = new ArrayList<>();
             if (!"ALL".equalsIgnoreCase(versionToGen) && versionToGen != null
                 && !versionToGen.matches("v\\d+") && !validVersion(versionToGen)) {
@@ -179,29 +155,6 @@ public class GenerateXsd {
                 Collections.reverse(versionsToGen);
             } else {
                 versionsToGen.add(new SchemaVersion(versionToGen));
-            }
-
-            // process file type System property
-            if (fileTypeToGen.equals(GENERATE_TYPE_YAML)) {
-                if (responsesUrl == null || responsesUrl.length() < 1 || responsesLabel == null
-                    || responsesLabel.length() < 1) {
-                    System.err.println(
-                        "generating swagger yaml file requires yamlresponses_url and yamlresponses_label properties");
-                    System.exit(1);
-                } else {
-                    responsesUrl =
-                        "description: " + "Response codes are uniform across all endpoints.\n";
-                }
-            }
-            /*
-             * TODO: Oxm Path is config driven
-             */
-            String oxmPath;
-            if (System.getProperty("user.dir") != null
-                && !System.getProperty("user.dir").contains(NORMAL_START_DIR)) {
-                oxmPath = BASE_AUTO_GEN_ROOT + NODE_DIR;
-            } else {
-                oxmPath = BASE_ROOT + NODE_DIR;
             }
 
             String outfileName = null;
@@ -218,19 +171,7 @@ public class GenerateXsd {
                 apiVersionFmt = "." + apiVersion + ".";
                 generatedJavaType = new HashMap<String, String>();
                 appliedPaths = new HashMap<String, String>();
-                File edgeRuleFile = null;
-                String fileName = EDGE_DIR + "DbEdgeRules_" + apiVersion + ".json";
                 logger.debug("user.dir = " + System.getProperty("user.dir"));
-                if (System.getProperty("user.dir") != null
-                    && !System.getProperty("user.dir").contains(NORMAL_START_DIR)) {
-                    fileName = BASE_AUTO_GEN_ROOT + fileName;
-
-                } else {
-                    fileName = BASE_ROOT + fileName;
-
-                }
-                edgeRuleFile = new File(fileName);
-                // Document doc = ni.getSchema(translateVersion(v));
 
                 if (fileTypeToGen.equals(GENERATE_TYPE_XSD)) {
                     outfileName = XSD_DIR + "/aai_schema_" + apiVersion + "." + GENERATE_TYPE_XSD;
@@ -324,7 +265,8 @@ public class GenerateXsd {
         } catch (BeansException e) {
             logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
         } finally {
-            // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed up build process
+            // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed
+            // up build process
             LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
             context.stop();
         }

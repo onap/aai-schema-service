@@ -60,7 +60,8 @@ public class SwaggerGenerationConfiguration {
     }
 
     /**
-     * State shared by the swagger operation emitters. Intentionally a <em>singleton</em>, unlike the
+     * State shared by the swagger operation emitters. Intentionally a <em>singleton</em>, unlike
+     * the
      * prototype-scoped generators: the delete/relationship paths accumulate across every version
      * generated in a run, which is the behaviour the generated relations files depend on. See
      * {@link GenerationContext}.

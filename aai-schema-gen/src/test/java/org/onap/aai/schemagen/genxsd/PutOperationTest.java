@@ -4,6 +4,8 @@
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
+ * Modifications Copyright © 2026 Deutsche Telekom.
+ * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,101 +22,34 @@
 
 package org.onap.aai.schemagen.genxsd;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.util.Arrays;
-import java.util.Collection;
+import io.swagger.models.Operation;
+import io.swagger.models.RefModel;
+import io.swagger.models.parameters.BodyParameter;
+import io.swagger.models.parameters.Parameter;
+import io.swagger.models.parameters.PathParameter;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.onap.aai.setup.SchemaVersion;
 
 public class PutOperationTest {
-    private static SchemaVersion v = new SchemaVersion("v14");
 
-    public static Collection<String[]> testConditions() {
-        String inputs[][] = {
-            // Normal case: creates or updates a generic-vnf
-            {"NetworkGenericVnfsGenericVnf", "generic-vnf", "Network",
-                "/network/generic-vnfs/generic-vnf/{vnf-id}",
-                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
-                "    put:\n      tags:\n        - Network\n      summary: create or update an existing generic-vnf\n      description: |\n        Create or update an existing generic-vnf.\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below\n      operationId: createOrUpdateNetworkGenericVnfsGenericVnf\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null      parameters:\n        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__        - name: body\n          in: body\n          description: generic-vnf object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/"
-                    + v.toString()
-                    + "/NetworkGenericVnfsGenericVnf.json)\n          required: true\n          schema:\n            $ref: \"#/definitions/generic-vnf\"\n"},
-
-            // Case where path contains "/relationship/": this should return empty
-            {"RelationshipListExample", "relationship", "ExampleTag",
-                "/example/relationship/related-resource",
-                "        - name: related-resource\n          in: path\n          description: Related resource.\n          required: true\n          type: string\n          example: __RESOURCE-ID__",
-                ""},
-
-            // Case where path ends with "/relationship-list": this should return empty
-            {"RelationshipListExample", "relationship", "ExampleTag", "/example/relationship-list",
-                "        - name: related-resource\n          in: path\n          description: Related resource.\n          required: true\n          type: string\n          example: __RESOURCE-ID__",
-                ""},
-
-            // Case where path neither ends with "/relationship" nor "}" - should return empty
-            // ExamplePathWithoutRelationship - Expecting full operation details for this path
-            {"ExamplePathWithoutRelationship", "example-resource", "ExampleTag",
-                "/example-path/{resource-id}",
-                "        - name: resource-id\n          in: path\n          description: Resource ID.\n          required: true\n          type: string\n          example: __RESOURCE-ID__",
-                "    put:\n      tags:\n        - ExampleTag\n      summary: create or update an existing example-resource\n      description: |\n        Create or update an existing example-resource.\n        #\n        Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement. An example can be found in the [PATCH section] below\n      operationId: createOrUpdateExamplePathWithoutRelationship\n      consumes:\n        - application/json\n        - application/xml\n      produces:\n        - application/json\n        - application/xml\n      responses:\n        \"default\":\n          null\n      parameters:\n        - name: resource-id\n          in: path\n          description: Resource ID.\n          required: true\n          type: string\n          example: __RESOURCE-ID__\n        - name: body\n          in: body\n          description: example-resource object that needs to be created or updated. [Valid relationship examples shown here](apidocs/aai/relations/v14/ExamplePathWithoutRelationship.json)\n          required: true\n          schema:\n            $ref: \"#/definitions/example-resource\"\n"},
-
-            // Case where path starts with "/search": this should return empty
-            {"SearchExample", "search", "SearchTag", "/search/query",
-                "        - name: query\n          in: path\n          description: Search query.\n          required: true\n          type: string\n          example: __QUERY__",
-                ""},
-
-            // Additional normal case for coverage
-            {"GenericVnf", "generic-vnf", "", "/generic-vnf/{vnf-id}",
-                "        - name: vnf-id\n          in: path\n          description: Unique id of VNF.  This is unique across the graph.\n          required: true\n          type: string\n          example: __VNF-ID__",
-                ""},
-            // Test case for path ending with '/relationship'
-            {"RelationshipTest", "relationship", "", "/path/to/relationship", "", ""},
-
-            // Test case for path starting with '/search'
-            {"SearchTest", "search", "", "/search/path/to/resource", "", ""},
-
-            // Test case for path containing "/relationship/"
-            {"TestOp2", "relationship", "TestTag", "/network/relationship/123", "", ""},
-
-            // Test case for path ending with "/relationship-list"
-            {"TestOp3", "relationship-list", "TestTag", "/network/relationship-list", "", ""},
-
-            // Test case for path starting with "/search"
-            {"TestOp4", "search", "TestTag", "/search/records", "", ""}};
-        return Arrays.asList(inputs);
-    }
-
-    @MethodSource("testConditions")
-    @ParameterizedTest
-    public void testToString(String useOpId, String xmlRootElementName, String tag, String path,
-        String pathParams, String expectedResult) {
-        PutOperation put =
-            new PutOperation(useOpId, xmlRootElementName, tag, path, pathParams, v, "/aai");
-        String modResult = put.toString();
-
-        // Trim leading/trailing spaces and normalize internal whitespace (i.e., remove multiple
-        // spaces)
-        String normalizedExpected = expectedResult.trim().replaceAll("\\s+", " ");
-        String normalizedActual = modResult.trim().replaceAll("\\s+", " ");
-
-        assertThat(normalizedActual, is(normalizedExpected));
-    }
-
-    // Test case for path starting with "/search"
-    @Test
-    public void testToStringForSearchPath() {
-        PutOperation put = new PutOperation("useOpId", "xmlRootElementName", "tag", "/search/query",
-            "pathParams", v, "/aai");
-        String result = put.toString();
-        assertThat(result, is("")); // Should return empty string for path starting with "/search"
-    }
+    private static final SchemaVersion V = new SchemaVersion("v14");
+    private static final String VNF_PATH = "/network/generic-vnfs/generic-vnf/{vnf-id}";
+    private static final String RELATIONSHIP_PATH = VNF_PATH + "/relationship-list/relationship";
 
     /** A fresh context per test; no shared state to clear. */
     private GenerationContext context;
@@ -124,41 +59,141 @@ public class PutOperationTest {
         context = new GenerationContext();
     }
 
-    @Test
-    public void testRegisterAddsRelationshipPath() {
-        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
-        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
-            "Network", path, "", v, "/aai");
-        put.register(context);
-        assertEquals(path, context.getPutRelationPaths().get("NetworkGenericVnfsGenericVnf"));
+    public static Stream<Arguments> endpointsWithoutAPut() {
+        return Stream.of(
+            arguments("an untagged endpoint", "generic-vnf", "", "/generic-vnf/{vnf-id}"),
+            arguments("a relationship child", "relationship", "ExampleTag",
+                "/example/relationship/related-resource"),
+            arguments("a relationship list", "relationship", "ExampleTag",
+                "/example/relationship-list"),
+            arguments("a search endpoint", "search", "SearchTag", "/search/query"),
+            arguments("a container", "p-interfaces", "CloudInfrastructure",
+                "/cloud-infrastructure/pservers/pserver/{hostname}/p-interfaces"));
+    }
+
+    @ParameterizedTest(name = "{0} has no put")
+    @MethodSource("endpointsWithoutAPut")
+    public void buildsNothingFor(String endpoint, String xmlRootElementName, String tag,
+        String path) {
+        PutOperation put = new PutOperation("TestOpId", xmlRootElementName, tag, path,
+            List.of(vnfId()), V, "/aai");
+        assertNull(put.build());
     }
 
     @Test
-    public void testRegisterIgnoresNonRelationshipPath() {
+    public void buildsThePutOfAnObject() {
         PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
-            "Network", "/network/generic-vnfs/generic-vnf/{vnf-id}", "", v, "/aai");
+            "Network", VNF_PATH, List.of(vnfId()), V, "/aai");
+
+        Operation putOperation = put.build();
+
+        assertNotNull(putOperation);
+        assertEquals(List.of("Network"), putOperation.getTags());
+        assertEquals("create or update an existing generic-vnf", putOperation.getSummary());
+        assertEquals("createOrUpdateNetworkGenericVnfsGenericVnf", putOperation.getOperationId());
+        assertEquals(OperationDefaults.JSON_AND_XML, putOperation.getConsumes());
+        assertEquals(OperationDefaults.JSON_AND_XML, putOperation.getProduces());
+        assertEquals(List.of("default"), List.copyOf(putOperation.getResponses().keySet()));
+    }
+
+    @Test
+    public void describesThePutAsAWholeObjectReplacement() {
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), V, "/aai");
+
+        String description = put.build().getDescription();
+
+        assertEquals(List.of("Create or update an existing generic-vnf.", "#",
+            "Note! This PUT method has a corresponding PATCH method that can be used to update just a few of the fields of an existing object, rather than a full object replacement.  An example can be found in the [PATCH section] below"),
+            description.lines().toList());
+        // the trailing newline is what makes this render as a literal block, not as one line
+        assertTrue(description.endsWith("\n"));
+    }
+
+    @Test
+    public void takesTheObjectAsItsBody() {
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(vnfId()), V, "/aai");
+
+        List<Parameter> parameters = put.build().getParameters();
+
+        assertEquals(List.of("vnf-id", "body"),
+            parameters.stream().map(Parameter::getName).toList());
+        BodyParameter body = assertInstanceOf(BodyParameter.class, parameters.get(1));
+        assertTrue(body.getRequired());
+        assertEquals(
+            "generic-vnf object that needs to be created or updated."
+                + " [Valid relationship examples shown here]"
+                + "(apidocs/aai/relations/v14/NetworkGenericVnfsGenericVnf.json)",
+            body.getDescription());
+        assertEquals("#/definitions/generic-vnf",
+            assertInstanceOf(RefModel.class, body.getSchema()).get$ref());
+    }
+
+    @Test
+    public void aRelationshipPutRefersToTheNodeDefinition() {
+        PutOperation put =
+            new PutOperation("NetworkGenericVnfsGenericVnfRelationshipListRelationship",
+                "relationship", "Network", RELATIONSHIP_PATH, List.of(vnfId()), V, "/aai");
+
+        Operation putOperation = put.build();
+
+        assertNotNull(putOperation);
+        assertEquals("see node definition for valid relationships", putOperation.getSummary());
+        // the valid relationships are the description; there is nothing else to say here
+        assertNull(putOperation.getDescription());
+    }
+
+    @Test
+    public void aRelationshipBodyIsOneEntryOfTheDictionary() {
+        PutOperation put =
+            new PutOperation("NetworkGenericVnfsGenericVnfRelationshipListRelationship",
+                "relationship", "Network", RELATIONSHIP_PATH, List.of(vnfId()), V, "/aai");
+
+        BodyParameter body =
+            assertInstanceOf(BodyParameter.class, put.build().getParameters().get(1));
+
+        assertEquals("#/definitions/relationship-dict",
+            assertInstanceOf(RefModel.class, body.getSchema()).get$ref());
+        // the examples are per node type, so the operation id's relationship suffix is dropped
+        assertTrue(
+            body.getDescription()
+                .endsWith("(apidocs/aai/relations/v14/NetworkGenericVnfsGenericVnf.json)"),
+            body.getDescription());
+    }
+
+    @Test
+    public void registerAddsRelationshipPath() {
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
+            "Network", RELATIONSHIP_PATH, List.of(), V, "/aai");
+        put.register(context);
+        assertEquals(RELATIONSHIP_PATH,
+            context.getPutRelationPaths().get("NetworkGenericVnfsGenericVnf"));
+    }
+
+    @Test
+    public void registerIgnoresNonRelationshipPath() {
+        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "generic-vnf",
+            "Network", VNF_PATH, List.of(), V, "/aai");
         put.register(context);
         assertTrue(context.getPutRelationPaths().isEmpty());
     }
 
     @Test
-    public void testToStringDoesNotRegister() {
-        // toString() must be free of side effects; registration only happens via register()
-        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
+    public void buildDoesNotRegister() {
+        // build() must be free of side effects; registration only happens via register()
         PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
-            "Network", path, "", v, "/aai");
-        put.toString();
+            "Network", RELATIONSHIP_PATH, List.of(), V, "/aai");
+        put.build();
         assertTrue(context.getPutRelationPaths().isEmpty());
     }
 
-    @Test
-    @SuppressWarnings("deprecation")
-    public void testDeprecatedShimStillRegisters() {
-        String path = "/network/generic-vnfs/generic-vnf/{vnf-id}/relationship-list/relationship";
-        PutOperation put = new PutOperation("NetworkGenericVnfsGenericVnf", "relationship",
-            "Network", path, "", v, "/aai");
-        assertEquals("", put.tagRelationshipPathMapEntry(context));
-        assertEquals(path, context.getPutRelationPaths().get("NetworkGenericVnfsGenericVnf"));
+    private static PathParameter vnfId() {
+        PathParameter vnfId = new PathParameter();
+        vnfId.setName("vnf-id");
+        vnfId.setDescription("Unique id of VNF. This is unique across the graph.");
+        vnfId.setRequired(true);
+        vnfId.setType("string");
+        return vnfId;
     }
-
 }
