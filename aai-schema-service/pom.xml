@@ -43,8 +43,6 @@
         <docker.push.registry>localhost:5000</docker.push.registry>
         <aai.docker.version>1.0.0</aai.docker.version>
 
-        <logback.version>1.4.14</logback.version>
-
         <!--
              Location where assembly of our scripts, resources and main jar will be held
 	         Check the ${project.artifactId}/src/main/assembly/descriptor.xml for more info
@@ -269,17 +267,21 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-access</artifactId>
-            <version>${logback.version}</version>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-common</artifactId>
+        </dependency>
+        <!-- Jetty-12 receiver for logback-access; supplies the RequestLogImpl that
+             LocalHostAccessLog installs. Not managed by aai-parent, hence the explicit version. -->
+        <dependency>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-jetty12</artifactId>
+            <version>2.0.12</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
