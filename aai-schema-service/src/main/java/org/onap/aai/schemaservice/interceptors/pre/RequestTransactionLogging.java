@@ -3,6 +3,7 @@
  * org.onap.aai
  * ================================================================================
  * Copyright © 2017-2018 AT&T Intellectual Property. All rights reserved.
+ * Modifications Copyright (C) 2026 Deutsche Telekom AG.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,7 +109,7 @@ public class RequestTransactionLogging extends AAIContainerFilter
         request.addProperty("ID", fullId);
         request.addProperty("Http-Method", requestContext.getMethod());
         request.addProperty(CONTENT_TYPE, getHttpServletRequestContentType());
-        request.addProperty("Headers", requestContext.getHeaders().toString());
+        request.addProperty("Headers", this.headersForLog(requestContext.getHeaders()));
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         InputStream in = requestContext.getEntityStream();

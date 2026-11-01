@@ -22,12 +22,14 @@ package org.onap.aai.schemaservice.interceptors.pre;
 import org.glassfish.jersey.server.ContainerException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.onap.aai.schemaservice.interceptors.AAIHeaderProperties;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.UriInfo;
 import java.io.ByteArrayInputStream;
@@ -137,5 +139,26 @@ class RequestTransactionLoggingTest {
         assertThrows(ContainerException.class, () -> {
             requestTransactionLogging.filter(containerRequestContext);
         });
+    }
+
+    @Test
+    void testFilter_shouldMaskAuthorizationInLoggedRequest() throws IOException {
+        MultivaluedMap<String, String> headers = new MultivaluedHashMap<>();
+        headers.add("Authorization", "Basic dXNlcjpzZWNyZXQ=");
+        headers.add("X-FromAppId", "test-app");
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/json");
+        when(containerRequestContext.getHeaders()).thenReturn(headers);
+        when(containerRequestContext.getHeaderString("Accept")).thenReturn("application/json");
+        when(containerRequestContext.getHeaderString("Content-Type")).thenReturn("application/json");
+        when(containerRequestContext.getEntityStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+
+        requestTransactionLogging.filter(containerRequestContext);
+
+        ArgumentCaptor<String> loggedRequest = ArgumentCaptor.forClass(String.class);
+        verify(containerRequestContext).setProperty(eq(AAIHeaderProperties.AAI_REQUEST), loggedRequest.capture());
+        assertFalse(loggedRequest.getValue().contains("dXNlcjpzZWNyZXQ="));
+        assertTrue(loggedRequest.getValue().contains("Authorization=[***]"));
+        assertTrue(loggedRequest.getValue().contains("X-FromAppId=[test-app]"));
     }
 }
