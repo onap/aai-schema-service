@@ -22,6 +22,9 @@ package org.onap.aai.schemaservice;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
@@ -30,11 +33,11 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.onap.aai.exceptions.AAIException;
 import org.onap.aai.util.AAIConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalManagementPort;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
@@ -46,7 +49,8 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    classes = SchemaServiceApp.class)
+    classes = SchemaServiceApp.class,
+    properties = "management.server.port=0")
 @Import(SchemaServiceTestConfiguration.class)
 public class SchemaServiceTest {
 
@@ -63,6 +67,9 @@ public class SchemaServiceTest {
 
     @LocalServerPort
     protected int randomPort;
+
+    @LocalManagementPort
+    private int managementPort;
 
     @BeforeAll
     public static void setupConfig() throws AAIException {
@@ -105,7 +112,7 @@ public class SchemaServiceTest {
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=v20",
             HttpMethod.GET, httpEntity, String.class);
-        assertThat(responseEntity.getStatusCodeValue(), is(200));
+        assertThat(responseEntity.getStatusCode().value(), is(200));
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -115,7 +122,7 @@ public class SchemaServiceTest {
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=v20",
                 HttpMethod.GET, httpEntity, String.class);
 
-        assertThat(responseEntity.getStatusCodeValue(), is(200));
+        assertThat(responseEntity.getStatusCode().value(), is(200));
     }
 
     @Test
@@ -136,7 +143,7 @@ public class SchemaServiceTest {
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/nodes?version=blah",
                 HttpMethod.GET, httpEntity, String.class);
         System.out.println("  " + responseEntity.getBody());
-        assertThat(responseEntity.getStatusCodeValue(), is(400));
+        assertThat(responseEntity.getStatusCode().value(), is(400));
 
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -146,7 +153,7 @@ public class SchemaServiceTest {
             restTemplate.exchange(baseUrl + "/aai/schema-service/v1/edgerules?version=blah",
                 HttpMethod.GET, httpEntity, String.class);
 
-        assertThat(responseEntity.getStatusCodeValue(), is(400));
+        assertThat(responseEntity.getStatusCode().value(), is(400));
     }
 
     @Test
@@ -156,8 +163,19 @@ public class SchemaServiceTest {
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/versions",
             HttpMethod.GET, httpEntity, String.class);
-        assertThat(responseEntity.getStatusCodeValue(), is(200));
+        assertThat(responseEntity.getStatusCode().value(), is(200));
 
+    }
+
+    @Test
+    public void testActuatorHealth() throws Exception {
+        ResponseEntity<String> response =
+            restTemplate.exchange("http://localhost:" + managementPort + "/actuator/health",
+                HttpMethod.GET, httpEntity, String.class);
+
+        assertThat(response.getStatusCode().value(), is(200));
+        assertThat(new ObjectMapper().readTree(response.getBody()).path("status").asText(),
+            is("UP"));
     }
 
     @Test
@@ -167,7 +185,7 @@ public class SchemaServiceTest {
 
         responseEntity = restTemplate.exchange(baseUrl + "/aai/schema-service/v1/stored-queries",
             HttpMethod.GET, httpEntity, String.class);
-        assertThat(responseEntity.getStatusCodeValue(), is(200));
+        assertThat(responseEntity.getStatusCode().value(), is(200));
 
     }
 
@@ -189,7 +207,8 @@ public class SchemaServiceTest {
         SchemaServiceApp.setDefaultProps();
 
         // Verify the default value when not containing the app name
-        assertEquals("aai-schema-service/src/main/resources", System.getProperty("BUNDLECONFIG_DIR"));
+        assertEquals("aai-schema-service/src/main/resources",
+            System.getProperty("BUNDLECONFIG_DIR"));
     }
 
     @Test
@@ -202,7 +221,8 @@ public class SchemaServiceTest {
         SchemaServiceApp.setDefaultProps();
 
         // Verify the default value when the property was not previously set
-        assertEquals("aai-schema-service/src/main/resources", System.getProperty("BUNDLECONFIG_DIR"));
+        assertEquals("aai-schema-service/src/main/resources",
+            System.getProperty("BUNDLECONFIG_DIR"));
     }
 
     // Test for setDefaultProps with null file.separator

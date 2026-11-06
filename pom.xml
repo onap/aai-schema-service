@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.aai.aai-common</groupId>
         <artifactId>aai-parent</artifactId>
-        <version>1.18.0</version>
+        <version>1.19.0</version>
     </parent>
     <groupId>org.onap.aai.schema-service</groupId>
     <artifactId>schema-service</artifactId>
@@ -54,7 +54,10 @@
         <!-- GMaven plugin uses this property to figure out the name of the docker tag -->
         <aai.project.version>${project.version}</aai.project.version>
         <checkstyle.skip>false</checkstyle.skip>
-        <aai.common.version>1.18.0</aai.common.version>
+        <aai.common.version>1.19.0</aai.common.version>
+        <!-- aai-parent 1.19.0 still pins Netty 4.1; Reactor Netty in Boot 4
+             requires the 4.2 line. Match spring-boot-dependencies 4.1.1. -->
+        <netty.version>4.2.17.Final</netty.version>
         <!-- <spring-cloud.version>2022.0.5</spring-cloud.version> -->
     </properties>
     <dependencyManagement>

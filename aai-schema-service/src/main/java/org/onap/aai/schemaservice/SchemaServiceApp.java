@@ -20,6 +20,8 @@
 
 package org.onap.aai.schemaservice;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
@@ -29,28 +31,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
-
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 // Component Scan provides a way to look for spring beans
 // It only searches beans in the following packages
 // Any method annotated with @Bean annotation or any class
 // with @Component, @Configuration, @Service will be picked up
-@EnableAutoConfiguration(
-    exclude = {DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @ComponentScan(basePackages = {"org.onap.aai.schemaservice", "org.onap.aai.aaf"})
-@OpenAPIDefinition(info = @Info(title = "ONAP Schema Service APIs", description = "Provides schema management and validation APIs for ONAP components.", version = "1.0.0"))
+@OpenAPIDefinition(
+    info = @Info(
+        title = "ONAP Schema Service APIs",
+        description = "Provides schema management and validation APIs for ONAP components.",
+        version = "1.0.0"))
 public class SchemaServiceApp {
 
     private static final Logger logger = LoggerFactory.getLogger(SchemaServiceApp.class.getName());

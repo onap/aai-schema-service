@@ -27,9 +27,9 @@ import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.onap.aai.logging.CNName;
 import org.onap.aai.logging.DME2RestFlag;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
-import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory;
+import org.springframework.boot.jetty.JettyServerCustomizer;
+import org.springframework.boot.jetty.servlet.JettyServletWebServerFactory;
+import org.springframework.boot.web.server.servlet.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -43,7 +43,7 @@ public class LocalHostAccessLog {
      * silently move the service to Tomcat and drop the access log with it.
      */
     @Bean
-    public AbstractServletWebServerFactory jettyConfigBean(
+    public ConfigurableServletWebServerFactory jettyConfigBean(
         @Value("${jetty.threadPool.maxThreads:200}") final String maxThreads,
         @Value("${jetty.threadPool.minThreads:8}") final String minThreads) {
 
@@ -70,11 +70,13 @@ public class LocalHostAccessLog {
     /**
      * Registers AAI's %z (client cert CN) and %y (REST/DME2 flag) access-log converters.
      *
-     * <p>aai-common's {@code CustomLogPatternLayout} declares them by overriding the *instance*
+     * <p>
+     * aai-common's {@code CustomLogPatternLayout} declares them by overriding the *instance*
      * method {@code getDefaultConverterSupplierMap()}, but {@code PatternLayoutEncoder.start()}
      * replaces the layout with a plain {@link PatternLayout}, so that override never takes effect
      * and the pattern renders as {@code %PARSER_ERROR[z]}. Registering into the static map that the
-     * plain layout consults is what actually makes the converters resolve, and it keeps working when
+     * plain layout consults is what actually makes the converters resolve, and it keeps working
+     * when
      * the OOM chart mounts its own localhost-access-logback.xml over ours.
      */
     private static void registerAccessLogConverters() {

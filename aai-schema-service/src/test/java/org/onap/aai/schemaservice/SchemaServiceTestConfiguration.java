@@ -21,8 +21,10 @@
 package org.onap.aai.schemaservice;
 
 import java.io.IOException;
+import java.net.URI;
 
 import javax.net.ssl.SSLContext;
+
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
@@ -34,11 +36,12 @@ import org.apache.hc.core5.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -48,7 +51,8 @@ import org.springframework.web.client.RestTemplate;
 @TestConfiguration
 public class SchemaServiceTestConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(SchemaServiceTestConfiguration.class);
+    private static final Logger logger =
+        LoggerFactory.getLogger(SchemaServiceTestConfiguration.class);
 
     @Autowired
     private Environment env;
@@ -68,20 +72,17 @@ public class SchemaServiceTestConfiguration {
             SSLContext sslContext = SSLContexts.createDefault();
 
             SSLConnectionSocketFactory sslSocketFactory = SSLConnectionSocketFactoryBuilder.create()
-                    .setSslContext(sslContext)
-                    .setHostnameVerifier(noopHostnameVerifier)
-                    .build();
+                .setSslContext(sslContext).setHostnameVerifier(noopHostnameVerifier).build();
 
-            HttpClientConnectionManager connectionManager = PoolingHttpClientConnectionManagerBuilder.create()
-                    .setSSLSocketFactory(sslSocketFactory)
-                    .build();
+            HttpClientConnectionManager connectionManager =
+                PoolingHttpClientConnectionManagerBuilder.create()
+                    .setSSLSocketFactory(sslSocketFactory).build();
 
-            CloseableHttpClient client = HttpClients.custom()
-                    .setConnectionManager(connectionManager)
-                    .build();
+            CloseableHttpClient client =
+                HttpClients.custom().setConnectionManager(connectionManager).build();
 
             restTemplate = builder
-                    .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client)).build();
+                .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client)).build();
         } else {
             restTemplate = builder.build();
         }
@@ -98,7 +99,7 @@ public class SchemaServiceTestConfiguration {
                         return true;
                     }
 
-                    if (clientHttpResponse.getRawStatusCode() % 100 == 5) {
+                    if (clientHttpResponse.getStatusCode().value() % 100 == 5) {
                         logger.debug("Call returned a error " + clientHttpResponse.getStatusText());
                         return true;
                     }
@@ -108,7 +109,8 @@ public class SchemaServiceTestConfiguration {
             }
 
             @Override
-            public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
+            public void handleError(URI url, HttpMethod method,
+                ClientHttpResponse clientHttpResponse) throws IOException {
             }
         });
 
