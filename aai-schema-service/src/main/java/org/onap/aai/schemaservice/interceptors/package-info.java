@@ -32,6 +32,9 @@
  *         }
  *     </code>
  * </pre>
+ *
+ * and add the class to the filter list in
+ * {@link org.onap.aai.schemaservice.web.JerseyConfiguration}.
  */
 
 package org.onap.aai.schemaservice.interceptors;
