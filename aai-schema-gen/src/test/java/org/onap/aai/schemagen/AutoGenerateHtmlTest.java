@@ -20,10 +20,11 @@
 
 package org.onap.aai.schemagen;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.test.context.TestPropertySource;
 
 @TestPropertySource(
@@ -31,26 +32,14 @@ import org.springframework.test.context.TestPropertySource;
 public class AutoGenerateHtmlTest {
 
     @Test
-    void testMain_shouldSetEnvironmentVariable() throws Exception {
-        // Set a system property before running the method
+    void testMain_shouldFailWhenTheContextCannotBeBuilt() {
+        System.clearProperty("schema.uri.base.path");
         System.setProperty("aai.generate.version", "1.0");
 
-        AutoGenerateHtml.main(new String[] {});
+        assertThrows(BeanCreationException.class, () -> AutoGenerateHtml.main(new String[] {}));
 
         assertEquals("1.0", System.getProperty("aai.generate.version"),
-            "The 'aai.generate.version' property should be set.");
+            "The 'aai.generate.version' property should be left untouched.");
         System.clearProperty("aai.generate.version");
-    }
-
-    @Test
-    void testMain_shouldCompleteWithoutException() {
-        assertDoesNotThrow(() -> {
-            try {
-                AutoGenerateHtml.main(new String[] {});
-            } catch (NullPointerException e) {
-                // This test isn't verifying functional behavior, just guarding against uncaught
-                // crashes
-            }
-        });
     }
 }

@@ -42,7 +42,6 @@ import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.w3c.dom.NodeList;
 
@@ -202,7 +201,8 @@ public class GenerateXsd {
                         nodesSwagger.setCombinedJavaTypes(combinedJavaTypes);
                         nodesContent = nodesSwagger.process();
                     } catch (Exception e) {
-                        logger.error("Exception creating output file " + outfileName, e);
+                        throw new IllegalStateException(
+                            "Exception creating output file " + outfileName, e);
                     }
                 } else {
                     continue;
@@ -262,8 +262,6 @@ public class GenerateXsd {
                 }
                 logger.debug("GeneratedXSD successful, saved in " + outfileName);
             }
-        } catch (BeansException e) {
-            logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
         } finally {
             // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed
             // up build process

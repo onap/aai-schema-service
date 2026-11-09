@@ -36,7 +36,6 @@ import org.onap.aai.setup.SchemaConfigVersions;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AutoGenerateHtml {
@@ -80,8 +79,6 @@ public class AutoGenerateHtml {
                     GenerateSwagger.main(args);
                 }
             }
-        } catch (BeansException e) {
-            logger.warn("Unable to initialize AnnotationConfigApplicationContext ", e);
         } finally {
             // This non-daemon delays build process until the JVM exit. Stopping gracefully to speed
             // up build process

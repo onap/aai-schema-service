@@ -25,6 +25,7 @@ package org.onap.aai.schemagen;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.onap.aai.config.ConfigConfiguration;
 import org.onap.aai.edges.EdgeIngestor;
 import org.onap.aai.nodes.NodeIngestor;
 import org.onap.aai.setup.AAIConfigTranslator;
@@ -33,8 +34,10 @@ import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.Translator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
+@Import(ConfigConfiguration.class)
 public class SchemaConfiguration {
 
     @Bean

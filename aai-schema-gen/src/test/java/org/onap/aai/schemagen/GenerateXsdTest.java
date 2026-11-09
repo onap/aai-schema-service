@@ -25,11 +25,11 @@ package org.onap.aai.schemagen;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import lombok.SneakyThrows;
@@ -46,6 +46,7 @@ import org.onap.aai.setup.SchemaLocationsBean;
 import org.onap.aai.setup.SchemaVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.TestPropertySource;
@@ -160,10 +161,11 @@ public class GenerateXsdTest {
     }
 
     @Test
-    public void mainMethod() throws IOException {
+    public void mainFailsWhenTheContextCannotBeBuilt() {
+        System.clearProperty("schema.uri.base.path");
         System.setProperty("gen_version", "v12");
         System.setProperty("gen_type", "xsd");
-        GenerateXsd.main(new String[] {});
+        assertThrows(BeanCreationException.class, () -> GenerateXsd.main(new String[] {}));
     }
 
 }
