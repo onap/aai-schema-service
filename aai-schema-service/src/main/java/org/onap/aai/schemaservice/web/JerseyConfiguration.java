@@ -20,24 +20,28 @@
 
 package org.onap.aai.schemaservice.web;
 
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 import jakarta.annotation.Priority;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.container.ContainerResponseFilter;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.logging.Logger;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.onap.aai.aailog.filter.AaiAuditLogContainerFilter;
 import org.onap.aai.schemaservice.edges.EdgeResource;
 import org.onap.aai.schemaservice.healthcheck.EchoResource;
+import org.onap.aai.schemaservice.interceptors.post.InvalidResponseStatus;
+import org.onap.aai.schemaservice.interceptors.post.ResponseHeaderManipulation;
+import org.onap.aai.schemaservice.interceptors.post.ResponseTransactionLogging;
+import org.onap.aai.schemaservice.interceptors.pre.HeaderValidation;
+import org.onap.aai.schemaservice.interceptors.pre.HttpHeaderInterceptor;
+import org.onap.aai.schemaservice.interceptors.pre.OneWaySslAuthorization;
+import org.onap.aai.schemaservice.interceptors.pre.RequestHeaderManipulation;
+import org.onap.aai.schemaservice.interceptors.pre.RequestTransactionLogging;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaChecksumResource;
 import org.onap.aai.schemaservice.nodeschema.NodeSchemaResource;
 import org.onap.aai.schemaservice.query.QueryResource;
 import org.onap.aai.schemaservice.versions.VersionResource;
-import org.onap.logging.filter.base.AuditLogContainerFilter;
-import org.reflections.Reflections;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
@@ -61,23 +65,16 @@ public class JerseyConfiguration extends ResourceConfig {
         register(EdgeResource.class);
         register(NodeSchemaChecksumResource.class);
 
-        // Request Filters
-        registerFilters(ContainerRequestFilter.class);
-        registerFilters(ContainerResponseFilter.class);
-        registerFilters(AuditLogContainerFilter.class);
-
+        registerFilters();
     }
 
-    public <T> void registerFilters(Class<T> type) {
+    private void registerFilters() {
+        List<Class<?>> filters =
+            List.of(AaiAuditLogContainerFilter.class, RequestTransactionLogging.class,
+                HeaderValidation.class, OneWaySslAuthorization.class, HttpHeaderInterceptor.class,
+                RequestHeaderManipulation.class, InvalidResponseStatus.class,
+                ResponseTransactionLogging.class, ResponseHeaderManipulation.class);
 
-        Reflections loggingReflections = new Reflections("org.onap.aai.aailog.filter");
-        Reflections reflections = new Reflections("org.onap.aai.schemaservice.interceptors");
-        // Filter them based on the clazz that was passed in
-        Set<Class<? extends T>> filters = loggingReflections.getSubTypesOf(type);
-        filters.addAll(reflections.getSubTypesOf(type));
-
-        // Check to ensure that each of the filter has the @Priority annotation and if not throw
-        // exception
         for (Class<?> filterClass : filters) {
             if (filterClass.getAnnotation(Priority.class) == null) {
                 throw new RuntimeException("Container filter " + filterClass.getName()
@@ -85,21 +82,14 @@ public class JerseyConfiguration extends ResourceConfig {
             }
         }
 
-        // Turn the set back into a list
-        List<Class<? extends T>> filtersList = filters.stream().filter(f -> {
+        filters.stream().filter(f -> {
             if (f.isAnnotationPresent(Profile.class)
                 && !env.acceptsProfiles(Profiles.of(f.getAnnotation(Profile.class).value()))) {
                 return false;
             }
             return true;
-        }).collect(Collectors.toList());
-
-        // Sort them by their priority levels value
-        filtersList.sort((c1, c2) -> Integer.valueOf(c1.getAnnotation(Priority.class).value())
-            .compareTo(c2.getAnnotation(Priority.class).value()));
-
-        // Then register this to the jersey application
-        filtersList.forEach(this::register);
+        }).sorted(Comparator.comparingInt(f -> f.getAnnotation(Priority.class).value()))
+            .forEach(this::register);
     }
 
 }
