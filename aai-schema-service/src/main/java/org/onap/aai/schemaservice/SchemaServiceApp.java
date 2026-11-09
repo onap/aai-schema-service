@@ -41,7 +41,7 @@ import org.springframework.core.env.Profiles;
 // It only searches beans in the following packages
 // Any method annotated with @Bean annotation or any class
 // with @Component, @Configuration, @Service will be picked up
-@ComponentScan(basePackages = {"org.onap.aai.schemaservice", "org.onap.aai.aaf"})
+@ComponentScan(basePackages = {"org.onap.aai.schemaservice"})
 @OpenAPIDefinition(
     info = @Info(
         title = "ONAP Schema Service APIs",
